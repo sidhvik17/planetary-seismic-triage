@@ -24,8 +24,10 @@ deployment is just pointing a free host at it. Needs your account — one-time,
    is 11 ms/window). First build takes a few minutes; cold starts after idle
    are expected on the free tier (PRD F-14, accepted).
 
-Files needed by the Space: `app/`, `planetseis/`, `models/`, `requirements.txt`.
-`data/`, `runs/`, `results/` are NOT needed.
+Files needed by the Space: `app/`, `planetseis/`, `models/`, `demo_data/`,
+`.streamlit/` (theme), `requirements.txt`. `data/`, `runs/`, `results/` are
+NOT needed. Note: seisbench is only used by offline baseline scripts — you can
+delete it from requirements.txt on the Space to slim the build.
 
 ## Option B — Streamlit Community Cloud
 

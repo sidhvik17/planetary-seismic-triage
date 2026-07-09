@@ -26,7 +26,7 @@ from planetseis.baseline import sta_lta_detect
 from planetseis.config import CODA_SEC, DEFAULT as CFG, DATA_CACHE, PROJECT_ROOT
 from planetseis.detect import detect_events
 from planetseis.evaluate import Scores, score_trace
-from planetseis.model import SeisCNN
+from planetseis.model import ARCHS, SeisCNN
 
 
 def load_continuous(body: str, split: str):
@@ -74,7 +74,7 @@ def main():
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     ckpt = torch.load(args.model, map_location=device, weights_only=False)
-    model = SeisCNN()
+    model = SeisCNN(channels=ARCHS[ckpt.get("arch", "base")])
     model.load_state_dict(ckpt["model"])
     model_body = ckpt.get("config", {}).get("body", Path(args.model).parent.name)
 

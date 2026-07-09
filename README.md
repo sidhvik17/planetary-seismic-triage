@@ -51,10 +51,16 @@ Expand-Archive data\raw\space_apps_2024.zip data\raw
 .venv\Scripts\python scripts\run_eval.py --model runs\mars\best.pt --eval-body mars
 .venv\Scripts\python scripts\run_eval.py --model runs\mars\best.pt --eval-body lunar
 
-# ablation (augmentation off)
+# ablations + extensions
 .venv\Scripts\python -m planetseis.train --body lunar --no-augment --tag noaug
+.venv\Scripts\python -m planetseis.train --body lunar --arch tiny --tag tiny   # Pareto sweep
+.venv\Scripts\python -m planetseis.train --body lunar --arch large --tag large
+.venv\Scripts\python scripts\mine_hard_negatives.py --body lunar               # then retrain
+.venv\Scripts\python scripts\seisbench_baseline.py --eval-body lunar           # PhaseNet/EQT zero-shot
+.venv\Scripts\python scripts\uncertainty_eval.py                               # MC-Dropout + calibration
+.venv\Scripts\python scripts\make_figures.py                                   # report figures
 
-# 6. web app
+# 6. web app (analysis + on-lander triage simulation)
 .venv\Scripts\streamlit run app\streamlit_app.py
 ```
 

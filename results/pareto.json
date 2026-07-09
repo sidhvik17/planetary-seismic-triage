@@ -1,0 +1,26 @@
+{
+  "tiny": {
+    "params": 35242,
+    "cpu_ms": 5.6,
+    "f1": 0.4444,
+    "precision": 0.3846,
+    "recall": 0.5263,
+    "mae_sec": 35.64
+  },
+  "base": {
+    "params": 117842,
+    "cpu_ms": 6.5,
+    "f1": 0.5405,
+    "precision": 0.5556,
+    "recall": 0.5263,
+    "mae_sec": 39.96
+  },
+  "large": {
+    "params": 425890,
+    "cpu_ms": 10.6,
+    "f1": 0.4615,
+    "precision": 0.3636,
+    "recall": 0.6316,
+    "mae_sec": 48.57
+  }
+}

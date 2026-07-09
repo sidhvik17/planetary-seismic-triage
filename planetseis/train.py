@@ -17,7 +17,7 @@ from torch.utils.data import DataLoader
 
 from .config import DEFAULT as CFG, DATA_CACHE, RUNS_DIR, SEED
 from .dataset import WindowDataset
-from .model import SeisCNN, count_params
+from .model import ARCHS, SeisCNN, count_params
 
 
 def set_seed(seed=SEED):
@@ -67,6 +67,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--body", required=True, choices=["lunar", "mars"])
     ap.add_argument("--no-augment", action="store_true")
+    ap.add_argument("--arch", default="base", choices=list(ARCHS))
     ap.add_argument("--tag", default="")
     ap.add_argument("--epochs", type=int, default=CFG.train.epochs)
     args = ap.parse_args()
@@ -89,7 +90,7 @@ def main():
     n_pos = int(ytr.sum())
     pos_weight = torch.tensor((len(ytr) - n_pos) / max(n_pos, 1), device=device)
 
-    model = SeisCNN().to(device)
+    model = SeisCNN(channels=ARCHS[args.arch]).to(device)
     print(f"device={device} params={count_params(model)} "
           f"train={len(ytr)} ({n_pos} pos) val={len(yva)} augment={augment}")
     opt = torch.optim.AdamW(model.parameters(), lr=CFG.train.lr,
@@ -117,6 +118,7 @@ def main():
             if vl < best_val:
                 best_val = vl
                 torch.save({"model": model.state_dict(), "config": vars(args),
+                            "arch": args.arch,
                             "params": count_params(model)}, out / "best.pt")
                 marker = " *"
             print(f"ep {ep:3d} train {tl:.4f}/{ta:.3f} val {vl:.4f}/{va:.3f}{marker}")

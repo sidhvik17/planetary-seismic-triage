@@ -25,8 +25,16 @@ class ConvBlock(nn.Module):
         return self.net(x)
 
 
+# Width variants for the efficiency-vs-accuracy Pareto study.
+ARCHS = {
+    "tiny": (8, 16, 24, 32, 48, 48),
+    "base": (16, 32, 48, 64, 96, 96),
+    "large": (32, 64, 96, 128, 192, 192),
+}
+
+
 class SeisCNN(nn.Module):
-    def __init__(self, channels=(16, 32, 48, 64, 96, 96), dropout=0.3):
+    def __init__(self, channels=ARCHS["base"], dropout=0.3):
         super().__init__()
         blocks, cin = [], 1
         kernels = (9, 9, 7, 7, 5, 3)

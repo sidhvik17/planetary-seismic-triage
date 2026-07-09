@@ -7,6 +7,7 @@ pandas>=2.0
 matplotlib>=3.8
 scikit-learn>=1.4
 torch>=2.3
+seisbench>=0.11
 streamlit>=1.35
 plotly>=5.20
 tqdm

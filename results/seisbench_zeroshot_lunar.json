@@ -1,0 +1,24 @@
+{
+  "phasenet": {
+    "threshold": 0.05,
+    "tp": 0,
+    "fp": 310,
+    "fn": 19,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "mae_sec": null,
+    "median_ae_sec": null
+  },
+  "eqt": {
+    "threshold": 0.2,
+    "tp": 1,
+    "fp": 171,
+    "fn": 18,
+    "precision": 0.0058,
+    "recall": 0.0526,
+    "f1": 0.0105,
+    "mae_sec": 106.46,
+    "median_ae_sec": 106.46
+  }
+}
