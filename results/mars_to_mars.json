@@ -1,0 +1,28 @@
+{
+  "model_body": "mars",
+  "eval_body": "mars",
+  "threshold": 0.5,
+  "eval_split": "test",
+  "tolerance_sec": 120.0,
+  "cnn": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.6667,
+    "mae_sec": 39.94,
+    "median_ae_sec": 39.94
+  },
+  "sta_lta": {
+    "thr_on": 3.0,
+    "tp": 1,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.6667,
+    "mae_sec": 5.7,
+    "median_ae_sec": 5.7
+  }
+}

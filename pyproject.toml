@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "planetseis"
+version = "0.1.0"
+description = "Automated detection and localization of planetary seismic events with a lightweight 1D CNN"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["planetseis"]

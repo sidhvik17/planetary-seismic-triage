@@ -1,0 +1,17 @@
+{
+  "model_body": "mars",
+  "eval_body": "lunar",
+  "threshold": 0.5,
+  "eval_split": "all",
+  "tolerance_sec": 120.0,
+  "cnn": {
+    "tp": 6,
+    "fp": 966,
+    "fn": 69,
+    "precision": 0.0062,
+    "recall": 0.08,
+    "f1": 0.0115,
+    "mae_sec": 62.32,
+    "median_ae_sec": 62.12
+  }
+}

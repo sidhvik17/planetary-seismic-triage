@@ -1,0 +1,12 @@
+# Loose pins for portability (HF Spaces installs CPU torch by default).
+# For exact local reproduction see requirements-lock.txt (pip freeze).
+numpy>=1.26
+scipy>=1.11
+obspy>=1.4
+pandas>=2.0
+matplotlib>=3.8
+scikit-learn>=1.4
+torch>=2.3
+streamlit>=1.35
+plotly>=5.20
+tqdm

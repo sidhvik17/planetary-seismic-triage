@@ -1,0 +1,17 @@
+{
+  "model_body": "lunar",
+  "eval_body": "lunar",
+  "threshold": 0.95,
+  "eval_split": "test",
+  "tolerance_sec": 120.0,
+  "cnn": {
+    "tp": 12,
+    "fp": 14,
+    "fn": 7,
+    "precision": 0.4615,
+    "recall": 0.6316,
+    "f1": 0.5333,
+    "mae_sec": 53.27,
+    "median_ae_sec": 47.06
+  }
+}
