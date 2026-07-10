@@ -1,0 +1,50 @@
+{
+  "operating_threshold": 0.99,
+  "note": "test folders carry weak labels only (each file curated around one catalogued event; no arrival times shipped)",
+  "stations": {
+    "S12_GradeB": {
+      "n_files": 64,
+      "files_with_detection": 49,
+      "detection_rate": 0.766,
+      "mean_detections_per_file": 0.95
+    },
+    "S15_GradeA": {
+      "n_files": 10,
+      "files_with_detection": 8,
+      "detection_rate": 0.8,
+      "mean_detections_per_file": 1.1
+    },
+    "S15_GradeB": {
+      "n_files": 5,
+      "files_with_detection": 3,
+      "detection_rate": 0.6,
+      "mean_detections_per_file": 0.6
+    },
+    "S16_GradeA": {
+      "n_files": 14,
+      "files_with_detection": 13,
+      "detection_rate": 0.929,
+      "mean_detections_per_file": 1.29
+    },
+    "S16_GradeB": {
+      "n_files": 3,
+      "files_with_detection": 2,
+      "detection_rate": 0.667,
+      "mean_detections_per_file": 0.67
+    }
+  },
+  "per_type_recall_s12_test": {
+    "deep_mq": {
+      "n": 3,
+      "recall": 0.333
+    },
+    "impact_mq": {
+      "n": 15,
+      "recall": 0.533
+    },
+    "shallow_mq": {
+      "n": 1,
+      "recall": 1.0
+    }
+  }
+}

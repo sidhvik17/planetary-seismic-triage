@@ -70,9 +70,10 @@ def main():
     ap.add_argument("--arch", default="base", choices=list(ARCHS))
     ap.add_argument("--tag", default="")
     ap.add_argument("--epochs", type=int, default=CFG.train.epochs)
+    ap.add_argument("--seed", type=int, default=SEED)
     args = ap.parse_args()
 
-    set_seed()
+    set_seed(args.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
     augment = CFG.train.augment and not args.no_augment
 

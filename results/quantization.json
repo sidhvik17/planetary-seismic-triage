@@ -1,0 +1,15 @@
+{
+  "fp32_onnx": {
+    "size_mb": 0.476,
+    "cpu_ms_per_window": 0.65,
+    "max_prob_dev_vs_torch": 0.0,
+    "max_offset_dev_sec": 0.0
+  },
+  "int8_onnx": {
+    "size_mb": 0.142,
+    "cpu_ms_per_window": 11.12,
+    "max_prob_dev_vs_torch": 0.04044,
+    "max_offset_dev_sec": 24.12
+  },
+  "torch_checkpoint_mb": 0.487
+}

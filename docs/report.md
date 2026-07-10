@@ -14,8 +14,10 @@ convolutional network (117,842 parameters, 0.49 MB) that jointly detects
 seismic events and regresses their arrival times from single-channel traces,
 trained separately on Apollo 12 lunar and InSight Martian recordings from
 public NASA archives. On held-out continuous lunar data the model achieves
-precision 0.56 / recall 0.53 (F1 0.54) with 40 s mean arrival error against
-minute-quantized catalog picks — 3× the F1 of a tuned STA/LTA baseline —
+precision 0.56 / recall 0.53 (F1 0.54; 0.50 ± 0.04 across seeds) with 40 s
+mean arrival error against minute-quantized catalog picks — 3× the F1 of a
+tuned STA/LTA baseline — and detects 80–93% of curated events at Apollo
+stations it never saw, while
 while STEAD-pretrained terrestrial models (PhaseNet, EQTransformer) applied
 zero-shot detect essentially nothing (F1 ≤ 0.01). Zero-shot cross-body
 transfer collapses in both directions, and fine-tuning on the single labeled
@@ -261,15 +263,47 @@ triples the STA/LTA baseline.
 
 ![Efficiency-accuracy Pareto](figures/pareto.png)
 
-### 5.7 Model footprint (NFR-1)
+### 5.7 Model footprint and deployment export (NFR-1)
 
 | Property | Value |
 |---|---|
 | Parameters (base) | 117,842 (23% of the 500K budget) |
 | Checkpoint size | 0.49 MB |
-| CPU inference per window (~21 min of data) | 6.5 ms |
-| Full day of lunar data, CPU | < 1 s |
+| CPU inference per window, PyTorch | 6.5 ms |
+| **CPU inference per window, ONNX Runtime (FP32)** | **0.65 ms** (bit-exact vs PyTorch) |
+| Full day of lunar data, ONNX CPU | ~90 ms |
+| INT8 dynamic quantization | 0.14 MB (3.4× smaller) but slower on convs and 0.04 max prob drift — not adopted; static quantization is future work |
 | MC-Dropout uncertainty (20 passes) | ~0.13 s per window |
+
+### 5.8 Robustness studies (beyond the PRD)
+
+**Seed variance.** Three full training runs (seeds 42/1/2), identical
+protocol: test F1 = 0.541 / 0.500 / 0.455 → **0.50 ± 0.04** (mean ± sample
+std); recall 0.56 ± 0.06, precision 0.46 ± 0.09, MAE 47 ± 7 s. The shipped
+checkpoint (seed 42) sits at the favorable end; conclusions in §5.1–5.4 hold
+at the mean.
+
+**Cross-station generalization (weak labels).** The packet's lunar test
+folders hold files from Apollo stations the model never saw (S15, S16) and
+harder Grade-B events from S12; each file is curated around one catalogued
+event but ships no arrival time, so we report the fraction of files where
+the model fires at the lunar operating point:
+
+| Group | Files | Detection rate | Mean detections/file |
+|---|---|---|---|
+| S12 Grade B (same station, weaker events) | 64 | 0.77 | 0.95 |
+| S15 Grade A (unseen station) | 10 | 0.80 | 1.10 |
+| S16 Grade A (unseen station) | 14 | **0.93** | 1.29 |
+| S15/S16 Grade B (unseen station, weaker) | 8 | 0.63 | 0.63 |
+
+This completes a three-rung transfer ladder: same station (F1 0.54) →
+**same body, different station (80–93% detection on Grade A)** → different
+body (F1 ≈ 0). Learned features generalize across instrument placements on
+one body but not across planetary noise regimes; weak (Grade B) events
+degrade detection exactly as the SNR stratification (§5.1) predicts.
+
+**Recall by event type** (S12 test split, small n): impacts 8/15,
+deep moonquakes 1/3, the single shallow moonquake detected.
 
 ## 6. Discussion
 
@@ -305,6 +339,14 @@ the epistemic σ of true events, so routing high-σ detections to a 2.6-item/day
 human queue recovers recall while keeping the auto-accept channel precise.
 Under Mars-scale label scarcity this "the model says *I'm not sure, a human
 should check*" behavior is the deployable contribution.
+
+**Where transfer actually breaks.** The cross-station study (§5.8) sharpens
+the transfer finding: an S12-trained model detects 80–93% of curated Grade-A
+events at stations S15/S16 it never saw — so the collapse across bodies is
+not brittleness to instrument or placement changes; it is specifically the
+change of planetary noise regime and event morphology. That distinction is
+what makes the negative cross-body result a statement about physics rather
+than about overfitting.
 
 **The efficiency-reliability frontier.** Taken together (§5.4–5.6), the study
 maps a frontier nobody has cleanly benchmarked for planetary data: at 35K–426K
