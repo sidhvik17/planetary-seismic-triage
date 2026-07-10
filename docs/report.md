@@ -138,11 +138,18 @@ single event — reported for completeness, not statistical weight.
 
 | Train→Test | Precision | Recall | F1 | Arrival MAE (s) | TP/FP/FN |
 |---|---|---|---|---|---|
-| Lunar→Mars (thr 0.98) | 0.000 | 0.000 | 0.000 | — | 0/2/2 |
-| Mars→Lunar (thr 0.50) | 0.006 | 0.080 | 0.012 | 62.3 | 6/966/69 |
+| Lunar→Mars zero-shot (thr 0.98) | 0.000 | 0.000 | 0.000 | — | 0/2/2 |
+| Mars→Lunar zero-shot (thr 0.50) | 0.006 | 0.080 | 0.012 | 62.3 | 6/966/69 |
+| Lunar→Mars **fine-tuned** (1 file, 30 ep, lr 1e-4) | 0.000 | 0.000 | 0.000 | — | 0/0/1 |
 
 **Transfer collapses in both directions.** This is the accepted F-1 outcome
-of the PRD, reported as the study's second finding (§6).
+of the PRD, reported as the study's second finding (§6). Following the
+fine-tuning route that worked for MANet (Earth→Mars) and Civilini et al.
+(Earth→Moon), we also fine-tuned the lunar model on the single labeled
+Martian training file: it stops false-alarming (0 FP vs 2 zero-shot) but
+still misses the held-out Martian event — one labeled file is below the
+adaptation budget fine-tuning needs, sharpening the scarcity conclusion
+rather than softening it.
 
 ### 5.3 Augmentation ablation (lunar→lunar)
 
