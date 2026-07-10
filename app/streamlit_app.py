@@ -58,11 +58,48 @@ def get_model(body: str):
     return model
 
 
-def waveform_fig(t, y, dets: list[Detection], title=""):
+@st.cache_data
+def catalog_lookup(stem: str) -> list[dict]:
+    """NASA catalog rows for an uploaded file, if it is a catalogued trace.
+
+    This is the provenance proof: the arrival times were picked by human
+    seismologists and published by NASA — the model never sees them.
+    """
+    import pandas as pd
+    rows = []
+    for cat_name in ("apollo12_catalog_GradeA_final.csv",
+                     "Mars_InSight_training_catalog_final.csv"):
+        for base in (PROJECT_ROOT / "demo_data", PROJECT_ROOT / "data"):
+            hits = list(base.rglob(cat_name)) if base.exists() else []
+            if not hits:
+                continue
+            cat = pd.read_csv(hits[0])
+            fcol = next(c for c in cat.columns if "filename" in c.lower())
+            rcol = next(c for c in cat.columns if "rel" in c.lower())
+            acol = next((c for c in cat.columns if "abs" in c.lower()), None)
+            tcol = next((c for c in cat.columns if "type" in c.lower()), None)
+            for _, r in cat.iterrows():
+                cstem = str(r[fcol]).replace(".csv", "").replace(".mseed", "")
+                if cstem == stem:
+                    rows.append({
+                        "time_rel": float(r[rcol]),
+                        "time_abs": str(r[acol]) if acol else "",
+                        "type": str(r[tcol]) if tcol else "",
+                        "evid": str(r.get("evid", "")),
+                    })
+            break
+    return rows
+
+
+def waveform_fig(t, y, dets: list[Detection], title="", truth: list[dict] | None = None):
     step = max(1, len(y) // 30_000)
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=t[::step], y=y[::step], mode="lines", name="trace",
                              line=dict(width=0.8, color=INK), hoverinfo="skip"))
+    for tr in truth or []:
+        fig.add_vline(x=tr["time_rel"], line_color=INK, line_dash="dot", line_width=2)
+        fig.add_annotation(x=tr["time_rel"], y=-0.06, yref="paper", showarrow=False,
+                           text="NASA catalog", font=dict(color=INK, size=10))
     for d in dets:
         color = REVIEW if d.needs_review else EVENT
         dash = "dot" if d.needs_review else "dash"
@@ -139,8 +176,20 @@ with tab_analyze:
                                              suppress_sec=CODA_SEC[body])
                 wstd = None
 
+        stem = Path(up.name).stem
+        truth = catalog_lookup(stem)
         t = np.arange(len(proc)) / prate
-        st.plotly_chart(waveform_fig(t, proc, dets), use_container_width=True)
+        st.plotly_chart(waveform_fig(t, proc, dets, truth=truth), use_container_width=True)
+
+        if truth:
+            for tr in truth:
+                nearest = min((d for d in dets), key=lambda d: abs(d.time_sec - tr["time_rel"]),
+                              default=None)
+                err = f" — model detected {abs(nearest.time_sec - tr['time_rel']):.0f} s away" if nearest else ""
+                st.info(f"**Ground truth (NASA catalog):** event `{tr['evid']}` "
+                        f"({tr['type']}) at **{tr['time_rel']:.0f} s** "
+                        f"({tr['time_abs']} UTC){err}. The dotted black line is the "
+                        "human pick; the model never sees the catalog.")
 
         accepted = [d for d in dets if not d.needs_review]
         review = [d for d in dets if d.needs_review]
