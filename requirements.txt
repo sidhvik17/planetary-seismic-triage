@@ -1,5 +1,7 @@
-# Loose pins for portability (HF Spaces installs CPU torch by default).
+# Loose pins for portability. CPU torch index keeps cloud deploys under the
+# free-tier size limit (local CUDA users: install torch separately first).
 # For exact local reproduction see requirements-lock.txt (pip freeze).
+--extra-index-url https://download.pytorch.org/whl/cpu
 numpy>=1.26
 scipy>=1.11
 obspy>=1.4
