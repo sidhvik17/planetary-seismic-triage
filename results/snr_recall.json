@@ -1,0 +1,85 @@
+{
+  "operating_threshold": 0.99,
+  "n_events": 19,
+  "median_snr_db": 12.16,
+  "recall_low_snr": 0.444,
+  "recall_high_snr": 0.6,
+  "events": [
+    {
+      "snr_db": 6.54,
+      "detected": false
+    },
+    {
+      "snr_db": 6.96,
+      "detected": true
+    },
+    {
+      "snr_db": 12.16,
+      "detected": true
+    },
+    {
+      "snr_db": 6.15,
+      "detected": false
+    },
+    {
+      "snr_db": 35.17,
+      "detected": true
+    },
+    {
+      "snr_db": 14.65,
+      "detected": false
+    },
+    {
+      "snr_db": 3.42,
+      "detected": false
+    },
+    {
+      "snr_db": 7.64,
+      "detected": true
+    },
+    {
+      "snr_db": 31.28,
+      "detected": true
+    },
+    {
+      "snr_db": 21.22,
+      "detected": false
+    },
+    {
+      "snr_db": 9.12,
+      "detected": true
+    },
+    {
+      "snr_db": 9.05,
+      "detected": false
+    },
+    {
+      "snr_db": 8.23,
+      "detected": true
+    },
+    {
+      "snr_db": 40.82,
+      "detected": false
+    },
+    {
+      "snr_db": 0.41,
+      "detected": false
+    },
+    {
+      "snr_db": 17.93,
+      "detected": true
+    },
+    {
+      "snr_db": 31.94,
+      "detected": true
+    },
+    {
+      "snr_db": 20.5,
+      "detected": false
+    },
+    {
+      "snr_db": 26.66,
+      "detected": true
+    }
+  ]
+}

@@ -1,9 +1,30 @@
 # Planetary Seismic Event Detection
 
 Automated detection and localization of planetary seismic events using a
-lightweight dual-head 1D CNN, trained on Apollo (lunar) and InSight (Martian)
-data, with a cross-body transfer study. B.Tech major project — see the PRD for
-full requirements. $0 stack: ObsPy + PyTorch + Streamlit, free data, free hosting.
+lightweight dual-head 1D CNN (117,842 params, 0.49 MB), trained on Apollo
+(lunar) and InSight (Martian) data, with MC-Dropout uncertainty, an on-lander
+downlink-triage demo, and a cross-body transfer study reported honestly.
+B.Tech major project. $0 stack: ObsPy + PyTorch + Streamlit, free data,
+free hosting.
+
+**Repo:** https://github.com/sidhvik17/planetary-seismic-triage ·
+**Report:** [docs/report.md](docs/report.md) · **Demo:** `streamlit run app/streamlit_app.py`
+
+## Headline results (continuous held-out traces, ±120 s tolerance)
+
+| Experiment | P | R | F1 | MAE |
+|---|---|---|---|---|
+| Lunar→Lunar — **this CNN (118K)** | **0.556** | **0.526** | **0.541** | **40 s** |
+| Lunar→Lunar — STA/LTA (tuned) | 0.116 | 0.421 | 0.182 | 76 s |
+| Lunar→Lunar — PhaseNet 268K, zero-shot | 0.000 | 0.000 | 0.000 | — |
+| Lunar→Lunar — EQTransformer 376K, zero-shot | 0.006 | 0.053 | 0.011 | 106 s |
+| Lunar→Mars / Mars→Lunar transfer | — | — | ~0 | — |
+
+Transfer collapses in both directions (including a MANet-style fine-tune on
+the single labeled Martian file) — reported as a finding. MC-Dropout σ
+separates false alarms from true events 5.9×; the human-review queue costs
+2.6 items/day. Capacity beyond ~120K params *lowers* F1 under 45-event label
+scarcity (see docs/figures/).
 
 ## Layout
 

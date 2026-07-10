@@ -5,7 +5,36 @@
 
 ## Abstract
 
-*(insert existing abstract)*
+> **DRAFT — replace with your own abstract if you prefer.**
+
+Planetary seismology missions return continuous, noisy, single-channel
+seismic streams over severely bandwidth-constrained downlinks, and manual
+event identification does not scale. We present a lightweight dual-head 1D
+convolutional network (117,842 parameters, 0.49 MB) that jointly detects
+seismic events and regresses their arrival times from single-channel traces,
+trained separately on Apollo 12 lunar and InSight Martian recordings from
+public NASA archives. On held-out continuous lunar data the model achieves
+precision 0.56 / recall 0.53 (F1 0.54) with 40 s mean arrival error against
+minute-quantized catalog picks — 3× the F1 of a tuned STA/LTA baseline —
+while STEAD-pretrained terrestrial models (PhaseNet, EQTransformer) applied
+zero-shot detect essentially nothing (F1 ≤ 0.01). Zero-shot cross-body
+transfer collapses in both directions, and fine-tuning on the single labeled
+Martian file does not recover detection, indicating that compact detectors
+do not cross planetary noise regimes without a nontrivial adaptation budget.
+To operate under this label scarcity we attach Monte-Carlo-Dropout
+uncertainty to every detection: epistemic uncertainty separates false alarms
+from true events by 5.9×, enabling a triage policy that auto-accepts
+confident detections and routes ~2.6 borderline candidates per day to human
+review, recovering recall while preserving precision. A width sweep
+(35K–426K parameters, 5.6–10.6 ms CPU per ~21-minute window) shows the
+accuracy–efficiency frontier bends downward beyond ~120K parameters,
+implying the right on-lander detector is the smallest one that saturates the
+label budget, plus calibrated uncertainty. Recall stratifies by event SNR
+(0.60 above vs 0.44 below the 12 dB median), and measured precision is a
+lower bound given known uncatalogued events in the archive. All experiments
+run on free-tier
+resources at $0 total cost, and an interactive web demo simulates on-lander
+triage with a ~96% downlink reduction on real held-out Apollo data.
 
 ## 1. Problem Statement
 
@@ -134,6 +163,21 @@ The CNN's F1 on lunar data is **3.0× the tuned STA/LTA baseline** with half
 its arrival error and 7.6× fewer false positives. The Mars test set is a
 single event — reported for completeness, not statistical weight.
 
+The full precision/recall tradeoff across thresholds (F-2) is reported in
+`results/pr_curve.json` and the figure below: precision rises monotonically
+with threshold up to ~0.99 while recall stays flat until ~0.98, so the
+operating point costs little recall. A threshold of 0.98 trades 0.09
+precision for 0.11 recall relative to 0.99 — mission operators can pick
+their point on this curve.
+
+![Precision-recall tradeoff](figures/pr_curve.png)
+
+**Recall stratified by SNR (F-3):** with events split at the median
+post-onset SNR of 12.2 dB, recall is 0.60 on high-SNR events vs 0.44 on
+low-SNR events (`results/snr_recall.json`) — the model is biased toward
+loud events, confirming the anticipated limitation; weak emergent events
+buried in noise remain the hardest class.
+
 ### 5.2 Cross-body transfer (zero adaptation)
 
 | Train→Test | Precision | Recall | F1 | Arrival MAE (s) | TP/FP/FN |
@@ -200,6 +244,8 @@ systematic overconfidence at high probabilities — at p ≈ 0.97 the observed
 event frequency is ≈ 0.5, consistent with test precision — quantifying why
 raw confidence alone cannot be trusted and the review queue earns its place.
 
+![Reliability diagram](figures/reliability.png)
+
 ### 5.6 Efficiency–accuracy Pareto (lunar test)
 
 | Arch | Params | CPU ms/window | Precision | Recall | F1 | MAE (s) |
@@ -210,8 +256,10 @@ raw confidence alone cannot be trusted and the review queue earns its place.
 
 The frontier bends down: 3.6× more parameters than base *lowers* F1 (over-
 fitting on 45 events) while costing 1.6× the latency. Under planetary label
-scarcity, capacity beyond ~120K parameters buys nothing
-(docs/figures/pareto.png). Even the 35K model triples the STA/LTA baseline.
+scarcity, capacity beyond ~120K parameters buys nothing. Even the 35K model
+triples the STA/LTA baseline.
+
+![Efficiency-accuracy Pareto](figures/pareto.png)
 
 ### 5.7 Model footprint (NFR-1)
 
