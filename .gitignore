@@ -1,4 +1,5 @@
 .venv/
+paper/
 __pycache__/
 *.pyc
 data/raw/
