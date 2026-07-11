@@ -163,7 +163,20 @@ All numbers are measured on continuous held-out traces with the protocol of
 
 The CNN's F1 on lunar data is **3.0× the tuned STA/LTA baseline** with half
 its arrival error and 7.6× fewer false positives. The Mars test set is a
-single event — reported for completeness, not statistical weight.
+single event and is labeled **anecdotal** throughout — no statistic on n=1.
+
+**Statistical rigor** (10,000-draw file-level bootstrap; permutation test with
+uniformly placed detections as the chance null; `results/statistics.json`):
+
+| Detector | F1 (95% CI) | Precision CI | Recall CI | p vs chance |
+|---|---|---|---|---|
+| CNN | 0.541 [0.324, 0.757] | [0.333, 0.778] | [0.316, 0.737] | 0.0005 |
+| STA/LTA | 0.182 [0.099, 0.270] | [0.064, 0.181] | [0.211, 0.632] | 0.0005 |
+
+Both detectors are far above chance (null F1 ≈ 0.003), and the CNN's F1
+confidence interval **does not overlap** the baseline's — the "CNN beats
+STA/LTA" claim survives the small-sample error bars. The wide CNN interval
+itself (±0.2) is the power limitation of a 19-event test set, stated plainly.
 
 The full precision/recall tradeoff across thresholds (F-2) is reported in
 `results/pr_curve.json` and the figure below: precision rises monotonically
@@ -359,6 +372,22 @@ network.
 precision is a lower bound); two labeled Martian events; minute-quantized
 picks bound arrival accuracy; threshold tuned on 11 validation events carries
 variance; MC-Dropout uncertainty is epistemic-only (no aleatoric head).
+
+## 6.1 Positioning against current work
+
+Terrestrial seismic foundation models exist — SeisLM (2024) pretrains a
+wav2vec2-style transformer self-supervisedly on open terrestrial archives and
+wins precisely in low-label fine-tuning; SeisCLIP pretrains multimodally on
+terrestrial spectrograms. On the planetary side, self-supervised foundation
+models exist for Mars *imagery* and the Martian *atmosphere*, and classical
+unsupervised methods (HMMs) found new events in Apollo 16 data. **No
+published work self-supervisedly pretrains on planetary seismic waveforms,
+and none studies cross-body representations.** Our zero-shot results
+(PhaseNet/EQTransformer ≈ 0 on the Moon) directly challenge the field's
+"pretrain on Earth, transfer anywhere" default for airless bodies — the
+noise structure (multi-hour scattering coda, no oceanic/cultural microseism)
+is unlike anything in a terrestrial archive. This motivates the SSL
+experiments in §5.9: pretraining on the unlabeled *planetary* archive itself.
 
 ## 7. Conclusions and Future Work
 
