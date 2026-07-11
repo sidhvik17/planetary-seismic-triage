@@ -67,13 +67,17 @@ def catalog_lookup(stem: str) -> list[dict]:
     """
     import pandas as pd
     rows = []
-    for cat_name in ("apollo12_catalog_GradeA_final.csv",
-                     "Mars_InSight_training_catalog_final.csv"):
-        for base in (PROJECT_ROOT / "demo_data", PROJECT_ROOT / "data"):
-            hits = list(base.rglob(cat_name)) if base.exists() else []
-            if not hits:
+    packet = PROJECT_ROOT / "data" / "raw" / "space_apps_2024_seismic_detection" / "data"
+    for cat_name, raw_path in (
+        ("apollo12_catalog_GradeA_final.csv",
+         packet / "lunar" / "training" / "catalogs"),
+        ("Mars_InSight_training_catalog_final.csv",
+         packet / "mars" / "training" / "catalogs"),
+    ):
+        for base in (PROJECT_ROOT / "demo_data" / cat_name, raw_path / cat_name):
+            if not base.exists():
                 continue
-            cat = pd.read_csv(hits[0])
+            cat = pd.read_csv(base)
             fcol = next(c for c in cat.columns if "filename" in c.lower())
             rcol = next(c for c in cat.columns if "rel" in c.lower())
             acol = next((c for c in cat.columns if "abs" in c.lower()), None)
