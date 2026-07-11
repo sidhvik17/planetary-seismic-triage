@@ -37,7 +37,7 @@ from planetseis.windows import make_windows, positives_around_pick
 
 ORANGE, SLATE, INK, GRID = "#C74E00", "#2E6FB8", "#3D3833", "#D8CBAA"
 N_SHOTS = [5, 10, 20, 45]
-SEEDS = [0, 1, 2]
+SEEDS_PER_SHOT = {5: 8, 10: 8, 20: 3, 45: 3}  # more seeds where variance dominates
 EPOCHS = 40
 
 plt.rcParams.update({
@@ -109,13 +109,20 @@ def tune_thr(model, body, device):
 def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     train_files = sorted((DATA_CACHE / "lunar" / "continuous" / "train").glob("*.npz"))
-    results = {"lunar": {}, "mars_fewshot": {}}
+    out_path = PROJECT_ROOT / "results" / "sample_efficiency.json"
+    # resume: completed configs are skipped so the sweep survives interruptions
+    results = (json.loads(out_path.read_text()) if out_path.exists()
+               else {"lunar": {}, "mars_fewshot": {}})
 
     for n in N_SHOTS:
         for init in ("scratch", "ssl"):
             key = f"n{n}_{init}"
-            f1s = []
-            for seed in SEEDS:
+            f1s = list(results["lunar"].get(key, {}).get("f1_runs", []))
+            want = SEEDS_PER_SHOT[n]
+            if len(f1s) >= want:
+                print(f"skip {key} (done, {len(f1s)} seeds)")
+                continue
+            for seed in range(len(f1s), want):
                 rng = np.random.default_rng(seed)
                 files = [train_files[i] for i in
                          rng.choice(len(train_files), size=min(n, len(train_files)),
@@ -133,19 +140,20 @@ def main():
                 "f1_mean": round(float(np.mean(f1s)), 4),
                 "f1_std": round(float(np.std(f1s, ddof=1)), 4),
             }
+            out_path.write_text(json.dumps(results, indent=2))
 
     # Goal 2: Mars few-shot (1 labeled file — anecdotal, stated)
     mars_files = sorted((DATA_CACHE / "mars" / "continuous" / "train").glob("*.npz"))
     for init in ("scratch", "ssl"):
+        if init in results["mars_fewshot"]:
+            continue
         rng = np.random.default_rng(0)
         X, y, off = build_fewshot_windows("mars", mars_files, rng)
         model = train_detector(X, y, off, init == "ssl", device, seed=0)
         s = eval_body(model, "mars", "test", 0.5, device)
         results["mars_fewshot"][init] = {**s.as_dict(), "note": "n=1 test event, anecdotal"}
         print(f"mars {init}: {s.as_dict()}")
-
-    (PROJECT_ROOT / "results" / "sample_efficiency.json").write_text(
-        json.dumps(results, indent=2))
+        out_path.write_text(json.dumps(results, indent=2))
 
     # figure
     fig, ax = plt.subplots(figsize=(4.8, 3.8))
@@ -164,6 +172,8 @@ def main():
     ax.set_xscale("log")
     ax.set_xticks(N_SHOTS)
     ax.set_xticklabels([str(n) for n in N_SHOTS])
+    ax.xaxis.set_minor_locator(plt.NullLocator())
+    ax.xaxis.set_major_formatter(plt.FixedFormatter([str(n) for n in N_SHOTS]))
     ax.set_title("Sample efficiency: SSL pretraining vs scratch (lunar)", fontsize=10)
     ax.legend(frameon=False, fontsize=8)
     fig.tight_layout()

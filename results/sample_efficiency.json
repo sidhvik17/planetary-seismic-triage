@@ -1,0 +1,136 @@
+{
+  "lunar": {
+    "n5_scratch": {
+      "n_events": 5,
+      "init": "scratch",
+      "f1_runs": [
+        0.2424,
+        0.0588,
+        0.08,
+        0.3333,
+        0.2979,
+        0.2143,
+        0.1321,
+        0.2857
+      ],
+      "f1_mean": 0.2056,
+      "f1_std": 0.1038
+    },
+    "n5_ssl": {
+      "n_events": 5,
+      "init": "ssl",
+      "f1_runs": [
+        0.3889,
+        0.0,
+        0.3333,
+        0.0571,
+        0.2632,
+        0.55,
+        0.2115,
+        0.25
+      ],
+      "f1_mean": 0.2568,
+      "f1_std": 0.1762
+    },
+    "n10_scratch": {
+      "n_events": 10,
+      "init": "scratch",
+      "f1_runs": [
+        0.449,
+        0.4706,
+        0.4444,
+        0.4889,
+        0.4103,
+        0.3774,
+        0.4444,
+        0.359
+      ],
+      "f1_mean": 0.4305,
+      "f1_std": 0.0449
+    },
+    "n10_ssl": {
+      "n_events": 10,
+      "init": "ssl",
+      "f1_runs": [
+        0.4762,
+        0.6122,
+        0.3922,
+        0.4444,
+        0.5532,
+        0.4906,
+        0.4103,
+        0.5532
+      ],
+      "f1_mean": 0.4915,
+      "f1_std": 0.0766
+    },
+    "n20_scratch": {
+      "n_events": 20,
+      "init": "scratch",
+      "f1_runs": [
+        0.4068,
+        0.1538,
+        0.4651
+      ],
+      "f1_mean": 0.3419,
+      "f1_std": 0.1655
+    },
+    "n20_ssl": {
+      "n_events": 20,
+      "init": "ssl",
+      "f1_runs": [
+        0.35,
+        0.5455,
+        0.45
+      ],
+      "f1_mean": 0.4485,
+      "f1_std": 0.0977
+    },
+    "n45_scratch": {
+      "n_events": 45,
+      "init": "scratch",
+      "f1_runs": [
+        0.4,
+        0.5455,
+        0.4151
+      ],
+      "f1_mean": 0.4535,
+      "f1_std": 0.08
+    },
+    "n45_ssl": {
+      "n_events": 45,
+      "init": "ssl",
+      "f1_runs": [
+        0.4286,
+        0.3774,
+        0.5238
+      ],
+      "f1_mean": 0.4432,
+      "f1_std": 0.0743
+    }
+  },
+  "mars_fewshot": {
+    "scratch": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "mae_sec": null,
+      "median_ae_sec": null,
+      "note": "n=1 test event, anecdotal"
+    },
+    "ssl": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "mae_sec": null,
+      "median_ae_sec": null,
+      "note": "n=1 test event, anecdotal"
+    }
+  }
+}

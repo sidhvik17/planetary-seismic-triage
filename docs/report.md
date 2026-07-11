@@ -318,6 +318,43 @@ degrade detection exactly as the SNR stratification (§5.1) predicts.
 **Recall by event type** (S12 test split, small n): impacts 8/15,
 deep moonquakes 1/3, the single shallow moonquake detected.
 
+### 5.9 Self-supervised pretraining on the unlabeled archive
+
+The catalog labels < 1% of the archive. We pretrain the detector backbone as
+a masked autoencoder (50% contiguous-patch masking, MSE on masked samples,
+60 epochs) on **182 unlabeled continuous traces** — all lunar days, the
+unseen-station S12B/S15/S16 files, and the Martian files jointly — then
+fine-tune with n labeled lunar events against a from-scratch control
+(threshold tuned on the fixed val split, F1 on the fixed 19-event test split;
+8 seeds at n ≤ 10, 3 above):
+
+| Labeled events | From scratch | SSL-pretrained | Δ |
+|---|---|---|---|
+| 5 | 0.206 ± 0.104 | 0.257 ± 0.176 | +0.05 |
+| 10 | 0.431 ± 0.045 | 0.492 ± 0.077 | +0.06 (≈2 s.e.) |
+| 20 | 0.342 ± 0.166 | 0.449 ± 0.098 | +0.11 |
+| 45 | 0.454 ± 0.080 | 0.443 ± 0.074 | −0.01 |
+
+![Sample efficiency](figures/sample_efficiency.png)
+
+Two findings, reported at their actual strength. **(a)** Planetary SSL
+pretraining gives a consistent but modest low-label gain (+0.05–0.11 F1 at
+5–20 events, ≈2 standard errors at n=10) that vanishes at the full 45-event
+budget — the direction SeisLM reports on terrestrial data, at planetary
+scale, but not statistically decisive at these seed counts. **(b)** The
+sharper result is *label saturation*: 10 labeled events already buy
+essentially the full-budget performance (0.43–0.49 vs 0.44–0.45 at 45),
+meaning detection quality here is bounded by label *quality* (minute-
+quantized, Grade-A-only) and noise, not label quantity beyond a small floor.
+
+**Few-shot Mars via the joint representation:** fine-tuning the jointly
+pretrained (Moon+Mars) encoder on the single labeled Martian file still
+detects 0/1 held-out events (as does scratch) — the SSL representation alone
+does not rescue cross-body few-shot at n=1 labeled file. The adaptation
+budget question ("how many Martian labels until transfer works?") remains
+open and needs the larger MQS catalog; with the packet's two events it is
+unanswerable, and we say so.
+
 ## 6. Discussion
 
 **Same-body detection.** A 118K-parameter CNN triples the F1 of a tuned
