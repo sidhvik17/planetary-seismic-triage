@@ -355,6 +355,23 @@ budget question ("how many Martian labels until transfer works?") remains
 open and needs the larger MQS catalog; with the packet's two events it is
 unanswerable, and we say so.
 
+### 5.10 Uncertainty-guided active labeling (negative result)
+
+We simulated the label-acquisition loop the triage queue suggests: start
+with 5 labeled files, train, then acquire the next file to label either at
+random or by maximum MC-Dropout uncertainty over its candidate windows
+(SSL-initialized detector, 3 seeds, `results/active_learning.json`).
+The two strategies share identical 5-file starting sets per seed, so their
+n=5 spread (±0.07 F1) measures pure training variance — and **every
+subsequent acquisition difference falls inside that noise floor** (random
+0.36→0.47, uncertainty 0.29→0.50 over 5→20 labels, with one collapsed
+uncertainty run at n=15). At this pool size, file-level uncertainty
+acquisition does not beat random selection. The uncertainty layer's
+demonstrated value is triage-time separation of false alarms (§5.5), not
+training-time label selection; window-level acquisition on a much larger
+unlabeled pool (e.g. the full Nakamura-catalog era) is where this experiment
+should be rerun.
+
 ## 6. Discussion
 
 **Same-body detection.** A 118K-parameter CNN triples the F1 of a tuned
