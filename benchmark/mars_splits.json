@@ -1,0 +1,9 @@
+{
+  "train": [
+    "XB.ELYSE.02.BHV.2022-02-03HR08_evid0005.mseed"
+  ],
+  "val": [],
+  "test": [
+    "XB.ELYSE.02.BHV.2022-01-02HR04_evid0006.mseed"
+  ]
+}
