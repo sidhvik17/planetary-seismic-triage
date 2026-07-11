@@ -113,6 +113,20 @@ def main():
             "permutation_vs_chance": permutation_p(files, key),
         }
         print(label, json.dumps(out[label], indent=2))
+    # paired bootstrap on the F1 DIFFERENCE (same resampled files for both
+    # detectors) — the correct test for "CNN beats STA/LTA on this test set"
+    diffs = []
+    n = len(files)
+    for _ in range(N_BOOT):
+        sample = [files[i] for i in rng.integers(0, n, size=n)]
+        diffs.append(scores_for(sample, "cnn").f1 - scores_for(sample, "sta").f1)
+    out["paired_delta_f1"] = {
+        "point": round(scores_for(files, "cnn").f1 - scores_for(files, "sta").f1, 4),
+        "ci95": [round(float(np.percentile(diffs, 2.5)), 4),
+                 round(float(np.percentile(diffs, 97.5)), 4)],
+        "p_delta_le_0": round(float(np.mean(np.array(diffs) <= 0)), 5),
+    }
+    print("paired_delta_f1", out["paired_delta_f1"])
     out["mars_note"] = ("Mars same-body results are single-event (n=1) and are "
                         "reported as anecdotal; no CI is meaningful.")
     (PROJECT_ROOT / "results" / "statistics.json").write_text(json.dumps(out, indent=2))

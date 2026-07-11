@@ -62,5 +62,13 @@
       "p_value": 0.0005
     }
   },
+  "paired_delta_f1": {
+    "point": 0.3587,
+    "ci95": [
+      0.1478,
+      0.5641
+    ],
+    "p_delta_le_0": 0.0008
+  },
   "mars_note": "Mars same-body results are single-event (n=1) and are reported as anecdotal; no CI is meaningful."
 }

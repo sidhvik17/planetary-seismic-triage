@@ -173,10 +173,13 @@ uniformly placed detections as the chance null; `results/statistics.json`):
 | CNN | 0.541 [0.324, 0.757] | [0.333, 0.778] | [0.316, 0.737] | 0.0005 |
 | STA/LTA | 0.182 [0.099, 0.270] | [0.064, 0.181] | [0.211, 0.632] | 0.0005 |
 
-Both detectors are far above chance (null F1 ≈ 0.003), and the CNN's F1
-confidence interval **does not overlap** the baseline's — the "CNN beats
-STA/LTA" claim survives the small-sample error bars. The wide CNN interval
-itself (±0.2) is the power limitation of a 19-event test set, stated plainly.
+Both detectors are far above chance (null F1 ≈ 0.003; p reported at the
+permutation floor, i.e. p < 5×10⁻⁴). The paired bootstrap on the F1
+difference over identical file resamples — the correct test — gives
+**ΔF1 = 0.359, 95% CI [0.148, 0.564], P(Δ ≤ 0) = 0.0008**: the "CNN beats
+STA/LTA" claim survives the small-sample error bars decisively. The wide
+CNN interval itself (±0.2) is the power limitation of a 19-event test set,
+stated plainly.
 
 The full precision/recall tradeoff across thresholds (F-2) is reported in
 `results/pr_curve.json` and the figure below: precision rises monotonically
