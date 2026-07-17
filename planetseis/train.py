@@ -65,7 +65,8 @@ def run_epoch(model, loader, device, opt=None, lambda_reg=2.0, pos_weight=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--body", required=True, choices=["lunar", "mars"])
+    ap.add_argument("--body", required=True,
+                    choices=["lunar", "mars", "lunar_dn"])
     ap.add_argument("--no-augment", action="store_true")
     ap.add_argument("--arch", default="base", choices=list(ARCHS))
     ap.add_argument("--tag", default="")

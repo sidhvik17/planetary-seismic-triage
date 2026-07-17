@@ -30,9 +30,21 @@
     "XB.ELYSE.02.BHV.2019-09-21HR03_evid0032",
     "XB.ELYSE.02.BHV.2021-10-11HR23_evid0011",
     "XB.ELYSE.02.BHV.2022-01-02HR04_evid0006",
-    "XB.ELYSE.02.BHV.2022-04-09HR22_evid0002"
+    "XB.ELYSE.02.BHV.2022-04-09HR22_evid0002",
+    "XB.ELYSE.02.BHV.S0105a",
+    "XB.ELYSE.02.BHV.S0190a",
+    "XB.ELYSE.02.BHV.S0320b",
+    "XB.ELYSE.02.BHV.S0484b",
+    "XB.ELYSE.02.BHV.S0802a",
+    "XB.ELYSE.02.BHV.S0861a",
+    "XB.ELYSE.02.BHV.S0916d",
+    "XB.ELYSE.02.BHV.S1015f",
+    "XB.ELYSE.02.BHV.S1034a",
+    "XB.ELYSE.02.BHV.S1039b",
+    "XB.ELYSE.02.BHV.S1153a",
+    "XB.ELYSE.02.BHV.S1223a"
   ],
-  "provenance": "picks from MQS catalog v14 via IRIS mars-event web service (P > start preference); original packet train/test membership preserved; train/val extended with top-magnitude MQS v14 events fetched from EarthScope (fetch_mqs_train_events.py), test spans excluded",
+  "provenance": "picks from MQS catalog v14 via IRIS mars-event web service (P > start preference); original packet train/test membership preserved; train/val extended with top-magnitude MQS v14 events fetched from EarthScope (fetch_mqs_train_events.py), test spans excluded; test extended with 12 additional MQS v14 spans (fetch_mqs_test_events.py) \u2014 never used for tuning",
   "val": [
     "XB.ELYSE.02.BHV.S1012d",
     "XB.ELYSE.02.BHV.S1048d",

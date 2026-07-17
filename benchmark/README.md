@@ -71,9 +71,9 @@ survey-mode precision 0.645. See `results/nakamura_crosscheck.json`.
 
 | Method | P | R | F1 | MAE |
 |---|---|---|---|---|
-| SpecUNet (injection-only, val-tuned thr=0.30/dur=240s) | 1.000 | 0.600 | 0.750 | 25 s |
+| SpecUNet (val-tuned thr=0.30/dur=240s, n=30 events) | 1.000 | 0.233 | 0.378 | 34 s |
 
-n=5 test events: report alongside, never instead of, the lunar numbers.
+Test = 17 spans / 30 events (12 spans added post-freeze, tuning-blind). PR curve: results/mars_ext_test_pr_curve.json (peak F1 0.50 at survey point).
 
 Reproduce any row: `scripts/run_eval.py`, `scripts/seisbench_baseline.py`,
 `scripts/sample_efficiency.py`; error bars via `scripts/statistics_rigor.py`.

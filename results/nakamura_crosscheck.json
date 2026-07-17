@@ -13,6 +13,14 @@
   "fp_matching_nakamura": 9,
   "fp_nakamura_match_rate": 0.45,
   "chance_match_rate": 0.0168,
+  "permutation_p_value": 0.0,
+  "permutation_n": 10000,
+  "match_count_by_tolerance": {
+    "\u00b160s": 0,
+    "\u00b1120s": 1,
+    "\u00b1180s": 5,
+    "\u00b1300s": 9
+  },
   "survey_precision": 0.6452,
   "note": "survey_precision counts detections matching ANY Nakamura S12 event as true; recall is not restated because the benchmark's pick list stays the recall denominator"
 }

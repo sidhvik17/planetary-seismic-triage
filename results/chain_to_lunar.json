@@ -1,0 +1,39 @@
+{
+  "unet": "unet_lunar",
+  "cnn": "lunar",
+  "eval_body": "lunar",
+  "tolerance_sec": 120.0,
+  "raw": {
+    "threshold": 0.99,
+    "tp": 10,
+    "fp": 8,
+    "fn": 9,
+    "precision": 0.5556,
+    "recall": 0.5263,
+    "f1": 0.5405,
+    "mae_sec": 39.96,
+    "median_ae_sec": 35.37
+  },
+  "chain": {
+    "threshold": 0.99,
+    "tp": 11,
+    "fp": 154,
+    "fn": 8,
+    "precision": 0.0667,
+    "recall": 0.5789,
+    "f1": 0.1196,
+    "mae_sec": 57.83,
+    "median_ae_sec": 65.02
+  },
+  "fusion": {
+    "threshold": 0.995,
+    "tp": 13,
+    "fp": 117,
+    "fn": 6,
+    "precision": 0.1,
+    "recall": 0.6842,
+    "f1": 0.1745,
+    "mae_sec": 47.94,
+    "median_ae_sec": 37.87
+  }
+}

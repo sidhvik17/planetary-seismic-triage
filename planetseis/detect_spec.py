@@ -62,7 +62,7 @@ def _stitch_curves(model, trace, starts, device, batch_size, keep_masks=False):
             cnt[b0 : b0 + N_TIME] += 1
             if keep_masks:
                 masks.append(mk)
-                Zs.append(Z)
+                Zs.append(Z.astype(np.complex64))
     curve = np.where(cnt > 0, acc / np.maximum(cnt, 1), 0.0)
     return curve, cnt, masks, Zs
 

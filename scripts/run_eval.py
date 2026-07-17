@@ -62,7 +62,8 @@ def eval_stalta(body, split, thr_on):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--eval-body", required=True, choices=["lunar", "mars"])
+    ap.add_argument("--eval-body", required=True,
+                    choices=["lunar", "mars", "lunar_dn"])
     ap.add_argument("--skip-baseline", action="store_true")
     ap.add_argument("--threshold", type=float, default=None,
                     help="skip val sweep, use this threshold (transfer protocol: "

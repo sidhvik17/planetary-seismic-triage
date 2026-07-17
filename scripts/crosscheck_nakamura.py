@@ -87,6 +87,10 @@ def main():
     print(f"Nakamura S12-detected events: {len(nak)}")
     rng = np.random.default_rng(42)
     null_hits, null_draws = 0, 0
+    # per-file FP absolute times + span, for the permutation test and the
+    # tolerance-sensitivity sweep
+    fp_abs_times: list[float] = []
+    file_spans: list[tuple[float, float, int]] = []   # (t0, span_sec, n_fp)
 
     tol = CFG.window.match_tolerance_sec
     min_bins = max(1, int(round(args.min_dur / SEC_PER_BIN)))
@@ -117,6 +121,7 @@ def main():
                 nak_dt = None
                 if t0 is not None:
                     abs_t = float(t0) + d.time_sec
+                    fp_abs_times.append(abs_t)
                     k = int(np.argmin(np.abs(nak_times - abs_t)))
                     dt = abs(nak_times[k] - abs_t)
                     if dt <= MATCH_TOL_SEC:
@@ -131,10 +136,34 @@ def main():
         # empirical null: how often do random times in this file match?
         if t0 is not None and dets:
             span = len(trace) / 6.625
+            n_fp_here = sum(1 for r in rows if r["file"] == p.stem
+                            and r["status"] != "benchmark_tp")
+            file_spans.append((float(t0), span, n_fp_here))
             rand_abs = float(t0) + rng.uniform(0, span, size=1000 * len(dets))
             d_near = np.abs(nak_times[None, :] - rand_abs[:, None]).min(axis=1)
             null_hits += int((d_near <= MATCH_TOL_SEC).sum())
             null_draws += len(rand_abs)
+
+    # permutation test: re-place each file's unmatched detections uniformly
+    # at random inside that file's span, 10k times; p = P(matches >= observed)
+    n_perm = 10_000
+    fp_arr = np.array(fp_abs_times)
+    perm_counts = np.zeros(n_perm, dtype=int)
+    for t0f, span, n_fp_here in file_spans:
+        if n_fp_here == 0:
+            continue
+        rand = t0f + rng.uniform(0, span, size=(n_perm, n_fp_here))
+        d_near = np.abs(nak_times[None, None, :]
+                        - rand[:, :, None]).min(axis=2)
+        perm_counts += (d_near <= MATCH_TOL_SEC).sum(axis=1)
+    p_value = float((perm_counts >= n_fp_nak).mean())
+
+    # sensitivity of the match count to the tolerance choice
+    tol_sensitivity = {}
+    for tol_s in (60.0, 120.0, 180.0, 300.0):
+        m = int((np.abs(nak_times[None, :] - fp_arr[:, None]).min(axis=1)
+                 <= tol_s).sum()) if len(fp_arr) else 0
+        tol_sensitivity[f"±{int(tol_s)}s"] = m
 
     survey_tp = n_tp + n_fp_nak
     result = {
@@ -148,6 +177,9 @@ def main():
         "fp_matching_nakamura": n_fp_nak,
         "fp_nakamura_match_rate": round(n_fp_nak / max(n_fp, 1), 4),
         "chance_match_rate": round(null_hits / max(null_draws, 1), 4),
+        "permutation_p_value": p_value,
+        "permutation_n": n_perm,
+        "match_count_by_tolerance": tol_sensitivity,
         "survey_precision": round(survey_tp / max(n_tp + n_fp, 1), 4),
         "note": "survey_precision counts detections matching ANY Nakamura "
                 "S12 event as true; recall is not restated because the "

@@ -25,7 +25,7 @@ B.Tech major project. **Repo:** https://github.com/sidhvik17/planetary-seismic-t
 | Lunar→Lunar — STA/LTA (tuned) | 0.116 | 0.421 | 0.182 | 76 s |
 | Lunar→Lunar — PhaseNet 268K, zero-shot | 0.000 | 0.000 | 0.000 | — |
 | Lunar→Lunar — EQTransformer 376K, zero-shot | 0.006 | 0.053 | 0.011 | 106 s |
-| Mars_ext→Mars_ext — SpecUNet (injection-only) | **1.000** | 0.600 | **0.750** | **25 s** |
+| Mars_ext→Mars_ext — SpecUNet (injection-only, n=30 events) | **1.000** | 0.233 | 0.378 | 34 s |
 | Lunar→Mars / Mars→Lunar transfer (SeisCNN) | — | — | ~0 | — |
 
 Paired bootstrap ΔF1 (SpecUNet − SeisCNN) = −0.098 [−0.345, +0.152]: the
@@ -35,18 +35,43 @@ supervised one **while never seeing a real labeled positive window**
 
 **Mars, on official MQS labels:** the packet's Martian labels stop at 2
 files; cross-referencing its unlabeled files against MQS catalog v14 (IRIS
-mars-event service) plus fetching top-magnitude MQS events from the open
-XB.ELYSE archive grows the set to 34 files / 5 frozen test spans
-(`benchmark/mars_ext_splits.json`). The injection-trained SpecUNet scores
-P=1.0 (zero false positives across 25 h), R=0.6, MAE 25 s on the frozen
-test — n=5 events, so treat as promising, not definitive.
+mars-event service) plus fetching MQS events from the open XB.ELYSE archive
+grows the set to 46 files / **17 frozen test spans, 30 test events**
+(`benchmark/mars_ext_splits.json` — the expansion was added to test only,
+never used for tuning). At the val-tuned operating point the
+injection-trained SpecUNet holds **precision 1.000 — zero false positives
+across ~85 hours** — with recall 0.233 against a test set dominated by
+M2.9–3.0 events (MAE 34 s; the initial n=5 evaluation had read R=0.6, a
+small-sample artifact now corrected). The full test PR curve peaks at
+F1 0.50 (P 0.667 / R 0.40) at the survey point
+(`results/mars_ext_test_pr_curve.json`). Miss autopsy
+(`results/`): S0173a fires above threshold but fails the duration gate
+(operating-point boundary); S1022a sits in amplitude-degraded data — and a
+5000-count glitch in the same span stays *below* threshold, the synthetic
+glitch training holding up.
 
 **Catalog extension (the MarsQuakeNet result, reproduced on the Moon):** of
 the SpecUNet's 20 benchmark "false positives" on the lunar test split, **9
-match events in the full Nakamura Apollo catalog** (13,058 events; ±5 min)
-that the benchmark's 76-label Grade-A subset simply omits — a 45% match rate
-against a 1.7% chance rate. Survey-mode precision is 0.645
-(`scripts/crosscheck_nakamura.py`, `results/nakamura_crosscheck.json`).
+match events in the full Nakamura Apollo catalog** (13,058 events) that the
+benchmark's 76-label Grade-A subset simply omits — 45% match rate vs 1.7%
+chance, permutation test p < 10⁻⁴ (0 of 10,000 random placements reach 9).
+Match tolerance ±5 min (Nakamura signal-start times are minute-quantized
+and mark signal start, not arrival; sensitivity: 5 matches at ±3 min, 9 at
+±5 min, all reported). Survey-mode precision 0.645. Side-by-side waveform
+evidence in `docs/figures/nakamura_match_*.png` — match #1 is an
+unambiguous meteoroid impact with an hour of coda, 160 s from its catalog
+entry (`scripts/crosscheck_nakamura.py`,
+`results/nakamura_crosscheck.json`).
+
+**Denoise-then-detect chaining** (`scripts/eval_chain.py`,
+`scripts/build_denoised_windows.py`): feeding SpecUNet-denoised traces to
+the raw-trained SeisCNN collapses precision (0.556 → 0.067 — distribution
+shift); retraining SeisCNN on denoised windows restores it (F1 0.512,
+recall 0.526 → 0.579, one false negative recovered); probability fusion of
+raw+denoised streams reaches the **highest recall of any configuration,
+0.684**, at survey precision — the denoiser demonstrably surfaces the
+low-SNR events the supervised detector misses, and the recall/precision
+trade is reported rather than hidden.
 
 **Arrival refinement on denoised waveforms** (Dahmen & Stott, GJI 2024):
 onset-picking each detection on the mask-denoised segment cuts Martian
