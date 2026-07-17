@@ -215,6 +215,58 @@ def detect_events_spec_mc(
 
 
 @torch.no_grad()
+def refine_arrivals(
+    model,
+    trace: np.ndarray,
+    dets: list[Detection],
+    rate_hz: float,
+    device: str = "cpu",
+    pre_sec: float = 600.0,
+    post_sec: float = 1200.0,
+) -> list[Detection]:
+    """Sharpen each arrival by onset-picking on the DENOISED waveform.
+
+    Dahmen & Stott (GJI 2024) showed MQNet denoising roughly halves
+    automatic onset-pick errors at low SNR versus bandpass filtering. The
+    stitched-curve arrival (first supra-threshold bin) inherits the
+    threshold's earliness/lateness; here the segment around each detection
+    is denoised (mask x STFT), and the arrival moves to the first sustained
+    rise of the denoised envelope — noise is near-zero after masking, so
+    the onset is the first energy the network attributes to the event.
+    """
+    from .config import DEFAULT as _CFG
+
+    n = len(trace)
+    smooth_n = max(3, int(10 * rate_hz))          # 10 s envelope smoothing
+    kernel = np.ones(smooth_n) / smooth_n
+    out = []
+    for d in dets:
+        s0 = max(0, int((d.time_sec - pre_sec) * rate_hz))
+        s1 = min(n, int((d.time_sec + post_sec) * rate_hz))
+        if s1 - s0 < N_SAMPLES:                    # too close to an edge
+            out.append(d)
+            continue
+        den = denoise_trace(model, trace[s0:s1], rate_hz, device)
+        env = np.convolve(np.abs(den), kernel, mode="same")
+        peak = env.max()
+        if peak <= 0:
+            out.append(d)
+            continue
+        above = np.where(env >= 0.10 * peak)[0]
+        if not len(above):
+            out.append(d)
+            continue
+        t_ref = s0 / rate_hz + above[0] / rate_hz
+        # never move an arrival by more than the search window itself
+        if abs(t_ref - d.time_sec) <= pre_sec + post_sec:
+            d = Detection(time_sec=t_ref, confidence=d.confidence,
+                          uncertainty=d.uncertainty,
+                          needs_review=d.needs_review)
+        out.append(d)
+    return out
+
+
+@torch.no_grad()
 def denoise_trace(
     model,
     trace: np.ndarray,

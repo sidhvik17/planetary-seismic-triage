@@ -1,0 +1,8 @@
+file,time_sec,confidence,status,mqnet_event
+XB.ELYSE.02.BHV.2019-05-23HR02_evid0041,10240.0,0.435,unmatched,
+XB.ELYSE.02.BHV.2019-09-21HR03_evid0032,5786.6,0.318,matches_mqnet_catalog,S0290a
+XB.ELYSE.02.BHV.2019-09-21HR03_evid0032,10114.4,0.241,matches_mqs_pick,
+XB.ELYSE.02.BHV.2022-01-02HR04_evid0006,11119.1,0.568,matches_mqs_pick,
+XB.ELYSE.02.BHV.2022-04-09HR22_evid0002,5120.0,0.412,unmatched,
+XB.ELYSE.02.BHV.2022-04-09HR22_evid0002,9486.5,0.608,matches_mqs_pick,
+XB.ELYSE.02.BHV.2022-04-09HR22_evid0002,11930.6,0.201,unmatched,

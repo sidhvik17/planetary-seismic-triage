@@ -1,0 +1,63 @@
+{
+  "model": "unet_mars_ext",
+  "body": "mars_ext",
+  "note": "median over injection val samples; target = clean scaled event component; bp = bandpassed input (classical baseline)",
+  "by_snr": {
+    "0.4-1.0": {
+      "denoised": {
+        "cc": 0.691,
+        "sdr_db": 2.52,
+        "amp_ratio": 0.687,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.44,
+        "sdr_db": -6.81,
+        "amp_ratio": 1.327,
+        "n": 50
+      }
+    },
+    "1.0-2.5": {
+      "denoised": {
+        "cc": 0.923,
+        "sdr_db": 8.07,
+        "amp_ratio": 0.889,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.805,
+        "sdr_db": 2.63,
+        "amp_ratio": 1.018,
+        "n": 50
+      }
+    },
+    "2.5-6.0": {
+      "denoised": {
+        "cc": 0.984,
+        "sdr_db": 14.82,
+        "amp_ratio": 0.951,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.953,
+        "sdr_db": 10.02,
+        "amp_ratio": 1.004,
+        "n": 50
+      }
+    },
+    "6.0-12.0": {
+      "denoised": {
+        "cc": 0.995,
+        "sdr_db": 18.48,
+        "amp_ratio": 0.958,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.987,
+        "sdr_db": 15.79,
+        "amp_ratio": 1.003,
+        "n": 50
+      }
+    }
+  }
+}

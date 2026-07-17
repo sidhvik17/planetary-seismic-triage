@@ -1,0 +1,17 @@
+{
+  "model": "unet_mars_ext",
+  "threshold": 0.15,
+  "min_dur_sec": 120.0,
+  "mode": "survey (below benchmark operating point)",
+  "vs_mqs_only": {
+    "tp": 3,
+    "fp": 4,
+    "fn": 2,
+    "precision": 0.4286,
+    "recall": 0.6
+  },
+  "unmatched_matching_mqnet": 1,
+  "chance_match_rate": 0.0974,
+  "survey_precision_vs_mqs_plus_mqnet": 0.5714,
+  "reference": "MQNet detections: Zenodo 10.5281/zenodo.7157843"
+}

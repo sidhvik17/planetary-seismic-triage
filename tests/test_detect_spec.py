@@ -57,3 +57,18 @@ def test_detect_events_spec_runs_on_untrained_model():
                                      threshold=0.99, device="cpu")
     assert isinstance(dets, list)
     assert curve.ndim == 1 and np.isfinite(curve).all()
+
+
+def test_refine_arrivals_moves_toward_denoised_onset():
+    """Refinement must return same-length list and never move an arrival
+    outside its search window (contract, not accuracy — accuracy is
+    measured on the benchmark in eval_unet)."""
+    from planetseis.detect_spec import Detection, refine_arrivals
+
+    model = SpecUNet(base=8)
+    trace = np.random.randn(N_SAMPLES * 4).astype(np.float32)
+    dets = [Detection(time_sec=2000.0, confidence=0.5)]
+    out = refine_arrivals(model, trace, dets, 6.625, device="cpu")
+    assert len(out) == 1
+    assert abs(out[0].time_sec - 2000.0) <= 1800.0
+    assert out[0].confidence == 0.5

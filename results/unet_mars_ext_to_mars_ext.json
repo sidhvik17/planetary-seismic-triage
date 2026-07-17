@@ -1,9 +1,9 @@
 {
-  "model": "unet_mars_ext_v3",
+  "model": "unet_mars_ext",
   "eval_body": "mars_ext",
   "threshold": 0.3,
-  "min_dur_sec": 240,
-  "threshold_tuned_on": "val",
+  "min_dur_sec": 240.0,
+  "threshold_tuned_on": "fixed",
   "tolerance_sec": 120.0,
   "unet": {
     "tp": 3,
@@ -14,5 +14,15 @@
     "f1": 0.75,
     "mae_sec": 24.5,
     "median_ae_sec": 22.65
+  },
+  "unet_refined_arrivals": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.75,
+    "mae_sec": 18.66,
+    "median_ae_sec": 21.3
   }
 }

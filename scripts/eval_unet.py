@@ -25,7 +25,8 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from planetseis.config import CODA_SEC, DEFAULT as CFG, DATA_CACHE, PROJECT_ROOT
-from planetseis.detect_spec import SEC_PER_BIN, compute_curve, curve_to_detections
+from planetseis.detect_spec import (SEC_PER_BIN, compute_curve,
+                                    curve_to_detections, refine_arrivals)
 from planetseis.evaluate import Scores, score_trace
 from planetseis.unet import UNET_ARCHS, SpecUNet
 
@@ -42,16 +43,19 @@ def curves_for_split(model, body, split, device):
     for p in sorted(d.glob("*.npz")):
         z = np.load(p)
         curve = compute_curve(model, z["trace"], device)
-        out.append((p.stem, curve, list(z["picks"])))
+        out.append((p.stem, curve, list(z["picks"]), z["trace"]))
     return out
 
 
-def score_at(curves, thr, min_dur_sec, coda, tol):
+def score_at(curves, thr, min_dur_sec, coda, tol,
+             refine_with=None, device="cpu"):
     total = Scores()
     min_bins = max(1, int(round(min_dur_sec / SEC_PER_BIN)))
-    for _, curve, picks in curves:
+    for _, curve, picks, trace in curves:
         dets = curve_to_detections(curve, thr, suppress_sec=coda,
                                    min_bins=min_bins)
+        if refine_with is not None:
+            dets = refine_arrivals(refine_with, trace, dets, 6.625, device)
         total.merge(score_trace([d.time_sec for d in dets], picks, tol))
     return total
 
@@ -102,6 +106,10 @@ def main():
     print("computing test curves ...")
     test_curves = curves_for_split(model, args.eval_body, "test", device)
     s = score_at(test_curves, best_thr, best_dur, coda, tol)
+    s_ref = score_at(test_curves, best_thr, best_dur, coda, tol,
+                     refine_with=model, device=device)
+    print(f"refined arrivals: MAE {s.mae_sec:.1f}s -> {s_ref.mae_sec:.1f}s, "
+          f"F1 {s.f1:.3f} -> {s_ref.f1:.3f}")
 
     run_name = Path(args.model).parent.name
     result = {
@@ -112,6 +120,7 @@ def main():
         "threshold_tuned_on": tune_split or "fixed",
         "tolerance_sec": tol,
         "unet": s.as_dict(),
+        "unet_refined_arrivals": s_ref.as_dict(),
     }
     out_path = PROJECT_ROOT / "results" / f"{run_name}_to_{args.eval_body}.json"
     out_path.write_text(json.dumps(result, indent=2))

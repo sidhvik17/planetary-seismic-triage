@@ -1,0 +1,63 @@
+{
+  "model": "unet_lunar",
+  "body": "lunar",
+  "note": "median over injection val samples; target = clean scaled event component; bp = bandpassed input (classical baseline)",
+  "by_snr": {
+    "0.4-1.0": {
+      "denoised": {
+        "cc": 0.588,
+        "sdr_db": 1.56,
+        "amp_ratio": 0.873,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.418,
+        "sdr_db": -6.84,
+        "amp_ratio": 1.915,
+        "n": 50
+      }
+    },
+    "1.0-2.5": {
+      "denoised": {
+        "cc": 0.881,
+        "sdr_db": 6.14,
+        "amp_ratio": 0.848,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.812,
+        "sdr_db": 2.89,
+        "amp_ratio": 1.154,
+        "n": 50
+      }
+    },
+    "2.5-6.0": {
+      "denoised": {
+        "cc": 0.978,
+        "sdr_db": 12.09,
+        "amp_ratio": 0.885,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.957,
+        "sdr_db": 10.31,
+        "amp_ratio": 1.041,
+        "n": 50
+      }
+    },
+    "6.0-12.0": {
+      "denoised": {
+        "cc": 0.992,
+        "sdr_db": 15.6,
+        "amp_ratio": 0.901,
+        "n": 50
+      },
+      "bandpass": {
+        "cc": 0.987,
+        "sdr_db": 15.71,
+        "amp_ratio": 1.006,
+        "n": 50
+      }
+    }
+  }
+}

@@ -48,6 +48,19 @@ that the benchmark's 76-label Grade-A subset simply omits — a 45% match rate
 against a 1.7% chance rate. Survey-mode precision is 0.645
 (`scripts/crosscheck_nakamura.py`, `results/nakamura_crosscheck.json`).
 
+**Arrival refinement on denoised waveforms** (Dahmen & Stott, GJI 2024):
+onset-picking each detection on the mask-denoised segment cuts Martian
+arrival MAE **24.5 s → 18.7 s** at identical F1; on lunar emergent onsets
+it does not help (67.7 → 75.4 s) — both stored in the results json, use
+`refine_arrivals` for Mars only.
+
+**Denoising quality** (known clean event on injection val samples, median):
+at the hardest SNR bin (0.4–1.0×noise) the mask-denoiser reaches CC 0.59 /
+SDR +1.6 dB on lunar and CC 0.69 / +2.5 dB on Mars, versus CC 0.42-0.44 /
+−6.8 dB for plain bandpass — an ~8-9 dB SDR gain exactly where events are
+hardest, converging to parity at high SNR
+(`scripts/denoise_metrics.py`, `results/denoise_metrics_*.json`).
+
 **Cross-station generalization (weak labels):** on the packet's
 uncatalogued station sets (each file curated around one real event, no
 arrival shipped), SpecUNet fires in 95/96 files — S12 Grade-B 98.4%,
