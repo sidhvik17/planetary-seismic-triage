@@ -48,6 +48,14 @@ that the benchmark's 76-label Grade-A subset simply omits — a 45% match rate
 against a 1.7% chance rate. Survey-mode precision is 0.645
 (`scripts/crosscheck_nakamura.py`, `results/nakamura_crosscheck.json`).
 
+**Cross-station generalization (weak labels):** on the packet's
+uncatalogued station sets (each file curated around one real event, no
+arrival shipped), SpecUNet fires in 95/96 files — S12 Grade-B 98.4%,
+S15/S16 (different instruments, never trained on) 100% — where SeisCNN
+managed 60–93% (`results/catalog_extension/summary_lunar.json` vs
+`results/station_transfer.json`). Injected-mask training learns event
+morphology, not station fingerprints.
+
 Cross-body transfer collapses in both directions — reported as a finding.
 MC-Dropout σ separates false alarms from true events 5.9×; the human-review
 queue costs 2.6 items/day. Capacity beyond ~120K params *lowers* SeisCNN F1

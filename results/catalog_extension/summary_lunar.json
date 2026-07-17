@@ -1,0 +1,42 @@
+{
+  "model": "unet_lunar",
+  "body": "lunar",
+  "threshold": 0.3,
+  "mc_passes": 5,
+  "labeled_detections": 0,
+  "labeled_matched": 0,
+  "candidates_new": 0,
+  "candidates_new_confident": 0,
+  "station_sets": {
+    "S12_GradeB": {
+      "files": 64,
+      "hit": 63,
+      "dets": 173,
+      "rate": 0.984
+    },
+    "S15_GradeA": {
+      "files": 10,
+      "hit": 10,
+      "dets": 39,
+      "rate": 1.0
+    },
+    "S15_GradeB": {
+      "files": 5,
+      "hit": 5,
+      "dets": 17,
+      "rate": 1.0
+    },
+    "S16_GradeA": {
+      "files": 14,
+      "hit": 14,
+      "dets": 45,
+      "rate": 1.0
+    },
+    "S16_GradeB": {
+      "files": 3,
+      "hit": 3,
+      "dets": 8,
+      "rate": 1.0
+    }
+  }
+}
