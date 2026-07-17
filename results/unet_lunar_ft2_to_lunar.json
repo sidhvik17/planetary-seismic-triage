@@ -1,0 +1,28 @@
+{
+  "model": "unet_lunar_ft2",
+  "eval_body": "lunar",
+  "threshold": 0.2,
+  "min_dur_sec": 600,
+  "threshold_tuned_on": "val",
+  "tolerance_sec": 120.0,
+  "unet": {
+    "tp": 11,
+    "fp": 21,
+    "fn": 8,
+    "precision": 0.3438,
+    "recall": 0.5789,
+    "f1": 0.4314,
+    "mae_sec": 60.86,
+    "median_ae_sec": 50.11
+  },
+  "unet_refined_arrivals": {
+    "tp": 10,
+    "fp": 22,
+    "fn": 9,
+    "precision": 0.3125,
+    "recall": 0.5263,
+    "f1": 0.3922,
+    "mae_sec": 85.0,
+    "median_ae_sec": 78.72
+  }
+}

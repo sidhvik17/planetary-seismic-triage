@@ -33,6 +33,16 @@ injection-trained model is statistically indistinguishable from the
 supervised one **while never seeing a real labeled positive window**
 (`results/statistics_unet.json`).
 
+The two detectors are complementary operating regimes, not competitors:
+SeisCNN learned the Grade-A catalog's selection function (benchmark
+precision), SpecUNet learned event morphology (recall + survey mode).
+Hard-negative fine-tuning with the negative pool screened against the full
+Nakamura catalog (23 of 64 mined "negatives" were real moonquakes and were
+excluded) preserves recall but does not raise benchmark precision —
+consistent with the remaining "false positives" being dominated by real
+uncatalogued events rather than learnable noise
+(`results/unet_lunar_ft2_to_lunar.json`).
+
 **Mars, on official MQS labels:** the packet's Martian labels stop at 2
 files; cross-referencing its unlabeled files against MQS catalog v14 (IRIS
 mars-event service) plus fetching MQS events from the open XB.ELYSE archive
@@ -95,9 +105,16 @@ managed 60–93% (`results/catalog_extension/summary_lunar.json` vs
 morphology, not station fingerprints.
 
 Cross-body transfer collapses in both directions — reported as a finding.
-MC-Dropout σ separates false alarms from true events 5.9×; the human-review
-queue costs 2.6 items/day. Capacity beyond ~120K params *lowers* SeisCNN F1
-under 45-event label scarcity (see docs/figures/).
+MC-Dropout σ separates false alarms from true events 5.9× **for the
+supervised SeisCNN**; the human-review queue costs 2.6 items/day. Ported to
+the injection-trained SpecUNet the separation *inverts* (FP σ / TP σ =
+0.55) and curve-height confidence is not calibrated as a probability — the
+mid-confidence bin is 100% real events (incl. Nakamura) while the top bin
+holds the artifacts (`results/uncertainty_unet.json`). A model never taught
+the catalog's selection function cannot rank catalog membership by
+epistemic uncertainty: triage remains SeisCNN's role; SpecUNet is the
+survey and denoising instrument. Capacity beyond ~120K params *lowers*
+SeisCNN F1 under 45-event label scarcity (see docs/figures/).
 
 ## Layout
 

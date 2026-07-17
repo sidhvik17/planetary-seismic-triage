@@ -1,0 +1,36 @@
+{
+  "model": "unet_lunar",
+  "threshold": 0.3,
+  "min_dur_sec": 600.0,
+  "mc_passes": 10,
+  "n_detections": 31,
+  "counts": {
+    "tp": 11,
+    "fp_nakamura": 9,
+    "fp": 11
+  },
+  "median_sigma": {
+    "tp": 0.012978647363181267,
+    "fp_all_unmatched": 0.009142126062554538,
+    "fp_excluding_nakamura": 0.007200568402317897,
+    "real_events_tp_plus_nakamura": 0.014841044791150605
+  },
+  "sigma_separation_fp_over_tp": 0.55,
+  "sigma_separation_cleanfp_over_real": 0.49,
+  "calibration": [
+    {
+      "conf_bin": "0.55-0.7",
+      "n": 6,
+      "precision_grade_a": 0.833,
+      "precision_incl_nakamura": 1.0,
+      "mean_conf": 0.612
+    },
+    {
+      "conf_bin": "0.7-1.01",
+      "n": 25,
+      "precision_grade_a": 0.24,
+      "precision_incl_nakamura": 0.56,
+      "mean_conf": 0.819
+    }
+  ]
+}
