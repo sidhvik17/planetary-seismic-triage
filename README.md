@@ -1,30 +1,57 @@
 # Planetary Seismic Event Detection
 
-Automated detection and localization of planetary seismic events using a
-lightweight dual-head 1D CNN (117,842 params, 0.49 MB), trained on Apollo
-(lunar) and InSight (Martian) data, with MC-Dropout uncertainty, an on-lander
-downlink-triage demo, and a cross-body transfer study reported honestly.
-B.Tech major project. $0 stack: ObsPy + PyTorch + Streamlit, free data,
-free hosting.
+Two detector families for planetary seismic data, built on a $0 stack
+(ObsPy + PyTorch + Streamlit, free data, free hosting):
 
-**Repo:** https://github.com/sidhvik17/planetary-seismic-triage ·
+1. **SeisCNN** — lightweight dual-head 1D CNN (117,842 params), supervised
+   on the packet's window labels, with MC-Dropout uncertainty and an
+   on-lander downlink-triage demo.
+2. **SpecUNet** — MarsQuakeNet-style spectrogram U-Net (Dahmen et al. 2022)
+   trained **without any real labeled positives**: real event templates are
+   spectrally gated, injected into event-free noise at random SNRs, and the
+   exact time-frequency energy-ratio masks supervise a per-pixel event/noise
+   segmentation. Detection = frequency-integrated mask energy; the same mask
+   denoises the trace (mask × complex STFT → inverse).
+
+B.Tech major project. **Repo:** https://github.com/sidhvik17/planetary-seismic-triage ·
 **Report:** [docs/report.md](docs/report.md) · **Demo:** `streamlit run app/streamlit_app.py`
 
 ## Headline results (continuous held-out traces, ±120 s tolerance)
 
 | Experiment | P | R | F1 | MAE |
 |---|---|---|---|---|
-| Lunar→Lunar — **this CNN (118K)** | **0.556** | **0.526** | **0.541** | **40 s** |
+| Lunar→Lunar — **SeisCNN (118K, supervised)** | **0.556** | **0.526** | **0.541** | **40 s** |
+| Lunar→Lunar — SpecUNet (1.9M, injection-only) | 0.355 | **0.579** | 0.440 | 68 s |
 | Lunar→Lunar — STA/LTA (tuned) | 0.116 | 0.421 | 0.182 | 76 s |
 | Lunar→Lunar — PhaseNet 268K, zero-shot | 0.000 | 0.000 | 0.000 | — |
 | Lunar→Lunar — EQTransformer 376K, zero-shot | 0.006 | 0.053 | 0.011 | 106 s |
-| Lunar→Mars / Mars→Lunar transfer | — | — | ~0 | — |
+| Mars_ext→Mars_ext — SpecUNet (injection-only) | **1.000** | 0.600 | **0.750** | **25 s** |
+| Lunar→Mars / Mars→Lunar transfer (SeisCNN) | — | — | ~0 | — |
 
-Transfer collapses in both directions (including a MANet-style fine-tune on
-the single labeled Martian file) — reported as a finding. MC-Dropout σ
-separates false alarms from true events 5.9×; the human-review queue costs
-2.6 items/day. Capacity beyond ~120K params *lowers* F1 under 45-event label
-scarcity (see docs/figures/).
+Paired bootstrap ΔF1 (SpecUNet − SeisCNN) = −0.098 [−0.345, +0.152]: the
+injection-trained model is statistically indistinguishable from the
+supervised one **while never seeing a real labeled positive window**
+(`results/statistics_unet.json`).
+
+**Mars, on official MQS labels:** the packet's Martian labels stop at 2
+files; cross-referencing its unlabeled files against MQS catalog v14 (IRIS
+mars-event service) plus fetching top-magnitude MQS events from the open
+XB.ELYSE archive grows the set to 34 files / 5 frozen test spans
+(`benchmark/mars_ext_splits.json`). The injection-trained SpecUNet scores
+P=1.0 (zero false positives across 25 h), R=0.6, MAE 25 s on the frozen
+test — n=5 events, so treat as promising, not definitive.
+
+**Catalog extension (the MarsQuakeNet result, reproduced on the Moon):** of
+the SpecUNet's 20 benchmark "false positives" on the lunar test split, **9
+match events in the full Nakamura Apollo catalog** (13,058 events; ±5 min)
+that the benchmark's 76-label Grade-A subset simply omits — a 45% match rate
+against a 1.7% chance rate. Survey-mode precision is 0.645
+(`scripts/crosscheck_nakamura.py`, `results/nakamura_crosscheck.json`).
+
+Cross-body transfer collapses in both directions — reported as a finding.
+MC-Dropout σ separates false alarms from true events 5.9×; the human-review
+queue costs 2.6 items/day. Capacity beyond ~120K params *lowers* SeisCNN F1
+under 45-event label scarcity (see docs/figures/).
 
 ## Layout
 
@@ -36,14 +63,27 @@ planetseis/            core package (shared by training AND the web app)
   windows.py           overlapping windows + labels + shift augmentation
   dataset.py           torch Dataset with on-the-fly augmentation
   model.py             SeisCNN: conv backbone + detection & arrival heads
+  spectral.py          fixed 128x128 STFT grid, normalization, ratio masks
+  injection.py         MQNet synthetic-injection engine (templates, noise
+                       pool, glitch negatives, on-the-fly torch Dataset)
+  unet.py              SpecUNet: spectrogram U-Net, MC-Dropout bottleneck
+  detect_spec.py       stitched mask-curve detection + MQNet-style denoising
   baseline.py          STA/LTA classical detector
   detect.py            sliding-window inference + detection merging
   evaluate.py          precision / recall / MAE scorer (tolerance-matched)
-  train.py             training loop
+  train.py             SeisCNN training loop
 scripts/
   build_windows.py     raw packet -> cached npz datasets
-  run_eval.py          checkpoint -> metrics json (incl. transfer + baseline)
-app/streamlit_app.py   web demo
+  run_eval.py          SeisCNN checkpoint -> metrics json
+  train_unet.py        SpecUNet training on injection data
+  eval_unet.py         SpecUNet eval: (threshold, duration) tuned on val only
+  crosscheck_nakamura.py  benchmark FPs vs full 13,058-event Apollo catalog
+  scan_catalog_extension.py  uncatalogued station sets -> candidate events
+  fetch_mqs_labels.py  MQS v14 picks (IRIS) -> mars_ext labels
+  fetch_insight_context.py / fetch_mqs_train_events.py  InSight waveforms
+  statistics_unet.py   paired bootstrap SpecUNet vs SeisCNN
+tests/                 unit tests (STFT grid, injection, detection contracts)
+app/streamlit_app.py   web demo (both detectors + denoising view)
 results/               metrics json per experiment
 runs/                  checkpoints + training logs
 ```
@@ -71,6 +111,18 @@ Expand-Archive data\raw\space_apps_2024.zip data\raw
 .venv\Scripts\python scripts\run_eval.py --model runs\lunar\best.pt --eval-body mars
 .venv\Scripts\python scripts\run_eval.py --model runs\mars\best.pt --eval-body mars
 .venv\Scripts\python scripts\run_eval.py --model runs\mars\best.pt --eval-body lunar
+
+# SpecUNet (MQNet-style): injection training + benchmark eval + catalog checks
+.venv\Scripts\python scripts\train_unet.py --body lunar --epochs 30
+.venv\Scripts\python scripts\eval_unet.py --model runs\unet_lunar\best.pt --eval-body lunar
+.venv\Scripts\python scripts\crosscheck_nakamura.py --model runs\unet_lunar\best.pt --threshold 0.3 --min-dur 600
+.venv\Scripts\python scripts\statistics_unet.py --unet-thr 0.3
+# Mars extended track (fetches MQS v14 picks + InSight waveforms; network)
+.venv\Scripts\python scripts\fetch_mqs_labels.py
+.venv\Scripts\python scripts\fetch_insight_context.py
+.venv\Scripts\python scripts\fetch_mqs_train_events.py
+.venv\Scripts\python scripts\train_unet.py --body mars_ext --epochs 30
+.venv\Scripts\python scripts\eval_unet.py --model runs\unet_mars_ext\best.pt --eval-body mars_ext
 
 # ablations + extensions
 .venv\Scripts\python -m planetseis.train --body lunar --no-augment --tag noaug

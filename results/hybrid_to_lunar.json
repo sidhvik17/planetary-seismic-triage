@@ -1,0 +1,20 @@
+{
+  "model": "hybrid_unet_x_seiscnn",
+  "unet": "unet_lunar",
+  "cnn": "lunar",
+  "eval_body": "lunar",
+  "threshold": 0.3,
+  "min_dur_sec": 600,
+  "threshold_tuned_on": "val",
+  "tolerance_sec": 120.0,
+  "scores": {
+    "tp": 10,
+    "fp": 18,
+    "fn": 9,
+    "precision": 0.3571,
+    "recall": 0.5263,
+    "f1": 0.4255,
+    "mae_sec": 63.52,
+    "median_ae_sec": 71.89
+  }
+}

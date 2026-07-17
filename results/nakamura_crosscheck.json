@@ -1,0 +1,18 @@
+{
+  "model": "unet_lunar",
+  "split": "test",
+  "threshold": 0.3,
+  "min_dur_sec": 600.0,
+  "nakamura_match_tol_sec": 300.0,
+  "benchmark": {
+    "tp": 11,
+    "fp": 20,
+    "fn": 8,
+    "precision": 0.3548
+  },
+  "fp_matching_nakamura": 9,
+  "fp_nakamura_match_rate": 0.45,
+  "chance_match_rate": 0.0168,
+  "survey_precision": 0.6452,
+  "note": "survey_precision counts detections matching ANY Nakamura S12 event as true; recall is not restated because the benchmark's pick list stays the recall denominator"
+}

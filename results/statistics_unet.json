@@ -1,0 +1,23 @@
+{
+  "n_test_files": 19,
+  "unet_threshold": 0.3,
+  "unet_min_dur_sec": 600.0,
+  "cnn_threshold": 0.99,
+  "f1_unet": 0.44,
+  "f1_cnn": 0.5405,
+  "ci_unet": [
+    0.269,
+    0.612
+  ],
+  "ci_cnn": [
+    0.324,
+    0.757
+  ],
+  "delta_f1_unet_minus_cnn": -0.0982,
+  "ci_delta": [
+    -0.345,
+    0.152
+  ],
+  "p_delta_le_0": 0.7868,
+  "n_bootstrap": 10000
+}

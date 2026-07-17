@@ -48,7 +48,7 @@ class WindowConfig:
 # They are excluded from training and suppressed at detection time.
 # Lunar events ring for tens of minutes (high scattering, no attenuation);
 # the packet's Martian events last a few minutes.
-CODA_SEC = {"lunar": 1800.0, "mars": 300.0}
+CODA_SEC = {"lunar": 1800.0, "mars": 300.0, "mars_ext": 300.0}
 
 
 @dataclass

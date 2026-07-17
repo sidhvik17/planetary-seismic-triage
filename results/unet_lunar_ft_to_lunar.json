@@ -1,0 +1,18 @@
+{
+  "model": "unet_lunar_ft",
+  "eval_body": "lunar",
+  "threshold": 0.35,
+  "min_dur_sec": 600,
+  "threshold_tuned_on": "val",
+  "tolerance_sec": 120.0,
+  "unet": {
+    "tp": 4,
+    "fp": 1,
+    "fn": 15,
+    "precision": 0.8,
+    "recall": 0.2105,
+    "f1": 0.3333,
+    "mae_sec": 59.36,
+    "median_ae_sec": 60.23
+  }
+}

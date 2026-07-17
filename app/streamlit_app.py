@@ -20,8 +20,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from planetseis.config import CODA_SEC, DEFAULT as CFG, PROJECT_ROOT, RUNS_DIR
 from planetseis.detect import (Detection, cluster_detections, detect_events,
                                detect_events_mc)
+from planetseis.detect_spec import (denoise_trace, detect_events_spec,
+                                    detect_events_spec_mc)
 from planetseis.model import ARCHS, SeisCNN, count_params
 from planetseis.preprocessing import load_trace, normalize_window, preprocess
+from planetseis.unet import UNET_ARCHS, SpecUNet
 
 # validated palette (cream surface)
 INK = "#3D3833"
@@ -56,6 +59,23 @@ def get_model(body: str):
     model.load_state_dict(ckpt["model"])
     model.eval()
     return model
+
+
+@st.cache_resource
+def get_unet(body: str):
+    """Spectrogram U-Net checkpoint. Mars uses the mars_ext-trained model
+    (MQS v14 labels); lunar uses the injection-trained lunar model."""
+    names = ["unet_mars_ext", "unet_mars"] if body == "mars" else [f"unet_{body}"]
+    for name in names:
+        for path in (RUNS_DIR / name / "best.pt",
+                     PROJECT_ROOT / "models" / f"{name}_best.pt"):
+            if path.exists():
+                ckpt = torch.load(path, map_location="cpu", weights_only=False)
+                model = SpecUNet(base=UNET_ARCHS[ckpt.get("arch", "base")])
+                model.load_state_dict(ckpt["model"])
+                model.eval()
+                return model
+    return None
 
 
 @st.cache_data
@@ -136,16 +156,27 @@ tab_analyze, tab_triage, tab_about = st.tabs(
 
 # ---------------------------------------------------------------- analyze tab
 with tab_analyze:
-    c1, c2, c3 = st.columns([1, 1, 1])
+    c0, c1, c2, c3 = st.columns([1.4, 1, 1, 1])
+    detector = c0.selectbox(
+        "Detector", ["SpecUNet (spectrogram, MQNet-style)", "SeisCNN (1D)"],
+        help="SpecUNet predicts a per-pixel event mask on the time-frequency "
+             "grid (MarsQuakeNet approach, trained on synthetic event "
+             "injection); SeisCNN is the original window classifier")
     body = c1.selectbox("Model", ["lunar", "mars"], help="Body the detector was trained on")
-    threshold = c2.slider("Accept threshold", 0.1, 0.99, 0.9, 0.01)
+    is_unet = detector.startswith("SpecUNet")
+    if is_unet:
+        threshold = c2.slider("Accept threshold", 0.05, 0.80, 0.30, 0.01,
+                              help="on the frequency-integrated event-mask curve")
+    else:
+        threshold = c2.slider("Accept threshold", 0.1, 0.99, 0.9, 0.01)
     use_mc = c3.toggle("Uncertainty mode (MC-Dropout)", value=False,
                        help=f"{MC_PASSES} stochastic passes; borderline detections "
                             "are routed to a review queue instead of accepted/dropped")
 
-    model = get_model(body)
+    model = get_unet(body) if is_unet else get_model(body)
     if model is None:
-        st.error(f"No checkpoint for '{body}' — train first or add models/{body}_best.pt")
+        st.error(f"No checkpoint for '{body}' ({detector}) — train first or add "
+                 f"the checkpoint under models/")
         st.stop()
     st.caption(f"{count_params(model):,} parameters · CPU inference · "
                f"window ≈ {CFG.window.n_samples / 6.625 / 60:.0f} min")
@@ -171,7 +202,20 @@ with tab_analyze:
 
         with st.spinner("Preprocessing + inference..."):
             proc, prate = preprocess(raw, rate, CFG.preproc)
-            if use_mc:
+            if is_unet:
+                from planetseis.spectral import SEC_PER_BIN
+                if use_mc:
+                    dets, curve, cstd = detect_events_spec_mc(
+                        model, proc, prate, CFG, threshold,
+                        suppress_sec=CODA_SEC[body], n_passes=10)
+                else:
+                    dets, curve = detect_events_spec(
+                        model, proc, prate, CFG, threshold,
+                        suppress_sec=CODA_SEC[body])
+                    cstd = None
+                ws = np.arange(len(curve)) * SEC_PER_BIN
+                wp, wstd = curve, cstd
+            elif use_mc:
                 dets, ws, wp, wstd = detect_events_mc(
                     model, proc, prate, CFG, threshold, suppress_sec=CODA_SEC[body],
                     n_passes=MC_PASSES, review_band=(REVIEW_LOW, None), std_review=STD_REVIEW)
@@ -205,7 +249,10 @@ with tab_analyze:
             st.success("No events detected at this threshold — lower it to search "
                        "for weaker candidates.")
 
-        with st.expander("Window-level probabilities"):
+        curve_label = ("event-mask energy (band-integrated)" if is_unet
+                       else "P(event)")
+        with st.expander("Window-level probabilities" if not is_unet
+                         else "Event-mask detection curve"):
             pfig = go.Figure()
             if wstd is not None:
                 pfig.add_trace(go.Scatter(
@@ -214,15 +261,39 @@ with tab_analyze:
                                       np.clip(wp - wstd, 0, 1)[::-1]]),
                     fill="toself", fillcolor="rgba(199,78,0,0.18)",
                     line=dict(width=0), hoverinfo="skip", name="±1σ (MC)"))
-            pfig.add_trace(go.Scatter(x=ws, y=wp, mode="lines", name="P(event)",
+            pfig.add_trace(go.Scatter(x=ws, y=wp, mode="lines", name=curve_label,
                                       line=dict(color=EVENT, width=2)))
             pfig.add_hline(y=threshold, line_dash="dot", line_color=INK)
-            pfig.update_layout(height=240, xaxis_title="window start (s)",
-                               yaxis_title="P(event)", yaxis_range=[0, 1.02],
+            pfig.update_layout(height=240, xaxis_title="time (s)" if is_unet
+                               else "window start (s)",
+                               yaxis_title=curve_label, yaxis_range=[0, 1.02],
                                margin=dict(l=40, r=20, t=10, b=40),
                                paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
                                xaxis=dict(gridcolor=GRID), yaxis=dict(gridcolor=GRID))
             st.plotly_chart(pfig, use_container_width=True)
+
+        if is_unet:
+            with st.expander("Denoised trace (event-mask × spectrogram, MQNet-style)"):
+                with st.spinner("Denoising..."):
+                    den = denoise_trace(model, proc, prate)
+                dstep = max(1, len(proc) // 30_000)
+                t_d = np.arange(len(proc)) / prate
+                dfig = go.Figure()
+                dfig.add_trace(go.Scatter(x=t_d[::dstep], y=proc[::dstep],
+                                          mode="lines", name="input",
+                                          line=dict(width=0.8, color=GRID)))
+                dfig.add_trace(go.Scatter(x=t_d[::dstep], y=den[::dstep],
+                                          mode="lines", name="denoised",
+                                          line=dict(width=0.9, color=EVENT)))
+                dfig.update_layout(height=300, xaxis_title="time (s)",
+                                   yaxis_title="amplitude",
+                                   margin=dict(l=40, r=20, t=10, b=40),
+                                   paper_bgcolor="rgba(0,0,0,0)",
+                                   plot_bgcolor="rgba(0,0,0,0)")
+                st.plotly_chart(dfig, use_container_width=True)
+                st.caption("The predicted event mask multiplies the complex "
+                           "spectrogram; the inverse transform keeps only "
+                           "pixels the network attributes to event energy.")
 
 # ----------------------------------------------------------------- triage tab
 with tab_triage:
@@ -347,12 +418,21 @@ soft-argmax arrival head. Trained on Apollo 12 Grade-A catalogued events
 
 | Experiment | Precision | Recall | F1 | MAE |
 |---|---|---|---|---|
-| Lunar → Lunar (this CNN, 118K) | 0.556 | 0.526 | 0.541 | 40 s |
+| Lunar → Lunar (SeisCNN 118K, supervised) | 0.556 | 0.526 | 0.541 | 40 s |
+| Lunar → Lunar (SpecUNet 1.9M, injection-only) | 0.355 | 0.579 | 0.440 | 68 s |
 | Lunar → Lunar (STA/LTA, tuned) | 0.116 | 0.421 | 0.182 | 76 s |
 | Lunar → Lunar (PhaseNet 268K, zero-shot) | 0.000 | 0.000 | 0.000 | — |
 | Lunar → Lunar (EQTransformer 376K, zero-shot) | 0.006 | 0.053 | 0.011 | 106 s |
 | Lunar → Mars (transfer) | 0.000 | 0.000 | 0.000 | — |
 | Mars → Lunar (transfer) | 0.006 | 0.080 | 0.012 | 62 s |
+
+**SpecUNet** is a MarsQuakeNet-style spectrogram U-Net trained purely on
+synthetic event injection — no real labeled positive ever enters training —
+and lands statistically level with the supervised CNN (paired ΔF1
+−0.098 [−0.345, +0.152]). On the test split, 9 of its 20 benchmark "false
+positives" match real events in the full 13,058-event Nakamura Apollo
+catalog that the benchmark's Grade-A labels omit (45% vs 1.7% chance):
+survey-mode precision 0.645.
 
 Cross-body transfer **collapses in both directions** — reported as a finding:
 compact detectors do not cross planetary noise regimes without adaptation.
