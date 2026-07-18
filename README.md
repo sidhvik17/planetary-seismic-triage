@@ -196,6 +196,9 @@ Expand-Archive data\raw\space_apps_2024.zip data\raw
 .venv\Scripts\python scripts\uncertainty_eval.py                               # MC-Dropout + calibration
 .venv\Scripts\python scripts\make_figures.py                                   # report figures
 
+# one-command headline-table reproduction (frozen checkpoints, no tuning)
+.venv\Scripts\python scriptseproduce_headline.py
+
 # 6. web app (analysis + on-lander triage simulation)
 .venv\Scripts\streamlit run app\streamlit_app.py
 ```
