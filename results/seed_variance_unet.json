@@ -1,0 +1,36 @@
+{
+  "addendum": "post-freeze seed-variance run (benchmark rule 2); training code identical to tag v1.0-results-freeze (verified via git diff); seeds 1 and 2 trained sequentially, each evaluated with its OWN val-tuned operating point, test untouched",
+  "specunet": {
+    "per_seed_f1": {
+      "seed42": 0.44,
+      "seed1": 0.2807,
+      "seed2": 0.4151
+    },
+    "per_seed_operating_point": {
+      "seed42": [
+        0.3,
+        600
+      ],
+      "seed1": [
+        0.25,
+        600
+      ],
+      "seed2": [
+        0.25,
+        600
+      ]
+    },
+    "mean_f1": 0.3786,
+    "std_f1": 0.0857
+  },
+  "seiscnn_reference": {
+    "per_seed_f1": {
+      "seed42": 0.5405,
+      "seed1": 0.5,
+      "seed2": 0.4545
+    },
+    "mean_f1": 0.4983,
+    "std_f1": 0.043
+  },
+  "note": "SpecUNet seed variance (\u00b10.086) is roughly twice SeisCNN's (\u00b10.043); the single-seed paired-bootstrap comparison (delta -0.098 [-0.345,+0.152]) should be read as overlap, not tie. Injection training's stochastic stream (fresh injections every epoch) plus small val (11 files) makes operating-point selection the dominant variance source: seed1's weak val F1 (0.41 vs 0.53-0.60) flags it before test is ever touched."
+}

@@ -60,7 +60,7 @@ permutation test vs chance** (`scripts/statistics_rigor.py`).
 | EQTransformer (STEAD, zero-shot) | 376K | 0.006 | 0.053 | 0.011 |
 | SeisCNN (this repo, scratch) | 118K | 0.556 | 0.526 | 0.541 [0.324, 0.757] |
 | SeisCNN + planetary SSL (n=10 labels) | 118K | — | — | 0.492 ± 0.077 |
-| SpecUNet (MQNet-style injection, no real positives) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612] |
+| SpecUNet (MQNet-style injection, no real positives) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612]; seeds 0.38 ± 0.09 |
 
 SpecUNet's operating point is (mask threshold, min event duration) tuned on
 val; its benchmark FPs are dominated by real events outside the Grade-A
