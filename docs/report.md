@@ -1,4 +1,4 @@
-# Automated Detection and Localization of Planetary Seismic Events Using a Lightweight Deep Neural Network
+# Automated Detection, Denoising, and Catalog Extension of Planetary Seismic Events: a Supervised CNN and a Zero-Label Injection-Trained Spectrogram U-Net
 
 > Report draft. Every value marked `TBD` is filled from `results/*.json` after
 > training — the paper never ships with placeholders (PRD §2.2).
@@ -17,8 +17,7 @@ public NASA archives. On held-out continuous lunar data the model achieves
 precision 0.56 / recall 0.53 (F1 0.54; 0.50 ± 0.04 across seeds) with 40 s
 mean arrival error against minute-quantized catalog picks — 3× the F1 of a
 tuned STA/LTA baseline — and detects 80–93% of curated events at Apollo
-stations it never saw, while
-while STEAD-pretrained terrestrial models (PhaseNet, EQTransformer) applied
+stations it never saw, while STEAD-pretrained terrestrial models (PhaseNet, EQTransformer) applied
 zero-shot detect essentially nothing (F1 ≤ 0.01). Zero-shot cross-body
 transfer collapses in both directions, and fine-tuning on the single labeled
 Martian file does not recover detection, indicating that compact detectors
@@ -37,6 +36,27 @@ lower bound given known uncatalogued events in the archive. All experiments
 run on free-tier
 resources at $0 total cost, and an interactive web demo simulates on-lander
 triage with a ~96% downlink reduction on real held-out Apollo data.
+
+**Phase 2 (MQNet-class extension).** The project was subsequently extended
+with a MarsQuakeNet-style spectrogram U-Net (SpecUNet, 1.9M parameters)
+trained by *synthetic event injection* — spectrally gated, despiked real
+event templates injected into event-free planetary noise with exact
+energy-ratio mask supervision and synthetic glitch negatives — so that **no
+real labeled positive ever enters training**. The zero-label detector
+overlaps the supervised CNN on the frozen benchmark (paired bootstrap ΔF1
+−0.098 [−0.345, +0.152]; 3 seeds 0.38 ± 0.09 vs 0.50 ± 0.04) at higher
+recall, and its benchmark "false positives" are substantially real: 9 of 20
+match events in the full 13,058-event Nakamura catalog (45% vs 1.7% chance,
+permutation p < 10⁻⁴) — the MQNet catalog-extension result reproduced on
+the Moon. The same mask denoises (+8–9 dB SDR over bandpass at the hardest
+SNR bin) and refines Martian arrivals (MAE 24.5 → 18.7 s). A new `mars_ext`
+benchmark track built from official MQS v14 picks (46 files; 30
+tuning-blind test events) yields precision 1.000 over ~85 h at recall
+0.233. A deployment caveat emerged: MC-Dropout uncertainty separation
+*inverts* under injection training (5.9× → 0.49×), so triage remains the
+supervised model's role while the zero-label model runs survey and
+denoising. All numbers are frozen at git tag `v1.0-results-freeze` and
+reproduce from a fresh clone with one command.
 
 ## 1. Problem Statement
 
@@ -464,6 +484,60 @@ low-confidence events for human review under label scarcity; fine-tuning
 (rather than zero-shot) transfer with small target-body budgets; and a
 rigorous accuracy-vs-power Pareto analysis on edge hardware.
 
+## 8. Phase 2: MQNet-Class Extension — SpecUNet, Injection Training, and Catalog Extension
+
+Phase 1 (Sections 1–7) established the supervised SeisCNN and its triage
+story. Phase 2 rebuilt the project around the technique that defines the
+state of the art on Mars — MarsQuakeNet's synthetic-injection training —
+and validated it against full historical catalogs. Everything below is
+reproducible at `v1.0-results-freeze` (+`v1.0.1-seed-addendum`).
+
+### 8.1 New technology stack
+
+| Component | Module | Role |
+|---|---|---|
+| STFT front end | `planetseis/spectral.py` | fixed 128×128 complex grid @6.625 Hz; robust normalization; energy-ratio masks with noise floor |
+| Injection engine | `planetseis/injection.py` | despiked, spectrally gated templates → event-free noise at SNR 0.4–12×; synthetic glitch **negatives**; on-the-fly torch Dataset |
+| Detector/denoiser | `planetseis/unet.py`, `detect_spec.py` | SpecUNet (1.9M params); stitched mask-energy curve + **minimum-duration gate**; denoise = mask × STFT → inverse; denoised-onset arrival refinement |
+| Mars data engine | `scripts/fetch_mqs_*.py`, `fetch_insight_context.py` | official MQS v14 picks via IRIS mars-event WS; XB.ELYSE waveforms via EarthScope FDSN; leakage-guarded `mars_ext` splits |
+| Verification | `scripts/crosscheck_nakamura.py`, `crosscheck_mqnet.py` | detections vs 13,058-event Nakamura catalog and MQNet's released detection list; permutation nulls |
+| Statistics | `scripts/statistics_unet.py`, seed addendum | paired file-level bootstrap; 3-seed variance with per-seed val tuning |
+| Infra | `tests/` (19), CI, `reproduce_headline.py` | headline table reproduces from a fresh clone, exits nonzero on drift |
+
+### 8.2 Headline results
+
+| Result | Value | Artifact |
+|---|---|---|
+| Lunar test F1 (zero-label SpecUNet) | 0.440 (P .355 / R .579); seeds 0.38 ± 0.09 | `results/unet_lunar_to_lunar.json` |
+| Paired ΔF1 vs supervised SeisCNN | −0.098 [−0.345, +0.152] — overlap | `results/statistics_unet.json` |
+| **Catalog extension** | 9/20 benchmark FPs = real Nakamura events (45% vs 1.7% chance, p < 10⁻⁴); survey precision 0.645 | `results/nakamura_crosscheck.json`, `docs/figures/nakamura_match_*.png` |
+| Mars (30 events, MQS v14) | P 1.000 over ~85 h, R 0.233, MAE 18.7 s refined | `results/unet_mars_ext_to_mars_ext.json` |
+| Denoising | +8–9 dB SDR over bandpass at SNR 0.4–1.0× | `results/denoise_metrics_*.json` |
+| Cross-station weak labels | 95/96 files; S15/S16 100% (SeisCNN 60–93%) | `results/catalog_extension/summary_lunar.json` |
+| σ-inversion | MC-Dropout separation 5.9× (supervised) → 0.49× (injection) | `results/uncertainty_unet.json` |
+
+### 8.3 Honest negatives kept on the record
+
+Naive denoise→detect chaining collapses precision (distribution shift);
+retraining the CNN on denoised windows restores a tie and raw+denoised
+fusion reaches best-anywhere recall 0.684. Hard-negative fine-tuning
+collapsed recall until the mined pool was screened against Nakamura — 23 of
+64 mined "negatives" were real moonquakes; the clean pool preserves recall
+without a precision gain, itself evidence that residual FPs are real
+uncatalogued events. Arrival refinement helps Mars (24.5 → 18.7 s) and
+hurts lunar emergent onsets. The Mars n=5 recall of 0.6 fell to 0.233 on
+the honest 30-event expansion — reported as the correction it is.
+
+### 8.4 Revised division of labor
+
+The two detectors are complementary instruments, not competitors: the
+supervised SeisCNN carries the catalog's selection function and the
+calibrated triage/review queue; the injection-trained SpecUNet carries
+recall, cross-station generalization, catalog extension, and denoising. A
+model never taught the catalog's selection function cannot rank catalog
+membership by epistemic uncertainty — the σ-inversion is the deployment
+boundary between the two.
+
 ## References
 
 1. Zhu & Beroza (2019). PhaseNet: a deep-neural-network-based seismic arrival-time picking method. *GJI*.
@@ -475,3 +549,8 @@ rigorous accuracy-vs-power Pareto analysis on edge hardware.
 7. NASA Space Apps Challenge 2024, "Seismic Detection Across the Solar System" data packet.
 8. Gal & Ghahramani (2016). Dropout as a Bayesian approximation. *ICML*.
 9. Guo et al. (2017). On calibration of modern neural networks. *ICML*.
+10. Dahmen et al. (2022). MarsQuakeNet: a more complete marsquake catalog obtained by deep learning techniques. *JGR Planets*.
+11. Dahmen & Stott (2024). Revisiting Martian seismicity with deep-learning-based denoising. *GJI*.
+12. Nakamura et al. (2008 rev.). Passive seismic experiment long-period event catalog. UTIG TR-18.
+13. InSight Marsquake Service (2023). Mars seismic catalogue v14. doi:10.12686/a21.
+14. Ovadia et al. (2019). Can you trust your model's uncertainty? *NeurIPS*.
