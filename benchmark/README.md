@@ -60,7 +60,9 @@ permutation test vs chance** (`scripts/statistics_rigor.py`).
 | EQTransformer (STEAD, zero-shot) | 376K | 0.006 | 0.053 | 0.011 |
 | SeisCNN (this repo, scratch) | 118K | 0.556 | 0.526 | 0.541 [0.324, 0.757] |
 | SeisCNN + planetary SSL (n=10 labels) | 118K | — | — | 0.492 ± 0.077 |
-| SpecUNet (MQNet-style injection, no real positives) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612]; seeds 0.38 ± 0.09 |
+| Matched filter (45 train templates, val-tuned) | — | 0.333 | 0.158 | 0.214 |
+| Matched filter (*oracle*, operating point tuned on test) | — | 0.261 | 0.316 | 0.286 |
+| SpecUNet (MQNet-style injection, no real positives) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612] — **max of 3 seeds**; 5-seed mean 0.372 ± 0.076 |
 
 SpecUNet's operating point is (mask threshold, min event duration) tuned on
 val; its benchmark FPs are dominated by real events outside the Grade-A
@@ -82,7 +84,11 @@ Reproduce any row: `scripts/run_eval.py`, `scripts/seisbench_baseline.py`,
 
 1. Never touch the test split during development — threshold and all
    hyperparameters tune on val.
-2. Report seed variance (≥3 seeds) for anything trained.
+2. Report seed variance (**≥5 seeds**) for anything trained, and compare
+   models on the seed MEAN, not a single checkpoint. Raised from 3 after a
+   3-seed reading supported a "statistically indistinguishable" claim that
+   5 seeds refuted (Welch p = 0.024); single-checkpoint scores here are
+   dominated by seed variance. See `results/seed_level_comparison.json`.
 3. Report the SNR-stratified recall and the PR curve, not just the operating
    point.
 4. Mars single-event results are anecdotal; label them so.

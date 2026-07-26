@@ -22,16 +22,54 @@ B.Tech major project. **Repo:** https://github.com/sidhvik17/planetary-seismic-t
 |---|---|---|---|---|
 | Lunar→Lunar — **SeisCNN (118K, supervised)** | **0.556** | **0.526** | **0.541** | **40 s** |
 | Lunar→Lunar — SpecUNet (1.9M, injection-only) | 0.355 | **0.579** | 0.440 | 68 s |
+| Lunar→Lunar — **matched filter** (45 train templates, val-tuned) | 0.333 | 0.158 | 0.214 | 56 s |
+| Lunar→Lunar — matched filter, *oracle* test-tuned upper bound | 0.261 | 0.316 | 0.286 | 59 s |
 | Lunar→Lunar — STA/LTA (tuned) | 0.116 | 0.421 | 0.182 | 76 s |
 | Lunar→Lunar — PhaseNet 268K, zero-shot | 0.000 | 0.000 | 0.000 | — |
 | Lunar→Lunar — EQTransformer 376K, zero-shot | 0.006 | 0.053 | 0.011 | 106 s |
+
+**Matched filtering is the baseline that matters** — Nakamura (2003) and
+Bulow et al. (2005, 2007) extended the Apollo catalog by waveform
+cross-correlation, so it, not a terrestrial picker, is the method this work
+must beat. Templates come from the *same* 45 Grade-A train events the
+injection engine uses, so the labelled-information budget is identical;
+template length and MAD threshold are both selected on val. It reaches
+F1 0.214, and even an *oracle* allowed to pick its operating point on the
+test set reaches only 0.286 — below every learned detector here
+(`results/matched_filter_lunar.json`). The reason is structural: template
+matching wins on *repeating* sources, and the Grade-A benchmark events are
+heterogeneous. That same property is why it remains the right tool for
+deep-moonquake nests, which the archive scan confirms independently
+(`results/archive_scan/B3_FINDINGS.md`). PhaseNet/EQTransformer scoring ~0
+is a domain mismatch — 100 Hz terrestrial P/S pickers on 6.625 Hz emergent,
+scattered signals — and is reported as context, not as a competitive
+baseline.
 | Mars_ext→Mars_ext — SpecUNet (injection-only, n=30 events) | **1.000** | 0.233 | 0.378 | 34 s |
 | Lunar→Mars / Mars→Lunar transfer (SeisCNN) | — | — | ~0 | — |
 
-Paired bootstrap ΔF1 (SpecUNet − SeisCNN) = −0.098 [−0.345, +0.152]: the
-injection-trained model is statistically indistinguishable from the
-supervised one **while never seeing a real labeled positive window**
-(`results/statistics_unet.json`).
+**Seed-level comparison (5 seeds SpecUNet, 3 seeds SeisCNN) — the supervised
+detector is significantly better.** Averaged over seeds rather than read off
+one checkpoint:
+
+| detector | seeds | mean F1 | sd |
+|---|---|---|---|
+| SeisCNN (supervised) | 3 | **0.498** | 0.043 |
+| SpecUNet (injection-only, screened) | 5 | 0.372 | 0.076 |
+| SpecUNet (injection-only, unscreened) | 3 | 0.379 | 0.086 |
+
+Welch t-test, SeisCNN vs SpecUNet: **p = 0.024**. The earlier "statistically
+indistinguishable" claim does **not** survive proper seed accounting — it came
+from a single-seed paired bootstrap that resampled test files while holding
+the trained model fixed, so it never saw training stochasticity, which for
+injection training (fresh synthetic events every epoch) is a first-order
+effect. The defensible claim is that **injection-only training reaches 74.7%
+of supervised mean F1 while using zero labeled positive windows**. That is
+not parity and is not described as such
+(`results/seed_level_comparison.json`).
+
+Note also that the frozen v1.0 SpecUNet figure, F1 0.440, is the **maximum**
+of its three seeds; the seed mean is 0.379. Single-checkpoint numbers in this
+README should be read against the seed distribution.
 
 The two detectors are complementary operating regimes, not competitors:
 SeisCNN learned the Grade-A catalog's selection function (benchmark
@@ -42,6 +80,28 @@ excluded) preserves recall but does not raise benchmark precision —
 consistent with the remaining "false positives" being dominated by real
 uncatalogued events rather than learnable noise
 (`results/unet_lunar_ft2_to_lunar.json`).
+
+**Contaminated negatives (positive-unlabeled ablation).** The injection
+engine harvests "event-free" noise by guarding the 76 Grade-A picks — but
+those are a strict *subset* of Nakamura (all 75 checked picks fall within
+±60 s of a catalog entry), so the ~5,300 remaining S12 events are harvested
+as noise and trained against a zero mask. Measured contamination: **8.38%
+of eligible noise windows (2,009,601 of 23,977,989)** sit inside the guard
+radius of a real catalogued event — textbook case-control contamination.
+Retraining with those windows screened out (`--screen-nakamura`) and
+comparing **across 5 seeds vs 3**: mean F1 0.372 (screened) vs 0.379
+(unscreened), Welch **p = 0.923**. **Training-negative contamination has no
+measurable effect on benchmark F1.** The single-seed 0.440 → 0.407 drop seen
+before the seed experiment was noise, not an effect — a useful reminder of
+how misleading one checkpoint is here.
+
+At a fixed seed the screened model did leave Grade-A recall identical (11 TP)
+while raising real catalogued events found from 20 to 22 — the metric
+penalizing a model for finding events its label subset omits — but that too
+is a 2-event difference on 19 files and is not claimed as significant
+(`results/ablation_noise_screen.json`, `results/seed_level_comparison.json`).
+The frozen headline therefore keeps the unscreened checkpoint: with p = 0.92
+there is no basis for re-freezing.
 
 **Mars, on official MQS labels:** the packet's Martian labels stop at 2
 files; cross-referencing its unlabeled files against MQS catalog v14 (IRIS
@@ -65,9 +125,15 @@ the SpecUNet's 20 benchmark "false positives" on the lunar test split, **9
 match events in the full Nakamura Apollo catalog** (13,058 events) that the
 benchmark's 76-label Grade-A subset simply omits — 45% match rate vs 1.7%
 chance, permutation test p < 10⁻⁴ (0 of 10,000 random placements reach 9).
-Match tolerance ±5 min (Nakamura signal-start times are minute-quantized
-and mark signal start, not arrival; sensitivity: 5 matches at ±3 min, 9 at
-±5 min, all reported). Survey-mode precision 0.645. Side-by-side waveform
+Match tolerance ±5 min, set by **detector** arrival error, not catalog
+coarseness: SpecUNet's true-positive arrivals carry MAE 68 s / median 77 s,
+so genuine matches routinely land 2–4 min from a catalog time. (The catalog
+itself is tighter than it looks — all 75 checked Grade-A picks fall within
+±60 s of their Nakamura entry — which is why the earlier "Nakamura times are
+too coarse" justification was wrong.) Sensitivity is reported in full: 0
+matches at ±60 s, 1 at ±120 s, 5 at ±180 s, 9 at ±300 s. The permutation test
+is evaluated at the same tolerance, so the p-value is unaffected by the
+choice. Survey-mode precision 0.645. Side-by-side waveform
 evidence in `docs/figures/nakamura_match_*.png` — match #1 is an
 unambiguous meteoroid impact with an hour of coda, 160 s from its catalog
 entry (`scripts/crosscheck_nakamura.py`,
@@ -197,7 +263,7 @@ Expand-Archive data\raw\space_apps_2024.zip data\raw
 .venv\Scripts\python scripts\make_figures.py                                   # report figures
 
 # one-command headline-table reproduction (frozen checkpoints, no tuning)
-.venv\Scripts\python scriptseproduce_headline.py
+.venv\Scripts\python scripts\reproduce_headline.py
 
 # 6. web app (analysis + on-lander triage simulation)
 .venv\Scripts\streamlit run app\streamlit_app.py
@@ -209,9 +275,9 @@ Expand-Archive data\raw\space_apps_2024.zip data\raw
 |---|---|---|
 | Common sampling rate | 6.625 Hz | Apollo LP native; InSight downsampled — one input distribution for cross-body |
 | Bandpass | 0.5–3.0 Hz | under common Nyquist; keeps Apollo 0.5–1 Hz energy and Mars 2.4 Hz band |
-| Window | 4096 samples (~618 s), 50% overlap | lunar events are long/emergent |
+| Window | 8192 samples (~1236 s), hop 4096 (50% overlap) | lunar events are long/emergent |
 | Normalization | per-window z-score | no global statistics → no train/test leakage |
-| Match tolerance | ±60 s | catalog picks are themselves approximate (emergent onsets) |
+| Match tolerance | ±120 s | lunar picks are minute-quantized and onsets emergent, so tolerance must exceed the 60 s label resolution |
 | Splits | by file, seeded | events never leak across train/val/test |
 | Threshold | tuned on val, never test | honest precision/recall |
 | Metrics | on continuous traces | balanced window accuracy would be meaningless |

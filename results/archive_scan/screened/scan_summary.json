@@ -1,0 +1,25 @@
+{
+  "model": "runs/unet_lunar_screened/best.pt",
+  "threshold": 0.25,
+  "min_dur_sec": 600.0,
+  "min_valid": 0.9,
+  "coda_sec": 1800.0,
+  "stations": {
+    "S12": {
+      "detections": 253,
+      "valid_station_days": 2755.95,
+      "detections_per_station_day": 0.0918
+    },
+    "S15": {
+      "detections": 229,
+      "valid_station_days": 2170.12,
+      "detections_per_station_day": 0.1055
+    },
+    "S16": {
+      "detections": 399,
+      "valid_station_days": 1922.32,
+      "detections_per_station_day": 0.2076
+    }
+  },
+  "note": "detections_per_station_day is the RAW rate before any Nakamura matching; it is an upper bound on the false-alarm rate, since real uncatalogued events are counted here too"
+}

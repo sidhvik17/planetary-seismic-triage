@@ -42,10 +42,18 @@ with a MarsQuakeNet-style spectrogram U-Net (SpecUNet, 1.9M parameters)
 trained by *synthetic event injection* — spectrally gated, despiked real
 event templates injected into event-free planetary noise with exact
 energy-ratio mask supervision and synthetic glitch negatives — so that **no
-real labeled positive ever enters training**. The zero-label detector
-overlaps the supervised CNN on the frozen benchmark (paired bootstrap ΔF1
-−0.098 [−0.345, +0.152]; 3 seeds 0.38 ± 0.09 vs 0.50 ± 0.04) at higher
-recall, and its benchmark "false positives" are substantially real: 9 of 20
+real labeled positive ever enters training**. Across seeds the zero-label
+detector reaches **74.7% of the supervised CNN's mean F1** (0.372 ± 0.076
+over 5 seeds vs 0.498 ± 0.043 over 3; Welch p = 0.024) at higher recall. It
+also beats the baseline this field asks for first — waveform template
+matching on the identical 45-event label budget — which reaches F1 0.214,
+or 0.286 even when its operating point is tuned on the test set. *(An
+earlier version of this report claimed the two detectors were
+"statistically indistinguishable", from a paired bootstrap that resampled
+test files while holding the trained model fixed and so never saw training
+stochasticity. Five seeds refuted it; see `results/seed_level_comparison.json`.
+The frozen single checkpoint scores 0.440, the maximum of its three seeds.)*
+Its benchmark "false positives" are substantially real: 9 of 20
 match events in the full 13,058-event Nakamura catalog (45% vs 1.7% chance,
 permutation p < 10⁻⁴) — the MQNet catalog-extension result reproduced on
 the Moon. The same mask denoises (+8–9 dB SDR over bandpass at the hardest
@@ -57,6 +65,26 @@ tuning-blind test events) yields precision 1.000 over ~85 h at recall
 supervised model's role while the zero-label model runs survey and
 denoising. All numbers are frozen at git tag `v1.0-results-freeze` and
 reproduce from a fresh clone with one command.
+
+**Phase 3 (continuous-archive test — a negative result).** The frozen
+benchmark is 183 curated single-event snippets, so n = 19 test events is
+structural, not a choice. We therefore ingested the continuous Apollo
+archive (FDSN network XA): 16.2 GB, **7,850 valid station-days** across
+S12/S14/S15/S16, and scanned 6,850 of them. **The paradigm does not scale.**
+On S12 — the training station, best case — the detector reaches recall 0.525
+against the full Nakamura catalog at **15.4 unmatched detections per
+station-day**, or a tolerable 0.19/day at recall 0.071; the benchmark-tuned
+operating point recovers **0.8%**. A single-station HMM (Knapmeyer-Endrun &
+Hammer 2015) reports >95% on impacts and ~70% on deep moonquakes. Type
+stratification explains it: deep moonquakes are 56% of the catalog (7,318
+events, 320 nests) and recall on them collapses off the training station
+(0.52 → 0.21 → 0.14 for S12 → S15 → S16), because injection training from 45
+large templates has no purchase on small *repeating* sources — precisely what
+waveform correlation exploits. The one clear positive: **shallow moonquakes,
+the rarest class at 28 catalog-wide, are recovered best (39/61 across
+stations)**. A positive-unlabeled ablation on the 8.4% of noise windows
+containing real catalogued events returns **null** (p = 0.923). See
+`results/archive_scan/B3_FINDINGS.md`.
 
 ## 1. Problem Statement
 

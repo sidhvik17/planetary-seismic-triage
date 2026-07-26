@@ -74,6 +74,10 @@ def main():
     ap.add_argument("--threshold", type=float, required=True)
     ap.add_argument("--min-dur", type=float, required=True)
     ap.add_argument("--split", default="test")
+    ap.add_argument("--tag", default="",
+                    help="output suffix. Without it this overwrites the "
+                         "frozen v1.0 crosscheck the README cites — pass a "
+                         "tag whenever evaluating anything but unet_lunar.")
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -186,9 +190,11 @@ def main():
                 "benchmark's pick list stays the recall denominator",
     }
     out_dir = PROJECT_ROOT / "results"
-    pd.DataFrame(rows).to_csv(out_dir / "nakamura_crosscheck_detections.csv",
-                              index=False)
-    (out_dir / "nakamura_crosscheck.json").write_text(json.dumps(result, indent=2))
+    sfx = f"_{args.tag}" if args.tag else ""
+    pd.DataFrame(rows).to_csv(
+        out_dir / f"nakamura_crosscheck_detections{sfx}.csv", index=False)
+    (out_dir / f"nakamura_crosscheck{sfx}.json").write_text(
+        json.dumps(result, indent=2))
     print(json.dumps(result, indent=2))
 
 

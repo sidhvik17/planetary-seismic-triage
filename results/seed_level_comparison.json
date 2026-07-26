@@ -1,0 +1,43 @@
+{
+  "experiment": "seed-level comparison of the three lunar detectors (A3)",
+  "date": "2026-07-25",
+  "why": "Every earlier comparison rested on ONE seed per model plus a paired bootstrap over 19 test files, which resamples files but not training stochasticity. Injection training draws fresh synthetic events every epoch, so the seed is a first-order source of variance and must be in the error bar. Five seeds is the standard bar.",
+  "protocol": "Each seed trained with identical hyperparameters and evaluated at its OWN val-tuned operating point (eval_unet.py); test never touched during selection.",
+  "detectors": {
+    "seiscnn_supervised": {
+      "n_seeds": 3,
+      "per_seed_f1": [0.5405, 0.5, 0.4545],
+      "mean_f1": 0.4983,
+      "std_f1": 0.043
+    },
+    "specunet_injection_unscreened": {
+      "n_seeds": 3,
+      "per_seed_f1": [0.44, 0.2807, 0.4151],
+      "mean_f1": 0.3786,
+      "std_f1": 0.0857
+    },
+    "specunet_injection_screened": {
+      "n_seeds": 5,
+      "per_seed_f1": [0.4074, 0.4906, 0.3265, 0.3111, 0.3265],
+      "mean_f1": 0.3724,
+      "std_f1": 0.0761
+    }
+  },
+  "tests": {
+    "seiscnn_vs_specunet_screened": {
+      "welch_t": 2.988,
+      "p_value": 0.0244,
+      "mean_difference": 0.1259,
+      "conclusion": "The supervised detector is significantly better at the seed level. The earlier 'statistically indistinguishable' claim does NOT survive proper seed accounting - it came from a single-seed paired bootstrap that resampled test files but held the trained model fixed."
+    },
+    "noise_screen_effect": {
+      "welch_t": 0.103,
+      "p_value": 0.9231,
+      "mean_difference": 0.0062,
+      "conclusion": "Screening the ~8.4% Nakamura-contaminated noise windows has NO measurable effect on benchmark F1. The single-seed 0.440 -> 0.407 drop reported before this experiment was seed noise, not an effect."
+    }
+  },
+  "headline_checkpoint_caveat": "The frozen v1.0 SpecUNet number, F1 0.440, is the MAXIMUM of its three seeds; the seed mean is 0.379. Any single-checkpoint figure in this repository should be read alongside the seed distribution, not as a typical draw.",
+  "revised_claim": "Injection-only training, using ZERO labelled positive windows, reaches 74.7% of the supervised detector's mean F1 (0.372 vs 0.498). That is the defensible statement. It is not parity, and it should not be described as such.",
+  "what_this_does_not_fix": "Seed variance is now properly accounted, but the evaluation set is still 19 continuous test files / 19 events. No amount of reseeding addresses that; only a larger labelled evaluation set would."
+}

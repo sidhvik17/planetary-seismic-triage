@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import sys
 import time
 from pathlib import Path
@@ -23,7 +24,7 @@ from torch.utils.data import DataLoader
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from planetseis.config import RUNS_DIR, SEED
+from planetseis.config import DATA_CACHE, RUNS_DIR, SEED
 from planetseis.injection import InjectionDataset
 from planetseis.model import count_params
 from planetseis.train import set_seed
@@ -78,10 +79,25 @@ def main():
                     help="npz of mined hard-negative windows "
                          "(scripts/mine_unet_hardneg.py)")
     ap.add_argument("--p-hardneg", type=float, default=0.35)
+    ap.add_argument("--screen-nakamura", action="store_true",
+                    help="exclude noise windows near ANY catalogued Nakamura "
+                         "event, not just the Grade-A picks "
+                         "(scripts/build_nakamura_screen.py)")
     args = ap.parse_args()
 
     set_seed(args.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # loaded before any CUDA context exists: plain JSON, no obspy, no pandas
+    screen = None
+    if args.screen_nakamura:
+        sp = DATA_CACHE / args.body / "nakamura_screen.json"
+        if not sp.exists():
+            sys.exit(f"missing {sp} — run scripts/build_nakamura_screen.py "
+                     f"--body {args.body} first")
+        screen = json.loads(sp.read_text())
+        print(f"Nakamura screen: {sum(len(v) for v in screen.values())} event "
+              f"times across {len(screen)} files")
 
     hardneg = None
     if args.hardneg:
@@ -90,16 +106,19 @@ def main():
               f"(p_hardneg={args.p_hardneg})")
     ds_tr = InjectionDataset(args.body, "train", epoch_len=args.epoch_len,
                              p_hardneg=args.p_hardneg if hardneg is not None else 0.0,
-                             hardneg_windows=hardneg, seed=None)
+                             hardneg_windows=hardneg, seed=None, screen=screen)
+    if screen is not None:
+        print(f"screened out {ds_tr.pool.n_screened:,} noise window starts "
+              f"beyond the Grade-A guard")
     val_split = args.val_split
     try:
         ds_va = InjectionDataset(args.body, val_split, epoch_len=1280,
-                                 seed=args.seed)
+                                 seed=args.seed, screen=screen)
     except RuntimeError:
         print(f"WARNING: no {val_split} files — validating on train-split "
               "injections (mars fallback)")
         ds_va = InjectionDataset(args.body, "train", epoch_len=1280,
-                                 seed=args.seed + 1)
+                                 seed=args.seed + 1, screen=screen)
     # Windows + CUDA parent: spawned workers have repeatedly triggered CUDA
     # 'unknown error' crashes here; generation is 7 ms/sample so the main
     # process keeps the GPU >90% busy anyway.
