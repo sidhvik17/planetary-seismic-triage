@@ -1,4 +1,4 @@
-# Automated Detection, Denoising, and Catalog Extension of Planetary Seismic Events: a Supervised CNN and a Zero-Label Injection-Trained Spectrogram U-Net
+# APSIS: Automated Detection, Denoising, and Catalog Extension of Planetary Seismic Events with a Supervised CNN and a Zero-Label Injection-Trained Spectrogram U-Net
 
 > Report draft. Every value marked `TBD` is filled from `results/*.json` after
 > training — the paper never ships with placeholders (PRD §2.2).

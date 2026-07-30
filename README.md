@@ -1,4 +1,6 @@
-# Planetary Seismic Event Detection
+# APSIS — Archival Planetary Seismology with Injection Supervision
+
+*Project and paper name; the Python package remains `planetseis`.*
 
 Two detector families for planetary seismic data, built on a $0 stack
 (ObsPy + PyTorch + Streamlit, free data, free hosting):
