@@ -16,12 +16,17 @@ catalog's signal-start times are minute-quantized, so ±5 min.
 
 Usage: python scripts/crosscheck_nakamura.py --model runs/unet_lunar/best.pt
            --threshold 0.3 --min-dur 600
+Corrected split (never overwrites an existing result):
+       python scripts/crosscheck_nakamura.py --data-dir data/cache/lunar_grouped_v1
+           --model models/unet_lunar_grouped_v1_seed42.pt --threshold 0.25
+           --min-dur 430 --tag lunar_grouped_v1_seed42
 Requires data/raw/levent.1008.dat. Writes results/nakamura_crosscheck.json
 plus a per-detection CSV.
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -78,15 +83,33 @@ def main():
                     help="output suffix. Without it this overwrites the "
                          "frozen v1.0 crosscheck the README cites — pass a "
                          "tag whenever evaluating anything but unet_lunar.")
+    ap.add_argument("--data-dir", type=Path,
+                    help="versioned dataset root (e.g. data/cache/lunar_grouped_v1); "
+                         "requires --tag and never overwrites a result")
     args = ap.parse_args()
+    root = args.data_dir or DATA_CACHE / "lunar"
+    out_dir = PROJECT_ROOT / "results"
+    sfx = f"_{args.tag}" if args.tag else ""
+    out_json = out_dir / f"nakamura_crosscheck{sfx}.json"
+    manifest_sha, benchmark_id = None, "historical filename split"
+    if args.data_dir is not None:
+        if not args.tag:
+            ap.error("--data-dir requires --tag")
+        if out_json.exists():
+            sys.exit(f"refusing to overwrite {out_json}")
+        raw_manifest = (root / "manifest.json").read_bytes()
+        manifest_sha = hashlib.sha256(raw_manifest).hexdigest()
+        benchmark_id = json.loads(raw_manifest)["benchmark_id"]
 
+    # Parse the catalog before any CUDA context exists: mass UTCDateTime
+    # construction next to a live context has segfaulted on this machine.
+    nak = load_nakamura()
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ckpt = torch.load(args.model, map_location=device, weights_only=False)
+    ckpt = torch.load(args.model, map_location=device, weights_only=True)
     model = SpecUNet(base=UNET_ARCHS[ckpt.get("arch", "base")])
     model.load_state_dict(ckpt["model"])
     model.eval().to(device)
 
-    nak = load_nakamura()
     nak_times = np.array([float(t) for t in nak["utc"]])
     print(f"Nakamura S12-detected events: {len(nak)}")
     rng = np.random.default_rng(42)
@@ -101,10 +124,13 @@ def main():
     rows = []
     n_tp = n_fp = n_fn = 0
     n_fp_nak = 0
-    for p in sorted((DATA_CACHE / "lunar" / "continuous" / args.split).glob("*.npz")):
+    for p in sorted((root / "continuous" / args.split).glob("*.npz")):
         z = np.load(p)
         trace, picks = z["trace"], list(z["picks"])
-        t0 = trace_start_utc(p.stem)
+        # grouped caches store the actual acquisition start; older caches
+        # look it up from the packet file of the same stem
+        t0 = (obspy.UTCDateTime(str(z["start_time"])) if "start_time" in z.files
+              else trace_start_utc(p.stem))
         curve = compute_curve(model, trace, device)
         dets = curve_to_detections(curve, args.threshold,
                                    suppress_sec=CODA_SEC["lunar"],
@@ -171,7 +197,10 @@ def main():
 
     survey_tp = n_tp + n_fp_nak
     result = {
-        "model": Path(args.model).parent.name,
+        "model": Path(args.model).parent.name if args.data_dir is None else Path(args.model).name,
+        "benchmark_id": benchmark_id,
+        "data_manifest_sha256": manifest_sha,
+        "model_sha256": hashlib.sha256(Path(args.model).read_bytes()).hexdigest(),
         "split": args.split,
         "threshold": args.threshold,
         "min_dur_sec": args.min_dur,
@@ -189,12 +218,9 @@ def main():
                 "S12 event as true; recall is not restated because the "
                 "benchmark's pick list stays the recall denominator",
     }
-    out_dir = PROJECT_ROOT / "results"
-    sfx = f"_{args.tag}" if args.tag else ""
     pd.DataFrame(rows).to_csv(
         out_dir / f"nakamura_crosscheck_detections{sfx}.csv", index=False)
-    (out_dir / f"nakamura_crosscheck{sfx}.json").write_text(
-        json.dumps(result, indent=2))
+    out_json.write_text(json.dumps(result, indent=2))
     print(json.dumps(result, indent=2))
 
 

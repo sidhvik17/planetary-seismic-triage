@@ -1,0 +1,53 @@
+{
+  "model": "unet_lunar_grouped_v1_seed42.pt",
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "model_sha256": "261bce3ddc31befd8090430f1a1658e0c1e34a891f239d8d4be9304af5e5fb9c",
+  "threshold": 0.25,
+  "min_dur_sec": 430.0,
+  "mc_passes": 10,
+  "n_detections": 45,
+  "counts": {
+    "tp": 14,
+    "fp_nakamura": 9,
+    "fp": 22
+  },
+  "median_sigma": {
+    "tp": 0.009290278304968137,
+    "fp_all_unmatched": 0.00976216716107845,
+    "fp_excluding_nakamura": 0.0071781280200709785,
+    "real_events_tp_plus_nakamura": 0.01021624063278385
+  },
+  "sigma_separation_fp_over_tp": 0.77,
+  "sigma_separation_cleanfp_over_real": 0.7,
+  "calibration": [
+    {
+      "conf_bin": "0.3-0.4",
+      "n": 2,
+      "precision_grade_a": 0.0,
+      "precision_incl_nakamura": 0.0,
+      "mean_conf": 0.377
+    },
+    {
+      "conf_bin": "0.4-0.55",
+      "n": 4,
+      "precision_grade_a": 0.25,
+      "precision_incl_nakamura": 0.5,
+      "mean_conf": 0.482
+    },
+    {
+      "conf_bin": "0.55-0.7",
+      "n": 7,
+      "precision_grade_a": 0.286,
+      "precision_incl_nakamura": 0.571,
+      "mean_conf": 0.64
+    },
+    {
+      "conf_bin": "0.7-1.01",
+      "n": 32,
+      "precision_grade_a": 0.344,
+      "precision_incl_nakamura": 0.531,
+      "mean_conf": 0.831
+    }
+  ]
+}

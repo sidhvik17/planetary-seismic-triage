@@ -1,0 +1,270 @@
+{
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "protocol": "Each seed trained from random initialization on lunar_grouped_v1 and scored at its own validation-selected operating point (scripts/evaluate_grouped.py); the test split never informs selection.",
+  "detectors": {
+    "cnn": {
+      "label": "SeisCNN (supervised windows)",
+      "n_seeds": 5,
+      "per_seed": [
+        {
+          "seed": 1,
+          "file": "lunar_grouped_v1_seed1_cnn.json",
+          "checkpoint_epoch": 28,
+          "operating_point": {
+            "threshold": 0.97
+          },
+          "selected_val_f1": 0.6667,
+          "tp": 16,
+          "fp": 21,
+          "fn": 7,
+          "precision": 0.4324,
+          "recall": 0.6957,
+          "f1": 0.5333,
+          "mae_sec": 36.14,
+          "median_ae_sec": 25.26
+        },
+        {
+          "seed": 2,
+          "file": "lunar_grouped_v1_seed2_cnn.json",
+          "checkpoint_epoch": 27,
+          "operating_point": {
+            "threshold": 0.995
+          },
+          "selected_val_f1": 0.4762,
+          "tp": 13,
+          "fp": 17,
+          "fn": 10,
+          "precision": 0.4333,
+          "recall": 0.5652,
+          "f1": 0.4906,
+          "mae_sec": 49.25,
+          "median_ae_sec": 39.51
+        },
+        {
+          "seed": 3,
+          "file": "lunar_grouped_v1_seed3_cnn.json",
+          "checkpoint_epoch": 16,
+          "operating_point": {
+            "threshold": 0.995
+          },
+          "selected_val_f1": 0.8182,
+          "tp": 14,
+          "fp": 13,
+          "fn": 9,
+          "precision": 0.5185,
+          "recall": 0.6087,
+          "f1": 0.56,
+          "mae_sec": 53.99,
+          "median_ae_sec": 54.12
+        },
+        {
+          "seed": 42,
+          "file": "lunar_grouped_v1_seed42_cnn.json",
+          "checkpoint_epoch": 27,
+          "operating_point": {
+            "threshold": 0.97
+          },
+          "selected_val_f1": 0.6957,
+          "tp": 16,
+          "fp": 18,
+          "fn": 7,
+          "precision": 0.4706,
+          "recall": 0.6957,
+          "f1": 0.5614,
+          "mae_sec": 41.31,
+          "median_ae_sec": 39.44
+        },
+        {
+          "seed": 4,
+          "file": "lunar_grouped_v1_seed4_cnn.json",
+          "checkpoint_epoch": 13,
+          "operating_point": {
+            "threshold": 0.95
+          },
+          "selected_val_f1": 0.4,
+          "tp": 17,
+          "fp": 27,
+          "fn": 6,
+          "precision": 0.3864,
+          "recall": 0.7391,
+          "f1": 0.5075,
+          "mae_sec": 46.23,
+          "median_ae_sec": 34.54
+        }
+      ],
+      "mean_f1": 0.5306,
+      "std_f1": 0.0314,
+      "min_f1": 0.4906,
+      "max_f1": 0.5614,
+      "mean_precision": 0.4482,
+      "mean_recall": 0.6609
+    },
+    "unet": {
+      "label": "SpecUNet (injection-trained masks)",
+      "n_seeds": 5,
+      "per_seed": [
+        {
+          "seed": 1,
+          "file": "lunar_grouped_v1_seed1_unet.json",
+          "checkpoint_epoch": 29,
+          "operating_point": {
+            "threshold": 0.45,
+            "min_dur_sec": 430
+          },
+          "selected_val_f1": 0.4211,
+          "tp": 7,
+          "fp": 11,
+          "fn": 16,
+          "precision": 0.3889,
+          "recall": 0.3043,
+          "f1": 0.3415,
+          "mae_sec": 64.5,
+          "median_ae_sec": 72.04
+        },
+        {
+          "seed": 2,
+          "file": "lunar_grouped_v1_seed2_unet.json",
+          "checkpoint_epoch": 29,
+          "operating_point": {
+            "threshold": 0.35,
+            "min_dur_sec": 600
+          },
+          "selected_val_f1": 0.5926,
+          "tp": 13,
+          "fp": 25,
+          "fn": 10,
+          "precision": 0.3421,
+          "recall": 0.5652,
+          "f1": 0.4262,
+          "mae_sec": 64.86,
+          "median_ae_sec": 76.11
+        },
+        {
+          "seed": 3,
+          "file": "lunar_grouped_v1_seed3_unet.json",
+          "checkpoint_epoch": 29,
+          "operating_point": {
+            "threshold": 0.25,
+            "min_dur_sec": 600
+          },
+          "selected_val_f1": 0.5143,
+          "tp": 13,
+          "fp": 29,
+          "fn": 10,
+          "precision": 0.3095,
+          "recall": 0.5652,
+          "f1": 0.4,
+          "mae_sec": 66.95,
+          "median_ae_sec": 73.93
+        },
+        {
+          "seed": 42,
+          "file": "lunar_grouped_v1_seed42_unet.json",
+          "checkpoint_epoch": 28,
+          "operating_point": {
+            "threshold": 0.25,
+            "min_dur_sec": 430
+          },
+          "selected_val_f1": 0.5,
+          "tp": 14,
+          "fp": 31,
+          "fn": 9,
+          "precision": 0.3111,
+          "recall": 0.6087,
+          "f1": 0.4118,
+          "mae_sec": 71.42,
+          "median_ae_sec": 74.88
+        },
+        {
+          "seed": 4,
+          "file": "lunar_grouped_v1_seed4_unet.json",
+          "checkpoint_epoch": 29,
+          "operating_point": {
+            "threshold": 0.25,
+            "min_dur_sec": 600
+          },
+          "selected_val_f1": 0.4667,
+          "tp": 14,
+          "fp": 24,
+          "fn": 9,
+          "precision": 0.3684,
+          "recall": 0.6087,
+          "f1": 0.459,
+          "mae_sec": 69.85,
+          "median_ae_sec": 76.43
+        }
+      ],
+      "mean_f1": 0.4077,
+      "std_f1": 0.0431,
+      "min_f1": 0.3415,
+      "max_f1": 0.459,
+      "mean_precision": 0.344,
+      "mean_recall": 0.5304
+    }
+  },
+  "tests": {
+    "seiscnn_vs_specunet_welch": {
+      "welch_t": 5.149,
+      "p_value": 0.0012,
+      "mean_difference": 0.1229,
+      "ratio_specunet_to_seiscnn_mean_f1": 0.7684
+    }
+  },
+  "bootstrap": {
+    "n_boot": 10000,
+    "resampling_unit": "test acquisition group",
+    "n_groups": 18,
+    "seed_mean_f1_ci95": {
+      "cnn": [
+        0.4367,
+        0.6188
+      ],
+      "unet": [
+        0.3194,
+        0.4929
+      ]
+    },
+    "cnn_minus_unet_f1_ci95": [
+      0.0093,
+      0.2326
+    ]
+  },
+  "baselines": {
+    "sta_lta": {
+      "operating_point": {
+        "thr_on": 7.0
+      },
+      "tp": 8,
+      "fp": 64,
+      "fn": 15,
+      "precision": 0.1111,
+      "recall": 0.3478,
+      "f1": 0.1684,
+      "mae_sec": 76.6,
+      "median_ae_sec": 68.64
+    },
+    "matched_filter": {
+      "template_sec": 300.0,
+      "threshold_k_mad": 10.0,
+      "n_templates": 42,
+      "val_f1": 0.1667,
+      "tp": 3,
+      "fp": 4,
+      "fn": 20,
+      "precision": 0.4286,
+      "recall": 0.1304,
+      "f1": 0.2,
+      "mae_sec": 76.17,
+      "median_ae_sec": 89.28,
+      "oracle_test_tuned_upper_bound_not_reportable": {
+        "f1": 0.2759,
+        "k": 10.0,
+        "tpl_sec": 1200.0,
+        "precision": 0.6667,
+        "recall": 0.1739
+      }
+    }
+  },
+  "comparability": "New acquisition-grouped split with unioned picks (21 test spans, 23 events). Not directly comparable to historical filename-split scores, which included two train/test duplicate waveforms."
+}
