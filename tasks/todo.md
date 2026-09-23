@@ -33,6 +33,15 @@ Analysis plan fixed BEFORE any new result exists:
 - [ ] **E3b retrain SeisCNN on denoised windows** — only if time allows;
   5 seeds, validation-locked.
 - Mars: not rerun. Its data and split never involved the lunar overlap.
+
+**Paused 2026-09-23 ~22:30 at the user's request.** State: screened seed 42
+trained (best val 0.352, 30 epochs, not yet evaluated); seed 1 stopped after
+epoch 6 (`last.pt` saved, resumes); seeds 2–4 not started; archive scan not
+started. No evaluation of screened models has opened test data yet.
+Resume (Git Bash, one CUDA job at a time — run the second after the first):
+
+    cd /c/apsis_rerun && PY=/c/Users/ASUS/OneDrive/Desktop/major/.venv/Scripts/python.exe bash scripts/run_screened_grouped.sh
+    cd /c/apsis_rerun && PY=/c/Users/ASUS/OneDrive/Desktop/major/.venv/Scripts/python.exe bash scripts/run_archive_grouped.sh
 - [ ] Record results in new files; update handoff; commit on this branch.
 
 ---
