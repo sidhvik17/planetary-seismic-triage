@@ -61,7 +61,7 @@ def main():
     run = args.run or f"unet_{args.body}"
     device = "cuda" if torch.cuda.is_available() else "cpu"
     ckpt = torch.load(RUNS_DIR / run / "best.pt", map_location=device,
-                      weights_only=False)
+                      weights_only=True)
     model = SpecUNet(base=UNET_ARCHS[ckpt.get("arch", "base")])
     model.load_state_dict(ckpt["model"])
     model.eval().to(device)

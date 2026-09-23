@@ -33,7 +33,7 @@ def main():
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ckpt = torch.load(f"runs/{args.body}/best.pt", map_location=device, weights_only=False)
+    ckpt = torch.load(f"runs/{args.body}/best.pt", map_location=device, weights_only=True)
     model = SeisCNN().to(device).eval()
     model.load_state_dict(ckpt["model"])
 

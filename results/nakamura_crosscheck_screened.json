@@ -1,0 +1,26 @@
+{
+  "model": "unet_lunar_screened",
+  "split": "test",
+  "threshold": 0.25,
+  "min_dur_sec": 600.0,
+  "nakamura_match_tol_sec": 300.0,
+  "benchmark": {
+    "tp": 11,
+    "fp": 24,
+    "fn": 8,
+    "precision": 0.3143
+  },
+  "fp_matching_nakamura": 11,
+  "fp_nakamura_match_rate": 0.4583,
+  "chance_match_rate": 0.0168,
+  "permutation_p_value": 0.0,
+  "permutation_n": 10000,
+  "match_count_by_tolerance": {
+    "\u00b160s": 0,
+    "\u00b1120s": 1,
+    "\u00b1180s": 6,
+    "\u00b1300s": 11
+  },
+  "survey_precision": 0.6286,
+  "note": "survey_precision counts detections matching ANY Nakamura S12 event as true; recall is not restated because the benchmark's pick list stays the recall denominator"
+}

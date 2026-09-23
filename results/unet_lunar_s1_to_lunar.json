@@ -1,0 +1,28 @@
+{
+  "model": "unet_lunar_s1",
+  "eval_body": "lunar",
+  "threshold": 0.25,
+  "min_dur_sec": 600,
+  "threshold_tuned_on": "val",
+  "tolerance_sec": 120.0,
+  "unet": {
+    "tp": 8,
+    "fp": 30,
+    "fn": 11,
+    "precision": 0.2105,
+    "recall": 0.4211,
+    "f1": 0.2807,
+    "mae_sec": 65.99,
+    "median_ae_sec": 75.96
+  },
+  "unet_refined_arrivals": {
+    "tp": 9,
+    "fp": 29,
+    "fn": 10,
+    "precision": 0.2368,
+    "recall": 0.4737,
+    "f1": 0.3158,
+    "mae_sec": 77.41,
+    "median_ae_sec": 73.96
+  }
+}

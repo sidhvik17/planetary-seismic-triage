@@ -8,3 +8,8 @@ data/cache/
 runs/
 .ipynb_checkpoints/
 *.egg-info/
+
+# regenerable scan intermediates (~110 MB): rebuild with
+# scripts/scan_archive.py --save-curves
+results/archive_scan/**/curves_*.npz
+results/archive_scan/**/validity_*.npz

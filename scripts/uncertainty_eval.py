@@ -8,10 +8,15 @@ Three questions, answered on lunar continuous held-out data:
     auto-accepted/dropped, how much recall does review recover, and how big
     is the queue per day of data?
 
-Writes results/uncertainty.json + docs/figures/reliability.png.
+Writes results/uncertainty.json. Corrected split (exclusive output):
+    python scripts/uncertainty_eval.py --data-dir data/cache/lunar_grouped_v1
+        --model models/lunar_grouped_v1_seed42.pt --threshold 0.97
+        --output results/uncertainty_lunar_grouped_v1_seed42.json
 """
 from __future__ import annotations
 
+import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -49,11 +54,11 @@ def window_labels(trace, rate, picks, n, hop):
     return trace, starts, np.array(labels), np.array(keep)
 
 
-def collect(model, split, device):
+def collect(model, split, device, root):
     """Deterministic + MC window probabilities with labels, over a split."""
     det_p, mc_p, mc_s, ys = [], [], [], []
     n, hop = CFG.window.n_samples, CFG.window.hop
-    for pth in sorted((DATA_CACHE / BODY / "continuous" / split).glob("*.npz")):
+    for pth in sorted((root / "continuous" / split).glob("*.npz")):
         z = np.load(pth)
         trace, rate, picks = z["trace"], float(z["rate"]), list(z["picks"])
         trace, starts, labels, keep = window_labels(trace, rate, picks, n, hop)
@@ -111,17 +116,17 @@ def apply_temperature(probs, T):
     return 1 / (1 + np.exp(-logits / T))
 
 
-def review_queue_eval(model, device):
+def review_queue_eval(model, device, root, accept_thr):
     """Event-level: auto-accept vs review-queue outcome on the test split."""
     auto, combined = Scores(), Scores()
     n_review, n_days = 0, 0
     review_hits, review_dets = 0, 0
-    for pth in sorted((DATA_CACHE / BODY / "continuous" / "test").glob("*.npz")):
+    for pth in sorted((root / "continuous" / "test").glob("*.npz")):
         z = np.load(pth)
         trace, rate, picks = z["trace"], float(z["rate"]), list(z["picks"])
         n_days += len(trace) / rate / 86400
         dets, _, _, _ = detect_events_mc(
-            model, trace, rate, CFG, threshold=ACCEPT_THR, device=device,
+            model, trace, rate, CFG, threshold=accept_thr, device=device,
             suppress_sec=CODA_SEC[BODY], n_passes=N_PASSES,
             review_band=(REVIEW_LOW, None), std_review=STD_REVIEW)
         acc = [d.time_sec for d in dets if not d.needs_review]
@@ -139,7 +144,7 @@ def review_queue_eval(model, device):
         "review_queue_per_day": round(n_review / max(n_days, 1e-9), 2),
         "review_queue_total": n_review,
         "review_queue_true_events": review_hits,
-        "accept_threshold": ACCEPT_THR,
+        "accept_threshold": accept_thr,
         "review_low": REVIEW_LOW,
         "std_review": STD_REVIEW,
         "mc_passes": N_PASSES,
@@ -147,16 +152,36 @@ def review_queue_eval(model, device):
 
 
 def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--model", type=Path, default=PROJECT_ROOT / "runs" / BODY / "best.pt")
+    ap.add_argument("--threshold", type=float, default=ACCEPT_THR,
+                    help="auto-accept threshold: the model's validation-selected point")
+    ap.add_argument("--data-dir", type=Path, help="versioned dataset root; requires --output")
+    ap.add_argument("--output", type=Path, help="result JSON (exclusive with --data-dir)")
+    args = ap.parse_args()
+    root = args.data_dir or DATA_CACHE / BODY
+    out_path = args.output or PROJECT_ROOT / "results" / "uncertainty.json"
+    provenance = {"benchmark_id": "historical filename split", "data_manifest_sha256": None}
+    if args.data_dir is not None:
+        if args.output is None:
+            ap.error("--data-dir requires --output")
+        if out_path.exists():
+            sys.exit(f"refusing to overwrite {out_path}")
+        raw_manifest = (root / "manifest.json").read_bytes()
+        provenance = {"benchmark_id": json.loads(raw_manifest)["benchmark_id"],
+                      "data_manifest_sha256": hashlib.sha256(raw_manifest).hexdigest()}
+    provenance["model"] = args.model.name
+    provenance["model_sha256"] = hashlib.sha256(args.model.read_bytes()).hexdigest()
+
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ck = torch.load(PROJECT_ROOT / "runs" / BODY / "best.pt",
-                    map_location=device, weights_only=False)
+    ck = torch.load(args.model, map_location=device, weights_only=True)
     model = SeisCNN(channels=ARCHS[ck.get("arch", "base")]).to(device)
     model.load_state_dict(ck["model"])
 
     print("collecting val windows (for temperature fit)...")
-    vdet, vmc, _, vy = collect(model, "val", device)
+    vdet, vmc, _, vy = collect(model, "val", device, root)
     print("collecting test windows...")
-    tdet, tmc, tstd, ty = collect(model, "test", device)
+    tdet, tmc, tstd, ty = collect(model, "test", device, root)
 
     T = fit_temperature(vdet, vy)
     ece_det, bins_det = ece(tdet, ty)
@@ -171,9 +196,10 @@ def main():
     print(f"mean MC std | true-event windows: {std_tp}, false-alarm windows: {std_fp}")
 
     print("event-level review-queue eval...")
-    queue = review_queue_eval(model, device)
+    queue = review_queue_eval(model, device, root, args.threshold)
 
     out = {
+        **provenance,
         "temperature": round(T, 3),
         "ece_raw": round(ece_det, 4),
         "ece_temp_scaled": round(ece_temp, 4),
@@ -188,8 +214,7 @@ def main():
             "mc": [(c, b, n) for c, b, n in bins_mc],
         },
     }
-    (PROJECT_ROOT / "results" / "uncertainty.json").write_text(
-        json.dumps(out, indent=2, default=float))
+    out_path.write_text(json.dumps(out, indent=2, default=float))
     print(json.dumps({k: v for k, v in out.items() if k != "reliability_bins"},
                      indent=2, default=float))
 

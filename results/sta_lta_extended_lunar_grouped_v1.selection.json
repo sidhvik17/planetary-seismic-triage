@@ -1,0 +1,187 @@
+{
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "method": "STA/LTA (obspy classic_sta_lta, 60 s / 600 s, thr_off = max(1.2, thr_on/2))",
+  "threshold_grid": [
+    2.0,
+    2.5,
+    3.0,
+    4.0,
+    5.0,
+    7.0,
+    10.0,
+    15.0,
+    20.0,
+    30.0,
+    50.0
+  ],
+  "tie_rule": "first threshold at maximum validation F1",
+  "tolerance_sec": 120.0,
+  "suppress_sec": 1800.0,
+  "code_sha256": {
+    "scripts/sta_lta_grouped.py": "dba1076b66319973c7f8f6c858ceec5edbb67a22c924fa738485a8a077058cf0",
+    "scripts/evaluate_grouped.py": "c77b91a29e945b596d871c2b5f4fe52b568b6f8ee02a770435fe70a1f59b1853",
+    "planetseis/baseline.py": "52ecf6f1530cff9b2ba6fb1d08c9d0e55230e35289aef43e01017b425bd85fde",
+    "planetseis/evaluate.py": "bd5fb0a1c2e28da4b3393b0840a73f97ad2fdc5f027c020932e5be19f6d78636"
+  },
+  "created_at_utc": "2026-09-23T06:34:48.650455+00:00",
+  "validation_sweep": [
+    {
+      "thr_on": 2.0,
+      "f1_unrounded": 0.03375527426160337,
+      "scores": {
+        "tp": 4,
+        "fp": 222,
+        "fn": 7,
+        "precision": 0.0177,
+        "recall": 0.3636,
+        "f1": 0.0338,
+        "mae_sec": 53.1,
+        "median_ae_sec": 59.56
+      }
+    },
+    {
+      "thr_on": 2.5,
+      "f1_unrounded": 0.031088082901554404,
+      "scores": {
+        "tp": 3,
+        "fp": 179,
+        "fn": 8,
+        "precision": 0.0165,
+        "recall": 0.2727,
+        "f1": 0.0311,
+        "mae_sec": 59.38,
+        "median_ae_sec": 69.6
+      }
+    },
+    {
+      "thr_on": 3.0,
+      "f1_unrounded": 0.062111801242236024,
+      "scores": {
+        "tp": 5,
+        "fp": 145,
+        "fn": 6,
+        "precision": 0.0333,
+        "recall": 0.4545,
+        "f1": 0.0621,
+        "mae_sec": 60.68,
+        "median_ae_sec": 51.18
+      }
+    },
+    {
+      "thr_on": 4.0,
+      "f1_unrounded": 0.06779661016949151,
+      "scores": {
+        "tp": 4,
+        "fp": 103,
+        "fn": 7,
+        "precision": 0.0374,
+        "recall": 0.3636,
+        "f1": 0.0678,
+        "mae_sec": 53.94,
+        "median_ae_sec": 47.22
+      }
+    },
+    {
+      "thr_on": 5.0,
+      "f1_unrounded": 0.04255319148936171,
+      "scores": {
+        "tp": 2,
+        "fp": 81,
+        "fn": 9,
+        "precision": 0.0241,
+        "recall": 0.1818,
+        "f1": 0.0426,
+        "mae_sec": 80.43,
+        "median_ae_sec": 80.43
+      }
+    },
+    {
+      "thr_on": 7.0,
+      "f1_unrounded": 0.07843137254901962,
+      "scores": {
+        "tp": 2,
+        "fp": 38,
+        "fn": 9,
+        "precision": 0.05,
+        "recall": 0.1818,
+        "f1": 0.0784,
+        "mae_sec": 44.96,
+        "median_ae_sec": 44.96
+      }
+    },
+    {
+      "thr_on": 10.0,
+      "f1_unrounded": 0.0,
+      "scores": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 11,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mae_sec": null,
+        "median_ae_sec": null
+      }
+    },
+    {
+      "thr_on": 15.0,
+      "f1_unrounded": 0.0,
+      "scores": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 11,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mae_sec": null,
+        "median_ae_sec": null
+      }
+    },
+    {
+      "thr_on": 20.0,
+      "f1_unrounded": 0.0,
+      "scores": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 11,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mae_sec": null,
+        "median_ae_sec": null
+      }
+    },
+    {
+      "thr_on": 30.0,
+      "f1_unrounded": 0.0,
+      "scores": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 11,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mae_sec": null,
+        "median_ae_sec": null
+      }
+    },
+    {
+      "thr_on": 50.0,
+      "f1_unrounded": 0.0,
+      "scores": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 11,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mae_sec": null,
+        "median_ae_sec": null
+      }
+    }
+  ],
+  "selected_thr_on": 7.0,
+  "selected_val_f1": 0.07843137254901962,
+  "test_waveforms_opened": false
+}

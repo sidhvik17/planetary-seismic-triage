@@ -49,7 +49,7 @@ def main():
     rows = {}
 
     ck = torch.load(PROJECT_ROOT / "models" / "lunar_best.pt",
-                    map_location=device, weights_only=False)
+                    map_location=device, weights_only=True)
     cnn = SeisCNN(channels=ARCHS[ck.get("arch", "base")])
     cnn.load_state_dict(ck["model"])
     s = Scores()
@@ -60,7 +60,7 @@ def main():
     rows["SeisCNN"] = s
 
     ck = torch.load(PROJECT_ROOT / "models" / "unet_lunar_best.pt",
-                    map_location=device, weights_only=False)
+                    map_location=device, weights_only=True)
     unet = SpecUNet(base=UNET_ARCHS[ck.get("arch", "base")])
     unet.load_state_dict(ck["model"])
     s = Scores()

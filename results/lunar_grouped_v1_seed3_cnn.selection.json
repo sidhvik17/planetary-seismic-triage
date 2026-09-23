@@ -1,0 +1,733 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "checkpoints": {
+    "cnn": {
+      "path": "runs/lunar_grouped_v1_s3/best.pt",
+      "sha256": "724c012675b357fcdd24956eca1f6359787663e7ae789261f14f9fb93c43fa17",
+      "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+      "benchmark_id": "lunar_grouped_v1",
+      "initialized_from_scratch": true,
+      "arch": "base",
+      "params": 117842,
+      "epoch": 16,
+      "seed": 3,
+      "training_config": {
+        "body": "lunar",
+        "no_augment": false,
+        "arch": "base",
+        "tag": "",
+        "epochs": 60,
+        "seed": 3,
+        "data_dir": "data\\cache\\lunar_grouped_v1",
+        "out_dir": "runs\\lunar_grouped_v1_s3",
+        "resume": false,
+        "device": "cuda"
+      }
+    }
+  },
+  "code_sha256": {
+    "scripts/evaluate_grouped.py": "c77b91a29e945b596d871c2b5f4fe52b568b6f8ee02a770435fe70a1f59b1853",
+    "scripts/eval_unet.py": "28b344e96a7156a944cef760e0fd06ff0d8887a62334b353bdcb650e9c58f088",
+    "planetseis/detect.py": "7367d61d71f33cb57fba1ba480c74427cd211741fada03660df5f9e4d22b6f87",
+    "planetseis/detect_spec.py": "a530e686df22c1417772750d4a1c4693e401674ffecff2df67d5acedd01940f4",
+    "planetseis/evaluate.py": "bd5fb0a1c2e28da4b3393b0840a73f97ad2fdc5f027c020932e5be19f6d78636",
+    "planetseis/baseline.py": "52ecf6f1530cff9b2ba6fb1d08c9d0e55230e35289aef43e01017b425bd85fde",
+    "planetseis/config.py": "4abe27549cb35785ac603a96a40b6ddad622b530426bec38376aa0d8b95efa1a",
+    "planetseis/model.py": "61fc1442326569a9ffaef4f1e73b229b58e92c57d7ac8a09bd3d0c0e0f286818",
+    "planetseis/unet.py": "2de4a917f8f27ba11e2580e167e209f1fd0c0463115c6f5effe8240d13253921"
+  },
+  "protocol": {
+    "tuned_on": "val",
+    "reported_on": "test",
+    "body": "lunar",
+    "tolerance_sec": 120.0,
+    "suppress_sec": 1800.0,
+    "cnn_threshold_grid": [
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.39999999999999997,
+      0.44999999999999996,
+      0.49999999999999994,
+      0.5499999999999999,
+      0.5999999999999999,
+      0.6499999999999999,
+      0.7,
+      0.7499999999999998,
+      0.7999999999999998,
+      0.8499999999999999,
+      0.8999999999999999,
+      0.95,
+      0.97,
+      0.98,
+      0.99,
+      0.995
+    ],
+    "unet_threshold_grid": [
+      0.05,
+      0.08,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "unet_min_dur_grid": [
+      30,
+      120,
+      240,
+      430,
+      600
+    ],
+    "sta_lta_threshold_grid": [
+      2.0,
+      2.5,
+      3.0,
+      4.0,
+      5.0,
+      7.0
+    ],
+    "near_tie_f1": 0.02,
+    "cnn_tie_rule": "lowest threshold within 0.02 of maximum validation F1",
+    "unet_tie_rule": "sorted(threshold,duration) upper median within 0.02 of maximum validation F1",
+    "sta_lta_tie_rule": "first threshold at maximum validation F1",
+    "cnn_batch_size": 64,
+    "unet_batch_size": 8,
+    "scoring_unit": "distinct acquisition span; grouped before splitting",
+    "optional_arrival_refinement": false
+  },
+  "hardware": {
+    "device": "cpu",
+    "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "logical_cpu_count": 20,
+    "python": "3.12.10",
+    "torch": "2.6.0+cu124",
+    "cuda_runtime": "12.4"
+  },
+  "created_at_utc": "2026-09-22T19:51:50.993152+00:00",
+  "validation_trace_ids": [
+    "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+    "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+    "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+    "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+    "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+    "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+    "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+    "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+    "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+    "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+    "xa.s12.00.mhz.1974-10-14HR00_evid00156"
+  ],
+  "selected": {
+    "cnn": {
+      "operating_point": {
+        "threshold": 0.995
+      },
+      "best_val_f1": 0.8181818181818182,
+      "selected_val_f1": 0.8181818181818182,
+      "validation_scores": {
+        "tp": 9,
+        "fp": 2,
+        "fn": 2,
+        "precision": 0.8182,
+        "recall": 0.8182,
+        "f1": 0.8182,
+        "mae_sec": 74.63,
+        "median_ae_sec": 75.36
+      },
+      "validation_per_trace": [
+        {
+          "id": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+          "group_id": "acq_74b42f0f8bf8d2fb",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-01-19HR00_evid00002.mseed"
+          ],
+          "trace_sha256": "6cc08ae92fa702c0072d76272f62ca817bfc45453b61b224a893b383e36983ad",
+          "picks_rel_sec": [
+            73499.335
+          ],
+          "predictions": [
+            {
+              "time_sec": 73412.22072385393,
+              "confidence": 0.9999923706054688
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 87.11,
+            "median_ae_sec": 87.11
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+          "group_id": "acq_c7a56be633564202",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-10-24HR00_evid00014.mseed"
+          ],
+          "trace_sha256": "80595d6f85df6476cad9bc15c7040c220e3addb598de45231f71a2b2a60dd8e1",
+          "picks_rel_sec": [
+            41459.496
+          ],
+          "predictions": [
+            {
+              "time_sec": 41625.30938951024,
+              "confidence": 0.9999960660934448
+            }
+          ],
+          "scores": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "mae_sec": null,
+            "median_ae_sec": null
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+          "group_id": "acq_0e0ce789ec50dea3",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-09-25HR00_evid00042.mseed"
+          ],
+          "trace_sha256": "1e33a004e56d40bd3c2fd86e55f182ea431607b94d31ffe0d87bab91aacacc18",
+          "picks_rel_sec": [
+            32219.424
+          ],
+          "predictions": [
+            {
+              "time_sec": 32154.88667614055,
+              "confidence": 0.9992361068725586
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 64.54,
+            "median_ae_sec": 64.54
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+          "group_id": "acq_8dd862db38945569",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-06-16HR00_evid00060.mseed"
+          ],
+          "trace_sha256": "1dd4120794d9fdc7a36e813c52227ee4b1b8c472dbb91fb51e127092fefe7175",
+          "picks_rel_sec": [
+            58259.884
+          ],
+          "predictions": [
+            {
+              "time_sec": 58335.24737318507,
+              "confidence": 0.998346209526062
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 75.36,
+            "median_ae_sec": 75.36
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+          "group_id": "acq_77d57f182b42aea1",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-28HR00_evid00070.mseed"
+          ],
+          "trace_sha256": "6093bc16460546c61d90cfc2cc3507a1580024d83848611769b24a989cadda34",
+          "picks_rel_sec": [
+            8579.864
+          ],
+          "predictions": [
+            {
+              "time_sec": 8686.398683943838,
+              "confidence": 0.9997506737709045
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 106.53,
+            "median_ae_sec": 106.53
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+          "group_id": "acq_af5077b35b3dc4c1",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-18HR00_evid00088.mseed"
+          ],
+          "trace_sha256": "aa37c7162e295caef5e750309e5aea3dbfa128c75856f2cb1f09d3ac17d18140",
+          "picks_rel_sec": [
+            82859.338
+          ],
+          "predictions": [
+            {
+              "time_sec": 82943.12591092092,
+              "confidence": 0.9998835325241089
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 83.79,
+            "median_ae_sec": 83.79
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+          "group_id": "acq_0a3a50ab290c2f4d",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-13HR00_evid00094.mseed"
+          ],
+          "trace_sha256": "adad2fbe765661b874ed68ca85b7e2f18147ae2f9731536a90ae1be9feaff22d",
+          "picks_rel_sec": [
+            28859.528
+          ],
+          "predictions": [
+            {
+              "time_sec": 28747.432812960644,
+              "confidence": 0.9991907477378845
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 112.1,
+            "median_ae_sec": 112.1
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+          "group_id": "acq_a2de733b125af274",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-24HR00_evid00097.mseed"
+          ],
+          "trace_sha256": "7848cd6d364667f0559f4d1aa202c9354a4d6a4ae82162ff71e87c7f99b1a7b4",
+          "picks_rel_sec": [
+            69779.394
+          ],
+          "predictions": [
+            {
+              "time_sec": 69741.54041103147,
+              "confidence": 0.999319314956665
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 37.85,
+            "median_ae_sec": 37.85
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+          "group_id": "acq_1546ece0f80af624",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-08HR00_evid00141.mseed"
+          ],
+          "trace_sha256": "01de621ec532f5b61eca4a79c1fded187b71976261a16442f177cbeceb57ee84",
+          "picks_rel_sec": [
+            31199.466
+          ],
+          "predictions": [
+            {
+              "time_sec": 31141.43025700912,
+              "confidence": 0.9985244870185852
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 58.04,
+            "median_ae_sec": 58.04
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+          "group_id": "acq_3dd47ca1467a72b7",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-17HR00_evid00153.mseed"
+          ],
+          "trace_sha256": "631e3638675e4773a291303895af17ddb79d171ff193351e21a01da39f0469cf",
+          "picks_rel_sec": [
+            43499.774
+          ],
+          "predictions": [
+            {
+              "time_sec": 43832.24033110996,
+              "confidence": 0.9978412389755249
+            }
+          ],
+          "scores": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "mae_sec": null,
+            "median_ae_sec": null
+          }
+        },
+        {
+          "id": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+          "group_id": "acq_cf6c5122a13b4f41",
+          "source_files": [
+            "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-10-14HR00_evid00156.mseed"
+          ],
+          "trace_sha256": "f6cd1390d65b73594823683859ebd24a97eccbd538ce2be22a746b07ebc0d8ba",
+          "picks_rel_sec": [
+            63779.004
+          ],
+          "predictions": [
+            {
+              "time_sec": 63732.63559593345,
+              "confidence": 0.9973219037055969
+            }
+          ],
+          "scores": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "mae_sec": 46.37,
+            "median_ae_sec": 46.37
+          }
+        }
+      ],
+      "validation_sweep": [
+        {
+          "threshold": 0.2,
+          "f1_unrounded": 0.20338983050847456,
+          "scores": {
+            "tp": 6,
+            "fp": 42,
+            "fn": 5,
+            "precision": 0.125,
+            "recall": 0.5455,
+            "f1": 0.2034,
+            "mae_sec": 43.84,
+            "median_ae_sec": 33.19
+          }
+        },
+        {
+          "threshold": 0.25,
+          "f1_unrounded": 0.22641509433962262,
+          "scores": {
+            "tp": 6,
+            "fp": 36,
+            "fn": 5,
+            "precision": 0.1429,
+            "recall": 0.5455,
+            "f1": 0.2264,
+            "mae_sec": 43.84,
+            "median_ae_sec": 33.19
+          }
+        },
+        {
+          "threshold": 0.3,
+          "f1_unrounded": 0.2352941176470588,
+          "scores": {
+            "tp": 6,
+            "fp": 34,
+            "fn": 5,
+            "precision": 0.15,
+            "recall": 0.5455,
+            "f1": 0.2353,
+            "mae_sec": 43.84,
+            "median_ae_sec": 33.19
+          }
+        },
+        {
+          "threshold": 0.35,
+          "f1_unrounded": 0.26086956521739124,
+          "scores": {
+            "tp": 6,
+            "fp": 29,
+            "fn": 5,
+            "precision": 0.1714,
+            "recall": 0.5455,
+            "f1": 0.2609,
+            "mae_sec": 43.84,
+            "median_ae_sec": 33.19
+          }
+        },
+        {
+          "threshold": 0.39999999999999997,
+          "f1_unrounded": 0.2857142857142857,
+          "scores": {
+            "tp": 6,
+            "fp": 25,
+            "fn": 5,
+            "precision": 0.1935,
+            "recall": 0.5455,
+            "f1": 0.2857,
+            "mae_sec": 43.84,
+            "median_ae_sec": 33.19
+          }
+        },
+        {
+          "threshold": 0.44999999999999996,
+          "f1_unrounded": 0.35,
+          "scores": {
+            "tp": 7,
+            "fp": 22,
+            "fn": 4,
+            "precision": 0.2414,
+            "recall": 0.6364,
+            "f1": 0.35,
+            "mae_sec": 42.98,
+            "median_ae_sec": 37.85
+          }
+        },
+        {
+          "threshold": 0.49999999999999994,
+          "f1_unrounded": 0.358974358974359,
+          "scores": {
+            "tp": 7,
+            "fp": 21,
+            "fn": 4,
+            "precision": 0.25,
+            "recall": 0.6364,
+            "f1": 0.359,
+            "mae_sec": 42.98,
+            "median_ae_sec": 37.85
+          }
+        },
+        {
+          "threshold": 0.5499999999999999,
+          "f1_unrounded": 0.37837837837837834,
+          "scores": {
+            "tp": 7,
+            "fp": 19,
+            "fn": 4,
+            "precision": 0.2692,
+            "recall": 0.6364,
+            "f1": 0.3784,
+            "mae_sec": 42.98,
+            "median_ae_sec": 37.85
+          }
+        },
+        {
+          "threshold": 0.5999999999999999,
+          "f1_unrounded": 0.3888888888888889,
+          "scores": {
+            "tp": 7,
+            "fp": 18,
+            "fn": 4,
+            "precision": 0.28,
+            "recall": 0.6364,
+            "f1": 0.3889,
+            "mae_sec": 42.98,
+            "median_ae_sec": 37.85
+          }
+        },
+        {
+          "threshold": 0.6499999999999999,
+          "f1_unrounded": 0.4705882352941176,
+          "scores": {
+            "tp": 8,
+            "fp": 15,
+            "fn": 3,
+            "precision": 0.3478,
+            "recall": 0.7273,
+            "f1": 0.4706,
+            "mae_sec": 50.93,
+            "median_ae_sec": 47.94
+          }
+        },
+        {
+          "threshold": 0.7,
+          "f1_unrounded": 0.4848484848484849,
+          "scores": {
+            "tp": 8,
+            "fp": 14,
+            "fn": 3,
+            "precision": 0.3636,
+            "recall": 0.7273,
+            "f1": 0.4848,
+            "mae_sec": 50.93,
+            "median_ae_sec": 47.94
+          }
+        },
+        {
+          "threshold": 0.7499999999999998,
+          "f1_unrounded": 0.5161290322580645,
+          "scores": {
+            "tp": 8,
+            "fp": 12,
+            "fn": 3,
+            "precision": 0.4,
+            "recall": 0.7273,
+            "f1": 0.5161,
+            "mae_sec": 55.68,
+            "median_ae_sec": 52.2
+          }
+        },
+        {
+          "threshold": 0.7999999999999998,
+          "f1_unrounded": 0.5333333333333333,
+          "scores": {
+            "tp": 8,
+            "fp": 11,
+            "fn": 3,
+            "precision": 0.4211,
+            "recall": 0.7273,
+            "f1": 0.5333,
+            "mae_sec": 55.68,
+            "median_ae_sec": 52.2
+          }
+        },
+        {
+          "threshold": 0.8499999999999999,
+          "f1_unrounded": 0.5925925925925926,
+          "scores": {
+            "tp": 8,
+            "fp": 8,
+            "fn": 3,
+            "precision": 0.5,
+            "recall": 0.7273,
+            "f1": 0.5926,
+            "mae_sec": 55.68,
+            "median_ae_sec": 52.2
+          }
+        },
+        {
+          "threshold": 0.8999999999999999,
+          "f1_unrounded": 0.64,
+          "scores": {
+            "tp": 8,
+            "fp": 6,
+            "fn": 3,
+            "precision": 0.5714,
+            "recall": 0.7273,
+            "f1": 0.64,
+            "mae_sec": 55.68,
+            "median_ae_sec": 52.2
+          }
+        },
+        {
+          "threshold": 0.95,
+          "f1_unrounded": 0.7272727272727273,
+          "scores": {
+            "tp": 8,
+            "fp": 3,
+            "fn": 3,
+            "precision": 0.7273,
+            "recall": 0.7273,
+            "f1": 0.7273,
+            "mae_sec": 76.55,
+            "median_ae_sec": 77.16
+          }
+        },
+        {
+          "threshold": 0.97,
+          "f1_unrounded": 0.7272727272727273,
+          "scores": {
+            "tp": 8,
+            "fp": 3,
+            "fn": 3,
+            "precision": 0.7273,
+            "recall": 0.7273,
+            "f1": 0.7273,
+            "mae_sec": 73.07,
+            "median_ae_sec": 69.95
+          }
+        },
+        {
+          "threshold": 0.98,
+          "f1_unrounded": 0.7272727272727273,
+          "scores": {
+            "tp": 8,
+            "fp": 3,
+            "fn": 3,
+            "precision": 0.7273,
+            "recall": 0.7273,
+            "f1": 0.7273,
+            "mae_sec": 73.07,
+            "median_ae_sec": 69.95
+          }
+        },
+        {
+          "threshold": 0.99,
+          "f1_unrounded": 0.7272727272727273,
+          "scores": {
+            "tp": 8,
+            "fp": 3,
+            "fn": 3,
+            "precision": 0.7273,
+            "recall": 0.7273,
+            "f1": 0.7273,
+            "mae_sec": 73.07,
+            "median_ae_sec": 69.95
+          }
+        },
+        {
+          "threshold": 0.995,
+          "f1_unrounded": 0.8181818181818182,
+          "scores": {
+            "tp": 9,
+            "fp": 2,
+            "fn": 2,
+            "precision": 0.8182,
+            "recall": 0.8182,
+            "f1": 0.8182,
+            "mae_sec": 74.63,
+            "median_ae_sec": 75.36
+          }
+        }
+      ]
+    }
+  },
+  "validation_elapsed_sec": 6.167231099971104,
+  "test_waveforms_opened": false
+}

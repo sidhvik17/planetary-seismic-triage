@@ -1,0 +1,46 @@
+{
+  "experiment": "injection noise-pool contamination (positive-unlabeled) ablation",
+  "date": "2026-07-25",
+  "question": "The noise pool guards only the 76 Grade-A picks, but those are a strict SUBSET of the Nakamura catalog (75/75 checked picks match a Nakamura S12 event within +/-60 s). Real uncatalogued events are therefore harvested as 'noise' and trained against a zero mask. Does removing them change the detector?",
+  "setup": {
+    "contamination_measured": {
+      "eligible_noise_window_starts": 23977989,
+      "removed_by_nakamura_screen": 2009601,
+      "fraction": 0.0838,
+      "files_retained": "45/45",
+      "guard": "same as catalog picks: 900 s pre-event, plus body coda (1800 s lunar), plus one window length"
+    },
+    "training": "identical hyperparameters to the frozen unet_lunar checkpoint (arch base, 30 epochs, epoch_len 6400, batch 32, lr 1e-3, event_weight 3.0, seed 42); only the noise pool differs. Val injections screened too.",
+    "operating_point": "each model tuned independently on the VAL split; test never touched"
+  },
+  "unscreened": {
+    "run": "unet_lunar",
+    "threshold": 0.3,
+    "min_dur_sec": 600,
+    "benchmark": {"tp": 11, "fp": 20, "fn": 8, "precision": 0.3548, "recall": 0.5789, "f1": 0.44},
+    "fp_matching_nakamura": 9,
+    "real_events_detected": 20,
+    "survey_precision": 0.6452
+  },
+  "screened": {
+    "run": "unet_lunar_screened",
+    "threshold": 0.25,
+    "min_dur_sec": 600,
+    "benchmark": {"tp": 11, "fp": 24, "fn": 8, "precision": 0.3143, "recall": 0.5789, "f1": 0.4074},
+    "fp_matching_nakamura": 11,
+    "real_events_detected": 22,
+    "survey_precision": 0.6286,
+    "permutation_p_value": 0.0,
+    "match_count_by_tolerance": {"60s": 0, "120s": 1, "180s": 6, "300s": 11}
+  },
+  "delta": {
+    "grade_a_recall": 0.0,
+    "benchmark_f1": -0.0326,
+    "real_catalogued_events_found": 2,
+    "survey_precision": -0.0166
+  },
+  "interpretation": "Grade-A recall is IDENTICAL (11 tp both). The screened model raises benchmark false positives 20 -> 24, and 2 of those 4 additional detections are real events in the full Nakamura catalog: total real events found rises 20 -> 22 while benchmark F1 FALLS 0.440 -> 0.407. That is the project's central claim reproduced as a controlled ablation - the benchmark metric penalises a detector for finding events its 76-label subset omits.",
+  "honest_caveat": "This ablation is NOT resolved at benchmark scale. delta F1 = 0.033 sits well inside SpecUNet's measured seed variance (+/-0.086, results/seed_variance_unet.json), and 9 -> 11 catalogue matches is a 2-event difference on 19 test files. Neither direction is statistically supported here. The comparison is only decidable on the continuous archive (~7,850 valid station-days, thousands of catalogue events), which is why both models are scanned there - see results/archive_scan/.",
+  "headline_table_unchanged": "The frozen v1.0 headline keeps the unscreened checkpoint, because the difference is within seed noise and re-freezing on noise would be dishonest. The screened model is nonetheless the correct instrument for the archive scan: a detector trained to suppress uncatalogued events is the wrong tool for finding uncatalogued events.",
+  "framing": "positive-unlabeled learning / case-control contamination - unlabeled data treated as negative with a measured hidden-positive fraction. Cite du Plessis, Niu & Sugiyama; Kiryo et al. (nnPU)."
+}

@@ -95,10 +95,10 @@ def main():
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    uck = torch.load(args.unet, map_location=device, weights_only=False)
+    uck = torch.load(args.unet, map_location=device, weights_only=True)
     unet = SpecUNet(base=UNET_ARCHS[uck.get("arch", "base")])
     unet.load_state_dict(uck["model"])
-    cck = torch.load(args.cnn, map_location=device, weights_only=False)
+    cck = torch.load(args.cnn, map_location=device, weights_only=True)
     cnn = SeisCNN(channels=ARCHS[cck.get("arch", "base")])
     cnn.load_state_dict(cck["model"])
 

@@ -1,0 +1,256 @@
+{
+  "method": "matched filter (max normalised CC over train templates)",
+  "body": "lunar",
+  "n_templates": 45,
+  "template_sec": 300.0,
+  "pre_sec": 120.0,
+  "threshold_k_mad": 10.0,
+  "threshold_tuned_on": "val (both template length and k)",
+  "val_f1": 0.1667,
+  "val_grid": [
+    {
+      "tpl_sec": 200.0,
+      "k": 4.0,
+      "val_f1": 0.0446,
+      "val_p": 0.0233,
+      "val_r": 0.5455
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 6.0,
+      "val_f1": 0.0328,
+      "val_p": 0.018,
+      "val_r": 0.1818
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 8.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 10.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 12.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 15.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 20.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 200.0,
+      "k": 30.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 4.0,
+      "val_f1": 0.0597,
+      "val_p": 0.0311,
+      "val_r": 0.7273
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 6.0,
+      "val_f1": 0.1121,
+      "val_p": 0.0625,
+      "val_r": 0.5455
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 8.0,
+      "val_f1": 0.087,
+      "val_p": 0.0833,
+      "val_r": 0.0909
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 10.0,
+      "val_f1": 0.1667,
+      "val_p": 1.0,
+      "val_r": 0.0909
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 12.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 15.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 20.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 300.0,
+      "k": 30.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 4.0,
+      "val_f1": 0.0221,
+      "val_p": 0.0115,
+      "val_r": 0.2727
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 6.0,
+      "val_f1": 0.0612,
+      "val_p": 0.0345,
+      "val_r": 0.2727
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 8.0,
+      "val_f1": 0.1,
+      "val_p": 0.1111,
+      "val_r": 0.0909
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 10.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 12.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 15.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 20.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 600.0,
+      "k": 30.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 4.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 6.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 8.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 10.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 12.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 15.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 20.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    },
+    {
+      "tpl_sec": 1200.0,
+      "k": 30.0,
+      "val_f1": 0.0,
+      "val_p": 0.0,
+      "val_r": 0.0
+    }
+  ],
+  "oracle_test_tuned_upper_bound": {
+    "f1": 0.2857,
+    "k": 8.0,
+    "tpl_sec": 600.0,
+    "precision": 0.2609,
+    "recall": 0.3158
+  },
+  "tolerance_sec": 120.0,
+  "suppress_sec": 1800.0,
+  "matched_filter": {
+    "tp": 3,
+    "fp": 6,
+    "fn": 16,
+    "precision": 0.3333,
+    "recall": 0.1579,
+    "f1": 0.2143,
+    "mae_sec": 56.23,
+    "median_ae_sec": 70.72
+  },
+  "note": "templates come from the TRAIN split only, the same 45 Grade-A events the injection engine uses, so both methods see the same labelled information."
+}

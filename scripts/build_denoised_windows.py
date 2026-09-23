@@ -52,7 +52,7 @@ def main():
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ck = torch.load(args.unet, map_location=device, weights_only=False)
+    ck = torch.load(args.unet, map_location=device, weights_only=True)
     model = SpecUNet(base=UNET_ARCHS[ck.get("arch", "base")])
     model.load_state_dict(ck["model"])
     model.eval().to(device)

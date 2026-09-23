@@ -1,0 +1,58 @@
+{
+  "addendum": "5-seed variance for the Nakamura-screened SpecUNet (v1.1). Each seed evaluated at its OWN val-tuned operating point; test untouched during selection.",
+  "n_seeds": 5,
+  "specunet_screened": {
+    "per_seed_f1": {
+      "seed42": 0.4074,
+      "seed1": 0.4906,
+      "seed2": 0.3265,
+      "seed3": 0.3111,
+      "seed4": 0.3265
+    },
+    "per_seed_operating_point": {
+      "seed42": [
+        0.25,
+        600
+      ],
+      "seed1": [
+        0.25,
+        600
+      ],
+      "seed2": [
+        0.25,
+        600
+      ],
+      "seed3": [
+        0.35,
+        430
+      ],
+      "seed4": [
+        0.35,
+        600
+      ]
+    },
+    "mean_f1": 0.3724,
+    "std_f1": 0.0761,
+    "min_f1": 0.3111,
+    "max_f1": 0.4906
+  },
+  "reference_unscreened_3seed": {
+    "per_seed_f1": {
+      "seed42": 0.44,
+      "seed1": 0.2807,
+      "seed2": 0.4151
+    },
+    "mean_f1": 0.3786,
+    "std_f1": 0.0857
+  },
+  "reference_seiscnn_3seed": {
+    "per_seed_f1": {
+      "seed42": 0.5405,
+      "seed1": 0.5,
+      "seed2": 0.4545
+    },
+    "mean_f1": 0.4983,
+    "std_f1": 0.043
+  },
+  "note": "Read the SpecUNet-vs-SeisCNN comparison as overlap, not a tie: the seed spread is comparable to the point estimate of the gap. With 19 test files the two are not resolved, and no amount of reseeding fixes that - only a larger evaluation set would."
+}

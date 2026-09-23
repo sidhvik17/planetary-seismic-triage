@@ -1,0 +1,39 @@
+{
+  "model": "best.pt",
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "model_sha256": "291dd3f4ede5afb35a734e146fcd733b29052e4c3c75b7cabf56f06edf70b8ef",
+  "threshold": 0.35,
+  "min_dur_sec": 600.0,
+  "mc_passes": 10,
+  "n_detections": 38,
+  "counts": {
+    "tp": 12,
+    "fp_nakamura": 11,
+    "fp": 15
+  },
+  "median_sigma": {
+    "tp": 0.00951711472936391,
+    "fp_all_unmatched": 0.006471478634685297,
+    "fp_excluding_nakamura": 0.0047118675733652466,
+    "real_events_tp_plus_nakamura": 0.009603791880434401
+  },
+  "sigma_separation_fp_over_tp": 0.5,
+  "sigma_separation_cleanfp_over_real": 0.49,
+  "calibration": [
+    {
+      "conf_bin": "0.55-0.7",
+      "n": 4,
+      "precision_grade_a": 0.5,
+      "precision_incl_nakamura": 1.0,
+      "mean_conf": 0.637
+    },
+    {
+      "conf_bin": "0.7-1.01",
+      "n": 34,
+      "precision_grade_a": 0.294,
+      "precision_incl_nakamura": 0.559,
+      "mean_conf": 0.808
+    }
+  ]
+}

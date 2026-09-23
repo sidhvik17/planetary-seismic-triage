@@ -16,11 +16,13 @@ is still usable for triage:
 
 Usage: python scripts/uncertainty_unet.py --model runs/unet_lunar/best.pt
            --threshold 0.3 --min-dur 600
-Writes results/uncertainty_unet.json.
+Writes results/uncertainty_unet.json. Corrected split (exclusive output):
+       --data-dir data/cache/lunar_grouped_v1 --output results/<new>.json
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from datetime import datetime, timedelta, timezone
@@ -63,20 +65,36 @@ def main():
     ap.add_argument("--threshold", type=float, required=True)
     ap.add_argument("--min-dur", type=float, required=True)
     ap.add_argument("--passes", type=int, default=10)
+    ap.add_argument("--data-dir", type=Path,
+                    help="versioned dataset root; requires --output")
+    ap.add_argument("--output", type=Path,
+                    help="result JSON (created exclusively with --data-dir)")
     args = ap.parse_args()
+    root = args.data_dir or DATA_CACHE / "lunar"
+    out = args.output or PROJECT_ROOT / "results" / "uncertainty_unet.json"
+    manifest_sha, benchmark_id = None, "historical filename split"
+    if args.data_dir is not None:
+        if args.output is None:
+            ap.error("--data-dir requires --output")
+        if out.exists():
+            sys.exit(f"refusing to overwrite {out}")
+        raw_manifest = (root / "manifest.json").read_bytes()
+        manifest_sha = hashlib.sha256(raw_manifest).hexdigest()
+        benchmark_id = json.loads(raw_manifest)["benchmark_id"]
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ckpt = torch.load(args.model, map_location=device, weights_only=False)
+    ckpt = torch.load(args.model, map_location=device, weights_only=True)
     model = SpecUNet(base=UNET_ARCHS[ckpt.get("arch", "base")])
     model.load_state_dict(ckpt["model"])
 
     nak_times = load_nakamura_times()
     tol = CFG.window.match_tolerance_sec
     rows = []
-    for p in sorted((DATA_CACHE / "lunar" / "continuous" / "test").glob("*.npz")):
+    for p in sorted((root / "continuous" / "test").glob("*.npz")):
         z = np.load(p)
         trace, picks = z["trace"], list(z["picks"])
-        t0 = trace_start_utc(p.stem)
+        t0 = (datetime.fromisoformat(str(z["start_time"]).replace("Z", "+00:00")).timestamp()
+              if "start_time" in z.files else trace_start_utc(p.stem))
         dets, _, _ = detect_events_spec_mc(
             model, trace, 6.625, CFG, args.threshold, device,
             suppress_sec=CODA_SEC["lunar"], n_passes=args.passes,
@@ -104,7 +122,7 @@ def main():
         return float(np.median(sig[mask])) if mask.any() else None
 
     s_tp = med_sig(arr_cls == "tp")
-    s_fp = med_sig(arr_cls == "fp")
+    s_fp = med_sig(np.isin(arr_cls, ["fp", "fp_nakamura"]))
     s_real = med_sig(np.isin(arr_cls, ["tp", "fp_nakamura"]))
     s_fp_clean = med_sig(arr_cls == "fp")
 
@@ -125,7 +143,10 @@ def main():
         })
 
     result = {
-        "model": Path(args.model).parent.name,
+        "model": Path(args.model).parent.name if args.data_dir is None else Path(args.model).name,
+        "benchmark_id": benchmark_id,
+        "data_manifest_sha256": manifest_sha,
+        "model_sha256": hashlib.sha256(Path(args.model).read_bytes()).hexdigest(),
         "threshold": args.threshold,
         "min_dur_sec": args.min_dur,
         "mc_passes": args.passes,
@@ -140,11 +161,12 @@ def main():
         },
         "sigma_separation_fp_over_tp":
             round(s_fp / s_tp, 2) if s_tp and s_fp else None,
+        "sigma_separation_catalog_unmatched_fp_over_benchmark_tp":
+            round(s_fp_clean / s_tp, 2) if s_tp and s_fp_clean else None,
         "sigma_separation_cleanfp_over_real":
             round(s_fp_clean / s_real, 2) if s_real and s_fp_clean else None,
         "calibration": calib,
     }
-    out = PROJECT_ROOT / "results" / "uncertainty_unet.json"
     out.write_text(json.dumps(result, indent=2))
     print(json.dumps(result, indent=2))
 

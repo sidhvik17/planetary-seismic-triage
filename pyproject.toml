@@ -10,3 +10,8 @@ requires-python = ">=3.10"
 
 [tool.setuptools]
 packages = ["planetseis"]
+
+[tool.pytest.ini_options]
+# Tests import `scripts.*` from the repository root. Plain `pytest` (as in CI)
+# does not add the working directory to sys.path the way `python -m pytest` does.
+pythonpath = ["."]

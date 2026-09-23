@@ -1,0 +1,46 @@
+{
+  "model": "best.pt",
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "model_sha256": "38da17d533af4de779afb4e77ddb7b32ed2a050ed44ce3573167731c5ea2ef3d",
+  "threshold": 0.45,
+  "min_dur_sec": 430.0,
+  "mc_passes": 10,
+  "n_detections": 18,
+  "counts": {
+    "tp": 7,
+    "fp_nakamura": 6,
+    "fp": 5
+  },
+  "median_sigma": {
+    "tp": 0.008368844329477544,
+    "fp_all_unmatched": 0.013916725075635543,
+    "fp_excluding_nakamura": 0.01338783805376823,
+    "real_events_tp_plus_nakamura": 0.008754218955005146
+  },
+  "sigma_separation_fp_over_tp": 1.6,
+  "sigma_separation_cleanfp_over_real": 1.53,
+  "calibration": [
+    {
+      "conf_bin": "0.4-0.55",
+      "n": 1,
+      "precision_grade_a": 0.0,
+      "precision_incl_nakamura": 0.0,
+      "mean_conf": 0.494
+    },
+    {
+      "conf_bin": "0.55-0.7",
+      "n": 4,
+      "precision_grade_a": 0.0,
+      "precision_incl_nakamura": 0.75,
+      "mean_conf": 0.624
+    },
+    {
+      "conf_bin": "0.7-1.01",
+      "n": 13,
+      "precision_grade_a": 0.538,
+      "precision_incl_nakamura": 0.769,
+      "mean_conf": 0.81
+    }
+  ]
+}

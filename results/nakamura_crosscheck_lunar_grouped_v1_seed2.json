@@ -1,0 +1,29 @@
+{
+  "model": "best.pt",
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "model_sha256": "291dd3f4ede5afb35a734e146fcd733b29052e4c3c75b7cabf56f06edf70b8ef",
+  "split": "test",
+  "threshold": 0.35,
+  "min_dur_sec": 600.0,
+  "nakamura_match_tol_sec": 300.0,
+  "benchmark": {
+    "tp": 13,
+    "fp": 25,
+    "fn": 10,
+    "precision": 0.3421
+  },
+  "fp_matching_nakamura": 11,
+  "fp_nakamura_match_rate": 0.44,
+  "chance_match_rate": 0.0159,
+  "permutation_p_value": 0.0,
+  "permutation_n": 10000,
+  "match_count_by_tolerance": {
+    "\u00b160s": 0,
+    "\u00b1120s": 1,
+    "\u00b1180s": 7,
+    "\u00b1300s": 11
+  },
+  "survey_precision": 0.6316,
+  "note": "survey_precision counts detections matching ANY Nakamura S12 event as true; recall is not restated because the benchmark's pick list stays the recall denominator"
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "method": "group explicit acquisition timestamps before _evid; optionally compare cached trace arrays and sample rates",
+  "limitations": [
+    "Filename overlap is a candidate, not waveform proof; confirmed_identical requires exact array and sample-rate equality.",
+    "This does not detect differently named, partially overlapping, or shifted acquisition spans.",
+    "Unchecked filenames require a separate metadata-based audit; no candidates is not proof of independence."
+  ],
+  "summary": {
+    "files_by_split": {
+      "train": 45,
+      "val": 11,
+      "test": 19
+    },
+    "timestamped_acquisitions": 70,
+    "unchecked_filenames": 0,
+    "duplicate_acquisitions": 5,
+    "cross_split_acquisitions": 2,
+    "confirmed_identical_cross_split_pairs": 2,
+    "status": "overlap_detected"
+  },
+  "duplicate_acquisitions": [
+    {
+      "acquisition_stem": "xa.s12.00.mhz.1970-07-20HR00",
+      "entries": [
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed"
+        },
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed"
+        }
+      ],
+      "cross_split": false,
+      "comparisons": []
+    },
+    {
+      "acquisition_stem": "xa.s12.00.mhz.1971-05-12HR00",
+      "entries": [
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed"
+        },
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed"
+        }
+      ],
+      "cross_split": false,
+      "comparisons": []
+    },
+    {
+      "acquisition_stem": "xa.s12.00.mhz.1972-07-17HR00",
+      "entries": [
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed"
+        },
+        {
+          "split": "test",
+          "filename": "xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed"
+        }
+      ],
+      "cross_split": true,
+      "comparisons": [
+        {
+          "left": {
+            "split": "train",
+            "filename": "xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed"
+          },
+          "right": {
+            "split": "test",
+            "filename": "xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed"
+          },
+          "status": "confirmed_identical",
+          "arrays_equal": true,
+          "rates_equal": true,
+          "waveforms": [
+            {
+              "cache_file": "train/xa.s12.00.mhz.1972-07-17HR00_evid00068.npz",
+              "n_samples": 572399,
+              "rate_hz": 6.625,
+              "dtype": "float32",
+              "trace_sha256": "736a1e4a8ee59aefa5e2790b1249ccf72feb0306c16482cedddc46580c82a12f"
+            },
+            {
+              "cache_file": "test/xa.s12.00.mhz.1972-07-17HR00_evid00067.npz",
+              "n_samples": 572399,
+              "rate_hz": 6.625,
+              "dtype": "float32",
+              "trace_sha256": "736a1e4a8ee59aefa5e2790b1249ccf72feb0306c16482cedddc46580c82a12f"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "acquisition_stem": "xa.s12.00.mhz.1973-06-05HR00",
+      "entries": [
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed"
+        },
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed"
+        }
+      ],
+      "cross_split": false,
+      "comparisons": []
+    },
+    {
+      "acquisition_stem": "xa.s12.00.mhz.1974-07-06HR00",
+      "entries": [
+        {
+          "split": "train",
+          "filename": "xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed"
+        },
+        {
+          "split": "test",
+          "filename": "xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed"
+        }
+      ],
+      "cross_split": true,
+      "comparisons": [
+        {
+          "left": {
+            "split": "train",
+            "filename": "xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed"
+          },
+          "right": {
+            "split": "test",
+            "filename": "xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed"
+          },
+          "status": "confirmed_identical",
+          "arrays_equal": true,
+          "rates_equal": true,
+          "waveforms": [
+            {
+              "cache_file": "train/xa.s12.00.mhz.1974-07-06HR00_evid00150.npz",
+              "n_samples": 572411,
+              "rate_hz": 6.625,
+              "dtype": "float32",
+              "trace_sha256": "93c167d73b5a0a3203c7e31a1146381a47d3d6f5d88b753677feb6a8de808ad1"
+            },
+            {
+              "cache_file": "test/xa.s12.00.mhz.1974-07-06HR00_evid00151.npz",
+              "n_samples": 572411,
+              "rate_hz": 6.625,
+              "dtype": "float32",
+              "trace_sha256": "93c167d73b5a0a3203c7e31a1146381a47d3d6f5d88b753677feb6a8de808ad1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unchecked_filenames": [],
+  "manifest": "lunar_splits.json"
+}

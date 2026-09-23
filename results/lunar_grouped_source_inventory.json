@@ -1,0 +1,3652 @@
+{
+  "schema_version": 1,
+  "inspected_on": "2026-09-23",
+  "purpose": "Read-only source inventory for a separately versioned acquisition-disjoint lunar benchmark; this file contains no model performance or tuning decisions.",
+  "source_catalog": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/catalogs/apollo12_catalog_GradeA_final.csv",
+  "source_catalog_sha256": "729c084b291f50263ea5dce7ef9cb14462b4aabe9c1d5c849c2360a869328d1d",
+  "historical_manifest": "benchmark/lunar_splits.json",
+  "historical_manifest_sha256": "ce023b62224b8736ace4d0213df9d310a8647367586737aea4a77a1f537e44c4",
+  "proposed_assignment_policy": "Connected components of positive absolute interval overlap on trace ID OR equal raw sample hash/shape/dtype/rate. Entire component goes to test if any historical member was test, else val if any was val, else train. Previously unresolved local event defaults to train. Exact waveform spans consolidate; distinct partial spans stay separate in one split. No model outcomes used.",
+  "time_policy": "Catalog absolute UTC is authoritative; relative picks are derived from each actual raw start. Original catalog relative values are retained as provenance, not reused for shifted-start files.",
+  "summary": {
+    "catalog_rows": 76,
+    "resolved_source_files": 76,
+    "exact_filename_matches": 75,
+    "recovered_event_id_matches": 1,
+    "groups": 67,
+    "unique_waveform_spans": 71,
+    "source_overlap_edges": 10,
+    "exact_raw_duplicate_pairs": 5,
+    "partial_overlap_source_pairs": 5,
+    "proposed_split_counts": {
+      "val": {
+        "groups": 11,
+        "source_files": 11,
+        "unique_waveform_spans": 11,
+        "events": 11
+      },
+      "test": {
+        "groups": 18,
+        "source_files": 23,
+        "unique_waveform_spans": 21,
+        "events": 23
+      },
+      "train": {
+        "groups": 38,
+        "source_files": 42,
+        "unique_waveform_spans": 39,
+        "events": 42
+      }
+    },
+    "picks_shared_across_distinct_partial_spans": []
+  },
+  "sources": [
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-01-19HR00_evid00002.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+      "catalog_filename": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-01-19T00:00:00.665000Z",
+      "end_exclusive_utc": "1970-01-20T00:00:02.929151Z",
+      "last_sample_utc": "1970-01-20T00:00:02.778208Z",
+      "start_epoch": 1555200.665,
+      "end_exclusive_epoch": 1641602.9291509434,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "9a6e107d06c0816ceedb5b17babb675e3ed82ccf4cb222bae23eff694cfc6d4f",
+      "event_id": "evid00002",
+      "catalog_pick_utc": "1970-01-19T20:25:00.000000Z",
+      "catalog_pick_epoch": 1628700.0,
+      "catalog_relative_sec": 73500.0,
+      "relative_sec_from_raw_start": 73499.33499999996,
+      "relative_correction_sec": -0.6650000000372529
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-25HR00_evid00003.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "catalog_filename": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-03-25T00:00:00.440000Z",
+      "end_exclusive_utc": "1970-03-26T00:00:02.100377Z",
+      "last_sample_utc": "1970-03-26T00:00:01.949434Z",
+      "start_epoch": 7171200.44,
+      "end_exclusive_epoch": 7257602.1003773585,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "313af129e6d85963b829fd42548c19525bb20777d0bcb6dda5970ea13f0a802e",
+      "event_id": "evid00003",
+      "catalog_pick_utc": "1970-03-25T03:32:00.000000Z",
+      "catalog_pick_epoch": 7183920.0,
+      "catalog_relative_sec": 12720.0,
+      "relative_sec_from_raw_start": 12719.55999999959,
+      "relative_correction_sec": -0.44000000040978193
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-26HR00_evid00004.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+      "catalog_filename": "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-03-26T00:00:00.565000Z",
+      "end_exclusive_utc": "1970-03-27T00:00:02.225377Z",
+      "last_sample_utc": "1970-03-27T00:00:02.074434Z",
+      "start_epoch": 7257600.565,
+      "end_exclusive_epoch": 7344002.2253773585,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "fdb7c82574b0f100530164f9055d27ba4e687b6bbcdaea4d8a59f8515d07c696",
+      "event_id": "evid00004",
+      "catalog_pick_utc": "1970-03-26T20:17:00.000000Z",
+      "catalog_pick_epoch": 7330620.0,
+      "catalog_relative_sec": 73020.0,
+      "relative_sec_from_raw_start": 73019.43499999959,
+      "relative_correction_sec": -0.5650000004097819
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-25HR00_evid00006.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "catalog_filename": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-04-25T00:00:00.196000Z",
+      "end_exclusive_utc": "1970-04-26T00:00:02.460151Z",
+      "last_sample_utc": "1970-04-26T00:00:02.309208Z",
+      "start_epoch": 9849600.196,
+      "end_exclusive_epoch": 9936002.460150944,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "fd97d115588fe943da17afda2b779fcddd894d7a8dffca0f778f0ee7fc8bd7f3",
+      "event_id": "evid00006",
+      "catalog_pick_utc": "1970-04-25T01:14:00.000000Z",
+      "catalog_pick_epoch": 9854040.0,
+      "catalog_relative_sec": 4440.0,
+      "relative_sec_from_raw_start": 4439.803999999538,
+      "relative_correction_sec": -0.196000000461936
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-26HR00_evid00007.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+      "catalog_filename": "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-04-26T00:00:00.660000Z",
+      "end_exclusive_utc": "1970-04-27T00:00:02.320377Z",
+      "last_sample_utc": "1970-04-27T00:00:02.169434Z",
+      "start_epoch": 9936000.66,
+      "end_exclusive_epoch": 10022402.32037736,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "68b4db6aecee787f55cac1dc6f5ae849c60cdebab31e09946f104583794d0275",
+      "event_id": "evid00007",
+      "catalog_pick_utc": "1970-04-26T14:29:00.000000Z",
+      "catalog_pick_epoch": 9988140.0,
+      "catalog_relative_sec": 52140.0,
+      "relative_sec_from_raw_start": 52139.33999999985,
+      "relative_correction_sec": -0.6600000001490116
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-15HR00_evid00008.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+      "catalog_filename": "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-06-15T00:00:00.510000Z",
+      "end_exclusive_utc": "1970-06-16T00:00:03.226981Z",
+      "last_sample_utc": "1970-06-16T00:00:03.076038Z",
+      "start_epoch": 14256000.51,
+      "end_exclusive_epoch": 14342403.226981131,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "d27e6155b02c65c50b3821cb21291841c506a592cd2118987816c1c0ad05ebbe",
+      "event_id": "evid00008",
+      "catalog_pick_utc": "1970-06-15T19:00:00.000000Z",
+      "catalog_pick_epoch": 14324400.0,
+      "catalog_relative_sec": 68400.0,
+      "relative_sec_from_raw_start": 68399.49000000022,
+      "relative_correction_sec": -0.5099999997764826
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-26HR00_evid00009.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+      "catalog_filename": "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-06-26T00:00:00.116000Z",
+      "end_exclusive_utc": "1970-06-27T00:00:03.587698Z",
+      "last_sample_utc": "1970-06-27T00:00:03.436755Z",
+      "start_epoch": 15206400.116,
+      "end_exclusive_epoch": 15292803.587698113,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "d8893db94814db09cb40a4444335da2d49c26b681edcbe6cc88a7a514ff13f3e",
+      "event_id": "evid00009",
+      "catalog_pick_utc": "1970-06-26T20:01:00.000000Z",
+      "catalog_pick_epoch": 15278460.0,
+      "catalog_relative_sec": 72060.0,
+      "relative_sec_from_raw_start": 72059.88399999961,
+      "relative_correction_sec": -0.11600000038743019
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "catalog_filename": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-07-20T00:00:00.487000Z",
+      "end_exclusive_utc": "1970-07-21T00:00:02.147377Z",
+      "last_sample_utc": "1970-07-21T00:00:01.996434Z",
+      "start_epoch": 17280000.487,
+      "end_exclusive_epoch": 17366402.147377357,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "294f614bcee1a2261ab8652ae1ef234400e27234bebf9897eeaefcba392f183b",
+      "event_id": "evid00010",
+      "catalog_pick_utc": "1970-07-20T05:06:00.000000Z",
+      "catalog_pick_epoch": 17298360.0,
+      "catalog_relative_sec": 18360.0,
+      "relative_sec_from_raw_start": 18359.51300000027,
+      "relative_correction_sec": -0.4869999997317791
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-07-20HR00_evid00011",
+      "catalog_filename": "xa.s12.00.mhz.1970-07-20HR00_evid00011",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-07-20T00:00:00.487000Z",
+      "end_exclusive_utc": "1970-07-21T00:00:02.147377Z",
+      "last_sample_utc": "1970-07-21T00:00:01.996434Z",
+      "start_epoch": 17280000.487,
+      "end_exclusive_epoch": 17366402.147377357,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "294f614bcee1a2261ab8652ae1ef234400e27234bebf9897eeaefcba392f183b",
+      "event_id": "evid00011",
+      "catalog_pick_utc": "1970-07-20T11:44:00.000000Z",
+      "catalog_pick_epoch": 17322240.0,
+      "catalog_relative_sec": 42240.0,
+      "relative_sec_from_raw_start": 42239.51300000027,
+      "relative_correction_sec": -0.4869999997317791
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-09-26HR00_evid00013.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+      "catalog_filename": "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-09-26T00:00:00.149000Z",
+      "end_exclusive_utc": "1970-09-27T00:00:03.620698Z",
+      "last_sample_utc": "1970-09-27T00:00:03.469755Z",
+      "start_epoch": 23155200.149,
+      "end_exclusive_epoch": 23241603.620698113,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "a3f0eb0f1d5f8621d7a256ccd3e99270b8c62e87be9e5866167a69118e754bdb",
+      "event_id": "evid00013",
+      "catalog_pick_utc": "1970-09-26T19:57:00.000000Z",
+      "catalog_pick_epoch": 23227020.0,
+      "catalog_relative_sec": 71820.0,
+      "relative_sec_from_raw_start": 71819.85099999979,
+      "relative_correction_sec": -0.14900000020861626
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-10-24HR00_evid00014.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+      "catalog_filename": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-10-24T00:00:00.504000Z",
+      "end_exclusive_utc": "1970-10-25T00:00:03.522868Z",
+      "last_sample_utc": "1970-10-25T00:00:03.371925Z",
+      "start_epoch": 25574400.504,
+      "end_exclusive_epoch": 25660803.522867925,
+      "n_samples": 572420,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "ff860e1b80047c0d10ad5d74e8a224164be8d071c75f8a22a935f0fa8bb7ca93",
+      "event_id": "evid00014",
+      "catalog_pick_utc": "1970-10-24T11:31:00.000000Z",
+      "catalog_pick_epoch": 25615860.0,
+      "catalog_relative_sec": 41460.0,
+      "relative_sec_from_raw_start": 41459.495999999344,
+      "relative_correction_sec": -0.5040000006556511
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-11-12HR00_evid00015.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+      "catalog_filename": "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-11-12T00:00:00.700000Z",
+      "end_exclusive_utc": "1970-11-13T00:00:02.360377Z",
+      "last_sample_utc": "1970-11-13T00:00:02.209434Z",
+      "start_epoch": 27216000.7,
+      "end_exclusive_epoch": 27302402.360377356,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "56ecf2f0600235c02ce04600ed342bffaa6115255f1a90a9e46352e3c1ec3d99",
+      "event_id": "evid00015",
+      "catalog_pick_utc": "1970-11-12T12:50:00.000000Z",
+      "catalog_pick_epoch": 27262200.0,
+      "catalog_relative_sec": 46200.0,
+      "relative_sec_from_raw_start": 46199.300000000745,
+      "relative_correction_sec": -0.6999999992549419
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+      "catalog_filename": "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-12-11T00:00:00.326000Z",
+      "end_exclusive_utc": "1970-12-12T00:00:02.590151Z",
+      "last_sample_utc": "1970-12-12T00:00:02.439208Z",
+      "start_epoch": 29721600.326,
+      "end_exclusive_epoch": 29808002.590150945,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "2cb96c905039464e8dd699ffc27349a0fbc189304930a1e86a9a4771af3a1b82",
+      "event_id": "evid00017",
+      "catalog_pick_utc": "1970-12-11T07:22:00.000000Z",
+      "catalog_pick_epoch": 29748120.0,
+      "catalog_relative_sec": 26520.0,
+      "relative_sec_from_raw_start": 26519.67399999872,
+      "relative_correction_sec": -0.32600000128149986
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-27HR00_evid00019.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+      "catalog_filename": "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-12-27T00:00:00.517000Z",
+      "end_exclusive_utc": "1970-12-28T00:00:03.988698Z",
+      "last_sample_utc": "1970-12-28T00:00:03.837755Z",
+      "start_epoch": 31104000.517,
+      "end_exclusive_epoch": 31190403.988698114,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "f6c58a8a4af2f0c1c5529cae202d146e7c2348a64a756ba6ea12ee6390bb677a",
+      "event_id": "evid00019",
+      "catalog_pick_utc": "1970-12-27T20:34:00.000000Z",
+      "catalog_pick_epoch": 31178040.0,
+      "catalog_relative_sec": 74040.0,
+      "relative_sec_from_raw_start": 74039.48299999908,
+      "relative_correction_sec": -0.517000000923872
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-31HR00_evid00021.mseed",
+      "source_stem": "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+      "catalog_filename": "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1970-12-31T00:00:00.339000Z",
+      "end_exclusive_utc": "1971-01-01T00:00:01.999377Z",
+      "last_sample_utc": "1971-01-01T00:00:01.848434Z",
+      "start_epoch": 31449600.339,
+      "end_exclusive_epoch": 31536001.99937736,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "a34489084ea2bdbd2e7538192dcf199670b247ff3204c662ea4987a233eb05b2",
+      "event_id": "evid00021",
+      "catalog_pick_utc": "1970-12-31T15:41:00.000000Z",
+      "catalog_pick_epoch": 31506060.0,
+      "catalog_relative_sec": 56460.0,
+      "relative_sec_from_raw_start": 56459.66099999845,
+      "relative_correction_sec": -0.33900000154972076
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-15HR00_evid00022.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+      "catalog_filename": "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-01-15T00:00:00.258000Z",
+      "end_exclusive_utc": "1971-01-16T00:00:01.918377Z",
+      "last_sample_utc": "1971-01-16T00:00:01.767434Z",
+      "start_epoch": 32745600.258,
+      "end_exclusive_epoch": 32832001.91837736,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "636977667c8a0e5851227bad6c643cd626db130330e6b09669effdab208199de",
+      "event_id": "evid00022",
+      "catalog_pick_utc": "1971-01-15T12:40:00.000000Z",
+      "catalog_pick_epoch": 32791200.0,
+      "catalog_relative_sec": 45600.0,
+      "relative_sec_from_raw_start": 45599.74199999869,
+      "relative_correction_sec": -0.2580000013113022
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-28HR00_evid00023.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "catalog_filename": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-01-28T00:00:00.234000Z",
+      "end_exclusive_utc": "1971-01-29T00:00:03.705698Z",
+      "last_sample_utc": "1971-01-29T00:00:03.554755Z",
+      "start_epoch": 33868800.234,
+      "end_exclusive_epoch": 33955203.70569811,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "d40f8d9040fb2435cc6e42f6c924478f23d5f87ab3e9f7f5476b6c213a60b0c6",
+      "event_id": "evid00023",
+      "catalog_pick_utc": "1971-01-28T14:59:00.000000Z",
+      "catalog_pick_epoch": 33922740.0,
+      "catalog_relative_sec": 53940.0,
+      "relative_sec_from_raw_start": 53939.76600000262,
+      "relative_correction_sec": -0.23399999737739563
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-29HR00_evid00024.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+      "catalog_filename": "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-01-29T00:00:00.194000Z",
+      "end_exclusive_utc": "1971-01-30T00:00:03.665698Z",
+      "last_sample_utc": "1971-01-30T00:00:03.514755Z",
+      "start_epoch": 33955200.194,
+      "end_exclusive_epoch": 34041603.66569811,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "34533ed0b5cec12d56364fdbe6e71a9a06d10a450d1baeb2ad68d19cc0898c81",
+      "event_id": "evid00024",
+      "catalog_pick_utc": "1971-01-29T18:21:00.000000Z",
+      "catalog_pick_epoch": 34021260.0,
+      "catalog_relative_sec": 66060.0,
+      "relative_sec_from_raw_start": 66059.80600000173,
+      "relative_correction_sec": -0.1939999982714653
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-02-09HR00_evid00026.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+      "catalog_filename": "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-02-09T00:00:00.179000Z",
+      "end_exclusive_utc": "1971-02-10T00:00:01.839377Z",
+      "last_sample_utc": "1971-02-10T00:00:01.688434Z",
+      "start_epoch": 34905600.179,
+      "end_exclusive_epoch": 34992001.83937736,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "81a3361d7b50c4d887838934ec640a72ce4047af80f44fe35e7a0bf4b6dc1beb",
+      "event_id": "evid00026",
+      "catalog_pick_utc": "1971-02-09T03:42:00.000000Z",
+      "catalog_pick_epoch": 34918920.0,
+      "catalog_relative_sec": 13320.0,
+      "relative_sec_from_raw_start": 13319.821000002325,
+      "relative_correction_sec": -0.17899999767541885
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-03-25HR00_evid00028.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+      "catalog_filename": "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-03-25T00:00:00.151000Z",
+      "end_exclusive_utc": "1971-03-26T00:00:04.226472Z",
+      "last_sample_utc": "1971-03-26T00:00:04.075528Z",
+      "start_epoch": 38707200.151,
+      "end_exclusive_epoch": 38793604.2264717,
+      "n_samples": 572427,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "a708ed2289a5d58108ddc9d97711887bd07f0a6980cecce47355418cbb4bca60",
+      "event_id": "evid00028",
+      "catalog_pick_utc": "1971-03-25T15:18:00.000000Z",
+      "catalog_pick_epoch": 38762280.0,
+      "catalog_relative_sec": 55080.0,
+      "relative_sec_from_raw_start": 55079.84899999946,
+      "relative_correction_sec": -0.1510000005364418
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-13HR02_evid00029.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-04-13HR02_evid00029",
+      "catalog_filename": "xa.s12.00.mhz.1971-04-13HR00_evid00029",
+      "resolution": "unique_event_id_fallback",
+      "historical_split": null,
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-04-13T02:42:48.990062Z",
+      "end_exclusive_utc": "1971-04-13T22:37:34.273081Z",
+      "last_sample_utc": "1971-04-13T22:37:34.122137Z",
+      "start_epoch": 40358568.990062,
+      "end_exclusive_epoch": 40430254.27308086,
+      "n_samples": 474915,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "dc04890413eff4680d530c047fbc3a7cb427f36d0f320af3f22061a4b8bdf282",
+      "event_id": "evid00029",
+      "catalog_pick_utc": "1971-04-13T12:55:00.000000Z",
+      "catalog_pick_epoch": 40395300.0,
+      "catalog_relative_sec": 46500.0,
+      "relative_sec_from_raw_start": 36731.00993800163,
+      "relative_correction_sec": -9768.990061998367
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-17HR00_evid00030.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+      "catalog_filename": "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-04-17T00:00:00.387000Z",
+      "end_exclusive_utc": "1971-04-18T00:00:03.103981Z",
+      "last_sample_utc": "1971-04-18T00:00:02.953038Z",
+      "start_epoch": 40694400.387,
+      "end_exclusive_epoch": 40780803.10398114,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "3b1b874e9739f65b70fd8463e0591815b7323febb702595508436850b8b4a6a2",
+      "event_id": "evid00030",
+      "catalog_pick_utc": "1971-04-17T07:04:00.000000Z",
+      "catalog_pick_epoch": 40719840.0,
+      "catalog_relative_sec": 25440.0,
+      "relative_sec_from_raw_start": 25439.612999998033,
+      "relative_correction_sec": -0.3870000019669533
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-05-12T00:00:00.712000Z",
+      "end_exclusive_utc": "1971-05-13T00:00:01.768604Z",
+      "last_sample_utc": "1971-05-13T00:00:01.617660Z",
+      "start_epoch": 42854400.712,
+      "end_exclusive_epoch": 42940801.76860377,
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "e7421b9ee6fed156da54e8e002564a33fe71b3cbe3961b5c2d5002b2927ff6d5",
+      "event_id": "evid00031",
+      "catalog_pick_utc": "1971-05-12T08:05:00.000000Z",
+      "catalog_pick_epoch": 42883500.0,
+      "catalog_relative_sec": 29100.0,
+      "relative_sec_from_raw_start": 29099.288000002503,
+      "relative_correction_sec": -0.7119999974966049
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-05-12HR00_evid00032",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-12HR00_evid00032",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-05-12T00:00:00.712000Z",
+      "end_exclusive_utc": "1971-05-13T00:00:01.768604Z",
+      "last_sample_utc": "1971-05-13T00:00:01.617660Z",
+      "start_epoch": 42854400.712,
+      "end_exclusive_epoch": 42940801.76860377,
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "e7421b9ee6fed156da54e8e002564a33fe71b3cbe3961b5c2d5002b2927ff6d5",
+      "event_id": "evid00032",
+      "catalog_pick_utc": "1971-05-12T09:45:00.000000Z",
+      "catalog_pick_epoch": 42889500.0,
+      "catalog_relative_sec": 35100.0,
+      "relative_sec_from_raw_start": 35099.2880000025,
+      "relative_correction_sec": -0.7119999974966049
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-05-13T00:00:00.183000Z",
+      "end_exclusive_utc": "1971-05-14T00:00:01.843377Z",
+      "last_sample_utc": "1971-05-14T00:00:01.692434Z",
+      "start_epoch": 42940800.183,
+      "end_exclusive_epoch": 43027201.84337736,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "c62aa05313b7a2f5aa88c8c615ce6b9ed3c8af49236ef6e5a468dd5482dc162a",
+      "event_id": "evid00033",
+      "catalog_pick_utc": "1971-05-13T03:00:00.000000Z",
+      "catalog_pick_epoch": 42951600.0,
+      "catalog_relative_sec": 10800.0,
+      "relative_sec_from_raw_start": 10799.817000001669,
+      "relative_correction_sec": -0.18299999833106995
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-23HR00_evid00034.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-05-23T00:00:00.502000Z",
+      "end_exclusive_utc": "1971-05-24T00:00:03.973698Z",
+      "last_sample_utc": "1971-05-24T00:00:03.822755Z",
+      "start_epoch": 43804800.502,
+      "end_exclusive_epoch": 43891203.97369811,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "719bfa4499a7c787b9fa1bd983dbf1ee00c889f66100a9e49a3e2cd36eca450c",
+      "event_id": "evid00034",
+      "catalog_pick_utc": "1971-05-23T22:20:00.000000Z",
+      "catalog_pick_epoch": 43885200.0,
+      "catalog_relative_sec": 80400.0,
+      "relative_sec_from_raw_start": 80399.4980000034,
+      "relative_correction_sec": -0.5019999966025352
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-06-12HR00_evid00035.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+      "catalog_filename": "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-06-12T00:00:00.529000Z",
+      "end_exclusive_utc": "1971-06-13T00:00:03.245981Z",
+      "last_sample_utc": "1971-06-13T00:00:03.095038Z",
+      "start_epoch": 45532800.529,
+      "end_exclusive_epoch": 45619203.245981134,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "7c845dddf8f3e43002bf56039b513286eda7219afbe6bc5e48ba1e8b58c200aa",
+      "event_id": "evid00035",
+      "catalog_pick_utc": "1971-06-12T10:51:00.000000Z",
+      "catalog_pick_epoch": 45571860.0,
+      "catalog_relative_sec": 39060.0,
+      "relative_sec_from_raw_start": 39059.471000000834,
+      "relative_correction_sec": -0.528999999165535
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-09-25HR00_evid00042.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+      "catalog_filename": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-09-25T00:00:00.576000Z",
+      "end_exclusive_utc": "1971-09-26T00:00:00.425057Z",
+      "last_sample_utc": "1971-09-26T00:00:00.274113Z",
+      "start_epoch": 54604800.576,
+      "end_exclusive_epoch": 54691200.4250566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "b4d1fc4f813907fe58c68b7a7c9179a2ee85abd2a943f8469d4176d149358601",
+      "event_id": "evid00042",
+      "catalog_pick_utc": "1971-09-25T08:57:00.000000Z",
+      "catalog_pick_epoch": 54637020.0,
+      "catalog_relative_sec": 32220.0,
+      "relative_sec_from_raw_start": 32219.424000002444,
+      "relative_correction_sec": -0.5759999975562096
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-18HR00_evid00043.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+      "catalog_filename": "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-10-18T00:00:00.417000Z",
+      "end_exclusive_utc": "1971-10-19T00:00:00.266057Z",
+      "last_sample_utc": "1971-10-19T00:00:00.115113Z",
+      "start_epoch": 56592000.417,
+      "end_exclusive_epoch": 56678400.266056605,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "5a8127ca78a012c1b7222bac1a1a714148fd600365e8a0842e7277986b90a463",
+      "event_id": "evid00043",
+      "catalog_pick_utc": "1971-10-18T03:19:00.000000Z",
+      "catalog_pick_epoch": 56603940.0,
+      "catalog_relative_sec": 11940.0,
+      "relative_sec_from_raw_start": 11939.582999996841,
+      "relative_correction_sec": -0.4170000031590462
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-20HR00_evid00044.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+      "catalog_filename": "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-10-20T00:00:00.425000Z",
+      "end_exclusive_utc": "1971-10-21T00:00:00.274057Z",
+      "last_sample_utc": "1971-10-21T00:00:00.123113Z",
+      "start_epoch": 56764800.425,
+      "end_exclusive_epoch": 56851200.2740566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "c80d186ee673574f5f9c059e81d2d1a057b4fc7546527c9d874699a771324bb8",
+      "event_id": "evid00044",
+      "catalog_pick_utc": "1971-10-20T18:08:00.000000Z",
+      "catalog_pick_epoch": 56830080.0,
+      "catalog_relative_sec": 65280.0,
+      "relative_sec_from_raw_start": 65279.57500000298,
+      "relative_correction_sec": -0.42499999701976776
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-31HR00_evid00045.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+      "catalog_filename": "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-10-31T00:00:00.420000Z",
+      "end_exclusive_utc": "1971-11-01T00:00:03.136981Z",
+      "last_sample_utc": "1971-11-01T00:00:02.986038Z",
+      "start_epoch": 57715200.42,
+      "end_exclusive_epoch": 57801603.13698114,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "35e15485242b785ae927e0ebdca02469fa3b9c3ad20001d3521c4b70f250d5f7",
+      "event_id": "evid00045",
+      "catalog_pick_utc": "1971-10-31T05:30:00.000000Z",
+      "catalog_pick_epoch": 57735000.0,
+      "catalog_relative_sec": 19800.0,
+      "relative_sec_from_raw_start": 19799.579999998212,
+      "relative_correction_sec": -0.42000000178813934
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-11-14HR00_evid00046.mseed",
+      "source_stem": "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+      "catalog_filename": "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1971-11-14T00:00:00.602000Z",
+      "end_exclusive_utc": "1971-11-15T00:00:00.451057Z",
+      "last_sample_utc": "1971-11-15T00:00:00.300113Z",
+      "start_epoch": 58924800.602,
+      "end_exclusive_epoch": 59011200.4510566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "4cdb1b463b7390110e741db8ce0c606e3b1e95998236e34aa7afccceefaf19fa",
+      "event_id": "evid00046",
+      "catalog_pick_utc": "1971-11-14T04:17:00.000000Z",
+      "catalog_pick_epoch": 58940220.0,
+      "catalog_relative_sec": 15420.0,
+      "relative_sec_from_raw_start": 15419.398000001907,
+      "relative_correction_sec": -0.6019999980926514
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-01-04HR00_evid00049.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+      "catalog_filename": "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-01-04T00:00:00.117000Z",
+      "end_exclusive_utc": "1972-01-05T00:00:02.833981Z",
+      "last_sample_utc": "1972-01-05T00:00:02.683038Z",
+      "start_epoch": 63331200.117,
+      "end_exclusive_epoch": 63417602.833981134,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "0680d3a9760b6569f1260c323f90cffe5f04d58fe0375d59687b82f998c144d4",
+      "event_id": "evid00049",
+      "catalog_pick_utc": "1972-01-04T06:35:00.000000Z",
+      "catalog_pick_epoch": 63354900.0,
+      "catalog_relative_sec": 23700.0,
+      "relative_sec_from_raw_start": 23699.88300000131,
+      "relative_correction_sec": -0.11699999868869781
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-03-12HR00_evid00052.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+      "catalog_filename": "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-03-12T00:00:00.417000Z",
+      "end_exclusive_utc": "1972-03-13T00:00:00.266057Z",
+      "last_sample_utc": "1972-03-13T00:00:00.115113Z",
+      "start_epoch": 69206400.417,
+      "end_exclusive_epoch": 69292800.2660566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "92a39f6858beaac75dc163c06b5dca4fe5cbc46830038b9b1a187c51810dbb02",
+      "event_id": "evid00052",
+      "catalog_pick_utc": "1972-03-12T18:00:00.000000Z",
+      "catalog_pick_epoch": 69271200.0,
+      "catalog_relative_sec": 64800.0,
+      "relative_sec_from_raw_start": 64799.58300000429,
+      "relative_correction_sec": -0.4169999957084656
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-05-11HR00_evid00055.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+      "catalog_filename": "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-05-11T00:00:00.576000Z",
+      "end_exclusive_utc": "1972-05-12T00:00:00.425057Z",
+      "last_sample_utc": "1972-05-12T00:00:00.274113Z",
+      "start_epoch": 74390400.576,
+      "end_exclusive_epoch": 74476800.4250566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "adaa6b0e9ca944b601d9a9a10ee845d9b4df24d74224ca0b7229f2a4b0945ccd",
+      "event_id": "evid00055",
+      "catalog_pick_utc": "1972-05-11T13:35:00.000000Z",
+      "catalog_pick_epoch": 74439300.0,
+      "catalog_relative_sec": 48900.0,
+      "relative_sec_from_raw_start": 48899.42399999499,
+      "relative_correction_sec": -0.5760000050067902
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-06-16HR00_evid00060.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+      "catalog_filename": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-06-16T00:00:00.116000Z",
+      "end_exclusive_utc": "1972-06-16T23:59:59.965057Z",
+      "last_sample_utc": "1972-06-16T23:59:59.814113Z",
+      "start_epoch": 77500800.116,
+      "end_exclusive_epoch": 77587199.9650566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "424e95ba782c33e9ba3760b2ae630045a28388b79f0e31fb52acff2d9cb701b1",
+      "event_id": "evid00060",
+      "catalog_pick_utc": "1972-06-16T16:11:00.000000Z",
+      "catalog_pick_epoch": 77559060.0,
+      "catalog_relative_sec": 58260.0,
+      "relative_sec_from_raw_start": 58259.88400000334,
+      "relative_correction_sec": -0.11599999666213989
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-07-17T00:00:00.184000Z",
+      "end_exclusive_utc": "1972-07-18T00:00:00.033057Z",
+      "last_sample_utc": "1972-07-17T23:59:59.882113Z",
+      "start_epoch": 80179200.184,
+      "end_exclusive_epoch": 80265600.0330566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "771ee0df3ad9fa2610cd5aa5c5a258b6d67cf2402e1e8c28e6a3fa31cfc29105",
+      "event_id": "evid00067",
+      "catalog_pick_utc": "1972-07-17T07:50:00.000000Z",
+      "catalog_pick_epoch": 80207400.0,
+      "catalog_relative_sec": 28200.0,
+      "relative_sec_from_raw_start": 28199.815999999642,
+      "relative_correction_sec": -0.18400000035762787
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-07-17HR00_evid00068",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-17HR00_evid00068",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-07-17T00:00:00.184000Z",
+      "end_exclusive_utc": "1972-07-18T00:00:00.033057Z",
+      "last_sample_utc": "1972-07-17T23:59:59.882113Z",
+      "start_epoch": 80179200.184,
+      "end_exclusive_epoch": 80265600.0330566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "771ee0df3ad9fa2610cd5aa5c5a258b6d67cf2402e1e8c28e6a3fa31cfc29105",
+      "event_id": "evid00068",
+      "catalog_pick_utc": "1972-07-17T21:56:00.000000Z",
+      "catalog_pick_epoch": 80258160.0,
+      "catalog_relative_sec": 78960.0,
+      "relative_sec_from_raw_start": 78959.81599999964,
+      "relative_correction_sec": -0.18400000035762787
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-28HR00_evid00070.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-07-28T00:00:00.136000Z",
+      "end_exclusive_utc": "1972-07-29T00:00:02.852981Z",
+      "last_sample_utc": "1972-07-29T00:00:02.702038Z",
+      "start_epoch": 81129600.136,
+      "end_exclusive_epoch": 81216002.85298114,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "8231b526ce9e56e715afefdd22416849a05a1deea933e064a4fbaa3e6940369d",
+      "event_id": "evid00070",
+      "catalog_pick_utc": "1972-07-28T02:23:00.000000Z",
+      "catalog_pick_epoch": 81138180.0,
+      "catalog_relative_sec": 8580.0,
+      "relative_sec_from_raw_start": 8579.863999992609,
+      "relative_correction_sec": -0.13600000739097595
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-31HR00_evid00071.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-07-31T00:00:00.622000Z",
+      "end_exclusive_utc": "1972-08-01T00:00:02.886151Z",
+      "last_sample_utc": "1972-08-01T00:00:02.735208Z",
+      "start_epoch": 81388800.622,
+      "end_exclusive_epoch": 81475202.88615094,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "28e819c5da8e3769bf4d035e61d07d770170aa5a29a688cc2d1a8ef0d82a2d30",
+      "event_id": "evid00071",
+      "catalog_pick_utc": "1972-07-31T18:08:00.000000Z",
+      "catalog_pick_epoch": 81454080.0,
+      "catalog_relative_sec": 65280.0,
+      "relative_sec_from_raw_start": 65279.37800000608,
+      "relative_correction_sec": -0.6219999939203262
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-02HR00_evid00083.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+      "catalog_filename": "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-12-02T00:00:00.439000Z",
+      "end_exclusive_utc": "1972-12-03T00:00:00.288057Z",
+      "last_sample_utc": "1972-12-03T00:00:00.137113Z",
+      "start_epoch": 92102400.439,
+      "end_exclusive_epoch": 92188800.2880566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "17cd1fccc93895b38d979fe8d17ba51888883ebce581f118b5d867303fbd2c52",
+      "event_id": "evid00083",
+      "catalog_pick_utc": "1972-12-02T07:58:00.000000Z",
+      "catalog_pick_epoch": 92131080.0,
+      "catalog_relative_sec": 28680.0,
+      "relative_sec_from_raw_start": 28679.56100000441,
+      "relative_correction_sec": -0.4389999955892563
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-03HR00_evid00084.mseed",
+      "source_stem": "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+      "catalog_filename": "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1972-12-03T00:00:00.552000Z",
+      "end_exclusive_utc": "1972-12-04T00:00:00.401057Z",
+      "last_sample_utc": "1972-12-04T00:00:00.250113Z",
+      "start_epoch": 92188800.552,
+      "end_exclusive_epoch": 92275200.4010566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "50def4a4c39634e6ba452ace4ac39092b7cc52d1f68781197c691f448ede3b5b",
+      "event_id": "evid00084",
+      "catalog_pick_utc": "1972-12-03T02:38:00.000000Z",
+      "catalog_pick_epoch": 92198280.0,
+      "catalog_relative_sec": 9480.0,
+      "relative_sec_from_raw_start": 9479.447999998927,
+      "relative_correction_sec": -0.5520000010728836
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-18HR00_evid00088.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+      "catalog_filename": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-01-18T00:00:00.662000Z",
+      "end_exclusive_utc": "1973-01-19T00:00:02.926151Z",
+      "last_sample_utc": "1973-01-19T00:00:02.775208Z",
+      "start_epoch": 96163200.662,
+      "end_exclusive_epoch": 96249602.92615095,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "de60e4a075c0c7048d37f8c38391f36e1c9d2c5173513d4a3459ad80c09d8ab5",
+      "event_id": "evid00088",
+      "catalog_pick_utc": "1973-01-18T23:01:00.000000Z",
+      "catalog_pick_epoch": 96246060.0,
+      "catalog_relative_sec": 82860.0,
+      "relative_sec_from_raw_start": 82859.33799999952,
+      "relative_correction_sec": -0.6620000004768372
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-31HR00_evid00091.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+      "catalog_filename": "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-01-31T00:00:00.595000Z",
+      "end_exclusive_utc": "1973-01-31T23:59:59.840283Z",
+      "last_sample_utc": "1973-01-31T23:59:59.689340Z",
+      "start_epoch": 97286400.595,
+      "end_exclusive_epoch": 97372799.84028302,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "8c0be7c7b29d24d74a142c35ac7b5522f75838bcbbeae6cc9f1d10e332f5559a",
+      "event_id": "evid00091",
+      "catalog_pick_utc": "1973-01-31T00:44:00.000000Z",
+      "catalog_pick_epoch": 97289040.0,
+      "catalog_relative_sec": 2640.0,
+      "relative_sec_from_raw_start": 2639.405000001192,
+      "relative_correction_sec": -0.5949999988079071
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-01HR00_evid00093.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+      "catalog_filename": "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-03-01T00:00:00.345000Z",
+      "end_exclusive_utc": "1973-03-02T00:00:00.194057Z",
+      "last_sample_utc": "1973-03-02T00:00:00.043113Z",
+      "start_epoch": 99792000.345,
+      "end_exclusive_epoch": 99878400.1940566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "aff55cd38647f0a92487846d86e6ea46b347fc51396a772364b089967c463595",
+      "event_id": "evid00093",
+      "catalog_pick_utc": "1973-03-01T07:15:00.000000Z",
+      "catalog_pick_epoch": 99818100.0,
+      "catalog_relative_sec": 26100.0,
+      "relative_sec_from_raw_start": 26099.655000001192,
+      "relative_correction_sec": -0.3449999988079071
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-13HR00_evid00094.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+      "catalog_filename": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-03-13T00:00:00.472000Z",
+      "end_exclusive_utc": "1973-03-13T14:21:20.170113Z",
+      "last_sample_utc": "1973-03-13T14:21:20.019170Z",
+      "start_epoch": 100828800.472,
+      "end_exclusive_epoch": 100880480.1701132,
+      "n_samples": 342378,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "fd92d86178fb4ae08fc539203282194c8f58af37022717ba0bce9d6f79acbfc8",
+      "event_id": "evid00094",
+      "catalog_pick_utc": "1973-03-13T08:01:00.000000Z",
+      "catalog_pick_epoch": 100857660.0,
+      "catalog_relative_sec": 28860.0,
+      "relative_sec_from_raw_start": 28859.52799999714,
+      "relative_correction_sec": -0.47200000286102295
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-24HR00_evid00097.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+      "catalog_filename": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-03-24T00:00:00.606000Z",
+      "end_exclusive_utc": "1973-03-24T23:59:39.926755Z",
+      "last_sample_utc": "1973-03-24T23:59:39.775811Z",
+      "start_epoch": 101779200.606,
+      "end_exclusive_epoch": 101865579.92675473,
+      "n_samples": 572263,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "296933a8ea771d1b7da5a3a10cd5d026898e848bef3e977f647a709907ee4194",
+      "event_id": "evid00097",
+      "catalog_pick_utc": "1973-03-24T19:23:00.000000Z",
+      "catalog_pick_epoch": 101848980.0,
+      "catalog_relative_sec": 69780.0,
+      "relative_sec_from_raw_start": 69779.3939999938,
+      "relative_correction_sec": -0.6060000061988831
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-05-14HR00_evid00104.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+      "catalog_filename": "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-05-14T00:00:00.397000Z",
+      "end_exclusive_utc": "1973-05-15T00:00:02.661151Z",
+      "last_sample_utc": "1973-05-15T00:00:02.510208Z",
+      "start_epoch": 106185600.397,
+      "end_exclusive_epoch": 106272002.66115095,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "5f20d83251c872736c28c093393a8e890b130b900dc8e334dcac15e48a679243",
+      "event_id": "evid00104",
+      "catalog_pick_utc": "1973-05-14T00:44:00.000000Z",
+      "catalog_pick_epoch": 106188240.0,
+      "catalog_relative_sec": 2640.0,
+      "relative_sec_from_raw_start": 2639.603000000119,
+      "relative_correction_sec": -0.3969999998807907
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-06-05T00:00:00.300000Z",
+      "end_exclusive_utc": "1973-06-05T23:59:59.545283Z",
+      "last_sample_utc": "1973-06-05T23:59:59.394340Z",
+      "start_epoch": 108086400.3,
+      "end_exclusive_epoch": 108172799.54528302,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "fcdc5949930861d79a9dc7604206139631be6482e0f1f38718f31dd91b344436",
+      "event_id": "evid00107",
+      "catalog_pick_utc": "1973-06-05T02:38:00.000000Z",
+      "catalog_pick_epoch": 108095880.0,
+      "catalog_relative_sec": 9480.0,
+      "relative_sec_from_raw_start": 9479.70000000298,
+      "relative_correction_sec": -0.29999999701976776
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-06-05HR00_evid00108",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-05HR00_evid00108",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-06-05T00:00:00.300000Z",
+      "end_exclusive_utc": "1973-06-05T23:59:59.545283Z",
+      "last_sample_utc": "1973-06-05T23:59:59.394340Z",
+      "start_epoch": 108086400.3,
+      "end_exclusive_epoch": 108172799.54528302,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "fcdc5949930861d79a9dc7604206139631be6482e0f1f38718f31dd91b344436",
+      "event_id": "evid00108",
+      "catalog_pick_utc": "1973-06-05T11:10:00.000000Z",
+      "catalog_pick_epoch": 108126600.0,
+      "catalog_relative_sec": 40200.0,
+      "relative_sec_from_raw_start": 40199.70000000298,
+      "relative_correction_sec": -0.29999999701976776
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-18HR00_evid00109.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-06-18T00:00:00.132000Z",
+      "end_exclusive_utc": "1973-06-19T00:00:02.848981Z",
+      "last_sample_utc": "1973-06-19T00:00:02.698038Z",
+      "start_epoch": 109209600.132,
+      "end_exclusive_epoch": 109296002.84898113,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "63c56aaf265376cd63292989884e6cece74c92b8a4475aba8aed82451f1cbd17",
+      "event_id": "evid00109",
+      "catalog_pick_utc": "1973-06-18T01:42:00.000000Z",
+      "catalog_pick_epoch": 109215720.0,
+      "catalog_relative_sec": 6120.0,
+      "relative_sec_from_raw_start": 6119.868000000715,
+      "relative_correction_sec": -0.13199999928474426
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-27HR00_evid00112.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-06-27T00:00:00.230000Z",
+      "end_exclusive_utc": "1973-06-28T00:00:00.079057Z",
+      "last_sample_utc": "1973-06-27T23:59:59.928113Z",
+      "start_epoch": 109987200.23,
+      "end_exclusive_epoch": 110073600.0790566,
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "64b1a42c3bfdde3da0c08315a8de15b306415012599e2b8f8cdd9293fe680554",
+      "event_id": "evid00112",
+      "catalog_pick_utc": "1973-06-27T18:36:00.000000Z",
+      "catalog_pick_epoch": 110054160.0,
+      "catalog_relative_sec": 66960.0,
+      "relative_sec_from_raw_start": 66959.76999999583,
+      "relative_correction_sec": -0.23000000417232513
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-03HR00_evid00113.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-07-03T00:00:00.532000Z",
+      "end_exclusive_utc": "1973-07-03T23:59:59.777283Z",
+      "last_sample_utc": "1973-07-03T23:59:59.626340Z",
+      "start_epoch": 110505600.532,
+      "end_exclusive_epoch": 110591999.77728303,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "3187df72e8318e01ea62e6fce9ee115981b37ed854d42a538058ed3d2baea57d",
+      "event_id": "evid00113",
+      "catalog_pick_utc": "1973-07-03T18:15:00.000000Z",
+      "catalog_pick_epoch": 110571300.0,
+      "catalog_relative_sec": 65700.0,
+      "relative_sec_from_raw_start": 65699.46799999475,
+      "relative_correction_sec": -0.5320000052452087
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-04HR00_evid00114.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-07-04T00:00:00.544000Z",
+      "end_exclusive_utc": "1973-07-04T23:59:59.789283Z",
+      "last_sample_utc": "1973-07-04T23:59:59.638340Z",
+      "start_epoch": 110592000.544,
+      "end_exclusive_epoch": 110678399.78928302,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "160e3e4c99e9c01a181969f107a5426b0c9c785f7112985a3db79bc0220ac53c",
+      "event_id": "evid00114",
+      "catalog_pick_utc": "1973-07-04T02:46:00.000000Z",
+      "catalog_pick_epoch": 110601960.0,
+      "catalog_relative_sec": 9960.0,
+      "relative_sec_from_raw_start": 9959.456000000238,
+      "relative_correction_sec": -0.5439999997615814
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-20HR00_evid00117.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-07-20T00:00:00.308000Z",
+      "end_exclusive_utc": "1973-07-21T00:00:03.024981Z",
+      "last_sample_utc": "1973-07-21T00:00:02.874038Z",
+      "start_epoch": 111974400.308,
+      "end_exclusive_epoch": 112060803.02498113,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "74ea6933bfb285032967ca640af0f700ca9560a1f3f93a95160373e241ae0505",
+      "event_id": "evid00117",
+      "catalog_pick_utc": "1973-07-20T19:02:00.000000Z",
+      "catalog_pick_epoch": 112042920.0,
+      "catalog_relative_sec": 68520.0,
+      "relative_sec_from_raw_start": 68519.69200000167,
+      "relative_correction_sec": -0.30799999833106995
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-28HR00_evid00120.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-07-28T00:00:00.275000Z",
+      "end_exclusive_utc": "1973-07-28T23:59:59.520283Z",
+      "last_sample_utc": "1973-07-28T23:59:59.369340Z",
+      "start_epoch": 112665600.275,
+      "end_exclusive_epoch": 112751999.52028303,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "149f4119d4a5fbee67eae5ab640b53eb4f5412b751d7e16fe0a75ef2008529a6",
+      "event_id": "evid00120",
+      "catalog_pick_utc": "1973-07-28T00:52:00.000000Z",
+      "catalog_pick_epoch": 112668720.0,
+      "catalog_relative_sec": 3120.0,
+      "relative_sec_from_raw_start": 3119.7249999940395,
+      "relative_correction_sec": -0.2750000059604645
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-29HR00_evid00121.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-07-29T00:00:00.262000Z",
+      "end_exclusive_utc": "1973-07-29T23:59:59.507283Z",
+      "last_sample_utc": "1973-07-29T23:59:59.356340Z",
+      "start_epoch": 112752000.262,
+      "end_exclusive_epoch": 112838399.50728302,
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "b26afb4f7e14a1530b5e144df0943de3204f20ba45b99733d48a5af8df34abc5",
+      "event_id": "evid00121",
+      "catalog_pick_utc": "1973-07-29T23:31:00.000000Z",
+      "catalog_pick_epoch": 112836660.0,
+      "catalog_relative_sec": 84660.0,
+      "relative_sec_from_raw_start": 84659.73800000548,
+      "relative_correction_sec": -0.2619999945163727
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-08-21HR00_evid00127.mseed",
+      "source_stem": "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+      "catalog_filename": "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1973-08-21T00:00:00.652000Z",
+      "end_exclusive_utc": "1973-08-22T00:00:02.312377Z",
+      "last_sample_utc": "1973-08-22T00:00:02.161434Z",
+      "start_epoch": 114739200.652,
+      "end_exclusive_epoch": 114825602.31237735,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "3ff812e7ba15565e461bd5fea8f6c655d6a0ec009465294a7c995af11221215a",
+      "event_id": "evid00127",
+      "catalog_pick_utc": "1973-08-21T12:17:00.000000Z",
+      "catalog_pick_epoch": 114783420.0,
+      "catalog_relative_sec": 44220.0,
+      "relative_sec_from_raw_start": 44219.34800000489,
+      "relative_correction_sec": -0.6519999951124191
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-01-10HR00_evid00136.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+      "catalog_filename": "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-01-10T00:00:00.229000Z",
+      "end_exclusive_utc": "1974-01-11T00:00:02.945981Z",
+      "last_sample_utc": "1974-01-11T00:00:02.795038Z",
+      "start_epoch": 127008000.229,
+      "end_exclusive_epoch": 127094402.94598113,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "874eb3131203d283da9d7e8f053ac6dd6c22e2e3055fb6cb50d50be8e3b1f7e9",
+      "event_id": "evid00136",
+      "catalog_pick_utc": "1974-01-10T23:21:00.000000Z",
+      "catalog_pick_epoch": 127092060.0,
+      "catalog_relative_sec": 84060.0,
+      "relative_sec_from_raw_start": 84059.77099999785,
+      "relative_correction_sec": -0.2290000021457672
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-07HR00_evid00137.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+      "catalog_filename": "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-02-07T00:00:00.354000Z",
+      "end_exclusive_utc": "1974-02-08T00:00:03.070981Z",
+      "last_sample_utc": "1974-02-08T00:00:02.920038Z",
+      "start_epoch": 129427200.354,
+      "end_exclusive_epoch": 129513603.07098113,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "c2cd57dd3aebcf6d86bc6bbad2a562f6209f099f811135b6468aa453d21da01f",
+      "event_id": "evid00137",
+      "catalog_pick_utc": "1974-02-07T06:21:00.000000Z",
+      "catalog_pick_epoch": 129450060.0,
+      "catalog_relative_sec": 22860.0,
+      "relative_sec_from_raw_start": 22859.645999997854,
+      "relative_correction_sec": -0.3540000021457672
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-12HR00_evid00138.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+      "catalog_filename": "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-02-12T00:00:00.400000Z",
+      "end_exclusive_utc": "1974-02-13T00:00:02.664151Z",
+      "last_sample_utc": "1974-02-13T00:00:02.513208Z",
+      "start_epoch": 129859200.4,
+      "end_exclusive_epoch": 129945602.66415095,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "bb1c24cc3ee083ff8ee09e87a7050c78fa87a033c62a0be31aef27b379eae3f2",
+      "event_id": "evid00138",
+      "catalog_pick_utc": "1974-02-12T22:30:00.000000Z",
+      "catalog_pick_epoch": 129940200.0,
+      "catalog_relative_sec": 81000.0,
+      "relative_sec_from_raw_start": 80999.59999999404,
+      "relative_correction_sec": -0.4000000059604645
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-03-25HR00_evid00140.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+      "catalog_filename": "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-03-25T00:00:00.598000Z",
+      "end_exclusive_utc": "1974-03-25T23:59:59.088566Z",
+      "last_sample_utc": "1974-03-25T23:59:58.937623Z",
+      "start_epoch": 133401600.598,
+      "end_exclusive_epoch": 133487999.08856605,
+      "n_samples": 572390,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "a8ac8e838010a97039a2d93bc6ca01a994b3d1a295df4a362a8ded8c443e7015",
+      "event_id": "evid00140",
+      "catalog_pick_utc": "1974-03-25T16:58:00.000000Z",
+      "catalog_pick_epoch": 133462680.0,
+      "catalog_relative_sec": 61080.0,
+      "relative_sec_from_raw_start": 61079.40199999511,
+      "relative_correction_sec": -0.5980000048875809
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-08HR00_evid00141.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-04-08T00:00:00.534000Z",
+      "end_exclusive_utc": "1974-04-09T00:00:02.194377Z",
+      "last_sample_utc": "1974-04-09T00:00:02.043434Z",
+      "start_epoch": 134611200.534,
+      "end_exclusive_epoch": 134697602.19437736,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "1c4d01049d8ac061a39b39d54ba322bbbb7b0a6ccb3923c0680028d4d993d102",
+      "event_id": "evid00141",
+      "catalog_pick_utc": "1974-04-08T08:40:00.000000Z",
+      "catalog_pick_epoch": 134642400.0,
+      "catalog_relative_sec": 31200.0,
+      "relative_sec_from_raw_start": 31199.4659999907,
+      "relative_correction_sec": -0.5340000092983246
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-19HR00_evid00142.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-04-19T00:00:00.568000Z",
+      "end_exclusive_utc": "1974-04-19T23:59:58.454792Z",
+      "last_sample_utc": "1974-04-19T23:59:58.303849Z",
+      "start_epoch": 135561600.568,
+      "end_exclusive_epoch": 135647998.45479244,
+      "n_samples": 572386,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "26a702beeb4368ff8a54e49f09ac1593c156d9c6699358438ff1bf4ce7a8b6b3",
+      "event_id": "evid00142",
+      "catalog_pick_utc": "1974-04-19T18:34:00.000000Z",
+      "catalog_pick_epoch": 135628440.0,
+      "catalog_relative_sec": 66840.0,
+      "relative_sec_from_raw_start": 66839.4320000112,
+      "relative_correction_sec": -0.5679999887943268
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-26HR00_evid00144.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-04-26T00:00:00.349000Z",
+      "end_exclusive_utc": "1974-04-26T23:59:58.235792Z",
+      "last_sample_utc": "1974-04-26T23:59:58.084849Z",
+      "start_epoch": 136166400.349,
+      "end_exclusive_epoch": 136252798.23579246,
+      "n_samples": 572386,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "804f36e97d975c081f1a3291958654ecbcdd56ad98cc64716a04f1b269b56f20",
+      "event_id": "evid00144",
+      "catalog_pick_utc": "1974-04-26T09:18:00.000000Z",
+      "catalog_pick_epoch": 136199880.0,
+      "catalog_relative_sec": 33480.0,
+      "relative_sec_from_raw_start": 33479.650999993086,
+      "relative_correction_sec": -0.3490000069141388
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-27HR00_evid00145.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-04-27T00:00:00.646000Z",
+      "end_exclusive_utc": "1974-04-27T23:59:58.079962Z",
+      "last_sample_utc": "1974-04-27T23:59:57.929019Z",
+      "start_epoch": 136252800.646,
+      "end_exclusive_epoch": 136339198.07996225,
+      "n_samples": 572383,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "503dfc5e94afb704431174287d1176515b0b59d40edd02e32e95a90f60798822",
+      "event_id": "evid00145",
+      "catalog_pick_utc": "1974-04-27T14:18:00.000000Z",
+      "catalog_pick_epoch": 136304280.0,
+      "catalog_relative_sec": 51480.0,
+      "relative_sec_from_raw_start": 51479.354000002146,
+      "relative_correction_sec": -0.6459999978542328
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-06-25HR00_evid00149.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+      "catalog_filename": "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-06-25T00:00:00.524000Z",
+      "end_exclusive_utc": "1974-06-26T00:00:03.995698Z",
+      "last_sample_utc": "1974-06-26T00:00:03.844755Z",
+      "start_epoch": 141350400.524,
+      "end_exclusive_epoch": 141436803.9956981,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "26729909c973e1b8fa797e142c7b7e8be85f5afdf6be63983cd64c590d077938",
+      "event_id": "evid00149",
+      "catalog_pick_utc": "1974-06-25T00:23:00.000000Z",
+      "catalog_pick_epoch": 141351780.0,
+      "catalog_relative_sec": 1380.0,
+      "relative_sec_from_raw_start": 1379.4760000109673,
+      "relative_correction_sec": -0.5239999890327454
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-07-06T00:00:00.193000Z",
+      "end_exclusive_utc": "1974-07-07T00:00:01.853377Z",
+      "last_sample_utc": "1974-07-07T00:00:01.702434Z",
+      "start_epoch": 142300800.193,
+      "end_exclusive_epoch": 142387201.85337734,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "c697df2d83cbe73317ec10514700ecf979864f3bf8949ebab206a58c799e901f",
+      "event_id": "evid00150",
+      "catalog_pick_utc": "1974-07-06T02:57:00.000000Z",
+      "catalog_pick_epoch": 142311420.0,
+      "catalog_relative_sec": 10620.0,
+      "relative_sec_from_raw_start": 10619.807000011206,
+      "relative_correction_sec": -0.19299998879432678
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-07-06HR00_evid00151",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-06HR00_evid00151",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-07-06T00:00:00.193000Z",
+      "end_exclusive_utc": "1974-07-07T00:00:01.853377Z",
+      "last_sample_utc": "1974-07-07T00:00:01.702434Z",
+      "start_epoch": 142300800.193,
+      "end_exclusive_epoch": 142387201.85337734,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "c697df2d83cbe73317ec10514700ecf979864f3bf8949ebab206a58c799e901f",
+      "event_id": "evid00151",
+      "catalog_pick_utc": "1974-07-06T14:14:00.000000Z",
+      "catalog_pick_epoch": 142352040.0,
+      "catalog_relative_sec": 51240.0,
+      "relative_sec_from_raw_start": 51239.807000011206,
+      "relative_correction_sec": -0.19299998879432678
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-11HR00_evid00152.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-07-11T00:00:00.359000Z",
+      "end_exclusive_utc": "1974-07-12T00:00:02.623151Z",
+      "last_sample_utc": "1974-07-12T00:00:02.472208Z",
+      "start_epoch": 142732800.359,
+      "end_exclusive_epoch": 142819202.62315094,
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "c04a74f9d53bd7c1842254fb4fc4257d8af88100d5d71a8fe1e2877b53a563e5",
+      "event_id": "evid00152",
+      "catalog_pick_utc": "1974-07-11T00:52:00.000000Z",
+      "catalog_pick_epoch": 142735920.0,
+      "catalog_relative_sec": 3120.0,
+      "relative_sec_from_raw_start": 3119.6410000026226,
+      "relative_correction_sec": -0.35899999737739563
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-17HR00_evid00153.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-07-17T00:00:00.226000Z",
+      "end_exclusive_utc": "1974-07-18T00:00:03.697698Z",
+      "last_sample_utc": "1974-07-18T00:00:03.546755Z",
+      "start_epoch": 143251200.226,
+      "end_exclusive_epoch": 143337603.69769812,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "02e6b06507db94f2712ac05e0417efd3dd160ae0bb33b82d385a38d012dcf366",
+      "event_id": "evid00153",
+      "catalog_pick_utc": "1974-07-17T12:05:00.000000Z",
+      "catalog_pick_epoch": 143294700.0,
+      "catalog_relative_sec": 43500.0,
+      "relative_sec_from_raw_start": 43499.77399998903,
+      "relative_correction_sec": -0.22600001096725464
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-10-14HR00_evid00156.mseed",
+      "source_stem": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+      "catalog_filename": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "val",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1974-10-14T00:00:00.996000Z",
+      "end_exclusive_utc": "1974-10-15T00:00:03.712981Z",
+      "last_sample_utc": "1974-10-15T00:00:03.562038Z",
+      "start_epoch": 150940800.996,
+      "end_exclusive_epoch": 151027203.71298113,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "0803edb155ce4d359df2eeddf36607ed478b0a9211e92110a89a3de0f1a885e5",
+      "event_id": "evid00156",
+      "catalog_pick_utc": "1974-10-14T17:43:00.000000Z",
+      "catalog_pick_epoch": 151004580.0,
+      "catalog_relative_sec": 63780.0,
+      "relative_sec_from_raw_start": 63779.004000008106,
+      "relative_correction_sec": -0.9959999918937683
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-04-12HR00_evid00191.mseed",
+      "source_stem": "xa.s12.00.mhz.1975-04-12HR00_evid00191",
+      "catalog_filename": "xa.s12.00.mhz.1975-04-12HR00_evid00191",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "train",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1975-04-12T00:00:00.187000Z",
+      "end_exclusive_utc": "1975-04-13T00:00:03.658698Z",
+      "last_sample_utc": "1975-04-13T00:00:03.507755Z",
+      "start_epoch": 166492800.187,
+      "end_exclusive_epoch": 166579203.6586981,
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "1ddc9bfc79d2ae2a0a55d3ae5b1bd0ca01babe54ff40f05f77eab98a0970b207",
+      "event_id": "evid00191",
+      "catalog_pick_utc": "1975-04-12T18:15:00.000000Z",
+      "catalog_pick_epoch": 166558500.0,
+      "catalog_relative_sec": 65700.0,
+      "relative_sec_from_raw_start": 65699.81299999356,
+      "relative_correction_sec": -0.18700000643730164
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-05-04HR00_evid00192.mseed",
+      "source_stem": "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+      "catalog_filename": "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1975-05-04T00:00:00.457000Z",
+      "end_exclusive_utc": "1975-05-05T00:00:03.173981Z",
+      "last_sample_utc": "1975-05-05T00:00:03.023038Z",
+      "start_epoch": 168393600.457,
+      "end_exclusive_epoch": 168480003.17398113,
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "d48bfcad0e2a1ddac5a3a5d42c0a947abd9e06a7ee1ae3537668b4e7a80ea045",
+      "event_id": "evid00192",
+      "catalog_pick_utc": "1975-05-04T10:05:00.000000Z",
+      "catalog_pick_epoch": 168429900.0,
+      "catalog_relative_sec": 36300.0,
+      "relative_sec_from_raw_start": 36299.543000012636,
+      "relative_correction_sec": -0.4569999873638153
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-24HR00_evid00196.mseed",
+      "source_stem": "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+      "catalog_filename": "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1975-06-24T00:00:00.239000Z",
+      "end_exclusive_utc": "1975-06-25T00:00:01.899377Z",
+      "last_sample_utc": "1975-06-25T00:00:01.748434Z",
+      "start_epoch": 172800000.239,
+      "end_exclusive_epoch": 172886401.89937735,
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "455c8eab1254ffb439f30474c2a920bfad79d157607d05b3318643ce7fc42325",
+      "event_id": "evid00196",
+      "catalog_pick_utc": "1975-06-24T16:03:00.000000Z",
+      "catalog_pick_epoch": 172857780.0,
+      "catalog_relative_sec": 57780.0,
+      "relative_sec_from_raw_start": 57779.76100000739,
+      "relative_correction_sec": -0.23899999260902405
+    },
+    {
+      "source_file": "data/raw/space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-26HR00_evid00198.mseed",
+      "source_stem": "xa.s12.00.mhz.1975-06-26HR00_evid00198",
+      "catalog_filename": "xa.s12.00.mhz.1975-06-26HR00_evid00198",
+      "resolution": "exact_catalog_filename",
+      "historical_split": "test",
+      "trace_id": "XA.S12.00.MHZ",
+      "start_utc": "1975-06-26T00:00:00.542000Z",
+      "end_exclusive_utc": "1975-06-27T00:00:01.598604Z",
+      "last_sample_utc": "1975-06-27T00:00:01.447660Z",
+      "start_epoch": 172972800.542,
+      "end_exclusive_epoch": 173059201.59860376,
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "raw_dtype": "float64",
+      "raw_samples_sha256": "e9423c7326e1d25a2aea80d5222e5f5e107e63d42d064164546f8c7e93dde64c",
+      "event_id": "evid00198",
+      "catalog_pick_utc": "1975-06-26T03:24:00.000000Z",
+      "catalog_pick_epoch": 172985040.0,
+      "catalog_relative_sec": 12240.0,
+      "relative_sec_from_raw_start": 12239.458000004292,
+      "relative_correction_sec": -0.5419999957084656
+    }
+  ],
+  "overlap_edges": [
+    {
+      "left": "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+      "right": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 1.5353773580864072,
+      "identical_raw_array_hash_shape_dtype_rate": false
+    },
+    {
+      "left": "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+      "right": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 1.8001509439200163,
+      "identical_raw_array_hash_shape_dtype_rate": false
+    },
+    {
+      "left": "xa.s12.00.mhz.1970-07-20HR00_evid00011",
+      "right": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 86401.66037735716,
+      "identical_raw_array_hash_shape_dtype_rate": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+      "right": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 3.5116981118917465,
+      "identical_raw_array_hash_shape_dtype_rate": false
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-05-12HR00_evid00032",
+      "right": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 86401.05660377443,
+      "identical_raw_array_hash_shape_dtype_rate": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "right": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 1.5856037735939026,
+      "identical_raw_array_hash_shape_dtype_rate": false
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "right": "xa.s12.00.mhz.1971-05-12HR00_evid00032",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 1.5856037735939026,
+      "identical_raw_array_hash_shape_dtype_rate": false
+    },
+    {
+      "left": "xa.s12.00.mhz.1972-07-17HR00_evid00068",
+      "right": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 86399.84905660152,
+      "identical_raw_array_hash_shape_dtype_rate": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1973-06-05HR00_evid00108",
+      "right": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 86399.24528302252,
+      "identical_raw_array_hash_shape_dtype_rate": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1974-07-06HR00_evid00151",
+      "right": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "same_trace_id": true,
+      "positive_interval_overlap": true,
+      "overlap_sec": 86401.66037735343,
+      "identical_raw_array_hash_shape_dtype_rate": true
+    }
+  ],
+  "proposed_groups": [
+    {
+      "group_id": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-01-19HR00_evid00002"
+      ],
+      "union_event_ids": [
+        "evid00002"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-01-19HR00_evid00002"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00002",
+              "catalog_pick_utc": "1970-01-19T20:25:00.000000Z",
+              "relative_sec": 73499.33499999996
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+        "xa.s12.00.mhz.1970-03-26HR00_evid00004"
+      ],
+      "union_event_ids": [
+        "evid00003",
+        "evid00004"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-03-25HR00_evid00003"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00003",
+              "catalog_pick_utc": "1970-03-25T03:32:00.000000Z",
+              "relative_sec": 12719.55999999959
+            }
+          ]
+        },
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-03-26HR00_evid00004"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00004",
+              "catalog_pick_utc": "1970-03-26T20:17:00.000000Z",
+              "relative_sec": 73019.43499999959
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+        "xa.s12.00.mhz.1970-04-26HR00_evid00007"
+      ],
+      "union_event_ids": [
+        "evid00006",
+        "evid00007"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-04-25HR00_evid00006"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00006",
+              "catalog_pick_utc": "1970-04-25T01:14:00.000000Z",
+              "relative_sec": 4439.803999999538
+            }
+          ]
+        },
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-04-26HR00_evid00007"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00007",
+              "catalog_pick_utc": "1970-04-26T14:29:00.000000Z",
+              "relative_sec": 52139.33999999985
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-06-15HR00_evid00008"
+      ],
+      "union_event_ids": [
+        "evid00008"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-06-15HR00_evid00008"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00008",
+              "catalog_pick_utc": "1970-06-15T19:00:00.000000Z",
+              "relative_sec": 68399.49000000022
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-06-26HR00_evid00009"
+      ],
+      "union_event_ids": [
+        "evid00009"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-06-26HR00_evid00009"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00009",
+              "catalog_pick_utc": "1970-06-26T20:01:00.000000Z",
+              "relative_sec": 72059.88399999961
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+        "xa.s12.00.mhz.1970-07-20HR00_evid00011"
+      ],
+      "union_event_ids": [
+        "evid00010",
+        "evid00011"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+            "xa.s12.00.mhz.1970-07-20HR00_evid00011"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00010",
+              "catalog_pick_utc": "1970-07-20T05:06:00.000000Z",
+              "relative_sec": 18359.51300000027
+            },
+            {
+              "event_id": "evid00011",
+              "catalog_pick_utc": "1970-07-20T11:44:00.000000Z",
+              "relative_sec": 42239.51300000027
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-09-26HR00_evid00013"
+      ],
+      "union_event_ids": [
+        "evid00013"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-09-26HR00_evid00013"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00013",
+              "catalog_pick_utc": "1970-09-26T19:57:00.000000Z",
+              "relative_sec": 71819.85099999979
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-10-24HR00_evid00014"
+      ],
+      "union_event_ids": [
+        "evid00014"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-10-24HR00_evid00014"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00014",
+              "catalog_pick_utc": "1970-10-24T11:31:00.000000Z",
+              "relative_sec": 41459.495999999344
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-11-12HR00_evid00015"
+      ],
+      "union_event_ids": [
+        "evid00015"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-11-12HR00_evid00015"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00015",
+              "catalog_pick_utc": "1970-11-12T12:50:00.000000Z",
+              "relative_sec": 46199.300000000745
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-12-11HR00_evid00017"
+      ],
+      "union_event_ids": [
+        "evid00017"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-12-11HR00_evid00017"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00017",
+              "catalog_pick_utc": "1970-12-11T07:22:00.000000Z",
+              "relative_sec": 26519.67399999872
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-12-27HR00_evid00019"
+      ],
+      "union_event_ids": [
+        "evid00019"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-12-27HR00_evid00019"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00019",
+              "catalog_pick_utc": "1970-12-27T20:34:00.000000Z",
+              "relative_sec": 74039.48299999908
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1970-12-31HR00_evid00021"
+      ],
+      "union_event_ids": [
+        "evid00021"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+          "source_stems": [
+            "xa.s12.00.mhz.1970-12-31HR00_evid00021"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00021",
+              "catalog_pick_utc": "1970-12-31T15:41:00.000000Z",
+              "relative_sec": 56459.66099999845
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-01-15HR00_evid00022"
+      ],
+      "union_event_ids": [
+        "evid00022"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-01-15HR00_evid00022"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00022",
+              "catalog_pick_utc": "1971-01-15T12:40:00.000000Z",
+              "relative_sec": 45599.74199999869
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+        "xa.s12.00.mhz.1971-01-29HR00_evid00024"
+      ],
+      "union_event_ids": [
+        "evid00023",
+        "evid00024"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-01-28HR00_evid00023"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00023",
+              "catalog_pick_utc": "1971-01-28T14:59:00.000000Z",
+              "relative_sec": 53939.76600000262
+            }
+          ]
+        },
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-01-29HR00_evid00024"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00024",
+              "catalog_pick_utc": "1971-01-29T18:21:00.000000Z",
+              "relative_sec": 66059.80600000173
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-02-09HR00_evid00026"
+      ],
+      "union_event_ids": [
+        "evid00026"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-02-09HR00_evid00026"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00026",
+              "catalog_pick_utc": "1971-02-09T03:42:00.000000Z",
+              "relative_sec": 13319.821000002325
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-03-25HR00_evid00028"
+      ],
+      "union_event_ids": [
+        "evid00028"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-03-25HR00_evid00028"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00028",
+              "catalog_pick_utc": "1971-03-25T15:18:00.000000Z",
+              "relative_sec": 55079.84899999946
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-04-13HR02_evid00029",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-04-13HR02_evid00029"
+      ],
+      "union_event_ids": [
+        "evid00029"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-04-13HR02_evid00029",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-04-13HR02_evid00029"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00029",
+              "catalog_pick_utc": "1971-04-13T12:55:00.000000Z",
+              "relative_sec": 36731.00993800163
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-04-17HR00_evid00030"
+      ],
+      "union_event_ids": [
+        "evid00030"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-04-17HR00_evid00030"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00030",
+              "catalog_pick_utc": "1971-04-17T07:04:00.000000Z",
+              "relative_sec": 25439.612999998033
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+        "xa.s12.00.mhz.1971-05-12HR00_evid00032",
+        "xa.s12.00.mhz.1971-05-13HR00_evid00033"
+      ],
+      "union_event_ids": [
+        "evid00031",
+        "evid00032",
+        "evid00033"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+            "xa.s12.00.mhz.1971-05-12HR00_evid00032"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00031",
+              "catalog_pick_utc": "1971-05-12T08:05:00.000000Z",
+              "relative_sec": 29099.288000002503
+            },
+            {
+              "event_id": "evid00032",
+              "catalog_pick_utc": "1971-05-12T09:45:00.000000Z",
+              "relative_sec": 35099.2880000025
+            }
+          ]
+        },
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-05-13HR00_evid00033"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00033",
+              "catalog_pick_utc": "1971-05-13T03:00:00.000000Z",
+              "relative_sec": 10799.817000001669
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-05-23HR00_evid00034"
+      ],
+      "union_event_ids": [
+        "evid00034"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-05-23HR00_evid00034"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00034",
+              "catalog_pick_utc": "1971-05-23T22:20:00.000000Z",
+              "relative_sec": 80399.4980000034
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-06-12HR00_evid00035"
+      ],
+      "union_event_ids": [
+        "evid00035"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-06-12HR00_evid00035"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00035",
+              "catalog_pick_utc": "1971-06-12T10:51:00.000000Z",
+              "relative_sec": 39059.471000000834
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-09-25HR00_evid00042"
+      ],
+      "union_event_ids": [
+        "evid00042"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-09-25HR00_evid00042"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00042",
+              "catalog_pick_utc": "1971-09-25T08:57:00.000000Z",
+              "relative_sec": 32219.424000002444
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-10-18HR00_evid00043"
+      ],
+      "union_event_ids": [
+        "evid00043"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-10-18HR00_evid00043"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00043",
+              "catalog_pick_utc": "1971-10-18T03:19:00.000000Z",
+              "relative_sec": 11939.582999996841
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-10-20HR00_evid00044"
+      ],
+      "union_event_ids": [
+        "evid00044"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-10-20HR00_evid00044"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00044",
+              "catalog_pick_utc": "1971-10-20T18:08:00.000000Z",
+              "relative_sec": 65279.57500000298
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-10-31HR00_evid00045"
+      ],
+      "union_event_ids": [
+        "evid00045"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-10-31HR00_evid00045"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00045",
+              "catalog_pick_utc": "1971-10-31T05:30:00.000000Z",
+              "relative_sec": 19799.579999998212
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1971-11-14HR00_evid00046"
+      ],
+      "union_event_ids": [
+        "evid00046"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+          "source_stems": [
+            "xa.s12.00.mhz.1971-11-14HR00_evid00046"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00046",
+              "catalog_pick_utc": "1971-11-14T04:17:00.000000Z",
+              "relative_sec": 15419.398000001907
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-01-04HR00_evid00049"
+      ],
+      "union_event_ids": [
+        "evid00049"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-01-04HR00_evid00049"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00049",
+              "catalog_pick_utc": "1972-01-04T06:35:00.000000Z",
+              "relative_sec": 23699.88300000131
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-03-12HR00_evid00052"
+      ],
+      "union_event_ids": [
+        "evid00052"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-03-12HR00_evid00052"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00052",
+              "catalog_pick_utc": "1972-03-12T18:00:00.000000Z",
+              "relative_sec": 64799.58300000429
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-05-11HR00_evid00055"
+      ],
+      "union_event_ids": [
+        "evid00055"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-05-11HR00_evid00055"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00055",
+              "catalog_pick_utc": "1972-05-11T13:35:00.000000Z",
+              "relative_sec": 48899.42399999499
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-06-16HR00_evid00060"
+      ],
+      "union_event_ids": [
+        "evid00060"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-06-16HR00_evid00060"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00060",
+              "catalog_pick_utc": "1972-06-16T16:11:00.000000Z",
+              "relative_sec": 58259.88400000334
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+        "xa.s12.00.mhz.1972-07-17HR00_evid00068"
+      ],
+      "union_event_ids": [
+        "evid00067",
+        "evid00068"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+            "xa.s12.00.mhz.1972-07-17HR00_evid00068"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00067",
+              "catalog_pick_utc": "1972-07-17T07:50:00.000000Z",
+              "relative_sec": 28199.815999999642
+            },
+            {
+              "event_id": "evid00068",
+              "catalog_pick_utc": "1972-07-17T21:56:00.000000Z",
+              "relative_sec": 78959.81599999964
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-07-28HR00_evid00070"
+      ],
+      "union_event_ids": [
+        "evid00070"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-07-28HR00_evid00070"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00070",
+              "catalog_pick_utc": "1972-07-28T02:23:00.000000Z",
+              "relative_sec": 8579.863999992609
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-07-31HR00_evid00071"
+      ],
+      "union_event_ids": [
+        "evid00071"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-07-31HR00_evid00071"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00071",
+              "catalog_pick_utc": "1972-07-31T18:08:00.000000Z",
+              "relative_sec": 65279.37800000608
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-12-02HR00_evid00083"
+      ],
+      "union_event_ids": [
+        "evid00083"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-12-02HR00_evid00083"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00083",
+              "catalog_pick_utc": "1972-12-02T07:58:00.000000Z",
+              "relative_sec": 28679.56100000441
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1972-12-03HR00_evid00084"
+      ],
+      "union_event_ids": [
+        "evid00084"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+          "source_stems": [
+            "xa.s12.00.mhz.1972-12-03HR00_evid00084"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00084",
+              "catalog_pick_utc": "1972-12-03T02:38:00.000000Z",
+              "relative_sec": 9479.447999998927
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-01-18HR00_evid00088"
+      ],
+      "union_event_ids": [
+        "evid00088"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-01-18HR00_evid00088"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00088",
+              "catalog_pick_utc": "1973-01-18T23:01:00.000000Z",
+              "relative_sec": 82859.33799999952
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-01-31HR00_evid00091"
+      ],
+      "union_event_ids": [
+        "evid00091"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-01-31HR00_evid00091"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00091",
+              "catalog_pick_utc": "1973-01-31T00:44:00.000000Z",
+              "relative_sec": 2639.405000001192
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-03-01HR00_evid00093"
+      ],
+      "union_event_ids": [
+        "evid00093"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-03-01HR00_evid00093"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00093",
+              "catalog_pick_utc": "1973-03-01T07:15:00.000000Z",
+              "relative_sec": 26099.655000001192
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-03-13HR00_evid00094"
+      ],
+      "union_event_ids": [
+        "evid00094"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-03-13HR00_evid00094"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00094",
+              "catalog_pick_utc": "1973-03-13T08:01:00.000000Z",
+              "relative_sec": 28859.52799999714
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-03-24HR00_evid00097"
+      ],
+      "union_event_ids": [
+        "evid00097"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-03-24HR00_evid00097"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00097",
+              "catalog_pick_utc": "1973-03-24T19:23:00.000000Z",
+              "relative_sec": 69779.3939999938
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-05-14HR00_evid00104"
+      ],
+      "union_event_ids": [
+        "evid00104"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-05-14HR00_evid00104"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00104",
+              "catalog_pick_utc": "1973-05-14T00:44:00.000000Z",
+              "relative_sec": 2639.603000000119
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+        "xa.s12.00.mhz.1973-06-05HR00_evid00108"
+      ],
+      "union_event_ids": [
+        "evid00107",
+        "evid00108"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+            "xa.s12.00.mhz.1973-06-05HR00_evid00108"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00107",
+              "catalog_pick_utc": "1973-06-05T02:38:00.000000Z",
+              "relative_sec": 9479.70000000298
+            },
+            {
+              "event_id": "evid00108",
+              "catalog_pick_utc": "1973-06-05T11:10:00.000000Z",
+              "relative_sec": 40199.70000000298
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-06-18HR00_evid00109"
+      ],
+      "union_event_ids": [
+        "evid00109"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-06-18HR00_evid00109"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00109",
+              "catalog_pick_utc": "1973-06-18T01:42:00.000000Z",
+              "relative_sec": 6119.868000000715
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-06-27HR00_evid00112"
+      ],
+      "union_event_ids": [
+        "evid00112"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-06-27HR00_evid00112"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00112",
+              "catalog_pick_utc": "1973-06-27T18:36:00.000000Z",
+              "relative_sec": 66959.76999999583
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-07-03HR00_evid00113"
+      ],
+      "union_event_ids": [
+        "evid00113"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-07-03HR00_evid00113"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00113",
+              "catalog_pick_utc": "1973-07-03T18:15:00.000000Z",
+              "relative_sec": 65699.46799999475
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-07-04HR00_evid00114"
+      ],
+      "union_event_ids": [
+        "evid00114"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-07-04HR00_evid00114"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00114",
+              "catalog_pick_utc": "1973-07-04T02:46:00.000000Z",
+              "relative_sec": 9959.456000000238
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-07-20HR00_evid00117"
+      ],
+      "union_event_ids": [
+        "evid00117"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-07-20HR00_evid00117"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00117",
+              "catalog_pick_utc": "1973-07-20T19:02:00.000000Z",
+              "relative_sec": 68519.69200000167
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-07-28HR00_evid00120"
+      ],
+      "union_event_ids": [
+        "evid00120"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-07-28HR00_evid00120"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00120",
+              "catalog_pick_utc": "1973-07-28T00:52:00.000000Z",
+              "relative_sec": 3119.7249999940395
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-07-29HR00_evid00121"
+      ],
+      "union_event_ids": [
+        "evid00121"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-07-29HR00_evid00121"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00121",
+              "catalog_pick_utc": "1973-07-29T23:31:00.000000Z",
+              "relative_sec": 84659.73800000548
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1973-08-21HR00_evid00127"
+      ],
+      "union_event_ids": [
+        "evid00127"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+          "source_stems": [
+            "xa.s12.00.mhz.1973-08-21HR00_evid00127"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00127",
+              "catalog_pick_utc": "1973-08-21T12:17:00.000000Z",
+              "relative_sec": 44219.34800000489
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-01-10HR00_evid00136"
+      ],
+      "union_event_ids": [
+        "evid00136"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-01-10HR00_evid00136"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00136",
+              "catalog_pick_utc": "1974-01-10T23:21:00.000000Z",
+              "relative_sec": 84059.77099999785
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-02-07HR00_evid00137"
+      ],
+      "union_event_ids": [
+        "evid00137"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-02-07HR00_evid00137"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00137",
+              "catalog_pick_utc": "1974-02-07T06:21:00.000000Z",
+              "relative_sec": 22859.645999997854
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-02-12HR00_evid00138"
+      ],
+      "union_event_ids": [
+        "evid00138"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-02-12HR00_evid00138"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00138",
+              "catalog_pick_utc": "1974-02-12T22:30:00.000000Z",
+              "relative_sec": 80999.59999999404
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-03-25HR00_evid00140"
+      ],
+      "union_event_ids": [
+        "evid00140"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-03-25HR00_evid00140"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00140",
+              "catalog_pick_utc": "1974-03-25T16:58:00.000000Z",
+              "relative_sec": 61079.40199999511
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-04-08HR00_evid00141"
+      ],
+      "union_event_ids": [
+        "evid00141"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-04-08HR00_evid00141"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00141",
+              "catalog_pick_utc": "1974-04-08T08:40:00.000000Z",
+              "relative_sec": 31199.4659999907
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-04-19HR00_evid00142"
+      ],
+      "union_event_ids": [
+        "evid00142"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-04-19HR00_evid00142"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00142",
+              "catalog_pick_utc": "1974-04-19T18:34:00.000000Z",
+              "relative_sec": 66839.4320000112
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-04-26HR00_evid00144"
+      ],
+      "union_event_ids": [
+        "evid00144"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-04-26HR00_evid00144"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00144",
+              "catalog_pick_utc": "1974-04-26T09:18:00.000000Z",
+              "relative_sec": 33479.650999993086
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-04-27HR00_evid00145"
+      ],
+      "union_event_ids": [
+        "evid00145"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-04-27HR00_evid00145"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00145",
+              "catalog_pick_utc": "1974-04-27T14:18:00.000000Z",
+              "relative_sec": 51479.354000002146
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-06-25HR00_evid00149"
+      ],
+      "union_event_ids": [
+        "evid00149"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-06-25HR00_evid00149"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00149",
+              "catalog_pick_utc": "1974-06-25T00:23:00.000000Z",
+              "relative_sec": 1379.4760000109673
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+        "xa.s12.00.mhz.1974-07-06HR00_evid00151"
+      ],
+      "union_event_ids": [
+        "evid00150",
+        "evid00151"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+            "xa.s12.00.mhz.1974-07-06HR00_evid00151"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00150",
+              "catalog_pick_utc": "1974-07-06T02:57:00.000000Z",
+              "relative_sec": 10619.807000011206
+            },
+            {
+              "event_id": "evid00151",
+              "catalog_pick_utc": "1974-07-06T14:14:00.000000Z",
+              "relative_sec": 51239.807000011206
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-07-11HR00_evid00152"
+      ],
+      "union_event_ids": [
+        "evid00152"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-07-11HR00_evid00152"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00152",
+              "catalog_pick_utc": "1974-07-11T00:52:00.000000Z",
+              "relative_sec": 3119.6410000026226
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-07-17HR00_evid00153"
+      ],
+      "union_event_ids": [
+        "evid00153"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-07-17HR00_evid00153"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00153",
+              "catalog_pick_utc": "1974-07-17T12:05:00.000000Z",
+              "relative_sec": 43499.77399998903
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+      "proposed_split": "val",
+      "source_stems": [
+        "xa.s12.00.mhz.1974-10-14HR00_evid00156"
+      ],
+      "union_event_ids": [
+        "evid00156"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+          "source_stems": [
+            "xa.s12.00.mhz.1974-10-14HR00_evid00156"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00156",
+              "catalog_pick_utc": "1974-10-14T17:43:00.000000Z",
+              "relative_sec": 63779.004000008106
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1975-04-12HR00_evid00191",
+      "proposed_split": "train",
+      "source_stems": [
+        "xa.s12.00.mhz.1975-04-12HR00_evid00191"
+      ],
+      "union_event_ids": [
+        "evid00191"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1975-04-12HR00_evid00191",
+          "source_stems": [
+            "xa.s12.00.mhz.1975-04-12HR00_evid00191"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00191",
+              "catalog_pick_utc": "1975-04-12T18:15:00.000000Z",
+              "relative_sec": 65699.81299999356
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1975-05-04HR00_evid00192"
+      ],
+      "union_event_ids": [
+        "evid00192"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+          "source_stems": [
+            "xa.s12.00.mhz.1975-05-04HR00_evid00192"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00192",
+              "catalog_pick_utc": "1975-05-04T10:05:00.000000Z",
+              "relative_sec": 36299.543000012636
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1975-06-24HR00_evid00196"
+      ],
+      "union_event_ids": [
+        "evid00196"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+          "source_stems": [
+            "xa.s12.00.mhz.1975-06-24HR00_evid00196"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00196",
+              "catalog_pick_utc": "1975-06-24T16:03:00.000000Z",
+              "relative_sec": 57779.76100000739
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "xa.s12.00.mhz.1975-06-26HR00_evid00198",
+      "proposed_split": "test",
+      "source_stems": [
+        "xa.s12.00.mhz.1975-06-26HR00_evid00198"
+      ],
+      "union_event_ids": [
+        "evid00198"
+      ],
+      "unique_spans": [
+        {
+          "representative_stem": "xa.s12.00.mhz.1975-06-26HR00_evid00198",
+          "source_stems": [
+            "xa.s12.00.mhz.1975-06-26HR00_evid00198"
+          ],
+          "projected_catalog_picks": [
+            {
+              "event_id": "evid00198",
+              "catalog_pick_utc": "1975-06-26T03:24:00.000000Z",
+              "relative_sec": 12239.458000004292
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

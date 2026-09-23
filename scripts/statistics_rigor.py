@@ -35,7 +35,7 @@ rng = np.random.default_rng(42)
 def per_file_results(device):
     """(detections, picks, trace_dur_sec) per lunar test file, CNN + STA/LTA."""
     ck = torch.load(PROJECT_ROOT / "runs" / "lunar" / "best.pt",
-                    map_location=device, weights_only=False)
+                    map_location=device, weights_only=True)
     model = SeisCNN(channels=ARCHS[ck.get("arch", "base")]).to(device)
     model.load_state_dict(ck["model"])
     files = []

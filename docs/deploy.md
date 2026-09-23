@@ -1,6 +1,11 @@
 # Deploying the demo (free tier)
 
-The app + both checkpoints (0.5 MB each, in `models/`) ship in this repo, so
+The app and its PyTorch checkpoints ship in `models/`. The lunar demo loads
+the corrected seed-42 pair (`lunar_grouped_v1_seed42.pt`, 0.49 MB, and
+`unet_lunar_grouped_v1_seed42.pt`, 7.79 MB) and verifies them against
+`lunar_grouped_v1_seed42.json`; Mars uses `mars_best.pt` and
+`unet_mars_ext_best.pt`. The historical lunar files stay for reproduction. The bundled
+traces in `demo_data/` support analysis and the triage simulation, so
 deployment is just pointing a free host at it. Needs your account — one-time,
 ~10 minutes.
 
@@ -38,11 +43,31 @@ delete it from requirements.txt on the Space to slim the build.
 
 ## Sanity check after deploy (F-16/F-17)
 
-Upload `data/raw/.../lunar/training/data/S12_GradeA/
-xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed` at threshold 0.95+:
-expect one detection near t=26571 s, confidence ≈ 0.999 (matches the local
-result — identical preprocessing module, so served output must equal
-notebook output).
+In **Analyze a trace**, select a bundled demo and press **Analyze trace**.
+Confirm the waveform and detections render for both detector families. For
+SpecUNet, request denoising and submit again to inspect the reconstructed trace.
+The default mask duration is 430 s for lunar (corrected seed-42 model) and
+240 s for Mars; these gates
+are part of the published operating points.
 
-Also verify the "no events" path: upload any CSV of pure noise, expect the
-green "No events detected" message, not an error.
+Check that the app opens without scoring a stream, **Start stream** begins
+the triage simulation, and a malformed CSV shows a readable error while
+**Model & results** remains available. A no-detections result should render
+normally; arbitrary noise is not guaranteed to produce zero detections.
+
+Cite lunar performance from the corrected acquisition-grouped benchmark in
+`README.md` (five seeds per model). The demo's seed-42 models are one run
+each; their single-seed scores are not the benchmark summary. The historical
+lunar scores come from a split with two train/test duplicate waveforms.
+
+## Security notes
+
+* Checkpoints load with `torch.load(..., weights_only=True)`, so a replaced
+  `.pt` file cannot run pickled code. Keep `torch>=2.6` (CVE-2025-32434).
+* Uploads are capped at 200 MB and 12 M analysed samples. A miniSEED whose
+  records would expand past 48 M samples once gaps are zero-filled is
+  rejected before allocation (a tiny file can otherwise request many GB).
+* `scripts/deploy_hf.py` builds a Docker Space that runs as non-root uid 1000,
+  and reads `HF_TOKEN` only from the environment. Never commit the token.
+* Keep `streamlit>=1.37` (CVE-2024-42474, static-file path traversal on
+  Windows). The app enables no static serving and renders no user HTML.

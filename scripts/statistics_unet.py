@@ -34,11 +34,11 @@ TOL = CFG.window.match_tolerance_sec
 
 def per_file(device, unet_thr, cnn_thr, min_dur):
     ck = torch.load(PROJECT_ROOT / "runs" / "unet_lunar" / "best.pt",
-                    map_location=device, weights_only=False)
+                    map_location=device, weights_only=True)
     unet = SpecUNet(base=UNET_ARCHS[ck.get("arch", "base")]).to(device)
     unet.load_state_dict(ck["model"])
     ck2 = torch.load(PROJECT_ROOT / "runs" / "lunar" / "best.pt",
-                     map_location=device, weights_only=False)
+                     map_location=device, weights_only=True)
     cnn = SeisCNN(channels=ARCHS[ck2.get("arch", "base")]).to(device)
     cnn.load_state_dict(ck2["model"])
 

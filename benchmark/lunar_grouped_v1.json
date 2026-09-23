@@ -1,0 +1,4156 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "lunar_grouped_v1",
+  "body": "lunar",
+  "policy": {
+    "grouping": "connected half-open UTC intervals on one channel OR identical raw samples/rate",
+    "holdout_precedence": [
+      "test",
+      "val",
+      "train"
+    ],
+    "unassigned_destination": "train",
+    "picks": "catalog UTC minus actual trace start; union per span",
+    "partial_spans": "kept separate within one split",
+    "seed": 42
+  },
+  "preprocessing": {
+    "target_rate_hz": 6.625,
+    "band_hz": [
+      0.5,
+      3.0
+    ]
+  },
+  "window_config": {
+    "n_samples": 8192,
+    "hop": 4096,
+    "edge_margin_frac": 0.05,
+    "match_tolerance_sec": 120.0
+  },
+  "source_provenance": {
+    "catalog_file": "data/lunar/training/catalogs/apollo12_catalog_GradeA_final.csv",
+    "catalog_sha256": "729c084b291f50263ea5dce7ef9cb14462b4aabe9c1d5c849c2360a869328d1d",
+    "historical_manifest_sha256": "ce023b62224b8736ace4d0213df9d310a8647367586737aea4a77a1f537e44c4"
+  },
+  "sources": [
+    {
+      "filename": "xa.s12.00.mhz.1970-01-19HR00_evid00002.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-01-19HR00_evid00002.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-01-19T00:00:00.665000Z",
+      "end_time": "1970-01-20T00:00:02.929151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "9a6e107d06c0816ceedb5b17babb675e3ed82ccf4cb222bae23eff694cfc6d4f",
+      "source_file_sha256": "f1ede10bf9186cba741922dc65271030f5b7db3f3da52e439cbd2210355a4916",
+      "evid": "evid00002",
+      "pick_utc": "1970-01-19T20:25:00.000000Z",
+      "catalog_relative_sec": 73500.0,
+      "actual_relative_sec": 73499.335
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-03-25HR00_evid00003.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-25HR00_evid00003.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-03-25T00:00:00.440000Z",
+      "end_time": "1970-03-26T00:00:02.100377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "313af129e6d85963b829fd42548c19525bb20777d0bcb6dda5970ea13f0a802e",
+      "source_file_sha256": "bc14a81e7e67fd958e8aa20dfa5d689d013c149a82fb5fa47b19984774fe65eb",
+      "evid": "evid00003",
+      "pick_utc": "1970-03-25T03:32:00.000000Z",
+      "catalog_relative_sec": 12720.0,
+      "actual_relative_sec": 12719.56
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-03-26HR00_evid00004.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-26HR00_evid00004.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-03-26T00:00:00.565000Z",
+      "end_time": "1970-03-27T00:00:02.225377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "fdb7c82574b0f100530164f9055d27ba4e687b6bbcdaea4d8a59f8515d07c696",
+      "source_file_sha256": "9afdb6c29a338b99356ab63df65cc53766299eabee471fd6f2b3a4694b4052c5",
+      "evid": "evid00004",
+      "pick_utc": "1970-03-26T20:17:00.000000Z",
+      "catalog_relative_sec": 73020.0,
+      "actual_relative_sec": 73019.435
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-04-25HR00_evid00006.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-25HR00_evid00006.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-04-25T00:00:00.196000Z",
+      "end_time": "1970-04-26T00:00:02.460151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "fd97d115588fe943da17afda2b779fcddd894d7a8dffca0f778f0ee7fc8bd7f3",
+      "source_file_sha256": "621df8a32e80a2e6d842388e2b55407ee07e458075d3d6d86d6d10d9f98cfcf5",
+      "evid": "evid00006",
+      "pick_utc": "1970-04-25T01:14:00.000000Z",
+      "catalog_relative_sec": 4440.0,
+      "actual_relative_sec": 4439.804
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-04-26HR00_evid00007.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-26HR00_evid00007.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-04-26T00:00:00.660000Z",
+      "end_time": "1970-04-27T00:00:02.320377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "68b4db6aecee787f55cac1dc6f5ae849c60cdebab31e09946f104583794d0275",
+      "source_file_sha256": "450c6fb0b3f270c93e04aa79feb28815fdfbd3c8ef24061bbf2a2745f42ba306",
+      "evid": "evid00007",
+      "pick_utc": "1970-04-26T14:29:00.000000Z",
+      "catalog_relative_sec": 52140.0,
+      "actual_relative_sec": 52139.34
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-06-15HR00_evid00008.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-15HR00_evid00008.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-06-15T00:00:00.510000Z",
+      "end_time": "1970-06-16T00:00:03.226981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "d27e6155b02c65c50b3821cb21291841c506a592cd2118987816c1c0ad05ebbe",
+      "source_file_sha256": "17c8edfe17b0cb2cefbe452b516f13bf7b21524ee8ab3edbc67793e916e20fd6",
+      "evid": "evid00008",
+      "pick_utc": "1970-06-15T19:00:00.000000Z",
+      "catalog_relative_sec": 68400.0,
+      "actual_relative_sec": 68399.49
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-06-26HR00_evid00009.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-26HR00_evid00009.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-06-26T00:00:00.116000Z",
+      "end_time": "1970-06-27T00:00:03.587698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "d8893db94814db09cb40a4444335da2d49c26b681edcbe6cc88a7a514ff13f3e",
+      "source_file_sha256": "57624171e24ea2c5484df9cc5c3ed2ed2bc5063327e3d99330b251ad97e7ed08",
+      "evid": "evid00009",
+      "pick_utc": "1970-06-26T20:01:00.000000Z",
+      "catalog_relative_sec": 72060.0,
+      "actual_relative_sec": 72059.884
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-07-20T00:00:00.487000Z",
+      "end_time": "1970-07-21T00:00:02.147377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "294f614bcee1a2261ab8652ae1ef234400e27234bebf9897eeaefcba392f183b",
+      "source_file_sha256": "97246d57c9e7f52cee93bbcad31aea1085a78fff6655128e73bf597ea1af991d",
+      "evid": "evid00010",
+      "pick_utc": "1970-07-20T05:06:00.000000Z",
+      "catalog_relative_sec": 18360.0,
+      "actual_relative_sec": 18359.513
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-07-20HR00_evid00011",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-07-20T00:00:00.487000Z",
+      "end_time": "1970-07-21T00:00:02.147377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "294f614bcee1a2261ab8652ae1ef234400e27234bebf9897eeaefcba392f183b",
+      "source_file_sha256": "97246d57c9e7f52cee93bbcad31aea1085a78fff6655128e73bf597ea1af991d",
+      "evid": "evid00011",
+      "pick_utc": "1970-07-20T11:44:00.000000Z",
+      "catalog_relative_sec": 42240.0,
+      "actual_relative_sec": 42239.513
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-09-26HR00_evid00013.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-09-26HR00_evid00013.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-09-26T00:00:00.149000Z",
+      "end_time": "1970-09-27T00:00:03.620698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "a3f0eb0f1d5f8621d7a256ccd3e99270b8c62e87be9e5866167a69118e754bdb",
+      "source_file_sha256": "f95546465188743e656f3c7a74498d5ee412005eb8b63b1a75bef3ed6fd2e64b",
+      "evid": "evid00013",
+      "pick_utc": "1970-09-26T19:57:00.000000Z",
+      "catalog_relative_sec": 71820.0,
+      "actual_relative_sec": 71819.851
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-10-24HR00_evid00014.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-10-24HR00_evid00014.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-10-24T00:00:00.504000Z",
+      "end_time": "1970-10-25T00:00:03.522868Z",
+      "n_samples": 572420,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "ff860e1b80047c0d10ad5d74e8a224164be8d071c75f8a22a935f0fa8bb7ca93",
+      "source_file_sha256": "b4393d20b31af9201ac2ee9eacd030f0645306f2425da7a0ac03e4e8bc673639",
+      "evid": "evid00014",
+      "pick_utc": "1970-10-24T11:31:00.000000Z",
+      "catalog_relative_sec": 41460.0,
+      "actual_relative_sec": 41459.496
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-11-12HR00_evid00015.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-11-12HR00_evid00015.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-11-12T00:00:00.700000Z",
+      "end_time": "1970-11-13T00:00:02.360377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "56ecf2f0600235c02ce04600ed342bffaa6115255f1a90a9e46352e3c1ec3d99",
+      "source_file_sha256": "eb878117f64b14981e09895ee0ae40b7c68999ee040dbb051eb469141a15fff8",
+      "evid": "evid00015",
+      "pick_utc": "1970-11-12T12:50:00.000000Z",
+      "catalog_relative_sec": 46200.0,
+      "actual_relative_sec": 46199.3
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-12-11T00:00:00.326000Z",
+      "end_time": "1970-12-12T00:00:02.590151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "2cb96c905039464e8dd699ffc27349a0fbc189304930a1e86a9a4771af3a1b82",
+      "source_file_sha256": "54c0cec4661b07dd91e9f591aafb57f157287f256bea26790066677e69b4c5b2",
+      "evid": "evid00017",
+      "pick_utc": "1970-12-11T07:22:00.000000Z",
+      "catalog_relative_sec": 26520.0,
+      "actual_relative_sec": 26519.674
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-12-27HR00_evid00019.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-27HR00_evid00019.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-12-27T00:00:00.517000Z",
+      "end_time": "1970-12-28T00:00:03.988698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "f6c58a8a4af2f0c1c5529cae202d146e7c2348a64a756ba6ea12ee6390bb677a",
+      "source_file_sha256": "3c87dfdc414d42b5585d247a8697a7aa6c64d330b40112ccbfb8e174cfc6cdac",
+      "evid": "evid00019",
+      "pick_utc": "1970-12-27T20:34:00.000000Z",
+      "catalog_relative_sec": 74040.0,
+      "actual_relative_sec": 74039.483
+    },
+    {
+      "filename": "xa.s12.00.mhz.1970-12-31HR00_evid00021.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-31HR00_evid00021.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-12-31T00:00:00.339000Z",
+      "end_time": "1971-01-01T00:00:01.999377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "a34489084ea2bdbd2e7538192dcf199670b247ff3204c662ea4987a233eb05b2",
+      "source_file_sha256": "0bbed47fed83ab16264c86ac426d62f20e6e9b2e978fe705aa67a5e61204117f",
+      "evid": "evid00021",
+      "pick_utc": "1970-12-31T15:41:00.000000Z",
+      "catalog_relative_sec": 56460.0,
+      "actual_relative_sec": 56459.661
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-01-15HR00_evid00022.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-15HR00_evid00022.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-01-15T00:00:00.258000Z",
+      "end_time": "1971-01-16T00:00:01.918377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "636977667c8a0e5851227bad6c643cd626db130330e6b09669effdab208199de",
+      "source_file_sha256": "7b716f136fec17fcccf3a1382d82c6a68d38974eb413f32b8a4751aeb583d566",
+      "evid": "evid00022",
+      "pick_utc": "1971-01-15T12:40:00.000000Z",
+      "catalog_relative_sec": 45600.0,
+      "actual_relative_sec": 45599.742
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-01-28HR00_evid00023.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-28HR00_evid00023.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-01-28T00:00:00.234000Z",
+      "end_time": "1971-01-29T00:00:03.705698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "d40f8d9040fb2435cc6e42f6c924478f23d5f87ab3e9f7f5476b6c213a60b0c6",
+      "source_file_sha256": "47bc485b7d625bf234c80891b039f101dc7965645d517bb38598941c6c54f2fd",
+      "evid": "evid00023",
+      "pick_utc": "1971-01-28T14:59:00.000000Z",
+      "catalog_relative_sec": 53940.0,
+      "actual_relative_sec": 53939.766
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-01-29HR00_evid00024.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-29HR00_evid00024.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-01-29T00:00:00.194000Z",
+      "end_time": "1971-01-30T00:00:03.665698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "34533ed0b5cec12d56364fdbe6e71a9a06d10a450d1baeb2ad68d19cc0898c81",
+      "source_file_sha256": "3924237ee0af4843b7348c0c0399bba0e3457bd2aeff0dd66bf46dfc6f36656c",
+      "evid": "evid00024",
+      "pick_utc": "1971-01-29T18:21:00.000000Z",
+      "catalog_relative_sec": 66060.0,
+      "actual_relative_sec": 66059.806
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-02-09HR00_evid00026.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-02-09HR00_evid00026.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-02-09T00:00:00.179000Z",
+      "end_time": "1971-02-10T00:00:01.839377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "81a3361d7b50c4d887838934ec640a72ce4047af80f44fe35e7a0bf4b6dc1beb",
+      "source_file_sha256": "02c4f8c397059297d8e0eee06f16c8449a5584ea503c246fb43db79bbec579f0",
+      "evid": "evid00026",
+      "pick_utc": "1971-02-09T03:42:00.000000Z",
+      "catalog_relative_sec": 13320.0,
+      "actual_relative_sec": 13319.821
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-03-25HR00_evid00028.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-03-25HR00_evid00028.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-03-25T00:00:00.151000Z",
+      "end_time": "1971-03-26T00:00:04.226472Z",
+      "n_samples": 572427,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "a708ed2289a5d58108ddc9d97711887bd07f0a6980cecce47355418cbb4bca60",
+      "source_file_sha256": "29ba6e6f696a84c6bac69fddff07e1cf94fe575d5dc28d70b6e0a56a582b18eb",
+      "evid": "evid00028",
+      "pick_utc": "1971-03-25T15:18:00.000000Z",
+      "catalog_relative_sec": 55080.0,
+      "actual_relative_sec": 55079.849
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-04-13HR02_evid00029.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-13HR02_evid00029.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-04-13HR00_evid00029",
+      "resolution": "unique_channel_event_id",
+      "historical_split": "unassigned",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-04-13T02:42:48.990062Z",
+      "end_time": "1971-04-13T22:37:34.273081Z",
+      "n_samples": 474915,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "dc04890413eff4680d530c047fbc3a7cb427f36d0f320af3f22061a4b8bdf282",
+      "source_file_sha256": "17d24999ae595cf5e07e75292a6a1c4d02d21c5e6d7abf3f64640d41f2bd1b76",
+      "evid": "evid00029",
+      "pick_utc": "1971-04-13T12:55:00.000000Z",
+      "catalog_relative_sec": 46500.0,
+      "actual_relative_sec": 36731.009938
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-04-17HR00_evid00030.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-17HR00_evid00030.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-04-17T00:00:00.387000Z",
+      "end_time": "1971-04-18T00:00:03.103981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "3b1b874e9739f65b70fd8463e0591815b7323febb702595508436850b8b4a6a2",
+      "source_file_sha256": "29cc79356d6501396d3c2143b51368f307f21890f7ef4479d53fb6f7fa7c019b",
+      "evid": "evid00030",
+      "pick_utc": "1971-04-17T07:04:00.000000Z",
+      "catalog_relative_sec": 25440.0,
+      "actual_relative_sec": 25439.613
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-12T00:00:00.712000Z",
+      "end_time": "1971-05-13T00:00:01.768604Z",
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "e7421b9ee6fed156da54e8e002564a33fe71b3cbe3961b5c2d5002b2927ff6d5",
+      "source_file_sha256": "d0a1c740cb9a46c9eb0d0eaa400a7ca3e06195b336dc881e4c224e556f186f48",
+      "evid": "evid00031",
+      "pick_utc": "1971-05-12T08:05:00.000000Z",
+      "catalog_relative_sec": 29100.0,
+      "actual_relative_sec": 29099.288
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-12HR00_evid00032",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-12T00:00:00.712000Z",
+      "end_time": "1971-05-13T00:00:01.768604Z",
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "e7421b9ee6fed156da54e8e002564a33fe71b3cbe3961b5c2d5002b2927ff6d5",
+      "source_file_sha256": "d0a1c740cb9a46c9eb0d0eaa400a7ca3e06195b336dc881e4c224e556f186f48",
+      "evid": "evid00032",
+      "pick_utc": "1971-05-12T09:45:00.000000Z",
+      "catalog_relative_sec": 35100.0,
+      "actual_relative_sec": 35099.288
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-13T00:00:00.183000Z",
+      "end_time": "1971-05-14T00:00:01.843377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "c62aa05313b7a2f5aa88c8c615ce6b9ed3c8af49236ef6e5a468dd5482dc162a",
+      "source_file_sha256": "b4a2826c56f4074268f145ad7cd2578e43e33d77b02b45871ce7e136d8b8886c",
+      "evid": "evid00033",
+      "pick_utc": "1971-05-13T03:00:00.000000Z",
+      "catalog_relative_sec": 10800.0,
+      "actual_relative_sec": 10799.817
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-05-23HR00_evid00034.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-23HR00_evid00034.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-23T00:00:00.502000Z",
+      "end_time": "1971-05-24T00:00:03.973698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "719bfa4499a7c787b9fa1bd983dbf1ee00c889f66100a9e49a3e2cd36eca450c",
+      "source_file_sha256": "bb34f1a0d95ed54ed62e5536606f0ad0087dfb9bb594b04ae1180c564e8d7504",
+      "evid": "evid00034",
+      "pick_utc": "1971-05-23T22:20:00.000000Z",
+      "catalog_relative_sec": 80400.0,
+      "actual_relative_sec": 80399.498
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-06-12HR00_evid00035.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-06-12HR00_evid00035.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-06-12T00:00:00.529000Z",
+      "end_time": "1971-06-13T00:00:03.245981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "7c845dddf8f3e43002bf56039b513286eda7219afbe6bc5e48ba1e8b58c200aa",
+      "source_file_sha256": "3fe50bad31cd21f59bc0bb283bc32d1a9cab5109a8760f3c7df8c75f00054faf",
+      "evid": "evid00035",
+      "pick_utc": "1971-06-12T10:51:00.000000Z",
+      "catalog_relative_sec": 39060.0,
+      "actual_relative_sec": 39059.471
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-09-25HR00_evid00042.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-09-25HR00_evid00042.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-09-25T00:00:00.576000Z",
+      "end_time": "1971-09-26T00:00:00.425057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "b4d1fc4f813907fe58c68b7a7c9179a2ee85abd2a943f8469d4176d149358601",
+      "source_file_sha256": "d5e2d1570e4b3233590eaaeff7eeb52d5993db88767ac168b123e1eea3924b76",
+      "evid": "evid00042",
+      "pick_utc": "1971-09-25T08:57:00.000000Z",
+      "catalog_relative_sec": 32220.0,
+      "actual_relative_sec": 32219.424
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-10-18HR00_evid00043.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-18HR00_evid00043.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-10-18T00:00:00.417000Z",
+      "end_time": "1971-10-19T00:00:00.266057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "5a8127ca78a012c1b7222bac1a1a714148fd600365e8a0842e7277986b90a463",
+      "source_file_sha256": "cb6bd3a6c0e7b042ae0f6734d15a35ecff8b6f543451db8a64b61f1998b8b597",
+      "evid": "evid00043",
+      "pick_utc": "1971-10-18T03:19:00.000000Z",
+      "catalog_relative_sec": 11940.0,
+      "actual_relative_sec": 11939.583
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-10-20HR00_evid00044.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-20HR00_evid00044.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-10-20T00:00:00.425000Z",
+      "end_time": "1971-10-21T00:00:00.274057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "c80d186ee673574f5f9c059e81d2d1a057b4fc7546527c9d874699a771324bb8",
+      "source_file_sha256": "05fa1f044504e4f744ef20096be3717e499cd45815d6151da251b5ae6a546ac8",
+      "evid": "evid00044",
+      "pick_utc": "1971-10-20T18:08:00.000000Z",
+      "catalog_relative_sec": 65280.0,
+      "actual_relative_sec": 65279.575
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-10-31HR00_evid00045.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-31HR00_evid00045.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-10-31T00:00:00.420000Z",
+      "end_time": "1971-11-01T00:00:03.136981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "35e15485242b785ae927e0ebdca02469fa3b9c3ad20001d3521c4b70f250d5f7",
+      "source_file_sha256": "73b1ac4b7cbb32b20b11411de06ac080d5875474352c35d81967304c882996e2",
+      "evid": "evid00045",
+      "pick_utc": "1971-10-31T05:30:00.000000Z",
+      "catalog_relative_sec": 19800.0,
+      "actual_relative_sec": 19799.58
+    },
+    {
+      "filename": "xa.s12.00.mhz.1971-11-14HR00_evid00046.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-11-14HR00_evid00046.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-11-14T00:00:00.602000Z",
+      "end_time": "1971-11-15T00:00:00.451057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "4cdb1b463b7390110e741db8ce0c606e3b1e95998236e34aa7afccceefaf19fa",
+      "source_file_sha256": "426d590765a76a5d993d83e973d26d1375f4bda00a1a3edf9439b0128aa463fc",
+      "evid": "evid00046",
+      "pick_utc": "1971-11-14T04:17:00.000000Z",
+      "catalog_relative_sec": 15420.0,
+      "actual_relative_sec": 15419.398
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-01-04HR00_evid00049.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-01-04HR00_evid00049.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-01-04T00:00:00.117000Z",
+      "end_time": "1972-01-05T00:00:02.833981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "0680d3a9760b6569f1260c323f90cffe5f04d58fe0375d59687b82f998c144d4",
+      "source_file_sha256": "b448f76fdf0def87b439c6a7a77e9dc4a9b9966288da765da599f7d4e4910c95",
+      "evid": "evid00049",
+      "pick_utc": "1972-01-04T06:35:00.000000Z",
+      "catalog_relative_sec": 23700.0,
+      "actual_relative_sec": 23699.883
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-03-12HR00_evid00052.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-03-12HR00_evid00052.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-03-12T00:00:00.417000Z",
+      "end_time": "1972-03-13T00:00:00.266057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "92a39f6858beaac75dc163c06b5dca4fe5cbc46830038b9b1a187c51810dbb02",
+      "source_file_sha256": "8ac3b71db2061ec8c921855a1e3bcaeb6997ab8a8b3938c70b7a9f427cd58a8d",
+      "evid": "evid00052",
+      "pick_utc": "1972-03-12T18:00:00.000000Z",
+      "catalog_relative_sec": 64800.0,
+      "actual_relative_sec": 64799.583
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-05-11HR00_evid00055.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-05-11HR00_evid00055.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-05-11T00:00:00.576000Z",
+      "end_time": "1972-05-12T00:00:00.425057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "adaa6b0e9ca944b601d9a9a10ee845d9b4df24d74224ca0b7229f2a4b0945ccd",
+      "source_file_sha256": "ea4904834f3b24d06307eceb624538f1efbddd703a0785f367b23a8c07399a40",
+      "evid": "evid00055",
+      "pick_utc": "1972-05-11T13:35:00.000000Z",
+      "catalog_relative_sec": 48900.0,
+      "actual_relative_sec": 48899.424
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-06-16HR00_evid00060.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-06-16HR00_evid00060.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-06-16T00:00:00.116000Z",
+      "end_time": "1972-06-16T23:59:59.965057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "424e95ba782c33e9ba3760b2ae630045a28388b79f0e31fb52acff2d9cb701b1",
+      "source_file_sha256": "2d53c3ca408aae3ed4e25ec9440cd65c6e727246d680b87fa93009485ffefad9",
+      "evid": "evid00060",
+      "pick_utc": "1972-06-16T16:11:00.000000Z",
+      "catalog_relative_sec": 58260.0,
+      "actual_relative_sec": 58259.884
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-17T00:00:00.184000Z",
+      "end_time": "1972-07-18T00:00:00.033057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "771ee0df3ad9fa2610cd5aa5c5a258b6d67cf2402e1e8c28e6a3fa31cfc29105",
+      "source_file_sha256": "a34ca2bd8d1b88f72df63616fcd41a259aea51ee4d49182bd183617e1a3fad79",
+      "evid": "evid00067",
+      "pick_utc": "1972-07-17T07:50:00.000000Z",
+      "catalog_relative_sec": 28200.0,
+      "actual_relative_sec": 28199.816
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-17HR00_evid00068",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-17T00:00:00.184000Z",
+      "end_time": "1972-07-18T00:00:00.033057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "771ee0df3ad9fa2610cd5aa5c5a258b6d67cf2402e1e8c28e6a3fa31cfc29105",
+      "source_file_sha256": "a34ca2bd8d1b88f72df63616fcd41a259aea51ee4d49182bd183617e1a3fad79",
+      "evid": "evid00068",
+      "pick_utc": "1972-07-17T21:56:00.000000Z",
+      "catalog_relative_sec": 78960.0,
+      "actual_relative_sec": 78959.816
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-07-28HR00_evid00070.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-28HR00_evid00070.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-28T00:00:00.136000Z",
+      "end_time": "1972-07-29T00:00:02.852981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "8231b526ce9e56e715afefdd22416849a05a1deea933e064a4fbaa3e6940369d",
+      "source_file_sha256": "1df08843cbeb62a8d18709505f7499559f9b2525112d26cac7aba90ec9e32429",
+      "evid": "evid00070",
+      "pick_utc": "1972-07-28T02:23:00.000000Z",
+      "catalog_relative_sec": 8580.0,
+      "actual_relative_sec": 8579.864
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-07-31HR00_evid00071.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-31HR00_evid00071.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-31T00:00:00.622000Z",
+      "end_time": "1972-08-01T00:00:02.886151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "28e819c5da8e3769bf4d035e61d07d770170aa5a29a688cc2d1a8ef0d82a2d30",
+      "source_file_sha256": "ac59f61c3eea968116f84f6fc640ccbe737e6d997f2e60cfbfe410fd6e567d41",
+      "evid": "evid00071",
+      "pick_utc": "1972-07-31T18:08:00.000000Z",
+      "catalog_relative_sec": 65280.0,
+      "actual_relative_sec": 65279.378
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-12-02HR00_evid00083.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-02HR00_evid00083.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-12-02T00:00:00.439000Z",
+      "end_time": "1972-12-03T00:00:00.288057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "17cd1fccc93895b38d979fe8d17ba51888883ebce581f118b5d867303fbd2c52",
+      "source_file_sha256": "a1179e9338b4430ba0c37df09be4fcd83e56cf83a1c1e5ab4eb2f747e620c668",
+      "evid": "evid00083",
+      "pick_utc": "1972-12-02T07:58:00.000000Z",
+      "catalog_relative_sec": 28680.0,
+      "actual_relative_sec": 28679.561
+    },
+    {
+      "filename": "xa.s12.00.mhz.1972-12-03HR00_evid00084.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-03HR00_evid00084.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-12-03T00:00:00.552000Z",
+      "end_time": "1972-12-04T00:00:00.401057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "50def4a4c39634e6ba452ace4ac39092b7cc52d1f68781197c691f448ede3b5b",
+      "source_file_sha256": "7018a24ac2eba87bc799cc7f6dc16ce9dc92323c6d1a335ba722d57209c6e89b",
+      "evid": "evid00084",
+      "pick_utc": "1972-12-03T02:38:00.000000Z",
+      "catalog_relative_sec": 9480.0,
+      "actual_relative_sec": 9479.448
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-01-18HR00_evid00088.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-18HR00_evid00088.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-01-18T00:00:00.662000Z",
+      "end_time": "1973-01-19T00:00:02.926151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "de60e4a075c0c7048d37f8c38391f36e1c9d2c5173513d4a3459ad80c09d8ab5",
+      "source_file_sha256": "400a03c3ba458d9ec972af1162002583d67284f14c27c95c9a0dca122bdef06a",
+      "evid": "evid00088",
+      "pick_utc": "1973-01-18T23:01:00.000000Z",
+      "catalog_relative_sec": 82860.0,
+      "actual_relative_sec": 82859.338
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-01-31HR00_evid00091.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-31HR00_evid00091.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-01-31T00:00:00.595000Z",
+      "end_time": "1973-01-31T23:59:59.840283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "8c0be7c7b29d24d74a142c35ac7b5522f75838bcbbeae6cc9f1d10e332f5559a",
+      "source_file_sha256": "8379abaf46200d099b26bcb0a968607e88eeef57c4c965c72de283b467a4e6df",
+      "evid": "evid00091",
+      "pick_utc": "1973-01-31T00:44:00.000000Z",
+      "catalog_relative_sec": 2640.0,
+      "actual_relative_sec": 2639.405
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-03-01HR00_evid00093.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-01HR00_evid00093.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-03-01T00:00:00.345000Z",
+      "end_time": "1973-03-02T00:00:00.194057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "aff55cd38647f0a92487846d86e6ea46b347fc51396a772364b089967c463595",
+      "source_file_sha256": "8d385b85b481460d4a3e2746548c86f338fb4b75d913b4a345fbe18c68bba5a1",
+      "evid": "evid00093",
+      "pick_utc": "1973-03-01T07:15:00.000000Z",
+      "catalog_relative_sec": 26100.0,
+      "actual_relative_sec": 26099.655
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-03-13HR00_evid00094.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-13HR00_evid00094.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-03-13T00:00:00.472000Z",
+      "end_time": "1973-03-13T14:21:20.170113Z",
+      "n_samples": 342378,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "fd92d86178fb4ae08fc539203282194c8f58af37022717ba0bce9d6f79acbfc8",
+      "source_file_sha256": "7fdb238f0d2c2c7d2c0cf5408ff7d02b7823da1b3c22aa03be1ea732da70fdf9",
+      "evid": "evid00094",
+      "pick_utc": "1973-03-13T08:01:00.000000Z",
+      "catalog_relative_sec": 28860.0,
+      "actual_relative_sec": 28859.528
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-03-24HR00_evid00097.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-24HR00_evid00097.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-03-24T00:00:00.606000Z",
+      "end_time": "1973-03-24T23:59:39.926755Z",
+      "n_samples": 572263,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "296933a8ea771d1b7da5a3a10cd5d026898e848bef3e977f647a709907ee4194",
+      "source_file_sha256": "07bc1f5b7795e2d82d58b525fa2b195a038dbe4d82716988ff3aaf4768d94a70",
+      "evid": "evid00097",
+      "pick_utc": "1973-03-24T19:23:00.000000Z",
+      "catalog_relative_sec": 69780.0,
+      "actual_relative_sec": 69779.394
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-05-14HR00_evid00104.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-05-14HR00_evid00104.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-05-14T00:00:00.397000Z",
+      "end_time": "1973-05-15T00:00:02.661151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "5f20d83251c872736c28c093393a8e890b130b900dc8e334dcac15e48a679243",
+      "source_file_sha256": "a928b5937729bbad500dac875a1af19b82a54e8ba0f11474be3f589b8e1bb047",
+      "evid": "evid00104",
+      "pick_utc": "1973-05-14T00:44:00.000000Z",
+      "catalog_relative_sec": 2640.0,
+      "actual_relative_sec": 2639.603
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-05T00:00:00.300000Z",
+      "end_time": "1973-06-05T23:59:59.545283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "fcdc5949930861d79a9dc7604206139631be6482e0f1f38718f31dd91b344436",
+      "source_file_sha256": "a56dca6e57824da4fcdf7d3c0108dae7dc8cb16a6e988c6c224d57710e14cb96",
+      "evid": "evid00107",
+      "pick_utc": "1973-06-05T02:38:00.000000Z",
+      "catalog_relative_sec": 9480.0,
+      "actual_relative_sec": 9479.7
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-05HR00_evid00108",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-05T00:00:00.300000Z",
+      "end_time": "1973-06-05T23:59:59.545283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "fcdc5949930861d79a9dc7604206139631be6482e0f1f38718f31dd91b344436",
+      "source_file_sha256": "a56dca6e57824da4fcdf7d3c0108dae7dc8cb16a6e988c6c224d57710e14cb96",
+      "evid": "evid00108",
+      "pick_utc": "1973-06-05T11:10:00.000000Z",
+      "catalog_relative_sec": 40200.0,
+      "actual_relative_sec": 40199.7
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-06-18HR00_evid00109.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-18HR00_evid00109.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-18T00:00:00.132000Z",
+      "end_time": "1973-06-19T00:00:02.848981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "63c56aaf265376cd63292989884e6cece74c92b8a4475aba8aed82451f1cbd17",
+      "source_file_sha256": "7610f087a9c00fbf4171f89b8c5d9761e8e928a3165e8e001b7f1a03b36684cf",
+      "evid": "evid00109",
+      "pick_utc": "1973-06-18T01:42:00.000000Z",
+      "catalog_relative_sec": 6120.0,
+      "actual_relative_sec": 6119.868
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-06-27HR00_evid00112.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-27HR00_evid00112.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-27T00:00:00.230000Z",
+      "end_time": "1973-06-28T00:00:00.079057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "64b1a42c3bfdde3da0c08315a8de15b306415012599e2b8f8cdd9293fe680554",
+      "source_file_sha256": "a99541e380a3ae07eac3f572d04fb3a1137039e04bae268e2fb2ed8b424f9697",
+      "evid": "evid00112",
+      "pick_utc": "1973-06-27T18:36:00.000000Z",
+      "catalog_relative_sec": 66960.0,
+      "actual_relative_sec": 66959.77
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-07-03HR00_evid00113.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-03HR00_evid00113.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-03T00:00:00.532000Z",
+      "end_time": "1973-07-03T23:59:59.777283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "3187df72e8318e01ea62e6fce9ee115981b37ed854d42a538058ed3d2baea57d",
+      "source_file_sha256": "162534aacb3d0505e4d8939d27d94a204fa5927a2204fb8c33efc55c72445559",
+      "evid": "evid00113",
+      "pick_utc": "1973-07-03T18:15:00.000000Z",
+      "catalog_relative_sec": 65700.0,
+      "actual_relative_sec": 65699.468
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-07-04HR00_evid00114.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-04HR00_evid00114.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-04T00:00:00.544000Z",
+      "end_time": "1973-07-04T23:59:59.789283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "160e3e4c99e9c01a181969f107a5426b0c9c785f7112985a3db79bc0220ac53c",
+      "source_file_sha256": "4958e14035a2549adc79291bf47f07c525a496d1fde6364ae6090a84f257ad1a",
+      "evid": "evid00114",
+      "pick_utc": "1973-07-04T02:46:00.000000Z",
+      "catalog_relative_sec": 9960.0,
+      "actual_relative_sec": 9959.456
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-07-20HR00_evid00117.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-20HR00_evid00117.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-20T00:00:00.308000Z",
+      "end_time": "1973-07-21T00:00:03.024981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "74ea6933bfb285032967ca640af0f700ca9560a1f3f93a95160373e241ae0505",
+      "source_file_sha256": "93ee36a596bf13a5cffcb5f30e0267353515cb985196bc9e8c0565e31c569660",
+      "evid": "evid00117",
+      "pick_utc": "1973-07-20T19:02:00.000000Z",
+      "catalog_relative_sec": 68520.0,
+      "actual_relative_sec": 68519.692
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-07-28HR00_evid00120.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-28HR00_evid00120.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-28T00:00:00.275000Z",
+      "end_time": "1973-07-28T23:59:59.520283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "149f4119d4a5fbee67eae5ab640b53eb4f5412b751d7e16fe0a75ef2008529a6",
+      "source_file_sha256": "6c2f39d6d8879ff6d8d35ac69d96b7c645f95b1857d489854b13409543d97bc0",
+      "evid": "evid00120",
+      "pick_utc": "1973-07-28T00:52:00.000000Z",
+      "catalog_relative_sec": 3120.0,
+      "actual_relative_sec": 3119.725
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-07-29HR00_evid00121.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-29HR00_evid00121.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-29T00:00:00.262000Z",
+      "end_time": "1973-07-29T23:59:59.507283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "b26afb4f7e14a1530b5e144df0943de3204f20ba45b99733d48a5af8df34abc5",
+      "source_file_sha256": "3906985c044261e861a28da6a9e2879ca6ccc8bbeca1102e865389dfa3d67d4c",
+      "evid": "evid00121",
+      "pick_utc": "1973-07-29T23:31:00.000000Z",
+      "catalog_relative_sec": 84660.0,
+      "actual_relative_sec": 84659.738
+    },
+    {
+      "filename": "xa.s12.00.mhz.1973-08-21HR00_evid00127.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-08-21HR00_evid00127.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-08-21T00:00:00.652000Z",
+      "end_time": "1973-08-22T00:00:02.312377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "3ff812e7ba15565e461bd5fea8f6c655d6a0ec009465294a7c995af11221215a",
+      "source_file_sha256": "91a56fde3301a6d6514125e33befe570495eed29687ef3048d7413c887de6dac",
+      "evid": "evid00127",
+      "pick_utc": "1973-08-21T12:17:00.000000Z",
+      "catalog_relative_sec": 44220.0,
+      "actual_relative_sec": 44219.348
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-01-10HR00_evid00136.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-01-10HR00_evid00136.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-01-10T00:00:00.229000Z",
+      "end_time": "1974-01-11T00:00:02.945981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "874eb3131203d283da9d7e8f053ac6dd6c22e2e3055fb6cb50d50be8e3b1f7e9",
+      "source_file_sha256": "c5a320fbc2740aaf997702c577490bc19b123f894918b820c8cdb91f3c20ba8b",
+      "evid": "evid00136",
+      "pick_utc": "1974-01-10T23:21:00.000000Z",
+      "catalog_relative_sec": 84060.0,
+      "actual_relative_sec": 84059.771
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-02-07HR00_evid00137.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-07HR00_evid00137.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-02-07T00:00:00.354000Z",
+      "end_time": "1974-02-08T00:00:03.070981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "c2cd57dd3aebcf6d86bc6bbad2a562f6209f099f811135b6468aa453d21da01f",
+      "source_file_sha256": "be573cd9c334396d7a7532e637136ea8aeb50fed88334c4865c6746ab9d532e7",
+      "evid": "evid00137",
+      "pick_utc": "1974-02-07T06:21:00.000000Z",
+      "catalog_relative_sec": 22860.0,
+      "actual_relative_sec": 22859.646
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-02-12HR00_evid00138.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-12HR00_evid00138.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-02-12T00:00:00.400000Z",
+      "end_time": "1974-02-13T00:00:02.664151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "bb1c24cc3ee083ff8ee09e87a7050c78fa87a033c62a0be31aef27b379eae3f2",
+      "source_file_sha256": "b681014bc69fa972a3c956999337cc0fc631f1806fc3d1b0ef3662005ac1902b",
+      "evid": "evid00138",
+      "pick_utc": "1974-02-12T22:30:00.000000Z",
+      "catalog_relative_sec": 81000.0,
+      "actual_relative_sec": 80999.6
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-03-25HR00_evid00140.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-03-25HR00_evid00140.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-03-25T00:00:00.598000Z",
+      "end_time": "1974-03-25T23:59:59.088566Z",
+      "n_samples": 572390,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "a8ac8e838010a97039a2d93bc6ca01a994b3d1a295df4a362a8ded8c443e7015",
+      "source_file_sha256": "d97e0858cc1e2da384a559f59883ea7c10282935631b879825b30bd617655672",
+      "evid": "evid00140",
+      "pick_utc": "1974-03-25T16:58:00.000000Z",
+      "catalog_relative_sec": 61080.0,
+      "actual_relative_sec": 61079.402
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-04-08HR00_evid00141.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-08HR00_evid00141.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-08T00:00:00.534000Z",
+      "end_time": "1974-04-09T00:00:02.194377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "1c4d01049d8ac061a39b39d54ba322bbbb7b0a6ccb3923c0680028d4d993d102",
+      "source_file_sha256": "5c5153c2100244ab58482e86590ffd50729ff009c889d4fe97d142b7b095c58c",
+      "evid": "evid00141",
+      "pick_utc": "1974-04-08T08:40:00.000000Z",
+      "catalog_relative_sec": 31200.0,
+      "actual_relative_sec": 31199.466
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-04-19HR00_evid00142.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-19HR00_evid00142.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-19T00:00:00.568000Z",
+      "end_time": "1974-04-19T23:59:58.454792Z",
+      "n_samples": 572386,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "26a702beeb4368ff8a54e49f09ac1593c156d9c6699358438ff1bf4ce7a8b6b3",
+      "source_file_sha256": "fff71292d83f00d3e5e5ffb9cadca41c9f2c94c4b06cd048c4ecf7cd1963de10",
+      "evid": "evid00142",
+      "pick_utc": "1974-04-19T18:34:00.000000Z",
+      "catalog_relative_sec": 66840.0,
+      "actual_relative_sec": 66839.432
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-04-26HR00_evid00144.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-26HR00_evid00144.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-26T00:00:00.349000Z",
+      "end_time": "1974-04-26T23:59:58.235792Z",
+      "n_samples": 572386,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "804f36e97d975c081f1a3291958654ecbcdd56ad98cc64716a04f1b269b56f20",
+      "source_file_sha256": "afdd8226ab16bbc8b1f1e5ea329e520a4d83015d370a4960bdacdc7d682fdaac",
+      "evid": "evid00144",
+      "pick_utc": "1974-04-26T09:18:00.000000Z",
+      "catalog_relative_sec": 33480.0,
+      "actual_relative_sec": 33479.651
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-04-27HR00_evid00145.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-27HR00_evid00145.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-27T00:00:00.646000Z",
+      "end_time": "1974-04-27T23:59:58.079962Z",
+      "n_samples": 572383,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "503dfc5e94afb704431174287d1176515b0b59d40edd02e32e95a90f60798822",
+      "source_file_sha256": "bcebfeee1e4015fc178329efa06e30a9c2590ba6aeab28e2d823ce898314154c",
+      "evid": "evid00145",
+      "pick_utc": "1974-04-27T14:18:00.000000Z",
+      "catalog_relative_sec": 51480.0,
+      "actual_relative_sec": 51479.354
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-06-25HR00_evid00149.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-06-25HR00_evid00149.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-06-25T00:00:00.524000Z",
+      "end_time": "1974-06-26T00:00:03.995698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "26729909c973e1b8fa797e142c7b7e8be85f5afdf6be63983cd64c590d077938",
+      "source_file_sha256": "77cb40462fb1988a182ecb0166ab9618f244eb2893f9a8966a1e4c651bf31581",
+      "evid": "evid00149",
+      "pick_utc": "1974-06-25T00:23:00.000000Z",
+      "catalog_relative_sec": 1380.0,
+      "actual_relative_sec": 1379.476
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-06T00:00:00.193000Z",
+      "end_time": "1974-07-07T00:00:01.853377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "c697df2d83cbe73317ec10514700ecf979864f3bf8949ebab206a58c799e901f",
+      "source_file_sha256": "fe95bc228654a45673749e92f562b9922bccee114da3d3b276baf353008b2dae",
+      "evid": "evid00150",
+      "pick_utc": "1974-07-06T02:57:00.000000Z",
+      "catalog_relative_sec": 10620.0,
+      "actual_relative_sec": 10619.807
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-06HR00_evid00151",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-06T00:00:00.193000Z",
+      "end_time": "1974-07-07T00:00:01.853377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "c697df2d83cbe73317ec10514700ecf979864f3bf8949ebab206a58c799e901f",
+      "source_file_sha256": "fe95bc228654a45673749e92f562b9922bccee114da3d3b276baf353008b2dae",
+      "evid": "evid00151",
+      "pick_utc": "1974-07-06T14:14:00.000000Z",
+      "catalog_relative_sec": 51240.0,
+      "actual_relative_sec": 51239.807
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-07-11HR00_evid00152.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-11HR00_evid00152.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-11T00:00:00.359000Z",
+      "end_time": "1974-07-12T00:00:02.623151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "c04a74f9d53bd7c1842254fb4fc4257d8af88100d5d71a8fe1e2877b53a563e5",
+      "source_file_sha256": "4bb3ac1505d52d2aa18f0acd090d80a8c2b5a2c8422680af6ac0b98ec9338887",
+      "evid": "evid00152",
+      "pick_utc": "1974-07-11T00:52:00.000000Z",
+      "catalog_relative_sec": 3120.0,
+      "actual_relative_sec": 3119.641
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-07-17HR00_evid00153.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-17HR00_evid00153.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-17T00:00:00.226000Z",
+      "end_time": "1974-07-18T00:00:03.697698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "02e6b06507db94f2712ac05e0417efd3dd160ae0bb33b82d385a38d012dcf366",
+      "source_file_sha256": "97ffae0431e61f7a7855604e44557089340e269a3cff67d3ea8a7ba6ef2db8a1",
+      "evid": "evid00153",
+      "pick_utc": "1974-07-17T12:05:00.000000Z",
+      "catalog_relative_sec": 43500.0,
+      "actual_relative_sec": 43499.774
+    },
+    {
+      "filename": "xa.s12.00.mhz.1974-10-14HR00_evid00156.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-10-14HR00_evid00156.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+      "resolution": "exact_filename",
+      "historical_split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-10-14T00:00:00.996000Z",
+      "end_time": "1974-10-15T00:00:03.712981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "0803edb155ce4d359df2eeddf36607ed478b0a9211e92110a89a3de0f1a885e5",
+      "source_file_sha256": "18d246a5978e0f27e40eafcd2a5fe93c4bcb346cad6c7c0b41f3cf68a1b1fdb9",
+      "evid": "evid00156",
+      "pick_utc": "1974-10-14T17:43:00.000000Z",
+      "catalog_relative_sec": 63780.0,
+      "actual_relative_sec": 63779.004
+    },
+    {
+      "filename": "xa.s12.00.mhz.1975-04-12HR00_evid00191.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-04-12HR00_evid00191.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1975-04-12HR00_evid00191",
+      "resolution": "exact_filename",
+      "historical_split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-04-12T00:00:00.187000Z",
+      "end_time": "1975-04-13T00:00:03.658698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "1ddc9bfc79d2ae2a0a55d3ae5b1bd0ca01babe54ff40f05f77eab98a0970b207",
+      "source_file_sha256": "196c550269834b9cdf2a13be8f3e6bf69e926c607bab314a84bdb704ef4a5fee",
+      "evid": "evid00191",
+      "pick_utc": "1975-04-12T18:15:00.000000Z",
+      "catalog_relative_sec": 65700.0,
+      "actual_relative_sec": 65699.813
+    },
+    {
+      "filename": "xa.s12.00.mhz.1975-05-04HR00_evid00192.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-05-04HR00_evid00192.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-05-04T00:00:00.457000Z",
+      "end_time": "1975-05-05T00:00:03.173981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "d48bfcad0e2a1ddac5a3a5d42c0a947abd9e06a7ee1ae3537668b4e7a80ea045",
+      "source_file_sha256": "9c957cfe7d1ac0be483772aa8cb3522abe9b7cad41c4aea5967f1ca727d679df",
+      "evid": "evid00192",
+      "pick_utc": "1975-05-04T10:05:00.000000Z",
+      "catalog_relative_sec": 36300.0,
+      "actual_relative_sec": 36299.543
+    },
+    {
+      "filename": "xa.s12.00.mhz.1975-06-24HR00_evid00196.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-24HR00_evid00196.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-06-24T00:00:00.239000Z",
+      "end_time": "1975-06-25T00:00:01.899377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "455c8eab1254ffb439f30474c2a920bfad79d157607d05b3318643ce7fc42325",
+      "source_file_sha256": "7fb723126b6e71068da8d651f1a293247c898faaac2a3502abea8c928f65529e",
+      "evid": "evid00196",
+      "pick_utc": "1975-06-24T16:03:00.000000Z",
+      "catalog_relative_sec": 57780.0,
+      "actual_relative_sec": 57779.761
+    },
+    {
+      "filename": "xa.s12.00.mhz.1975-06-26HR00_evid00198.mseed",
+      "source_file": "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-26HR00_evid00198.mseed",
+      "catalog_filename": "xa.s12.00.mhz.1975-06-26HR00_evid00198",
+      "resolution": "exact_filename",
+      "historical_split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-06-26T00:00:00.542000Z",
+      "end_time": "1975-06-27T00:00:01.598604Z",
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "raw_trace_sha256": "e9423c7326e1d25a2aea80d5222e5f5e107e63d42d064164546f8c7e93dde64c",
+      "source_file_sha256": "89c8e02d7250c3a31210d0b9b96f455031efcf5354a5bc545a01af6d9216680a",
+      "evid": "evid00198",
+      "pick_utc": "1975-06-26T03:24:00.000000Z",
+      "catalog_relative_sec": 12240.0,
+      "actual_relative_sec": 12239.458
+    }
+  ],
+  "grouping_links": [
+    {
+      "left": "xa.s12.00.mhz.1970-03-25HR00_evid00003.mseed",
+      "right": "xa.s12.00.mhz.1970-03-26HR00_evid00004.mseed",
+      "identical_samples": false,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1970-04-25HR00_evid00006.mseed",
+      "right": "xa.s12.00.mhz.1970-04-26HR00_evid00007.mseed",
+      "identical_samples": false,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed",
+      "right": "xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed",
+      "identical_samples": true,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-01-28HR00_evid00023.mseed",
+      "right": "xa.s12.00.mhz.1971-01-29HR00_evid00024.mseed",
+      "identical_samples": false,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+      "right": "xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed",
+      "identical_samples": true,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+      "right": "xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed",
+      "identical_samples": false,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed",
+      "right": "xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed",
+      "identical_samples": false,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed",
+      "right": "xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed",
+      "identical_samples": true,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed",
+      "right": "xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed",
+      "identical_samples": true,
+      "interval_overlap": true
+    },
+    {
+      "left": "xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed",
+      "right": "xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed",
+      "identical_samples": true,
+      "interval_overlap": true
+    }
+  ],
+  "groups": [
+    {
+      "id": "acq_74b42f0f8bf8d2fb",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-01-19HR00_evid00002"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-01-19HR00_evid00002.mseed"
+      ]
+    },
+    {
+      "id": "acq_1b6c276b40886171",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+        "xa.s12.00.mhz.1970-03-26HR00_evid00004"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-25HR00_evid00003.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-26HR00_evid00004.mseed"
+      ]
+    },
+    {
+      "id": "acq_b7ecb990b1ea06c1",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+        "xa.s12.00.mhz.1970-04-26HR00_evid00007"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-25HR00_evid00006.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-26HR00_evid00007.mseed"
+      ]
+    },
+    {
+      "id": "acq_762e52b17e813c5a",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-06-15HR00_evid00008"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-15HR00_evid00008.mseed"
+      ]
+    },
+    {
+      "id": "acq_2f2b41e8b0d771aa",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-06-26HR00_evid00009"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-26HR00_evid00009.mseed"
+      ]
+    },
+    {
+      "id": "acq_c270ce58e6d07ffd",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-07-20HR00_evid00010"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed"
+      ]
+    },
+    {
+      "id": "acq_d0f703476226ff3f",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-09-26HR00_evid00013"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-09-26HR00_evid00013.mseed"
+      ]
+    },
+    {
+      "id": "acq_c7a56be633564202",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-10-24HR00_evid00014"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-10-24HR00_evid00014.mseed"
+      ]
+    },
+    {
+      "id": "acq_9fd524dd46fbf066",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-11-12HR00_evid00015"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-11-12HR00_evid00015.mseed"
+      ]
+    },
+    {
+      "id": "acq_55966587eb2aaf84",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-12-11HR00_evid00017"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed"
+      ]
+    },
+    {
+      "id": "acq_47e748e36ba1ef84",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-12-27HR00_evid00019"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-27HR00_evid00019.mseed"
+      ]
+    },
+    {
+      "id": "acq_2742109e79a6c8e1",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1970-12-31HR00_evid00021"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-31HR00_evid00021.mseed"
+      ]
+    },
+    {
+      "id": "acq_8d1666b0f31be9e7",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-01-15HR00_evid00022"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-15HR00_evid00022.mseed"
+      ]
+    },
+    {
+      "id": "acq_e3cb81ff21111c46",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+        "xa.s12.00.mhz.1971-01-29HR00_evid00024"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-28HR00_evid00023.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-29HR00_evid00024.mseed"
+      ]
+    },
+    {
+      "id": "acq_ac58fbf59ba2ecbe",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-02-09HR00_evid00026"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-02-09HR00_evid00026.mseed"
+      ]
+    },
+    {
+      "id": "acq_8037b500d138edde",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-03-25HR00_evid00028"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-03-25HR00_evid00028.mseed"
+      ]
+    },
+    {
+      "id": "acq_67c92040095bad23",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-04-13HR02_evid00029"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-13HR02_evid00029.mseed"
+      ]
+    },
+    {
+      "id": "acq_d99c19a185114c4c",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-04-17HR00_evid00030"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-17HR00_evid00030.mseed"
+      ]
+    },
+    {
+      "id": "acq_e692061982ff7bdb",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+        "xa.s12.00.mhz.1971-05-13HR00_evid00033"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed"
+      ]
+    },
+    {
+      "id": "acq_c2aa566f4c0b40b3",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-05-23HR00_evid00034"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-23HR00_evid00034.mseed"
+      ]
+    },
+    {
+      "id": "acq_e47b9ebbcdd84dba",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-06-12HR00_evid00035"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-06-12HR00_evid00035.mseed"
+      ]
+    },
+    {
+      "id": "acq_0e0ce789ec50dea3",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-09-25HR00_evid00042"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-09-25HR00_evid00042.mseed"
+      ]
+    },
+    {
+      "id": "acq_cf894ac4a75d61d0",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-10-18HR00_evid00043"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-18HR00_evid00043.mseed"
+      ]
+    },
+    {
+      "id": "acq_e32a19fc41c7452d",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-10-20HR00_evid00044"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-20HR00_evid00044.mseed"
+      ]
+    },
+    {
+      "id": "acq_41c997203a2ca1db",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-10-31HR00_evid00045"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-31HR00_evid00045.mseed"
+      ]
+    },
+    {
+      "id": "acq_1c78efb2cbebef02",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1971-11-14HR00_evid00046"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-11-14HR00_evid00046.mseed"
+      ]
+    },
+    {
+      "id": "acq_d64a53a9e3438d63",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-01-04HR00_evid00049"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-01-04HR00_evid00049.mseed"
+      ]
+    },
+    {
+      "id": "acq_d3e77b1238776d4c",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-03-12HR00_evid00052"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-03-12HR00_evid00052.mseed"
+      ]
+    },
+    {
+      "id": "acq_d184db5751d024a5",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-05-11HR00_evid00055"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-05-11HR00_evid00055.mseed"
+      ]
+    },
+    {
+      "id": "acq_8dd862db38945569",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-06-16HR00_evid00060"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-06-16HR00_evid00060.mseed"
+      ]
+    },
+    {
+      "id": "acq_216e5489ba9dc168",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-07-17HR00_evid00067"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed"
+      ]
+    },
+    {
+      "id": "acq_77d57f182b42aea1",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-07-28HR00_evid00070"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-28HR00_evid00070.mseed"
+      ]
+    },
+    {
+      "id": "acq_b96f0a931fe31f7d",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-07-31HR00_evid00071"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-31HR00_evid00071.mseed"
+      ]
+    },
+    {
+      "id": "acq_a8e9a13317758532",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-12-02HR00_evid00083"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-02HR00_evid00083.mseed"
+      ]
+    },
+    {
+      "id": "acq_570c728467aef4dd",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1972-12-03HR00_evid00084"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-03HR00_evid00084.mseed"
+      ]
+    },
+    {
+      "id": "acq_af5077b35b3dc4c1",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-01-18HR00_evid00088"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-18HR00_evid00088.mseed"
+      ]
+    },
+    {
+      "id": "acq_2f8d45a876981d68",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-01-31HR00_evid00091"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-31HR00_evid00091.mseed"
+      ]
+    },
+    {
+      "id": "acq_edf2b377a245ecec",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-03-01HR00_evid00093"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-01HR00_evid00093.mseed"
+      ]
+    },
+    {
+      "id": "acq_0a3a50ab290c2f4d",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-03-13HR00_evid00094"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-13HR00_evid00094.mseed"
+      ]
+    },
+    {
+      "id": "acq_a2de733b125af274",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-03-24HR00_evid00097"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-24HR00_evid00097.mseed"
+      ]
+    },
+    {
+      "id": "acq_232d0b0f7148058d",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-05-14HR00_evid00104"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-05-14HR00_evid00104.mseed"
+      ]
+    },
+    {
+      "id": "acq_4fa729b439b8fe65",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-06-05HR00_evid00107"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed"
+      ]
+    },
+    {
+      "id": "acq_b9539b1e19c3407f",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-06-18HR00_evid00109"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-18HR00_evid00109.mseed"
+      ]
+    },
+    {
+      "id": "acq_e61a91741dd8539d",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-06-27HR00_evid00112"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-27HR00_evid00112.mseed"
+      ]
+    },
+    {
+      "id": "acq_7df43e2f2a27b1ff",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-07-03HR00_evid00113"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-03HR00_evid00113.mseed"
+      ]
+    },
+    {
+      "id": "acq_a5f223c66097f0a9",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-07-04HR00_evid00114"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-04HR00_evid00114.mseed"
+      ]
+    },
+    {
+      "id": "acq_111dd792c4000704",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-07-20HR00_evid00117"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-20HR00_evid00117.mseed"
+      ]
+    },
+    {
+      "id": "acq_2028884e7abafebf",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-07-28HR00_evid00120"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-28HR00_evid00120.mseed"
+      ]
+    },
+    {
+      "id": "acq_46f6b89d7e1ef8da",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-07-29HR00_evid00121"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-29HR00_evid00121.mseed"
+      ]
+    },
+    {
+      "id": "acq_e50c2cf92e56280f",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1973-08-21HR00_evid00127"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-08-21HR00_evid00127.mseed"
+      ]
+    },
+    {
+      "id": "acq_6127a19e8fe01f4b",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-01-10HR00_evid00136"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-01-10HR00_evid00136.mseed"
+      ]
+    },
+    {
+      "id": "acq_5ea71094710c15ba",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-02-07HR00_evid00137"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-07HR00_evid00137.mseed"
+      ]
+    },
+    {
+      "id": "acq_73c9560c5c2a16a4",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-02-12HR00_evid00138"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-12HR00_evid00138.mseed"
+      ]
+    },
+    {
+      "id": "acq_b5582c6c5ffd2a56",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-03-25HR00_evid00140"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-03-25HR00_evid00140.mseed"
+      ]
+    },
+    {
+      "id": "acq_1546ece0f80af624",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-04-08HR00_evid00141"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-08HR00_evid00141.mseed"
+      ]
+    },
+    {
+      "id": "acq_97106dad3d400a6a",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-04-19HR00_evid00142"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-19HR00_evid00142.mseed"
+      ]
+    },
+    {
+      "id": "acq_faee89d9706e6e84",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-04-26HR00_evid00144"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-26HR00_evid00144.mseed"
+      ]
+    },
+    {
+      "id": "acq_206645eb58ac7813",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-04-27HR00_evid00145"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-27HR00_evid00145.mseed"
+      ]
+    },
+    {
+      "id": "acq_a6e284830ecb277f",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-06-25HR00_evid00149"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-06-25HR00_evid00149.mseed"
+      ]
+    },
+    {
+      "id": "acq_015c1218cca7d42f",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-07-06HR00_evid00150"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed"
+      ]
+    },
+    {
+      "id": "acq_b9247c123e1a3249",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-07-11HR00_evid00152"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-11HR00_evid00152.mseed"
+      ]
+    },
+    {
+      "id": "acq_3dd47ca1467a72b7",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-07-17HR00_evid00153"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-17HR00_evid00153.mseed"
+      ]
+    },
+    {
+      "id": "acq_cf6c5122a13b4f41",
+      "split": "val",
+      "trace_ids": [
+        "xa.s12.00.mhz.1974-10-14HR00_evid00156"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-10-14HR00_evid00156.mseed"
+      ]
+    },
+    {
+      "id": "acq_5fc959347bd27065",
+      "split": "train",
+      "trace_ids": [
+        "xa.s12.00.mhz.1975-04-12HR00_evid00191"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-04-12HR00_evid00191.mseed"
+      ]
+    },
+    {
+      "id": "acq_7172d7d398a32605",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1975-05-04HR00_evid00192"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-05-04HR00_evid00192.mseed"
+      ]
+    },
+    {
+      "id": "acq_5db9889b7e4881ac",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1975-06-24HR00_evid00196"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-24HR00_evid00196.mseed"
+      ]
+    },
+    {
+      "id": "acq_1db422abd4ac5aa0",
+      "split": "test",
+      "trace_ids": [
+        "xa.s12.00.mhz.1975-06-26HR00_evid00198"
+      ],
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-26HR00_evid00198.mseed"
+      ]
+    }
+  ],
+  "traces": [
+    {
+      "id": "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+      "group_id": "acq_74b42f0f8bf8d2fb",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-01-19T00:00:00.665000Z",
+      "end_time": "1970-01-20T00:00:02.929151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-01-19HR00_evid00002.mseed"
+      ],
+      "raw_trace_sha256": "9a6e107d06c0816ceedb5b17babb675e3ed82ccf4cb222bae23eff694cfc6d4f",
+      "picks": [
+        {
+          "evid": "evid00002",
+          "utc": "1970-01-19T20:25:00.000000Z",
+          "relative_sec": 73499.335
+        }
+      ],
+      "picks_rel_sec": [
+        73499.335
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1970-01-19HR00_evid00002.npz",
+      "trace_sha256": "6cc08ae92fa702c0072d76272f62ca817bfc45453b61b224a893b383e36983ad"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "group_id": "acq_1b6c276b40886171",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-03-25T00:00:00.440000Z",
+      "end_time": "1970-03-26T00:00:02.100377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-25HR00_evid00003.mseed"
+      ],
+      "raw_trace_sha256": "313af129e6d85963b829fd42548c19525bb20777d0bcb6dda5970ea13f0a802e",
+      "picks": [
+        {
+          "evid": "evid00003",
+          "utc": "1970-03-25T03:32:00.000000Z",
+          "relative_sec": 12719.56
+        }
+      ],
+      "picks_rel_sec": [
+        12719.56
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-03-25HR00_evid00003.npz",
+      "trace_sha256": "d961c5c2bccd5cb641ffc13d2c3be9b1c8028cd62d2e275e1bf5547127665ad8"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+      "group_id": "acq_1b6c276b40886171",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-03-26T00:00:00.565000Z",
+      "end_time": "1970-03-27T00:00:02.225377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-26HR00_evid00004.mseed"
+      ],
+      "raw_trace_sha256": "fdb7c82574b0f100530164f9055d27ba4e687b6bbcdaea4d8a59f8515d07c696",
+      "picks": [
+        {
+          "evid": "evid00004",
+          "utc": "1970-03-26T20:17:00.000000Z",
+          "relative_sec": 73019.435
+        }
+      ],
+      "picks_rel_sec": [
+        73019.435
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-03-26HR00_evid00004.npz",
+      "trace_sha256": "682bb1c66263cdbe42c95cf0fed80fa859132002b3acb2a513df14e5512691d6"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "group_id": "acq_b7ecb990b1ea06c1",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-04-25T00:00:00.196000Z",
+      "end_time": "1970-04-26T00:00:02.460151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-25HR00_evid00006.mseed"
+      ],
+      "raw_trace_sha256": "fd97d115588fe943da17afda2b779fcddd894d7a8dffca0f778f0ee7fc8bd7f3",
+      "picks": [
+        {
+          "evid": "evid00006",
+          "utc": "1970-04-25T01:14:00.000000Z",
+          "relative_sec": 4439.804
+        }
+      ],
+      "picks_rel_sec": [
+        4439.804
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-04-25HR00_evid00006.npz",
+      "trace_sha256": "32d2ee3c5d251cee917235ead42b25c31f7573515093a176b7fb44f924f4b17f"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+      "group_id": "acq_b7ecb990b1ea06c1",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-04-26T00:00:00.660000Z",
+      "end_time": "1970-04-27T00:00:02.320377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-04-26HR00_evid00007.mseed"
+      ],
+      "raw_trace_sha256": "68b4db6aecee787f55cac1dc6f5ae849c60cdebab31e09946f104583794d0275",
+      "picks": [
+        {
+          "evid": "evid00007",
+          "utc": "1970-04-26T14:29:00.000000Z",
+          "relative_sec": 52139.34
+        }
+      ],
+      "picks_rel_sec": [
+        52139.34
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-04-26HR00_evid00007.npz",
+      "trace_sha256": "f5bc33ee0c8ffa768b4f1e758fc214de988047515ce6fb87fef4f35e6640678b"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+      "group_id": "acq_762e52b17e813c5a",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-06-15T00:00:00.510000Z",
+      "end_time": "1970-06-16T00:00:03.226981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-15HR00_evid00008.mseed"
+      ],
+      "raw_trace_sha256": "d27e6155b02c65c50b3821cb21291841c506a592cd2118987816c1c0ad05ebbe",
+      "picks": [
+        {
+          "evid": "evid00008",
+          "utc": "1970-06-15T19:00:00.000000Z",
+          "relative_sec": 68399.49
+        }
+      ],
+      "picks_rel_sec": [
+        68399.49
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1970-06-15HR00_evid00008.npz",
+      "trace_sha256": "2e8d0d34f727f91de0028712b3cf86f87fb3b9bbfb4eff13e7d3ca42f8ff7015"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+      "group_id": "acq_2f2b41e8b0d771aa",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-06-26T00:00:00.116000Z",
+      "end_time": "1970-06-27T00:00:03.587698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-06-26HR00_evid00009.mseed"
+      ],
+      "raw_trace_sha256": "d8893db94814db09cb40a4444335da2d49c26b681edcbe6cc88a7a514ff13f3e",
+      "picks": [
+        {
+          "evid": "evid00009",
+          "utc": "1970-06-26T20:01:00.000000Z",
+          "relative_sec": 72059.884
+        }
+      ],
+      "picks_rel_sec": [
+        72059.884
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1970-06-26HR00_evid00009.npz",
+      "trace_sha256": "656c564dfb2aae53cda218d2c4911a95fa063ec248fdbee3ea5cbb3fea8a84cd"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "group_id": "acq_c270ce58e6d07ffd",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-07-20T00:00:00.487000Z",
+      "end_time": "1970-07-21T00:00:02.147377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00010.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-07-20HR00_evid00011.mseed"
+      ],
+      "raw_trace_sha256": "294f614bcee1a2261ab8652ae1ef234400e27234bebf9897eeaefcba392f183b",
+      "picks": [
+        {
+          "evid": "evid00010",
+          "utc": "1970-07-20T05:06:00.000000Z",
+          "relative_sec": 18359.513
+        },
+        {
+          "evid": "evid00011",
+          "utc": "1970-07-20T11:44:00.000000Z",
+          "relative_sec": 42239.513
+        }
+      ],
+      "picks_rel_sec": [
+        18359.513,
+        42239.513
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1970-07-20HR00_evid00010.npz",
+      "trace_sha256": "974ed6838d89841015056b53121c9e60c7e3c086487a470e977693ae610ae574"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+      "group_id": "acq_d0f703476226ff3f",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-09-26T00:00:00.149000Z",
+      "end_time": "1970-09-27T00:00:03.620698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-09-26HR00_evid00013.mseed"
+      ],
+      "raw_trace_sha256": "a3f0eb0f1d5f8621d7a256ccd3e99270b8c62e87be9e5866167a69118e754bdb",
+      "picks": [
+        {
+          "evid": "evid00013",
+          "utc": "1970-09-26T19:57:00.000000Z",
+          "relative_sec": 71819.851
+        }
+      ],
+      "picks_rel_sec": [
+        71819.851
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1970-09-26HR00_evid00013.npz",
+      "trace_sha256": "6834fef85f29ae20cc473779a4a2780c83791a0afa211e3363fda90521b16f36"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+      "group_id": "acq_c7a56be633564202",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-10-24T00:00:00.504000Z",
+      "end_time": "1970-10-25T00:00:03.522868Z",
+      "n_samples": 572420,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-10-24HR00_evid00014.mseed"
+      ],
+      "raw_trace_sha256": "ff860e1b80047c0d10ad5d74e8a224164be8d071c75f8a22a935f0fa8bb7ca93",
+      "picks": [
+        {
+          "evid": "evid00014",
+          "utc": "1970-10-24T11:31:00.000000Z",
+          "relative_sec": 41459.496
+        }
+      ],
+      "picks_rel_sec": [
+        41459.496
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1970-10-24HR00_evid00014.npz",
+      "trace_sha256": "80595d6f85df6476cad9bc15c7040c220e3addb598de45231f71a2b2a60dd8e1"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+      "group_id": "acq_9fd524dd46fbf066",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-11-12T00:00:00.700000Z",
+      "end_time": "1970-11-13T00:00:02.360377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-11-12HR00_evid00015.mseed"
+      ],
+      "raw_trace_sha256": "56ecf2f0600235c02ce04600ed342bffaa6115255f1a90a9e46352e3c1ec3d99",
+      "picks": [
+        {
+          "evid": "evid00015",
+          "utc": "1970-11-12T12:50:00.000000Z",
+          "relative_sec": 46199.3
+        }
+      ],
+      "picks_rel_sec": [
+        46199.3
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-11-12HR00_evid00015.npz",
+      "trace_sha256": "76f27b48b1ee9716a1495bfb52e10567cfc403ada548a8fba3050eb7b897e532"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+      "group_id": "acq_55966587eb2aaf84",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-12-11T00:00:00.326000Z",
+      "end_time": "1970-12-12T00:00:02.590151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed"
+      ],
+      "raw_trace_sha256": "2cb96c905039464e8dd699ffc27349a0fbc189304930a1e86a9a4771af3a1b82",
+      "picks": [
+        {
+          "evid": "evid00017",
+          "utc": "1970-12-11T07:22:00.000000Z",
+          "relative_sec": 26519.674
+        }
+      ],
+      "picks_rel_sec": [
+        26519.674
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-12-11HR00_evid00017.npz",
+      "trace_sha256": "2adab7ee894beecacf9b98e4ddd865149a5a296ba4edb9bc2654bd0d3b681c9a"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+      "group_id": "acq_47e748e36ba1ef84",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-12-27T00:00:00.517000Z",
+      "end_time": "1970-12-28T00:00:03.988698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-27HR00_evid00019.mseed"
+      ],
+      "raw_trace_sha256": "f6c58a8a4af2f0c1c5529cae202d146e7c2348a64a756ba6ea12ee6390bb677a",
+      "picks": [
+        {
+          "evid": "evid00019",
+          "utc": "1970-12-27T20:34:00.000000Z",
+          "relative_sec": 74039.483
+        }
+      ],
+      "picks_rel_sec": [
+        74039.483
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-12-27HR00_evid00019.npz",
+      "trace_sha256": "f240ed0b817b6cff93ebcd58b84f7283fb25fdd0f42f21c6ec468150a6d0147f"
+    },
+    {
+      "id": "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+      "group_id": "acq_2742109e79a6c8e1",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1970-12-31T00:00:00.339000Z",
+      "end_time": "1971-01-01T00:00:01.999377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-12-31HR00_evid00021.mseed"
+      ],
+      "raw_trace_sha256": "a34489084ea2bdbd2e7538192dcf199670b247ff3204c662ea4987a233eb05b2",
+      "picks": [
+        {
+          "evid": "evid00021",
+          "utc": "1970-12-31T15:41:00.000000Z",
+          "relative_sec": 56459.661
+        }
+      ],
+      "picks_rel_sec": [
+        56459.661
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1970-12-31HR00_evid00021.npz",
+      "trace_sha256": "5f0d4b4bf38590a6e2c24f7947401a53054f20af29501423ef148ed2dc92b9a6"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+      "group_id": "acq_8d1666b0f31be9e7",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-01-15T00:00:00.258000Z",
+      "end_time": "1971-01-16T00:00:01.918377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-15HR00_evid00022.mseed"
+      ],
+      "raw_trace_sha256": "636977667c8a0e5851227bad6c643cd626db130330e6b09669effdab208199de",
+      "picks": [
+        {
+          "evid": "evid00022",
+          "utc": "1971-01-15T12:40:00.000000Z",
+          "relative_sec": 45599.742
+        }
+      ],
+      "picks_rel_sec": [
+        45599.742
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-01-15HR00_evid00022.npz",
+      "trace_sha256": "ba1d48100fcab63b71f8a11e00d69a23e32788d253db4f7420cc8d44ac2c4dd9"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "group_id": "acq_e3cb81ff21111c46",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-01-28T00:00:00.234000Z",
+      "end_time": "1971-01-29T00:00:03.705698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-28HR00_evid00023.mseed"
+      ],
+      "raw_trace_sha256": "d40f8d9040fb2435cc6e42f6c924478f23d5f87ab3e9f7f5476b6c213a60b0c6",
+      "picks": [
+        {
+          "evid": "evid00023",
+          "utc": "1971-01-28T14:59:00.000000Z",
+          "relative_sec": 53939.766
+        }
+      ],
+      "picks_rel_sec": [
+        53939.766
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1971-01-28HR00_evid00023.npz",
+      "trace_sha256": "55e6e89a7ede51f3d5d8f2d1b2337182f1f2c6c42d111ff9e91e8fa74c5a5cc2"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+      "group_id": "acq_e3cb81ff21111c46",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-01-29T00:00:00.194000Z",
+      "end_time": "1971-01-30T00:00:03.665698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-01-29HR00_evid00024.mseed"
+      ],
+      "raw_trace_sha256": "34533ed0b5cec12d56364fdbe6e71a9a06d10a450d1baeb2ad68d19cc0898c81",
+      "picks": [
+        {
+          "evid": "evid00024",
+          "utc": "1971-01-29T18:21:00.000000Z",
+          "relative_sec": 66059.806
+        }
+      ],
+      "picks_rel_sec": [
+        66059.806
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1971-01-29HR00_evid00024.npz",
+      "trace_sha256": "2a1ec8a239a5c4445ab003e63fb19e23206791f216447394324b858312ee8d24"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+      "group_id": "acq_ac58fbf59ba2ecbe",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-02-09T00:00:00.179000Z",
+      "end_time": "1971-02-10T00:00:01.839377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-02-09HR00_evid00026.mseed"
+      ],
+      "raw_trace_sha256": "81a3361d7b50c4d887838934ec640a72ce4047af80f44fe35e7a0bf4b6dc1beb",
+      "picks": [
+        {
+          "evid": "evid00026",
+          "utc": "1971-02-09T03:42:00.000000Z",
+          "relative_sec": 13319.821
+        }
+      ],
+      "picks_rel_sec": [
+        13319.821
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-02-09HR00_evid00026.npz",
+      "trace_sha256": "4576064a32dde08499db337108f9394e53f5d9fe636c45ae7a8b7055116f9c31"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+      "group_id": "acq_8037b500d138edde",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-03-25T00:00:00.151000Z",
+      "end_time": "1971-03-26T00:00:04.226472Z",
+      "n_samples": 572427,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-03-25HR00_evid00028.mseed"
+      ],
+      "raw_trace_sha256": "a708ed2289a5d58108ddc9d97711887bd07f0a6980cecce47355418cbb4bca60",
+      "picks": [
+        {
+          "evid": "evid00028",
+          "utc": "1971-03-25T15:18:00.000000Z",
+          "relative_sec": 55079.849
+        }
+      ],
+      "picks_rel_sec": [
+        55079.849
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-03-25HR00_evid00028.npz",
+      "trace_sha256": "8bdc09b093e9d6f83640facfb915a88cd1756240718446f938d30aa595d1b4ce"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-04-13HR02_evid00029",
+      "group_id": "acq_67c92040095bad23",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-04-13T02:42:48.990062Z",
+      "end_time": "1971-04-13T22:37:34.273081Z",
+      "n_samples": 474915,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-13HR02_evid00029.mseed"
+      ],
+      "raw_trace_sha256": "dc04890413eff4680d530c047fbc3a7cb427f36d0f320af3f22061a4b8bdf282",
+      "picks": [
+        {
+          "evid": "evid00029",
+          "utc": "1971-04-13T12:55:00.000000Z",
+          "relative_sec": 36731.009938
+        }
+      ],
+      "picks_rel_sec": [
+        36731.009938
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-04-13HR02_evid00029.npz",
+      "trace_sha256": "c499779f62e529794a13c84e0994f1de8ae37058de44530c9145f26b924aa37f"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+      "group_id": "acq_d99c19a185114c4c",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-04-17T00:00:00.387000Z",
+      "end_time": "1971-04-18T00:00:03.103981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-04-17HR00_evid00030.mseed"
+      ],
+      "raw_trace_sha256": "3b1b874e9739f65b70fd8463e0591815b7323febb702595508436850b8b4a6a2",
+      "picks": [
+        {
+          "evid": "evid00030",
+          "utc": "1971-04-17T07:04:00.000000Z",
+          "relative_sec": 25439.613
+        }
+      ],
+      "picks_rel_sec": [
+        25439.613
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-04-17HR00_evid00030.npz",
+      "trace_sha256": "8893424c8885ec7bdb985b472a7e194234f9152358e25f1e68399325b127bd75"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "group_id": "acq_e692061982ff7bdb",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-12T00:00:00.712000Z",
+      "end_time": "1971-05-13T00:00:01.768604Z",
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00031.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-12HR00_evid00032.mseed"
+      ],
+      "raw_trace_sha256": "e7421b9ee6fed156da54e8e002564a33fe71b3cbe3961b5c2d5002b2927ff6d5",
+      "picks": [
+        {
+          "evid": "evid00031",
+          "utc": "1971-05-12T08:05:00.000000Z",
+          "relative_sec": 29099.288
+        },
+        {
+          "evid": "evid00032",
+          "utc": "1971-05-12T09:45:00.000000Z",
+          "relative_sec": 35099.288
+        }
+      ],
+      "picks_rel_sec": [
+        29099.288,
+        35099.288
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-05-12HR00_evid00031.npz",
+      "trace_sha256": "4f5ef56987ab83d0d18362ff559a514d5ad1036bf982c774bb3f69fc6fc99f2a"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "group_id": "acq_e692061982ff7bdb",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-13T00:00:00.183000Z",
+      "end_time": "1971-05-14T00:00:01.843377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-13HR00_evid00033.mseed"
+      ],
+      "raw_trace_sha256": "c62aa05313b7a2f5aa88c8c615ce6b9ed3c8af49236ef6e5a468dd5482dc162a",
+      "picks": [
+        {
+          "evid": "evid00033",
+          "utc": "1971-05-13T03:00:00.000000Z",
+          "relative_sec": 10799.817
+        }
+      ],
+      "picks_rel_sec": [
+        10799.817
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-05-13HR00_evid00033.npz",
+      "trace_sha256": "26cbf42690b8eb2b36c706ddb984b1ee1c6368b837eb2736be22c560fc06c1c7"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+      "group_id": "acq_c2aa566f4c0b40b3",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-05-23T00:00:00.502000Z",
+      "end_time": "1971-05-24T00:00:03.973698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-05-23HR00_evid00034.mseed"
+      ],
+      "raw_trace_sha256": "719bfa4499a7c787b9fa1bd983dbf1ee00c889f66100a9e49a3e2cd36eca450c",
+      "picks": [
+        {
+          "evid": "evid00034",
+          "utc": "1971-05-23T22:20:00.000000Z",
+          "relative_sec": 80399.498
+        }
+      ],
+      "picks_rel_sec": [
+        80399.498
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-05-23HR00_evid00034.npz",
+      "trace_sha256": "b4f11e1938d8b73cadd80a47fc20c2782c3e81e2ca99f4b4b81a9c52438a43c3"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+      "group_id": "acq_e47b9ebbcdd84dba",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-06-12T00:00:00.529000Z",
+      "end_time": "1971-06-13T00:00:03.245981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-06-12HR00_evid00035.mseed"
+      ],
+      "raw_trace_sha256": "7c845dddf8f3e43002bf56039b513286eda7219afbe6bc5e48ba1e8b58c200aa",
+      "picks": [
+        {
+          "evid": "evid00035",
+          "utc": "1971-06-12T10:51:00.000000Z",
+          "relative_sec": 39059.471
+        }
+      ],
+      "picks_rel_sec": [
+        39059.471
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-06-12HR00_evid00035.npz",
+      "trace_sha256": "392e4a89a9e9f098b4efddef24cd45a5b357f954f6345645c0956b5b311010e1"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+      "group_id": "acq_0e0ce789ec50dea3",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-09-25T00:00:00.576000Z",
+      "end_time": "1971-09-26T00:00:00.425057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-09-25HR00_evid00042.mseed"
+      ],
+      "raw_trace_sha256": "b4d1fc4f813907fe58c68b7a7c9179a2ee85abd2a943f8469d4176d149358601",
+      "picks": [
+        {
+          "evid": "evid00042",
+          "utc": "1971-09-25T08:57:00.000000Z",
+          "relative_sec": 32219.424
+        }
+      ],
+      "picks_rel_sec": [
+        32219.424
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1971-09-25HR00_evid00042.npz",
+      "trace_sha256": "1e33a004e56d40bd3c2fd86e55f182ea431607b94d31ffe0d87bab91aacacc18"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+      "group_id": "acq_cf894ac4a75d61d0",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-10-18T00:00:00.417000Z",
+      "end_time": "1971-10-19T00:00:00.266057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-18HR00_evid00043.mseed"
+      ],
+      "raw_trace_sha256": "5a8127ca78a012c1b7222bac1a1a714148fd600365e8a0842e7277986b90a463",
+      "picks": [
+        {
+          "evid": "evid00043",
+          "utc": "1971-10-18T03:19:00.000000Z",
+          "relative_sec": 11939.583
+        }
+      ],
+      "picks_rel_sec": [
+        11939.583
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-10-18HR00_evid00043.npz",
+      "trace_sha256": "09c79786fb63e0aa8c376f6bc38ad8fb2ca602dcc691c0520ad6ddd6d605f668"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+      "group_id": "acq_e32a19fc41c7452d",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-10-20T00:00:00.425000Z",
+      "end_time": "1971-10-21T00:00:00.274057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-20HR00_evid00044.mseed"
+      ],
+      "raw_trace_sha256": "c80d186ee673574f5f9c059e81d2d1a057b4fc7546527c9d874699a771324bb8",
+      "picks": [
+        {
+          "evid": "evid00044",
+          "utc": "1971-10-20T18:08:00.000000Z",
+          "relative_sec": 65279.575
+        }
+      ],
+      "picks_rel_sec": [
+        65279.575
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1971-10-20HR00_evid00044.npz",
+      "trace_sha256": "d172b6891b7bd9b4e05031aee0515a0280366f0bde6e46dff56523e3e89d65a2"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+      "group_id": "acq_41c997203a2ca1db",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-10-31T00:00:00.420000Z",
+      "end_time": "1971-11-01T00:00:03.136981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-31HR00_evid00045.mseed"
+      ],
+      "raw_trace_sha256": "35e15485242b785ae927e0ebdca02469fa3b9c3ad20001d3521c4b70f250d5f7",
+      "picks": [
+        {
+          "evid": "evid00045",
+          "utc": "1971-10-31T05:30:00.000000Z",
+          "relative_sec": 19799.58
+        }
+      ],
+      "picks_rel_sec": [
+        19799.58
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-10-31HR00_evid00045.npz",
+      "trace_sha256": "89fc129eba13be3d89ccd2393e245a5b9816b0535d35800d2f041b5c2bfbce72"
+    },
+    {
+      "id": "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+      "group_id": "acq_1c78efb2cbebef02",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1971-11-14T00:00:00.602000Z",
+      "end_time": "1971-11-15T00:00:00.451057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-11-14HR00_evid00046.mseed"
+      ],
+      "raw_trace_sha256": "4cdb1b463b7390110e741db8ce0c606e3b1e95998236e34aa7afccceefaf19fa",
+      "picks": [
+        {
+          "evid": "evid00046",
+          "utc": "1971-11-14T04:17:00.000000Z",
+          "relative_sec": 15419.398
+        }
+      ],
+      "picks_rel_sec": [
+        15419.398
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1971-11-14HR00_evid00046.npz",
+      "trace_sha256": "7bada5ad4d6d2e6fb519abd34ce3a3bccd4173734d0a08d8b58eaac3ee14756e"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+      "group_id": "acq_d64a53a9e3438d63",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-01-04T00:00:00.117000Z",
+      "end_time": "1972-01-05T00:00:02.833981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-01-04HR00_evid00049.mseed"
+      ],
+      "raw_trace_sha256": "0680d3a9760b6569f1260c323f90cffe5f04d58fe0375d59687b82f998c144d4",
+      "picks": [
+        {
+          "evid": "evid00049",
+          "utc": "1972-01-04T06:35:00.000000Z",
+          "relative_sec": 23699.883
+        }
+      ],
+      "picks_rel_sec": [
+        23699.883
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1972-01-04HR00_evid00049.npz",
+      "trace_sha256": "b0b8160b15f273580fdbd51339937e2e3817e1395f2bc7a429416ed03d8264dd"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+      "group_id": "acq_d3e77b1238776d4c",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-03-12T00:00:00.417000Z",
+      "end_time": "1972-03-13T00:00:00.266057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-03-12HR00_evid00052.mseed"
+      ],
+      "raw_trace_sha256": "92a39f6858beaac75dc163c06b5dca4fe5cbc46830038b9b1a187c51810dbb02",
+      "picks": [
+        {
+          "evid": "evid00052",
+          "utc": "1972-03-12T18:00:00.000000Z",
+          "relative_sec": 64799.583
+        }
+      ],
+      "picks_rel_sec": [
+        64799.583
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1972-03-12HR00_evid00052.npz",
+      "trace_sha256": "4baf982a38546d7b0e371c5132727a02e0c469327458ed9a296e317c37213b94"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+      "group_id": "acq_d184db5751d024a5",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-05-11T00:00:00.576000Z",
+      "end_time": "1972-05-12T00:00:00.425057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-05-11HR00_evid00055.mseed"
+      ],
+      "raw_trace_sha256": "adaa6b0e9ca944b601d9a9a10ee845d9b4df24d74224ca0b7229f2a4b0945ccd",
+      "picks": [
+        {
+          "evid": "evid00055",
+          "utc": "1972-05-11T13:35:00.000000Z",
+          "relative_sec": 48899.424
+        }
+      ],
+      "picks_rel_sec": [
+        48899.424
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1972-05-11HR00_evid00055.npz",
+      "trace_sha256": "b08e9443ce1b3f9d59ef5ba78c43915ae4a10fc0e9bcf0d888c2483b2e96b606"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+      "group_id": "acq_8dd862db38945569",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-06-16T00:00:00.116000Z",
+      "end_time": "1972-06-16T23:59:59.965057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-06-16HR00_evid00060.mseed"
+      ],
+      "raw_trace_sha256": "424e95ba782c33e9ba3760b2ae630045a28388b79f0e31fb52acff2d9cb701b1",
+      "picks": [
+        {
+          "evid": "evid00060",
+          "utc": "1972-06-16T16:11:00.000000Z",
+          "relative_sec": 58259.884
+        }
+      ],
+      "picks_rel_sec": [
+        58259.884
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1972-06-16HR00_evid00060.npz",
+      "trace_sha256": "1dd4120794d9fdc7a36e813c52227ee4b1b8c472dbb91fb51e127092fefe7175"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "group_id": "acq_216e5489ba9dc168",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-17T00:00:00.184000Z",
+      "end_time": "1972-07-18T00:00:00.033057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00067.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-17HR00_evid00068.mseed"
+      ],
+      "raw_trace_sha256": "771ee0df3ad9fa2610cd5aa5c5a258b6d67cf2402e1e8c28e6a3fa31cfc29105",
+      "picks": [
+        {
+          "evid": "evid00067",
+          "utc": "1972-07-17T07:50:00.000000Z",
+          "relative_sec": 28199.816
+        },
+        {
+          "evid": "evid00068",
+          "utc": "1972-07-17T21:56:00.000000Z",
+          "relative_sec": 78959.816
+        }
+      ],
+      "picks_rel_sec": [
+        28199.816,
+        78959.816
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1972-07-17HR00_evid00067.npz",
+      "trace_sha256": "736a1e4a8ee59aefa5e2790b1249ccf72feb0306c16482cedddc46580c82a12f"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+      "group_id": "acq_77d57f182b42aea1",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-28T00:00:00.136000Z",
+      "end_time": "1972-07-29T00:00:02.852981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-28HR00_evid00070.mseed"
+      ],
+      "raw_trace_sha256": "8231b526ce9e56e715afefdd22416849a05a1deea933e064a4fbaa3e6940369d",
+      "picks": [
+        {
+          "evid": "evid00070",
+          "utc": "1972-07-28T02:23:00.000000Z",
+          "relative_sec": 8579.864
+        }
+      ],
+      "picks_rel_sec": [
+        8579.864
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1972-07-28HR00_evid00070.npz",
+      "trace_sha256": "6093bc16460546c61d90cfc2cc3507a1580024d83848611769b24a989cadda34"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+      "group_id": "acq_b96f0a931fe31f7d",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-07-31T00:00:00.622000Z",
+      "end_time": "1972-08-01T00:00:02.886151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-07-31HR00_evid00071.mseed"
+      ],
+      "raw_trace_sha256": "28e819c5da8e3769bf4d035e61d07d770170aa5a29a688cc2d1a8ef0d82a2d30",
+      "picks": [
+        {
+          "evid": "evid00071",
+          "utc": "1972-07-31T18:08:00.000000Z",
+          "relative_sec": 65279.378
+        }
+      ],
+      "picks_rel_sec": [
+        65279.378
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1972-07-31HR00_evid00071.npz",
+      "trace_sha256": "26ad5ab4c25f2c32d41cdf8c280cfc9319076cb0d86f8209d2fff057350dcb5a"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+      "group_id": "acq_a8e9a13317758532",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-12-02T00:00:00.439000Z",
+      "end_time": "1972-12-03T00:00:00.288057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-02HR00_evid00083.mseed"
+      ],
+      "raw_trace_sha256": "17cd1fccc93895b38d979fe8d17ba51888883ebce581f118b5d867303fbd2c52",
+      "picks": [
+        {
+          "evid": "evid00083",
+          "utc": "1972-12-02T07:58:00.000000Z",
+          "relative_sec": 28679.561
+        }
+      ],
+      "picks_rel_sec": [
+        28679.561
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1972-12-02HR00_evid00083.npz",
+      "trace_sha256": "5060659f51fea0dc3b83ca512d582a827a7c63e419b6042db72bfe1f3877cd24"
+    },
+    {
+      "id": "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+      "group_id": "acq_570c728467aef4dd",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1972-12-03T00:00:00.552000Z",
+      "end_time": "1972-12-04T00:00:00.401057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1972-12-03HR00_evid00084.mseed"
+      ],
+      "raw_trace_sha256": "50def4a4c39634e6ba452ace4ac39092b7cc52d1f68781197c691f448ede3b5b",
+      "picks": [
+        {
+          "evid": "evid00084",
+          "utc": "1972-12-03T02:38:00.000000Z",
+          "relative_sec": 9479.448
+        }
+      ],
+      "picks_rel_sec": [
+        9479.448
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1972-12-03HR00_evid00084.npz",
+      "trace_sha256": "ca067b1dea2490b45b2d74b16994c4ecba0f16e5dc124aa0a1139f3409a01e01"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+      "group_id": "acq_af5077b35b3dc4c1",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-01-18T00:00:00.662000Z",
+      "end_time": "1973-01-19T00:00:02.926151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-18HR00_evid00088.mseed"
+      ],
+      "raw_trace_sha256": "de60e4a075c0c7048d37f8c38391f36e1c9d2c5173513d4a3459ad80c09d8ab5",
+      "picks": [
+        {
+          "evid": "evid00088",
+          "utc": "1973-01-18T23:01:00.000000Z",
+          "relative_sec": 82859.338
+        }
+      ],
+      "picks_rel_sec": [
+        82859.338
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1973-01-18HR00_evid00088.npz",
+      "trace_sha256": "aa37c7162e295caef5e750309e5aea3dbfa128c75856f2cb1f09d3ac17d18140"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+      "group_id": "acq_2f8d45a876981d68",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-01-31T00:00:00.595000Z",
+      "end_time": "1973-01-31T23:59:59.840283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-01-31HR00_evid00091.mseed"
+      ],
+      "raw_trace_sha256": "8c0be7c7b29d24d74a142c35ac7b5522f75838bcbbeae6cc9f1d10e332f5559a",
+      "picks": [
+        {
+          "evid": "evid00091",
+          "utc": "1973-01-31T00:44:00.000000Z",
+          "relative_sec": 2639.405
+        }
+      ],
+      "picks_rel_sec": [
+        2639.405
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-01-31HR00_evid00091.npz",
+      "trace_sha256": "005b4da41cde35d045cf97e52899e73894d91b1211cb9551ed127b1cedbb1fe2"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+      "group_id": "acq_edf2b377a245ecec",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-03-01T00:00:00.345000Z",
+      "end_time": "1973-03-02T00:00:00.194057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-01HR00_evid00093.mseed"
+      ],
+      "raw_trace_sha256": "aff55cd38647f0a92487846d86e6ea46b347fc51396a772364b089967c463595",
+      "picks": [
+        {
+          "evid": "evid00093",
+          "utc": "1973-03-01T07:15:00.000000Z",
+          "relative_sec": 26099.655
+        }
+      ],
+      "picks_rel_sec": [
+        26099.655
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-03-01HR00_evid00093.npz",
+      "trace_sha256": "05aa44011c463286f2920d85200d1872122efe0cba25d652699ad54982a4f44c"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+      "group_id": "acq_0a3a50ab290c2f4d",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-03-13T00:00:00.472000Z",
+      "end_time": "1973-03-13T14:21:20.170113Z",
+      "n_samples": 342378,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-13HR00_evid00094.mseed"
+      ],
+      "raw_trace_sha256": "fd92d86178fb4ae08fc539203282194c8f58af37022717ba0bce9d6f79acbfc8",
+      "picks": [
+        {
+          "evid": "evid00094",
+          "utc": "1973-03-13T08:01:00.000000Z",
+          "relative_sec": 28859.528
+        }
+      ],
+      "picks_rel_sec": [
+        28859.528
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1973-03-13HR00_evid00094.npz",
+      "trace_sha256": "adad2fbe765661b874ed68ca85b7e2f18147ae2f9731536a90ae1be9feaff22d"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+      "group_id": "acq_a2de733b125af274",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-03-24T00:00:00.606000Z",
+      "end_time": "1973-03-24T23:59:39.926755Z",
+      "n_samples": 572263,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-03-24HR00_evid00097.mseed"
+      ],
+      "raw_trace_sha256": "296933a8ea771d1b7da5a3a10cd5d026898e848bef3e977f647a709907ee4194",
+      "picks": [
+        {
+          "evid": "evid00097",
+          "utc": "1973-03-24T19:23:00.000000Z",
+          "relative_sec": 69779.394
+        }
+      ],
+      "picks_rel_sec": [
+        69779.394
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1973-03-24HR00_evid00097.npz",
+      "trace_sha256": "7848cd6d364667f0559f4d1aa202c9354a4d6a4ae82162ff71e87c7f99b1a7b4"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+      "group_id": "acq_232d0b0f7148058d",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-05-14T00:00:00.397000Z",
+      "end_time": "1973-05-15T00:00:02.661151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-05-14HR00_evid00104.mseed"
+      ],
+      "raw_trace_sha256": "5f20d83251c872736c28c093393a8e890b130b900dc8e334dcac15e48a679243",
+      "picks": [
+        {
+          "evid": "evid00104",
+          "utc": "1973-05-14T00:44:00.000000Z",
+          "relative_sec": 2639.603
+        }
+      ],
+      "picks_rel_sec": [
+        2639.603
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-05-14HR00_evid00104.npz",
+      "trace_sha256": "973aa39336c44f9f46bd11e774a349a89f707751b0f1eea93c7bba8133109e4f"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "group_id": "acq_4fa729b439b8fe65",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-05T00:00:00.300000Z",
+      "end_time": "1973-06-05T23:59:59.545283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00107.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-05HR00_evid00108.mseed"
+      ],
+      "raw_trace_sha256": "fcdc5949930861d79a9dc7604206139631be6482e0f1f38718f31dd91b344436",
+      "picks": [
+        {
+          "evid": "evid00107",
+          "utc": "1973-06-05T02:38:00.000000Z",
+          "relative_sec": 9479.7
+        },
+        {
+          "evid": "evid00108",
+          "utc": "1973-06-05T11:10:00.000000Z",
+          "relative_sec": 40199.7
+        }
+      ],
+      "picks_rel_sec": [
+        9479.7,
+        40199.7
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-06-05HR00_evid00107.npz",
+      "trace_sha256": "b4b50958b66232763a4c619116ec40ed6f4a48ac045c814075873aca35a44119"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+      "group_id": "acq_b9539b1e19c3407f",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-18T00:00:00.132000Z",
+      "end_time": "1973-06-19T00:00:02.848981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-18HR00_evid00109.mseed"
+      ],
+      "raw_trace_sha256": "63c56aaf265376cd63292989884e6cece74c92b8a4475aba8aed82451f1cbd17",
+      "picks": [
+        {
+          "evid": "evid00109",
+          "utc": "1973-06-18T01:42:00.000000Z",
+          "relative_sec": 6119.868
+        }
+      ],
+      "picks_rel_sec": [
+        6119.868
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-06-18HR00_evid00109.npz",
+      "trace_sha256": "d615ea73638852c83d6111a878e03a47c81d1b5f0e020c162a06fffa2ee7b273"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+      "group_id": "acq_e61a91741dd8539d",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-06-27T00:00:00.230000Z",
+      "end_time": "1973-06-28T00:00:00.079057Z",
+      "n_samples": 572399,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-06-27HR00_evid00112.mseed"
+      ],
+      "raw_trace_sha256": "64b1a42c3bfdde3da0c08315a8de15b306415012599e2b8f8cdd9293fe680554",
+      "picks": [
+        {
+          "evid": "evid00112",
+          "utc": "1973-06-27T18:36:00.000000Z",
+          "relative_sec": 66959.77
+        }
+      ],
+      "picks_rel_sec": [
+        66959.77
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-06-27HR00_evid00112.npz",
+      "trace_sha256": "29253fc76386e9cc6ac65714697ad266319827ec37b54b922f29880722b4e1bb"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+      "group_id": "acq_7df43e2f2a27b1ff",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-03T00:00:00.532000Z",
+      "end_time": "1973-07-03T23:59:59.777283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-03HR00_evid00113.mseed"
+      ],
+      "raw_trace_sha256": "3187df72e8318e01ea62e6fce9ee115981b37ed854d42a538058ed3d2baea57d",
+      "picks": [
+        {
+          "evid": "evid00113",
+          "utc": "1973-07-03T18:15:00.000000Z",
+          "relative_sec": 65699.468
+        }
+      ],
+      "picks_rel_sec": [
+        65699.468
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-07-03HR00_evid00113.npz",
+      "trace_sha256": "04bf82b766ab0a1f02e4352581f89ca689cde6a20378f6fb1745a38dcb51d6d3"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+      "group_id": "acq_a5f223c66097f0a9",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-04T00:00:00.544000Z",
+      "end_time": "1973-07-04T23:59:59.789283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-04HR00_evid00114.mseed"
+      ],
+      "raw_trace_sha256": "160e3e4c99e9c01a181969f107a5426b0c9c785f7112985a3db79bc0220ac53c",
+      "picks": [
+        {
+          "evid": "evid00114",
+          "utc": "1973-07-04T02:46:00.000000Z",
+          "relative_sec": 9959.456
+        }
+      ],
+      "picks_rel_sec": [
+        9959.456
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-07-04HR00_evid00114.npz",
+      "trace_sha256": "d8196a911347490e9bd885c003f5eb1dfbf9072c21a204bb0a07c97bffabc175"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+      "group_id": "acq_111dd792c4000704",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-20T00:00:00.308000Z",
+      "end_time": "1973-07-21T00:00:03.024981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-20HR00_evid00117.mseed"
+      ],
+      "raw_trace_sha256": "74ea6933bfb285032967ca640af0f700ca9560a1f3f93a95160373e241ae0505",
+      "picks": [
+        {
+          "evid": "evid00117",
+          "utc": "1973-07-20T19:02:00.000000Z",
+          "relative_sec": 68519.692
+        }
+      ],
+      "picks_rel_sec": [
+        68519.692
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-07-20HR00_evid00117.npz",
+      "trace_sha256": "50f6373a761ebb58e3641f62dc56c067d401b9bdd5c020d83c2f1c1d2a5f20bd"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+      "group_id": "acq_2028884e7abafebf",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-28T00:00:00.275000Z",
+      "end_time": "1973-07-28T23:59:59.520283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-28HR00_evid00120.mseed"
+      ],
+      "raw_trace_sha256": "149f4119d4a5fbee67eae5ab640b53eb4f5412b751d7e16fe0a75ef2008529a6",
+      "picks": [
+        {
+          "evid": "evid00120",
+          "utc": "1973-07-28T00:52:00.000000Z",
+          "relative_sec": 3119.725
+        }
+      ],
+      "picks_rel_sec": [
+        3119.725
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1973-07-28HR00_evid00120.npz",
+      "trace_sha256": "08e6a837aa9b02ed5d7245a0ac6be678988ca9c6f5f3b4358eb46bf2c59aef14"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+      "group_id": "acq_46f6b89d7e1ef8da",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-07-29T00:00:00.262000Z",
+      "end_time": "1973-07-29T23:59:59.507283Z",
+      "n_samples": 572395,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-07-29HR00_evid00121.mseed"
+      ],
+      "raw_trace_sha256": "b26afb4f7e14a1530b5e144df0943de3204f20ba45b99733d48a5af8df34abc5",
+      "picks": [
+        {
+          "evid": "evid00121",
+          "utc": "1973-07-29T23:31:00.000000Z",
+          "relative_sec": 84659.738
+        }
+      ],
+      "picks_rel_sec": [
+        84659.738
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-07-29HR00_evid00121.npz",
+      "trace_sha256": "d6eab2566629af591190fd19277d49970ca775f5ddcde45006de4d3ded3c7494"
+    },
+    {
+      "id": "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+      "group_id": "acq_e50c2cf92e56280f",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1973-08-21T00:00:00.652000Z",
+      "end_time": "1973-08-22T00:00:02.312377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1973-08-21HR00_evid00127.mseed"
+      ],
+      "raw_trace_sha256": "3ff812e7ba15565e461bd5fea8f6c655d6a0ec009465294a7c995af11221215a",
+      "picks": [
+        {
+          "evid": "evid00127",
+          "utc": "1973-08-21T12:17:00.000000Z",
+          "relative_sec": 44219.348
+        }
+      ],
+      "picks_rel_sec": [
+        44219.348
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1973-08-21HR00_evid00127.npz",
+      "trace_sha256": "b7af70f336b01e858c4a979ebeb292a452505490e04c616f01bd9bc83b04ab36"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+      "group_id": "acq_6127a19e8fe01f4b",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-01-10T00:00:00.229000Z",
+      "end_time": "1974-01-11T00:00:02.945981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-01-10HR00_evid00136.mseed"
+      ],
+      "raw_trace_sha256": "874eb3131203d283da9d7e8f053ac6dd6c22e2e3055fb6cb50d50be8e3b1f7e9",
+      "picks": [
+        {
+          "evid": "evid00136",
+          "utc": "1974-01-10T23:21:00.000000Z",
+          "relative_sec": 84059.771
+        }
+      ],
+      "picks_rel_sec": [
+        84059.771
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-01-10HR00_evid00136.npz",
+      "trace_sha256": "e3b4521cff8589ef108fb7ef76c97aae07b40447233517b869a7582d31c19a95"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+      "group_id": "acq_5ea71094710c15ba",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-02-07T00:00:00.354000Z",
+      "end_time": "1974-02-08T00:00:03.070981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-07HR00_evid00137.mseed"
+      ],
+      "raw_trace_sha256": "c2cd57dd3aebcf6d86bc6bbad2a562f6209f099f811135b6468aa453d21da01f",
+      "picks": [
+        {
+          "evid": "evid00137",
+          "utc": "1974-02-07T06:21:00.000000Z",
+          "relative_sec": 22859.646
+        }
+      ],
+      "picks_rel_sec": [
+        22859.646
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-02-07HR00_evid00137.npz",
+      "trace_sha256": "5d1f94beb809bfae4acbed968ca50f56eaa6c32307d87d083d0e6d2e550db150"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+      "group_id": "acq_73c9560c5c2a16a4",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-02-12T00:00:00.400000Z",
+      "end_time": "1974-02-13T00:00:02.664151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-02-12HR00_evid00138.mseed"
+      ],
+      "raw_trace_sha256": "bb1c24cc3ee083ff8ee09e87a7050c78fa87a033c62a0be31aef27b379eae3f2",
+      "picks": [
+        {
+          "evid": "evid00138",
+          "utc": "1974-02-12T22:30:00.000000Z",
+          "relative_sec": 80999.6
+        }
+      ],
+      "picks_rel_sec": [
+        80999.6
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-02-12HR00_evid00138.npz",
+      "trace_sha256": "7c54f9aef1db1e3c936b3e206647f636abbc80f3a4b47faff94d8dcad954f941"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+      "group_id": "acq_b5582c6c5ffd2a56",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-03-25T00:00:00.598000Z",
+      "end_time": "1974-03-25T23:59:59.088566Z",
+      "n_samples": 572390,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-03-25HR00_evid00140.mseed"
+      ],
+      "raw_trace_sha256": "a8ac8e838010a97039a2d93bc6ca01a994b3d1a295df4a362a8ded8c443e7015",
+      "picks": [
+        {
+          "evid": "evid00140",
+          "utc": "1974-03-25T16:58:00.000000Z",
+          "relative_sec": 61079.402
+        }
+      ],
+      "picks_rel_sec": [
+        61079.402
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-03-25HR00_evid00140.npz",
+      "trace_sha256": "b4ee390c63053d9cd6cab92bd5ff72047129581bc7d372afec2cb9132bc94c17"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+      "group_id": "acq_1546ece0f80af624",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-08T00:00:00.534000Z",
+      "end_time": "1974-04-09T00:00:02.194377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-08HR00_evid00141.mseed"
+      ],
+      "raw_trace_sha256": "1c4d01049d8ac061a39b39d54ba322bbbb7b0a6ccb3923c0680028d4d993d102",
+      "picks": [
+        {
+          "evid": "evid00141",
+          "utc": "1974-04-08T08:40:00.000000Z",
+          "relative_sec": 31199.466
+        }
+      ],
+      "picks_rel_sec": [
+        31199.466
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1974-04-08HR00_evid00141.npz",
+      "trace_sha256": "01de621ec532f5b61eca4a79c1fded187b71976261a16442f177cbeceb57ee84"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+      "group_id": "acq_97106dad3d400a6a",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-19T00:00:00.568000Z",
+      "end_time": "1974-04-19T23:59:58.454792Z",
+      "n_samples": 572386,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-19HR00_evid00142.mseed"
+      ],
+      "raw_trace_sha256": "26a702beeb4368ff8a54e49f09ac1593c156d9c6699358438ff1bf4ce7a8b6b3",
+      "picks": [
+        {
+          "evid": "evid00142",
+          "utc": "1974-04-19T18:34:00.000000Z",
+          "relative_sec": 66839.432
+        }
+      ],
+      "picks_rel_sec": [
+        66839.432
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-04-19HR00_evid00142.npz",
+      "trace_sha256": "b77beb8397c7f8ae4a107f8ffe1f52b5282e9c9a4a09c6f21e832ec5a868c04f"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+      "group_id": "acq_faee89d9706e6e84",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-26T00:00:00.349000Z",
+      "end_time": "1974-04-26T23:59:58.235792Z",
+      "n_samples": 572386,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-26HR00_evid00144.mseed"
+      ],
+      "raw_trace_sha256": "804f36e97d975c081f1a3291958654ecbcdd56ad98cc64716a04f1b269b56f20",
+      "picks": [
+        {
+          "evid": "evid00144",
+          "utc": "1974-04-26T09:18:00.000000Z",
+          "relative_sec": 33479.651
+        }
+      ],
+      "picks_rel_sec": [
+        33479.651
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-04-26HR00_evid00144.npz",
+      "trace_sha256": "dda3b551548656dce1a50b952d28a9872164d00cd4e6fff834953618c1ee99ea"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+      "group_id": "acq_206645eb58ac7813",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-04-27T00:00:00.646000Z",
+      "end_time": "1974-04-27T23:59:58.079962Z",
+      "n_samples": 572383,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-04-27HR00_evid00145.mseed"
+      ],
+      "raw_trace_sha256": "503dfc5e94afb704431174287d1176515b0b59d40edd02e32e95a90f60798822",
+      "picks": [
+        {
+          "evid": "evid00145",
+          "utc": "1974-04-27T14:18:00.000000Z",
+          "relative_sec": 51479.354
+        }
+      ],
+      "picks_rel_sec": [
+        51479.354
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-04-27HR00_evid00145.npz",
+      "trace_sha256": "09ae391f8e921373889272d8b375a9d3b3880f738b17eba0439cb84dee7f0b7d"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+      "group_id": "acq_a6e284830ecb277f",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-06-25T00:00:00.524000Z",
+      "end_time": "1974-06-26T00:00:03.995698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-06-25HR00_evid00149.mseed"
+      ],
+      "raw_trace_sha256": "26729909c973e1b8fa797e142c7b7e8be85f5afdf6be63983cd64c590d077938",
+      "picks": [
+        {
+          "evid": "evid00149",
+          "utc": "1974-06-25T00:23:00.000000Z",
+          "relative_sec": 1379.476
+        }
+      ],
+      "picks_rel_sec": [
+        1379.476
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1974-06-25HR00_evid00149.npz",
+      "trace_sha256": "9f6f624607148db1563d459e5572157f6e07b7ab8e8706e89787c9c99218c040"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "group_id": "acq_015c1218cca7d42f",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-06T00:00:00.193000Z",
+      "end_time": "1974-07-07T00:00:01.853377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00150.mseed",
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-06HR00_evid00151.mseed"
+      ],
+      "raw_trace_sha256": "c697df2d83cbe73317ec10514700ecf979864f3bf8949ebab206a58c799e901f",
+      "picks": [
+        {
+          "evid": "evid00150",
+          "utc": "1974-07-06T02:57:00.000000Z",
+          "relative_sec": 10619.807
+        },
+        {
+          "evid": "evid00151",
+          "utc": "1974-07-06T14:14:00.000000Z",
+          "relative_sec": 51239.807
+        }
+      ],
+      "picks_rel_sec": [
+        10619.807,
+        51239.807
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1974-07-06HR00_evid00150.npz",
+      "trace_sha256": "93c167d73b5a0a3203c7e31a1146381a47d3d6f5d88b753677feb6a8de808ad1"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+      "group_id": "acq_b9247c123e1a3249",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-11T00:00:00.359000Z",
+      "end_time": "1974-07-12T00:00:02.623151Z",
+      "n_samples": 572415,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-11HR00_evid00152.mseed"
+      ],
+      "raw_trace_sha256": "c04a74f9d53bd7c1842254fb4fc4257d8af88100d5d71a8fe1e2877b53a563e5",
+      "picks": [
+        {
+          "evid": "evid00152",
+          "utc": "1974-07-11T00:52:00.000000Z",
+          "relative_sec": 3119.641
+        }
+      ],
+      "picks_rel_sec": [
+        3119.641
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1974-07-11HR00_evid00152.npz",
+      "trace_sha256": "2559d444a27a9a3f3011c0fa4cf817e1e3aa778c76877fce96b8cba777b8c3ba"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+      "group_id": "acq_3dd47ca1467a72b7",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-07-17T00:00:00.226000Z",
+      "end_time": "1974-07-18T00:00:03.697698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-07-17HR00_evid00153.mseed"
+      ],
+      "raw_trace_sha256": "02e6b06507db94f2712ac05e0417efd3dd160ae0bb33b82d385a38d012dcf366",
+      "picks": [
+        {
+          "evid": "evid00153",
+          "utc": "1974-07-17T12:05:00.000000Z",
+          "relative_sec": 43499.774
+        }
+      ],
+      "picks_rel_sec": [
+        43499.774
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1974-07-17HR00_evid00153.npz",
+      "trace_sha256": "631e3638675e4773a291303895af17ddb79d171ff193351e21a01da39f0469cf"
+    },
+    {
+      "id": "xa.s12.00.mhz.1974-10-14HR00_evid00156",
+      "group_id": "acq_cf6c5122a13b4f41",
+      "split": "val",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1974-10-14T00:00:00.996000Z",
+      "end_time": "1974-10-15T00:00:03.712981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1974-10-14HR00_evid00156.mseed"
+      ],
+      "raw_trace_sha256": "0803edb155ce4d359df2eeddf36607ed478b0a9211e92110a89a3de0f1a885e5",
+      "picks": [
+        {
+          "evid": "evid00156",
+          "utc": "1974-10-14T17:43:00.000000Z",
+          "relative_sec": 63779.004
+        }
+      ],
+      "picks_rel_sec": [
+        63779.004
+      ],
+      "cache_file": "continuous/val/xa.s12.00.mhz.1974-10-14HR00_evid00156.npz",
+      "trace_sha256": "f6cd1390d65b73594823683859ebd24a97eccbd538ce2be22a746b07ebc0d8ba"
+    },
+    {
+      "id": "xa.s12.00.mhz.1975-04-12HR00_evid00191",
+      "group_id": "acq_5fc959347bd27065",
+      "split": "train",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-04-12T00:00:00.187000Z",
+      "end_time": "1975-04-13T00:00:03.658698Z",
+      "n_samples": 572423,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-04-12HR00_evid00191.mseed"
+      ],
+      "raw_trace_sha256": "1ddc9bfc79d2ae2a0a55d3ae5b1bd0ca01babe54ff40f05f77eab98a0970b207",
+      "picks": [
+        {
+          "evid": "evid00191",
+          "utc": "1975-04-12T18:15:00.000000Z",
+          "relative_sec": 65699.813
+        }
+      ],
+      "picks_rel_sec": [
+        65699.813
+      ],
+      "cache_file": "continuous/train/xa.s12.00.mhz.1975-04-12HR00_evid00191.npz",
+      "trace_sha256": "b591734b636a55ebfa2097ed416b53e167663bf410411f6cd18bd0d70462cd05"
+    },
+    {
+      "id": "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+      "group_id": "acq_7172d7d398a32605",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-05-04T00:00:00.457000Z",
+      "end_time": "1975-05-05T00:00:03.173981Z",
+      "n_samples": 572418,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-05-04HR00_evid00192.mseed"
+      ],
+      "raw_trace_sha256": "d48bfcad0e2a1ddac5a3a5d42c0a947abd9e06a7ee1ae3537668b4e7a80ea045",
+      "picks": [
+        {
+          "evid": "evid00192",
+          "utc": "1975-05-04T10:05:00.000000Z",
+          "relative_sec": 36299.543
+        }
+      ],
+      "picks_rel_sec": [
+        36299.543
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1975-05-04HR00_evid00192.npz",
+      "trace_sha256": "d1132e05bab5079c559f7887d4a3ca56a511f2db08044bea399fbeaba3682e73"
+    },
+    {
+      "id": "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+      "group_id": "acq_5db9889b7e4881ac",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-06-24T00:00:00.239000Z",
+      "end_time": "1975-06-25T00:00:01.899377Z",
+      "n_samples": 572411,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-24HR00_evid00196.mseed"
+      ],
+      "raw_trace_sha256": "455c8eab1254ffb439f30474c2a920bfad79d157607d05b3318643ce7fc42325",
+      "picks": [
+        {
+          "evid": "evid00196",
+          "utc": "1975-06-24T16:03:00.000000Z",
+          "relative_sec": 57779.761
+        }
+      ],
+      "picks_rel_sec": [
+        57779.761
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1975-06-24HR00_evid00196.npz",
+      "trace_sha256": "f365c58e9a104a42118e9f65aeb730c63e531ed5a140327cabb303b131e2f014"
+    },
+    {
+      "id": "xa.s12.00.mhz.1975-06-26HR00_evid00198",
+      "group_id": "acq_1db422abd4ac5aa0",
+      "split": "test",
+      "channel": "XA.S12.00.MHZ",
+      "start_time": "1975-06-26T00:00:00.542000Z",
+      "end_time": "1975-06-27T00:00:01.598604Z",
+      "n_samples": 572407,
+      "rate_hz": 6.625,
+      "source_files": [
+        "data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1975-06-26HR00_evid00198.mseed"
+      ],
+      "raw_trace_sha256": "e9423c7326e1d25a2aea80d5222e5f5e107e63d42d064164546f8c7e93dde64c",
+      "picks": [
+        {
+          "evid": "evid00198",
+          "utc": "1975-06-26T03:24:00.000000Z",
+          "relative_sec": 12239.458
+        }
+      ],
+      "picks_rel_sec": [
+        12239.458
+      ],
+      "cache_file": "continuous/test/xa.s12.00.mhz.1975-06-26HR00_evid00198.npz",
+      "trace_sha256": "e8277eb583903345740220b7479572b3c39aa5e9521bed5f3fb1a1e97bfa8002"
+    }
+  ],
+  "splits": {
+    "train": [
+      "xa.s12.00.mhz.1970-06-15HR00_evid00008",
+      "xa.s12.00.mhz.1970-06-26HR00_evid00009",
+      "xa.s12.00.mhz.1970-07-20HR00_evid00010",
+      "xa.s12.00.mhz.1970-09-26HR00_evid00013",
+      "xa.s12.00.mhz.1971-01-15HR00_evid00022",
+      "xa.s12.00.mhz.1971-02-09HR00_evid00026",
+      "xa.s12.00.mhz.1971-03-25HR00_evid00028",
+      "xa.s12.00.mhz.1971-04-13HR02_evid00029",
+      "xa.s12.00.mhz.1971-04-17HR00_evid00030",
+      "xa.s12.00.mhz.1971-05-12HR00_evid00031",
+      "xa.s12.00.mhz.1971-05-13HR00_evid00033",
+      "xa.s12.00.mhz.1971-05-23HR00_evid00034",
+      "xa.s12.00.mhz.1971-06-12HR00_evid00035",
+      "xa.s12.00.mhz.1971-10-18HR00_evid00043",
+      "xa.s12.00.mhz.1971-10-31HR00_evid00045",
+      "xa.s12.00.mhz.1971-11-14HR00_evid00046",
+      "xa.s12.00.mhz.1972-05-11HR00_evid00055",
+      "xa.s12.00.mhz.1972-12-02HR00_evid00083",
+      "xa.s12.00.mhz.1972-12-03HR00_evid00084",
+      "xa.s12.00.mhz.1973-01-31HR00_evid00091",
+      "xa.s12.00.mhz.1973-03-01HR00_evid00093",
+      "xa.s12.00.mhz.1973-05-14HR00_evid00104",
+      "xa.s12.00.mhz.1973-06-05HR00_evid00107",
+      "xa.s12.00.mhz.1973-06-18HR00_evid00109",
+      "xa.s12.00.mhz.1973-06-27HR00_evid00112",
+      "xa.s12.00.mhz.1973-07-03HR00_evid00113",
+      "xa.s12.00.mhz.1973-07-04HR00_evid00114",
+      "xa.s12.00.mhz.1973-07-20HR00_evid00117",
+      "xa.s12.00.mhz.1973-07-29HR00_evid00121",
+      "xa.s12.00.mhz.1973-08-21HR00_evid00127",
+      "xa.s12.00.mhz.1974-01-10HR00_evid00136",
+      "xa.s12.00.mhz.1974-02-07HR00_evid00137",
+      "xa.s12.00.mhz.1974-02-12HR00_evid00138",
+      "xa.s12.00.mhz.1974-03-25HR00_evid00140",
+      "xa.s12.00.mhz.1974-04-19HR00_evid00142",
+      "xa.s12.00.mhz.1974-04-26HR00_evid00144",
+      "xa.s12.00.mhz.1974-04-27HR00_evid00145",
+      "xa.s12.00.mhz.1974-06-25HR00_evid00149",
+      "xa.s12.00.mhz.1975-04-12HR00_evid00191"
+    ],
+    "val": [
+      "xa.s12.00.mhz.1970-01-19HR00_evid00002",
+      "xa.s12.00.mhz.1970-10-24HR00_evid00014",
+      "xa.s12.00.mhz.1971-09-25HR00_evid00042",
+      "xa.s12.00.mhz.1972-06-16HR00_evid00060",
+      "xa.s12.00.mhz.1972-07-28HR00_evid00070",
+      "xa.s12.00.mhz.1973-01-18HR00_evid00088",
+      "xa.s12.00.mhz.1973-03-13HR00_evid00094",
+      "xa.s12.00.mhz.1973-03-24HR00_evid00097",
+      "xa.s12.00.mhz.1974-04-08HR00_evid00141",
+      "xa.s12.00.mhz.1974-07-17HR00_evid00153",
+      "xa.s12.00.mhz.1974-10-14HR00_evid00156"
+    ],
+    "test": [
+      "xa.s12.00.mhz.1970-03-25HR00_evid00003",
+      "xa.s12.00.mhz.1970-03-26HR00_evid00004",
+      "xa.s12.00.mhz.1970-04-25HR00_evid00006",
+      "xa.s12.00.mhz.1970-04-26HR00_evid00007",
+      "xa.s12.00.mhz.1970-11-12HR00_evid00015",
+      "xa.s12.00.mhz.1970-12-11HR00_evid00017",
+      "xa.s12.00.mhz.1970-12-27HR00_evid00019",
+      "xa.s12.00.mhz.1970-12-31HR00_evid00021",
+      "xa.s12.00.mhz.1971-01-28HR00_evid00023",
+      "xa.s12.00.mhz.1971-01-29HR00_evid00024",
+      "xa.s12.00.mhz.1971-10-20HR00_evid00044",
+      "xa.s12.00.mhz.1972-01-04HR00_evid00049",
+      "xa.s12.00.mhz.1972-03-12HR00_evid00052",
+      "xa.s12.00.mhz.1972-07-17HR00_evid00067",
+      "xa.s12.00.mhz.1972-07-31HR00_evid00071",
+      "xa.s12.00.mhz.1973-07-28HR00_evid00120",
+      "xa.s12.00.mhz.1974-07-06HR00_evid00150",
+      "xa.s12.00.mhz.1974-07-11HR00_evid00152",
+      "xa.s12.00.mhz.1975-05-04HR00_evid00192",
+      "xa.s12.00.mhz.1975-06-24HR00_evid00196",
+      "xa.s12.00.mhz.1975-06-26HR00_evid00198"
+    ]
+  },
+  "windows": {
+    "train": {
+      "file": "train_windows.npz",
+      "sha256": "73e79178664f4f4abefdd5d8155941362f1b247c463d6bd86dc36c947d300696",
+      "count": 2885,
+      "positive": 577,
+      "negative": 2308
+    },
+    "val": {
+      "file": "val_windows.npz",
+      "sha256": "1c7c5e6e611a213fd6210fc1adee5a64a98637a393f357ea8fb8fe859f5b14c9",
+      "count": 760,
+      "positive": 152,
+      "negative": 608
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "cross_split_interval_overlaps": 0,
+    "cross_split_raw_duplicates": 0,
+    "cross_split_processed_duplicates": 0,
+    "catalog_events_accounted_for": 76,
+    "sources_accounted_for": 76,
+    "splits": {
+      "train": {
+        "groups": 38,
+        "traces": 39,
+        "events": 42
+      },
+      "val": {
+        "groups": 11,
+        "traces": 11,
+        "events": 11
+      },
+      "test": {
+        "groups": 18,
+        "traces": 21,
+        "events": 23
+      }
+    },
+    "scope": "local Grade-A sources, acquisition intervals and complete-waveform identity; not proof against all latent dependence"
+  }
+}

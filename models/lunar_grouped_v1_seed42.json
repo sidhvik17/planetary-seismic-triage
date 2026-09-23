@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "lunar_grouped_v1",
+  "seed": 42,
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "checkpoint_selection": "Seed 42 is the designated app seed; no ranking by test score. Operating points were selected on validation only.",
+  "checkpoints": {
+    "SeisCNN": {
+      "filename": "lunar_grouped_v1_seed42.pt",
+      "source_checkpoint": "runs/lunar_grouped_v1/best.pt",
+      "sha256": "f44ea9155cc58d59601107be8d2c4ddcdf301377faaa9b57b8caf105967fc041",
+      "seed": 42,
+      "epoch": 27,
+      "arch": "base",
+      "params": 117842,
+      "operating_point": {
+        "threshold": 0.97
+      },
+      "evaluation_file": "results/lunar_grouped_v1_seed42_cnn.json",
+      "evaluation_sha256": "ae90c33efb68df5634f92a95a96f25e4cf5dfe6cb36791f757ee6040e3f9425f",
+      "selection_file": "results/lunar_grouped_v1_seed42_cnn.selection.json",
+      "selection_sha256": "42a58ed3cb67269288f50906a434cc1abb6d9d8c365e1a5257b3659d8fc906dd",
+      "test_scores": {
+        "tp": 16,
+        "fp": 18,
+        "fn": 7,
+        "precision": 0.4706,
+        "recall": 0.6957,
+        "f1": 0.5614,
+        "mae_sec": 41.31,
+        "median_ae_sec": 39.44
+      }
+    },
+    "SpecUNet": {
+      "filename": "unet_lunar_grouped_v1_seed42.pt",
+      "source_checkpoint": "runs/unet_lunar_grouped_v1/best.pt",
+      "sha256": "261bce3ddc31befd8090430f1a1658e0c1e34a891f239d8d4be9304af5e5fb9c",
+      "seed": 42,
+      "epoch": 28,
+      "arch": "base",
+      "params": 1942433,
+      "operating_point": {
+        "threshold": 0.25,
+        "min_dur_sec": 430
+      },
+      "evaluation_file": "results/lunar_grouped_v1_seed42_unet.json",
+      "evaluation_sha256": "d6fa410c085148bcdc85fbf6c8e8c121d528ec1c73ae62b8c237b6eae3541704",
+      "selection_file": "results/lunar_grouped_v1_seed42_unet.selection.json",
+      "selection_sha256": "526fca7ca30a59bdd25c744c3120e04aa199e7e30da89984ea4a82609b4fc2b8",
+      "test_scores": {
+        "tp": 14,
+        "fp": 31,
+        "fn": 9,
+        "precision": 0.3111,
+        "recall": 0.6087,
+        "f1": 0.4118,
+        "mae_sec": 71.42,
+        "median_ae_sec": 74.88
+      }
+    }
+  },
+  "demo_references": {
+    "xa.s12.00.mhz.1970-03-25HR00_evid00003.npz": {
+      "start_time": "1970-03-25T00:00:00.440000Z",
+      "picks_rel_sec": [
+        12719.56
+      ],
+      "trace_sha256": "d961c5c2bccd5cb641ffc13d2c3be9b1c8028cd62d2e275e1bf5547127665ad8",
+      "split": "test"
+    },
+    "xa.s12.00.mhz.1970-04-25HR00_evid00006.npz": {
+      "start_time": "1970-04-25T00:00:00.196000Z",
+      "picks_rel_sec": [
+        4439.804
+      ],
+      "trace_sha256": "32d2ee3c5d251cee917235ead42b25c31f7573515093a176b7fb44f924f4b17f",
+      "split": "test"
+    }
+  }
+}

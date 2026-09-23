@@ -1,0 +1,105 @@
+{
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "model": "best.pt",
+  "model_sha256": "8a08f22c02cb3973434d7e4c58089e41c86a907562f95ed028475a0c8d6091a3",
+  "operating_threshold": 0.995,
+  "n_events": 23,
+  "median_snr_db": 14.39,
+  "recall_low_snr": 0.636,
+  "recall_high_snr": 0.5,
+  "events": [
+    {
+      "snr_db": 6.54,
+      "detected": true
+    },
+    {
+      "snr_db": 14.39,
+      "detected": true
+    },
+    {
+      "snr_db": 6.91,
+      "detected": false
+    },
+    {
+      "snr_db": 12.15,
+      "detected": true
+    },
+    {
+      "snr_db": 6.14,
+      "detected": true
+    },
+    {
+      "snr_db": 35.16,
+      "detected": true
+    },
+    {
+      "snr_db": 14.61,
+      "detected": true
+    },
+    {
+      "snr_db": 3.42,
+      "detected": false
+    },
+    {
+      "snr_db": 12.34,
+      "detected": false
+    },
+    {
+      "snr_db": 7.64,
+      "detected": true
+    },
+    {
+      "snr_db": 31.27,
+      "detected": false
+    },
+    {
+      "snr_db": 21.22,
+      "detected": false
+    },
+    {
+      "snr_db": 9.04,
+      "detected": true
+    },
+    {
+      "snr_db": 9.04,
+      "detected": true
+    },
+    {
+      "snr_db": 15.91,
+      "detected": false
+    },
+    {
+      "snr_db": 8.11,
+      "detected": true
+    },
+    {
+      "snr_db": 40.83,
+      "detected": false
+    },
+    {
+      "snr_db": 20.9,
+      "detected": false
+    },
+    {
+      "snr_db": 0.42,
+      "detected": false
+    },
+    {
+      "snr_db": 17.92,
+      "detected": true
+    },
+    {
+      "snr_db": 31.78,
+      "detected": true
+    },
+    {
+      "snr_db": 20.5,
+      "detected": false
+    },
+    {
+      "snr_db": 26.66,
+      "detected": true
+    }
+  ]
+}

@@ -47,7 +47,7 @@ def main():
     start_ep = 1
     full = out / "mae_full.pt"
     if args.resume and full.exists():
-        st = torch.load(full, map_location=device, weights_only=False)
+        st = torch.load(full, map_location=device, weights_only=True)
         mae.load_state_dict(st["mae"])
         opt.load_state_dict(st["opt"])
         best = st["best"]

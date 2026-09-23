@@ -79,9 +79,10 @@ def _spectral_gate(event_seg: np.ndarray, noise_seg: np.ndarray) -> np.ndarray:
     return istft_window(mag * np.exp(1j * np.angle(S_ev)))
 
 
-def build_template_bank(body: str, split: str = "train") -> list[Template]:
+def build_template_bank(body: str, split: str = "train",
+                        data_dir: str | Path | None = None) -> list[Template]:
     """Extract + clean one template per catalog pick from a split's traces."""
-    cont = DATA_CACHE / body / "continuous" / split
+    cont = (Path(data_dir) if data_dir is not None else DATA_CACHE / body) / "continuous" / split
     bank: list[Template] = []
     for p in sorted(cont.glob("*.npz")):
         z = np.load(p)
@@ -113,21 +114,44 @@ def build_template_bank(body: str, split: str = "train") -> list[Template]:
 
 
 class NoisePool:
-    """Random event-free window slices from a split's continuous traces."""
+    """Random event-free window slices from a split's continuous traces.
 
-    def __init__(self, body: str, split: str = "train"):
-        cont = DATA_CACHE / body / "continuous" / split
+    `screen` optionally supplies extra event times per file (stem -> seconds
+    relative to trace start) that are guarded exactly like catalog picks but
+    never become templates. It exists because the benchmark's Grade-A labels
+    are a strict SUBSET of the Nakamura catalog, so guarding only the picks
+    leaves ~5,300 real S12 events harvestable as "noise" — 8.4 % of eligible
+    window starts on the lunar train split. Training those against a zero
+    mask teaches the detector to suppress genuine moonquakes: positive-
+    unlabeled contamination, not a nuisance. Build with
+    scripts/build_nakamura_screen.py.
+    """
+
+    def __init__(self, body: str, split: str = "train",
+                 screen: dict[str, list[float]] | None = None,
+                 data_dir: str | Path | None = None):
+        cont = (Path(data_dir) if data_dir is not None else DATA_CACHE / body) / "continuous" / split
         guard_post = CODA_SEC[body] + NOISE_GUARD_PRE_SEC
         self.traces: list[np.ndarray] = []
         self.valid_starts: list[np.ndarray] = []
+        self.n_screened = 0        # window starts removed by `screen` alone
         for p in sorted(cont.glob("*.npz")):
             z = np.load(p)
             trace, rate, picks = z["trace"], float(z["rate"]), z["picks"]
             ok = np.ones(len(trace) - N_SAMPLES + 1, dtype=bool)
-            for pick in picks:
-                lo = int((pick - NOISE_GUARD_PRE_SEC) * rate) - N_SAMPLES
-                hi = int((pick + guard_post) * rate)
+
+            def _guard(t: float):
+                lo = int((t - NOISE_GUARD_PRE_SEC) * rate) - N_SAMPLES
+                hi = int((t + guard_post) * rate)
                 ok[max(lo, 0) : min(hi, len(ok))] = False
+
+            for pick in picks:
+                _guard(float(pick))
+            if screen:
+                before = int(ok.sum())
+                for t in screen.get(p.stem, ()):
+                    _guard(float(t))
+                self.n_screened += before - int(ok.sum())
             starts = np.where(ok)[0]
             if len(starts):
                 self.traces.append(trace.astype(np.float32))
@@ -210,9 +234,11 @@ class InjectionDataset(Dataset):
                  p_event: float = 0.6, p_double: float = 0.1,
                  p_glitch: float = 0.4, p_hardneg: float = 0.0,
                  hardneg_windows: np.ndarray | None = None,
-                 seed: int | None = None):
-        self.bank = build_template_bank(body, split)
-        self.pool = NoisePool(body, split)
+                 seed: int | None = None,
+                 screen: dict[str, list[float]] | None = None,
+                 data_dir: str | Path | None = None):
+        self.bank = build_template_bank(body, split, data_dir=data_dir)
+        self.pool = NoisePool(body, split, screen=screen, data_dir=data_dir)
         # mined false-positive windows used as extra 'noise' sources: energy
         # inside them is event-like but carries a zero mask target (they may
         # still receive an injected event on top, which IS labeled)

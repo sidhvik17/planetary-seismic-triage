@@ -3,6 +3,7 @@
 Every experiment (training, evaluation, the web app) reads from this module so
 that preprocessing can never drift between train time and serve time (PRD F-16).
 """
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -10,6 +11,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_RAW = PROJECT_ROOT / "data" / "raw"
 DATA_CACHE = PROJECT_ROOT / "data" / "cache"
 RUNS_DIR = PROJECT_ROOT / "runs"
+
+# Continuous Apollo archive cache (~21 GB for four stations). Overridable via
+# PLANETSEIS_ARCHIVE because the repo normally lives under OneDrive, and
+# handing a cloud-sync client tens of gigabytes of incompressible float32
+# causes exactly the RAM/IO stalls that have bitten this project before.
+# Point it at a non-synced drive; everything else stays where it is.
+ARCHIVE_CACHE = Path(os.environ.get("PLANETSEIS_ARCHIVE",
+                                    str(DATA_CACHE / "archive")))
 
 # Root of the extracted NASA Space Apps 2024 packet.
 PACKET_ROOT = DATA_RAW / "space_apps_2024_seismic_detection"
