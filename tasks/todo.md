@@ -17,9 +17,16 @@ Analysis plan fixed BEFORE any new result exists:
   test F1 screened vs the existing unscreened 5 seeds, Welch t-test; report
   mean ± SD, difference and p. p >= 0.05 is reported as "no difference
   detected", never "no effect". Secondary (descriptive): validation F1.
-- [ ] **E3a denoise chain (no training).** Seed-42 SpecUNet denoises val/test
+- [x] **E3a denoise chain (no training).** Seed-42 SpecUNet denoises val/test
   spans; seed-42 SeisCNN on raw / denoised / max-fusion; each variant's
   threshold selected on validation and locked before test. New files only.
+  Done (CPU, ~6 min): `results/chain_lunar_grouped_v1_seed42.json` (+ locked
+  selection). Raw reproduces the locked evaluation exactly (16/18/7, F1
+  0.561). Chain F1 0.222 (P 0.132, R 0.696), fusion 0.200 (P 0.118, R 0.652).
+  Both picked 0.995, the top of the grid; validation precision there is
+  still 0.17, so the collapse is a distribution shift, not grid tuning.
+  Historical "fusion gives the best recall (0.684)" does NOT replicate on
+  the corrected split (fusion recall 0.652 < raw 0.696). Single seed.
 - [ ] **E2 archive scan.** Corrected seed-42 SpecUNet (designated before any
   scan) at its locked point (0.25, 430 s) over S12/S15/S16, same scoring and
   sweep as the historical scan; outputs under a new tag.
