@@ -177,7 +177,7 @@ def main():
         OUT_DIR = OUT_DIR / args.tag
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ckpt = torch.load(args.model, map_location=device, weights_only=False)
+    ckpt = torch.load(args.model, map_location=device, weights_only=True)
     model = SpecUNet(base=UNET_ARCHS[ckpt.get("arch", "base")])
     model.load_state_dict(ckpt["model"])
     model.eval().to(device)

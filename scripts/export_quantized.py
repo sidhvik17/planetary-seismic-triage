@@ -43,7 +43,7 @@ def main():
     from onnxruntime.quantization import QuantType, quantize_dynamic
 
     ck = torch.load(PROJECT_ROOT / "runs" / "lunar" / "best.pt",
-                    map_location="cpu", weights_only=False)
+                    map_location="cpu", weights_only=True)
     model = SeisCNN(channels=ARCHS[ck.get("arch", "base")]).eval()
     model.load_state_dict(ck["model"])
 

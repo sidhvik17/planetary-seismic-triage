@@ -31,7 +31,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 def load_model(run: str):
     ckpt = torch.load(RUNS_DIR / run / "best.pt", map_location=DEVICE,
-                      weights_only=False)
+                      weights_only=True)
     m = SpecUNet(base=UNET_ARCHS[ckpt.get("arch", "base")])
     m.load_state_dict(ckpt["model"])
     return m.eval().to(DEVICE)

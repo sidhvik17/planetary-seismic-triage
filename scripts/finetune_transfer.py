@@ -31,7 +31,7 @@ EPOCHS, LR = 30, 1e-4
 def main():
     set_seed()
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ck = torch.load(RUNS_DIR / "lunar" / "best.pt", map_location=device, weights_only=False)
+    ck = torch.load(RUNS_DIR / "lunar" / "best.pt", map_location=device, weights_only=True)
     arch = ck.get("arch", "base")
     model = SeisCNN(channels=ARCHS[arch]).to(device)
     model.load_state_dict(ck["model"])

@@ -151,7 +151,7 @@ def main():
     model = SpecUNet(base=UNET_ARCHS[args.arch]).to(device)
     if args.finetune_from and saved is None:
         ck = torch.load(args.finetune_from, map_location=device,
-                        weights_only=False)
+                        weights_only=True)
         model.load_state_dict(ck["model"])
         print(f"fine-tuning from {args.finetune_from}")
     print(f"device={device} arch={args.arch} params={count_params(model):,} "

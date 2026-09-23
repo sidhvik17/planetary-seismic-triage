@@ -43,7 +43,7 @@ def fig1():
     trace, rate, picks = z["trace"], float(z["rate"]), list(z["picks"])
     device = "cuda" if torch.cuda.is_available() else "cpu"
     ck = torch.load(PROJECT_ROOT / "runs" / "lunar" / "best.pt",
-                    map_location=device, weights_only=False)
+                    map_location=device, weights_only=True)
     model = SeisCNN(channels=ARCHS[ck.get("arch", "base")]).to(device)
     model.load_state_dict(ck["model"])
     dets, ws, wp = detect_events(model, trace, rate, CFG, 0.99, device,

@@ -51,6 +51,8 @@ def prepare_run(out: Path, resume: bool, config: dict, provenance: dict):
     path = out / "last.pt"
     if not path.is_file():
         raise ValueError(f"Cannot resume without an epoch checkpoint: {path}")
+    # last.pt is this run's own resume file; its NumPy RNG state is not
+    # loadable under weights_only=True. Model-weight files never use this path.
     state = torch.load(path, map_location="cpu", weights_only=False)
     if state.get("checkpoint_version") != 1:
         raise ValueError("Checkpoint does not contain resumable training state.")

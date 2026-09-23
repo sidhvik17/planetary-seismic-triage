@@ -55,7 +55,7 @@ class MaskedAutoencoder(nn.Module):
 
 def transfer_backbone(encoder_ckpt: str, model: SeisCNN) -> SeisCNN:
     """Load pretrained backbone weights into a fresh detector."""
-    state = torch.load(encoder_ckpt, map_location="cpu", weights_only=False)
+    state = torch.load(encoder_ckpt, map_location="cpu", weights_only=True)
     model.backbone.load_state_dict(state["backbone"])
     return model
 

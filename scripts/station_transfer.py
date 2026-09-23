@@ -39,7 +39,7 @@ THR = 0.99  # lunar operating point
 
 def get_model(device):
     ck = torch.load(PROJECT_ROOT / "runs" / "lunar" / "best.pt",
-                    map_location=device, weights_only=False)
+                    map_location=device, weights_only=True)
     m = SeisCNN(channels=ARCHS[ck.get("arch", "base")]).to(device)
     m.load_state_dict(ck["model"])
     return m
