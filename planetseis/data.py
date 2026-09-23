@@ -72,7 +72,12 @@ def load_labeled_traces(body: str) -> list[LabeledTrace]:
 def split_traces(
     traces: list[LabeledTrace], frac_train=0.6, frac_val=0.15
 ) -> tuple[list, list, list]:
-    """Split by FILE, never by window, so no event leaks across splits."""
+    """Historical filename split, retained to reproduce frozen experiments.
+
+    Distinct event filenames can contain the same acquisition. The lunar
+    manifest has confirmed train/test overlap; see scripts/audit_splits.py.
+    New independent benchmarks require acquisition grouping and merged picks.
+    """
     rng = random.Random(SEED)
     shuffled = sorted(traces, key=lambda t: t.trace_path.name)
     rng.shuffle(shuffled)

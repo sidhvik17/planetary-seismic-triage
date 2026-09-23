@@ -79,9 +79,10 @@ def _spectral_gate(event_seg: np.ndarray, noise_seg: np.ndarray) -> np.ndarray:
     return istft_window(mag * np.exp(1j * np.angle(S_ev)))
 
 
-def build_template_bank(body: str, split: str = "train") -> list[Template]:
+def build_template_bank(body: str, split: str = "train",
+                        data_dir: str | Path | None = None) -> list[Template]:
     """Extract + clean one template per catalog pick from a split's traces."""
-    cont = DATA_CACHE / body / "continuous" / split
+    cont = (Path(data_dir) if data_dir is not None else DATA_CACHE / body) / "continuous" / split
     bank: list[Template] = []
     for p in sorted(cont.glob("*.npz")):
         z = np.load(p)
@@ -127,8 +128,9 @@ class NoisePool:
     """
 
     def __init__(self, body: str, split: str = "train",
-                 screen: dict[str, list[float]] | None = None):
-        cont = DATA_CACHE / body / "continuous" / split
+                 screen: dict[str, list[float]] | None = None,
+                 data_dir: str | Path | None = None):
+        cont = (Path(data_dir) if data_dir is not None else DATA_CACHE / body) / "continuous" / split
         guard_post = CODA_SEC[body] + NOISE_GUARD_PRE_SEC
         self.traces: list[np.ndarray] = []
         self.valid_starts: list[np.ndarray] = []
@@ -233,9 +235,10 @@ class InjectionDataset(Dataset):
                  p_glitch: float = 0.4, p_hardneg: float = 0.0,
                  hardneg_windows: np.ndarray | None = None,
                  seed: int | None = None,
-                 screen: dict[str, list[float]] | None = None):
-        self.bank = build_template_bank(body, split)
-        self.pool = NoisePool(body, split, screen=screen)
+                 screen: dict[str, list[float]] | None = None,
+                 data_dir: str | Path | None = None):
+        self.bank = build_template_bank(body, split, data_dir=data_dir)
+        self.pool = NoisePool(body, split, screen=screen, data_dir=data_dir)
         # mined false-positive windows used as extra 'noise' sources: energy
         # inside them is event-like but carries a zero mask target (they may
         # still receive an injected event on top, which IS labeled)

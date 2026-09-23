@@ -43,7 +43,7 @@ PRE_SEC = 120.0      # template starts before the pick: lunar onsets are
 K_GRID = [4.0, 6.0, 8.0, 10.0, 12.0, 15.0, 20.0, 30.0]
 
 
-def build_templates(body: str, split: str, rate: float, tpl_sec: float):
+def build_templates(root: Path, split: str, rate: float, tpl_sec: float):
     """Raw (bandpassed) waveform cutouts around each train-split pick.
 
     Deliberately NOT the spectrally gated templates the injection engine
@@ -53,7 +53,7 @@ def build_templates(body: str, split: str, rate: float, tpl_sec: float):
     n = int(tpl_sec * rate)
     pre = int(PRE_SEC * rate)
     out = []
-    for p in sorted((DATA_CACHE / body / "continuous" / split).glob("*.npz")):
+    for p in sorted((root / "continuous" / split).glob("*.npz")):
         z = np.load(p)
         trace = np.asarray(z["trace"], dtype=np.float64)
         for pick in z["picks"]:
@@ -122,9 +122,9 @@ def detections_from_cc(cc, rate, thr, suppress_sec, offset_sec):
     return kept
 
 
-def cc_for_split(body, split, templates, rate, tpl_sec):
+def cc_for_split(root, split, templates, rate, tpl_sec):
     out = []
-    for p in sorted((DATA_CACHE / body / "continuous" / split).glob("*.npz")):
+    for p in sorted((root / "continuous" / split).glob("*.npz")):
         z = np.load(p)
         cc = max_cc(z["trace"], templates)
         out.append((p.stem, cc, list(z["picks"])))
@@ -154,7 +154,20 @@ def main():
                          "lead. Both length and k are selected on VAL, so the "
                          "baseline gets its best honest shot rather than one "
                          "arbitrary length that could be called a strawman.")
+    ap.add_argument("--data-dir", type=Path,
+                    help="versioned dataset root (e.g. data/cache/lunar_grouped_v1); "
+                         "default is the historical data/cache/<body> split")
+    ap.add_argument("--output", type=Path,
+                    help="result JSON; default results/matched_filter_<body>.json, or "
+                         "results/matched_filter_<benchmark_id>.json with --data-dir")
     args = ap.parse_args()
+    root = args.data_dir or DATA_CACHE / args.body
+    benchmark_id = None
+    if args.data_dir is not None:
+        benchmark_id = json.loads((root / "manifest.json").read_text(encoding="utf-8"))["benchmark_id"]
+    out = args.output or PROJECT_ROOT / "results" / f"matched_filter_{benchmark_id or args.body}.json"
+    if args.data_dir is not None and out.exists():
+        sys.exit(f"refusing to overwrite {out}")
     args.tpl_sec_all = list(args.tpl_sec)
 
     rate = CFG.preproc.target_rate_hz
@@ -167,12 +180,12 @@ def main():
     best = {"f1": -1.0}
     val_grid = []
     for tpl_sec in args.tpl_sec:
-        templates = build_templates(args.body, "train", rate, tpl_sec)
+        templates = build_templates(root, "train", rate, tpl_sec)
         if not templates:
             print(f"tpl {tpl_sec:.0f}s: no templates fit, skipped")
             continue
         print(f"\ntpl {tpl_sec:.0f}s: {len(templates)} templates; val ...")
-        cc_val = cc_for_split(args.body, "val", templates, rate, tpl_sec)
+        cc_val = cc_for_split(root, "val", templates, rate, tpl_sec)
         for k in K_GRID:
             s = score_at(cc_val, rate, k, coda, tol, offset)
             val_grid.append({"tpl_sec": tpl_sec, "k": k,
@@ -190,9 +203,9 @@ def main():
     print(f"\nselected tpl={best['tpl_sec']:.0f}s k={best_k} "
           f"(val F1 {best_f1:.3f})")
 
-    templates = build_templates(args.body, "train", rate, best["tpl_sec"])
+    templates = build_templates(root, "train", rate, best["tpl_sec"])
     print("test correlations ...")
-    cc_test = cc_for_split(args.body, "test", templates, rate, best["tpl_sec"])
+    cc_test = cc_for_split(root, "test", templates, rate, best["tpl_sec"])
     s = score_at(cc_test, rate, best_k, coda, tol, offset)
     args.tpl_sec = best["tpl_sec"]
 
@@ -203,10 +216,10 @@ def main():
     print("\noracle sweep (test-tuned, NOT the reported number) ...")
     oracle = {"f1": -1.0}
     for tpl_sec in args.tpl_sec_all:
-        tps = build_templates(args.body, "train", rate, tpl_sec)
+        tps = build_templates(root, "train", rate, tpl_sec)
         if not tps:
             continue
-        cc_t = cc_for_split(args.body, "test", tps, rate, tpl_sec)
+        cc_t = cc_for_split(root, "test", tps, rate, tpl_sec)
         for k in K_GRID:
             so = score_at(cc_t, rate, k, coda, tol, offset)
             if so.f1 > oracle["f1"]:
@@ -218,6 +231,7 @@ def main():
     result = {
         "method": "matched filter (max normalised CC over train templates)",
         "body": args.body,
+        "benchmark_id": benchmark_id or "historical filename split",
         "n_templates": len(templates),
         "template_sec": args.tpl_sec,
         "pre_sec": PRE_SEC,
@@ -229,11 +243,10 @@ def main():
         "tolerance_sec": tol,
         "suppress_sec": coda,
         "matched_filter": s.as_dict(),
-        "note": "templates come from the TRAIN split only, the same 45 "
-                "Grade-A events the injection engine uses, so both methods "
+        "note": "templates come from the TRAIN split only, the same "
+                "Grade-A picks the injection engine uses, so both methods "
                 "see the same labelled information.",
     }
-    out = PROJECT_ROOT / "results" / f"matched_filter_{args.body}.json"
     out.write_text(json.dumps(result, indent=2))
     print(json.dumps(result, indent=2))
     print(f"saved -> {out}")
