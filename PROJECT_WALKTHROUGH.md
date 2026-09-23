@@ -1,10 +1,30 @@
 # PLANETSEIS — COMPLETE WALKTHROUGH & DEFENSE GUIDE (v2)
 ### Planetary Seismic Event Detection · B.Tech Major Project · Sidhvik Gudikandula
 
+**Audit update (2026-09-15):** the frozen lunar test contains two waveforms
+duplicated in training under different event IDs. Present the figures below as
+historical measurements awaiting grouped splits and retraining, not independent
+test performance. See `docs/PROJECT_REVIEW.md`. SpecUNet uses catalog-derived
+templates with synthetic mask supervision; do not describe it as using zero
+labels. The app now supports bundled demos in Analyze and runs only when
+**Analyze trace** is pressed; request denoising before submitting the analysis.
+
+**Corrected benchmark (2026-09-23) — lead with these.** On the
+acquisition-grouped split `lunar_grouped_v1` (duplicates merged, picks
+unioned, 21 test spans / 23 events), both models retrained from scratch over
+five seeds: **SeisCNN 0.531 ± 0.031, SpecUNet 0.408 ± 0.043** (Welch
+p = 0.0012; SpecUNet = 76.8 % of supervised mean F1); matched filter 0.200;
+STA/LTA 0.168. Corrected means are not lower than the historical ones, but
+split, labels and test population all changed, so do **not** claim the
+duplicates had no effect. Seed 42 on the corrected split: 9/31 SpecUNet
+false positives match Nakamura events (29 % vs 1.5 % chance). The demo app
+runs the corrected seed-42 lunar checkpoints (SeisCNN 0.97; SpecUNet
+0.25 / 430 s). Source: `results/lunar_grouped_v1_seed_summary.json`.
+
 Everything you need to run the demo, present it, and answer any question.
 Project lives at: `Desktop\major` · GitHub: github.com/sidhvik17/planetary-seismic-triage
 **v2 = Phase-2 update: the project now has TWO detectors** — the supervised
-SeisCNN (Phase 1) and a MarsQuakeNet-style, zero-label, injection-trained
+SeisCNN (Phase 1) and a MarsQuakeNet-style, injection-trained
 SpecUNet (Phase 2) that extends catalogs and denoises. Results frozen at git
 tag `v1.0-results-freeze`.
 
@@ -34,8 +54,8 @@ folder and run `python -m venv .venv` then
 > link back to Earth is tiny — you cannot send everything home. My project
 > puts a small neural network **on the lander itself** that scans the stream,
 > cuts downlink by ~96%, and says *'I'm not sure'* when it isn't. Then I went
-> further: I built a second detector that **never sees a single labeled
-> event** — it trains itself by injecting real quake templates into real
+> further: I built a second detector that **learns from synthetic event masks**
+> — it injects catalog-derived quake templates into real
 > planetary noise — and it found **nine real moonquakes that the working
 > catalog had missed**, verified against NASA's full 13,058-event historical
 > catalog with odds against chance of ten thousand to one. Same technique,
@@ -54,12 +74,12 @@ Point at two things:
   trained on a **million** earthquakes — score **zero** on the Moon. The
   baseline that actually matters here is waveform template matching, the
   standard method in lunar seismology: given the identical 45-event label
-  budget it reaches F1 0.214 — 0.286 even if you let it tune on the test
-  set. My 45-event supervised model scores 0.498 ± 0.043 across seeds. The
-  zero-label SpecUNet reaches 0.372 ± 0.076 — **74.7% of supervised, without
-  ever seeing a labeled event.** Not parity: Welch p = 0.024, the supervised
-  model is genuinely better. The noise environment matters more than the
-  network."
+  budget it reaches F1 0.200 on the corrected split. After I found and removed
+  a train/test duplicate problem and retrained from scratch over five seeds,
+  my supervised model scores 0.531 ± 0.031. The injection-trained SpecUNet
+  reaches 0.408 ± 0.043 — **about 77% of supervised, using catalog-derived
+  templates and synthetic mask targets.** Welch p = 0.0012: the supervised
+  model is genuinely better."
 
 ### Act 2 — The money shot (Tab 🛰️ triage simulation, 90 s)
 1. Keep default file, playback 4× → **▶ Start stream**.
@@ -72,20 +92,21 @@ Point at two things:
 1. **Detector: SpecUNet (spectrogram, MQNet-style)** — it's the default.
    Model: **lunar**. Upload
    `major\data\raw\space_apps_2024_seismic_detection\data\lunar\training\data\S12_GradeA\xa.s12.00.mhz.1970-12-11HR00_evid00017.mseed`
-2. "This detector was trained on **zero real labeled events** — training data
-   is manufactured by injecting cleaned quake templates into event-free noise.
+2. "This detector was trained on **synthetic event masks** — training data
+   is manufactured by injecting cleaned catalog-derived quake templates into noise.
    The curve below is its event-energy mask; dotted black is NASA's pick."
 3. Open the **Denoised trace** expander: "same network, second job — it
    multiplies the spectrogram by its own event mask and resynthesizes the
    waveform. +8 to 9 dB over classical filtering exactly where events are
    weakest. This is what MarsQuakeNet does on Mars; mine does it on the Moon."
 4. Toggle **Uncertainty mode** on, then deliver the punchline: "for the
-   supervised model, uncertainty separates false alarms 5.9×. For this
-   zero-label model it **inverts** — and that inversion is one of my research
+   supervised model, uncertainty separates false alarms 3.7× on the corrected
+   split (5.9× historically). For this
+   injection-trained model it **inverts** — and that inversion is one of my research
    findings, not a bug: a model never taught the catalog's opinion can't rank
    catalog membership."
 5. Optional: switch Detector to SeisCNN and re-run — "two instruments, two
-   regimes: the supervised one carries precision and triage, the zero-label
+   regimes: the supervised one carries precision and triage, the injection-trained
    one carries recall, discovery, and denoising."
 
 ### Act 4 — The discovery slide (any browser, 30 s)
@@ -93,7 +114,8 @@ Open `major\docs\figures\nakamura_match_1_0_evid00192.png`:
 "The benchmark scored this detection as a FALSE POSITIVE. Look at it — a
 meteoroid impact ringing for an hour. It's in NASA's full Nakamura catalog,
 160 seconds from my detection; the benchmark's 76-label subset just doesn't
-include it. Nine of my twenty 'false positives' are like this."
+include it. On the corrected split, nine of the seed-42 model's thirty-one
+'false positives' fall within five minutes of a catalogued moonquake."
 
 ---
 
@@ -101,19 +123,20 @@ include it. Nine of my twenty 'false positives' are like this."
 
 | Number | What it is |
 |---|---|
-| **0.541** | Supervised SeisCNN F1, held-out lunar test (P .556/R .526) |
-| **0.372 ± 0.076 vs 0.498 ± 0.043** | Zero-label SpecUNet vs supervised, **5 seeds vs 3** — Welch **p = 0.024**, supervised is significantly better. Quote the ratio: **74.7% of supervised with zero labels** |
+| **0.531 ± 0.031 vs 0.408 ± 0.043** | **Corrected** grouped split, 5 seeds each: SeisCNN vs SpecUNet, Welch p = 0.0012 — the numbers to quote |
+| **0.541** | Historical supervised SeisCNN checkpoint F1 (P .556/R .526), filename split with two duplicates |
+| **0.372 ± 0.076 vs 0.498 ± 0.043** | Historical injection-trained SpecUNet vs supervised, **5 seeds vs 3** — Welch **p = 0.024**; **74.7% of supervised with synthetic mask targets and catalog-derived templates**. Superseded by the corrected row above |
 | **0.440** | The frozen single checkpoint — say out loud that this is the **MAX of 3 seeds** (mean 0.379). Never quote it alone |
 | **0.214 / 0.286** | Matched filter, val-tuned / oracle test-tuned. The baseline a seismologist asks for first; both learned detectors beat it |
-| **9 / 20 · 45% vs 1.7% · p<10⁻⁴** | benchmark "false positives" that are real Nakamura-catalogued moonquakes |
-| **0.645** | survey-mode precision counting Nakamura matches as true |
+| **9 / 31 · 29% vs 1.5% · p<10⁻⁴** | **Corrected** split, seed 42: benchmark "false positives" within ±300 s of Nakamura-catalogued moonquakes (historical: 9 / 20, 45% vs 1.7%) |
+| **0.511** | Corrected survey-mode precision counting Nakamura matches as true (historical 0.645) |
 | **P = 1.000, R = 0.233, n = 30** | Mars test on official MQS v14 picks — zero false alarms in ~85 h |
 | **+8–9 dB** | denoising SDR gain over bandpass at the hardest SNR bin |
 | **5.9× → 0.49×** | MC-Dropout separation: supervised vs injection-trained (**the σ-inversion**) |
 | **95/96 · 100%** | weak-label detection rate, incl. stations never trained on (SeisCNN: 60–93%) |
 | **96%** | downlink reduction in the triage simulation |
 
-Backups: MAE 40 s (SeisCNN) / 68 s (SpecUNet) / 18.7 s Mars refined ·
+Backups: historical lunar MAE 40 s (SeisCNN) / 68 s (SpecUNet); expanded Mars MAE 33.93 s / 34.20 s refined ·
 duration gate: real moonquakes ring 460–1240 s, false regions median 48 s ·
 23/64 mined "hard negatives" turned out to be real quakes · $0 cost.
 
@@ -145,7 +168,7 @@ tuning decision.
 **Q: Why two detectors?**
 They're complementary instruments. SeisCNN (118K params, supervised)
 learned the *catalog's selection function* — precision, calibration,
-triage. SpecUNet (1.9M, injection-trained, zero labels) learned *event
+triage. SpecUNet (1.9M, injection-trained, synthetic mask targets) learned *event
 morphology* — recall, cross-station generalization, catalog extension,
 denoising. The σ-inversion is the measured boundary between their jobs.
 
@@ -155,7 +178,7 @@ ticks otherwise teach "spike = event"); spectrally gate the background
 noise away; inject it into event-free noise at random strength (0.4–12×
 noise), random position; 40% of samples get synthetic GLITCHES labeled as
 noise. Because event and noise are known separately, the exact per-pixel
-energy-ratio mask is computable — perfect supervision, zero real labels.
+energy-ratio mask is computable — synthetic supervision derived from catalog-selected templates.
 That's MarsQuakeNet's method (Dahmen et al. 2022), translated to the Moon.
 
 **Q: The U-Net is 16× bigger than the CNN — didn't you say small wins?**
@@ -231,7 +254,7 @@ where variance is high; injection training replaces selection with
 physics, so uncertainty measures distance from the injection
 distribution, not the catalog boundary. Known ML pattern (Ovadia 2019,
 Nalisnick 2019) — first time stated for planetary detection. Consequence:
-triage on the supervised head, survey on the zero-label head.
+triage on the supervised head, survey on the injection-trained head.
 
 ### RIGOR / REPRODUCIBILITY
 **Q: Did you tune on the test set?**
@@ -252,7 +275,7 @@ On the record: first model F1 0.21 (coda mislabeling); cross-body
 transfer fails every way tried; naive denoise-chaining collapses;
 hard-negative mining backfired until I discovered 23 of 64 mined
 "negatives" were REAL uncatalogued quakes (which itself feeds the
-headline); arrival refinement helps Mars, hurts the Moon; active learning
+headline); arrival refinement does not improve the expanded Mars test and hurts the Moon; active learning
 lost to random; INT8 was worse; the Mars n=5 recall was an artifact.
 Every negative is in `results\` with the same rigor as the positives.
 
@@ -261,7 +284,7 @@ Five things: (1) MQNet's injection paradigm shown to survive a 45-label
 single-channel LUNAR setting; (2) the catalog-extension result verified
 automatically against a 13,058-event historical catalog instead of by
 manual review; (3) the σ-inversion — a deployment boundary for synthetic
-supervision nobody had stated for planetary work; (4) zero-label reaching
+supervision nobody had stated for planetary work; (4) injection-trained reaching
 74.7% of supervised while beating the matched-filter baseline on an
 identical label budget; (5) a frozen benchmark with a Mars track on
 official MQS picks that others can submit to; (6) a **6,850 station-day
@@ -277,9 +300,9 @@ Injection training from 45 large templates has no purchase on the small
 *repeating* deep moonquakes that are 56% of the catalog — which is exactly
 what matched filtering was built for. So I would **not** spend six months
 there. What I would do: 3-component + 2.4 Hz band for Mars recall;
-catalog-fine-tuned uncertainty head to fix triage on the zero-label model;
+catalog-fine-tuned uncertainty head to fix triage on the injection-trained model;
 and the one live positive — shallow moonquakes, the rarest class, recovered
-39/61 across three stations label-free — with a seismologist co-author.
+39/61 across three stations with synthetic mask supervision — with a seismologist co-author.
 Venue: ML4PS 4-pager (written, `paper/ml4ps_2026.md`).
 
 **Q: Why didn't you re-freeze on the screened model?**

@@ -6,6 +6,51 @@ single-channel seismic data, built on the public NASA Space Apps 2024 packet
 label regime planetary science actually lives in, and every design choice
 below exists to make small-sample results honest.
 
+**2026-09-15 correction:** the frozen lunar manifest separates filenames but
+does not separate all acquisition spans. Two test waveforms are identical to
+training waveforms with different event IDs (1972-07-17 and 1974-07-06).
+Treat the existing lunar rows as historical, contaminated-split measurements.
+They require grouped splitting, unioned picks, and retraining before they can
+support independent-test claims. Run `python scripts/audit_splits.py`; see
+`results/split_integrity_audit.json` and `docs/PROJECT_REVIEW.md`.
+
+**2026-09-23 corrected lunar track: `lunar_grouped_v1.json`.** Built by
+`scripts/build_grouped_lunar.py` (metadata-only policy, fixed before any
+corrected training or test scoring):
+
+* Sources = all 76 Grade-A catalog rows. `evid00029`'s waveform is filed
+  under HR02, not the catalog's HR00; it is recovered by a unique same-channel
+  event-ID match and its pick recomputed from catalog UTC (36,731 s, not the
+  catalog's 46,500 s). It was never in a historical split, so it goes to train.
+* Group = connected components of (same channel AND overlapping half-open UTC
+  interval) OR identical raw samples/rate. Split precedence per group:
+  historical test > val > train.
+* Identical copies collapse to one trace; picks are unioned per span from
+  catalog UTC minus the actual trace start. Partially overlapping spans
+  (adjacent-day files, ~2 s overlap) stay separate within their shared split.
+* Counts: 38/11/18 groups, 39/11/21 traces, 42/11/23 events. The audit fails
+  closed on any cross-split interval overlap, raw or processed duplicate,
+  lost or double-counted event, or cache/manifest hash mismatch.
+* Manifest SHA256
+  `da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf`; the
+  cache is `data/cache/lunar_grouped_v1/` (not in Git; rebuild with the
+  script, which refuses to overwrite a non-empty cache).
+
+| lunar_grouped_v1 test (21 spans / 23 events) | Seeds | F1 mean ± SD | P / R (mean) |
+|---|---|---|---|
+| SeisCNN, from scratch | 5 | **0.531 ± 0.031** | 0.448 / 0.661 |
+| SpecUNet, from scratch, unscreened | 5 | 0.408 ± 0.043 | 0.344 / 0.530 |
+| Matched filter (val-tuned) | — | 0.200 | 0.429 / 0.130 |
+| STA/LTA (val-tuned) | — | 0.168 | 0.111 / 0.348 |
+
+Welch p = 0.0012 (SeisCNN > SpecUNet); acquisition-group bootstrap ΔF1 95 %
+CI [0.009, 0.233]. Summary: `results/lunar_grouped_v1_seed_summary.json`.
+Rule 3 on this split (seed-42 SeisCNN at 0.97): recall 0.636 below / 0.750
+above the 14.4 dB median event SNR (`results/snr_recall_lunar_grouped_v1_seed42.json`);
+PR sweep in `results/pr_curve_lunar_grouped_v1_seed42.json` (descriptive).
+Checkpoints qualify only if they record `benchmark_id`, this manifest hash and
+random initialization (`scripts/evaluate_grouped.py` enforces it).
+
 ## Task
 
 Given a continuous single-channel trace, emit event arrival times (seconds
@@ -27,9 +72,9 @@ permutation test vs chance** (`scripts/statistics_rigor.py`).
   packet's 9 unlabeled test files cross-referenced against the official MQS
   catalog v14 (IRIS mars-event web service, P/start picks), plus
   top-magnitude MQS events fetched from the open XB.ELYSE archive
-  (EarthScope FDSN) with ~4-5 h of context each. Test = the 5 packet-derived
-  spans (frozen; includes S1222a's family sans S1222a itself, which is
-  train); train/val = packet train files + fetched events, with duplicate-
+  (EarthScope FDSN) with ~4-5 h of context each. Test = 17 spans / 30 events:
+  the original 5 packet-derived spans plus 12 tuning-blind additions.
+  S1222a itself is in train; train/val = packet train files + fetched events, with duplicate-
   hour packet files collapsed into one split so no span leaks. Rebuild:
   `scripts/fetch_mqs_labels.py`, `scripts/fetch_insight_context.py`,
   `scripts/fetch_mqs_train_events.py`.
@@ -51,7 +96,7 @@ permutation test vs chance** (`scripts/statistics_rigor.py`).
 | Metrics | continuous traces only — never balanced window accuracy |
 | Strata to report | SNR (split at median 12.2 dB), event type, per-station |
 
-## Baselines (lunar test, this repo's runs)
+## Historical baselines (filename split with two duplicate test waveforms)
 
 | Method | Params | P | R | F1 [95% CI] |
 |---|---|---|---|---|
@@ -62,14 +107,14 @@ permutation test vs chance** (`scripts/statistics_rigor.py`).
 | SeisCNN + planetary SSL (n=10 labels) | 118K | — | — | 0.492 ± 0.077 |
 | Matched filter (45 train templates, val-tuned) | — | 0.333 | 0.158 | 0.214 |
 | Matched filter (*oracle*, operating point tuned on test) | — | 0.261 | 0.316 | 0.286 |
-| SpecUNet (MQNet-style injection, no real positives) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612] — **max of 3 seeds**; 5-seed mean 0.372 ± 0.076 |
+| SpecUNet (synthetic masks from catalog-selected templates) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612] — **max of 3 seeds**; 5-seed mean 0.372 ± 0.076 |
 
 SpecUNet's operating point is (mask threshold, min event duration) tuned on
 val; its benchmark FPs are dominated by real events outside the Grade-A
 subset — 9/20 match the full Nakamura catalog (±5 min; chance 1.7%), giving
 survey-mode precision 0.645. See `results/nakamura_crosscheck.json`.
 
-## mars_ext baselines (frozen 5-span test, MQS v14 picks)
+## mars_ext baselines (expanded 17-span test, MQS v14 picks)
 
 | Method | P | R | F1 | MAE |
 |---|---|---|---|---|

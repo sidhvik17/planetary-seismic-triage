@@ -1,3 +1,207 @@
+# Publication completion and commits — 2026-09-23
+
+User requests completion of the remaining handoff items, including commits in
+both repositories and a current continuation file. Keep the scientific purpose,
+stack and architectures. Seed 42 is the fixed representative for secondary
+analyses and the lunar demo; retain its locked validation operating points.
+
+- [x] Back up all ten corrected runs outside OneDrive with checksums.
+  `C:\apsis_backups\lunar_grouped_v1_2026-09-23` (runs, logs, grouped cache;
+  119 files, 404 MB; `sha256sum -c SHA256SUMS` passes; identical to source).
+- [x] Rerun corrected-split Nakamura, MC uncertainty and signal-strength/PR analyses.
+  Seed 42, `--data-dir` modes (exclusive outputs). Nakamura 9/31 FPs match
+  (29.0 % vs 1.5 %, 0/10,000); SeisCNN σ 3.7×; SpecUNet σ ratio 0.77/0.70;
+  SNR recall 0.636/0.750. Counts match the locked seed-42 evaluations.
+- [x] Package corrected lunar seed-42 models and verify the demo/deployment paths.
+  Package hashes = source runs = evaluation records; app tests updated for
+  0.97 and 0.25/430 s plus a tampered-checkpoint refusal test (17 pass).
+- [x] Regenerate figures, synchronize Markdown/LaTeX, compile and inspect the PDF.
+  Figures 1–3 regenerated from corrected JSONs; `md_to_tex.py` generates the
+  .tex/.html twins; Overleaf zip built. **No local TeX engine**: .tex lint
+  passed, Edge-printed HTML preview PDF inspected; real LaTeX compile pending.
+- [x] Run relevant/full tests, review scientific claims and verify preserved artifacts.
+  162 passed; compileall ok; grouped audit 0; historical audit 1 (expected);
+  headline reproduces; no tracked changes in models/splits/results/figures;
+  live app ran the corrected seed-42 SpecUNet with provenance. Removed the
+  "duplicates did not inflate" over-inference from README/walkthrough/paper.
+- [x] Commit scoped application changes and the separate paper repository.
+  Root: `46ee44e`, `41e4db4`, `9ffd610` + docs commit; paper: `63ebfd5`. Not pushed.
+- [x] Record completed work, commit IDs, backups, commands and remaining limitations in handoff.
+  Remaining: real LaTeX compile (no TeX engine), optional reruns, push on request.
+
+Execution state and exact commands are recorded in `tasks/RESEARCH_HANDOFF.md`.
+
+---
+
+# Corrected lunar benchmark and retraining — 2026-09-23
+
+Goal: remove acquisition leakage, union labels, retrain the same two models,
+and report validation-selected held-out results. Preserve the original idea,
+stack and historical artifacts. Keep `tasks/RESEARCH_HANDOFF.md` current for
+continuation from another account.
+
+- [x] Inspect local hardware, datasets and raw acquisition metadata.
+- [x] Define split policy before any corrected model training or test scoring:
+  connected interval/hash groups; historical test > validation > train;
+  recovered unassigned events go to train; exact-copy pick unions use UTC.
+- [x] Implement/test builder and audit; freeze a separate manifest/cache.
+- [x] Implement/test dataset provenance and resumable training.
+- [x] Train SeisCNN and SpecUNet from scratch on the corrected data (5 seeds each).
+- [x] Select thresholds/duration on validation and evaluate held-out test data.
+- [x] Run regression checks and verify historic artifacts remain unchanged.
+- [x] Update paper, app provenance, change report and continuation instructions.
+- [x] Security review and hardening (checkpoint loading, upload gap-fill
+  guard, dependency floors, non-root Space container, CI token scope).
+
+## Review
+
+- **Latest handoff reconciliation:** all 10 checkpoint hashes, dataset/seed
+  provenance, validation-selection hashes, per-trace counts and stored seed
+  statistics verified. Fixed aggregation reading its own summary as an input;
+  added a repeat-generation regression. **160 tests pass in 19.77 s**.
+  `tasks/RESEARCH_HANDOFF.md` now includes verified state, remaining paper work,
+  native PowerShell resume commands and a prompt for another account. No new
+  model training or test inference was performed in this reconciliation.
+- **Corrected results** (`results/lunar_grouped_v1_seed_summary.json`):
+  SeisCNN F1 0.531 ± 0.031, SpecUNet 0.408 ± 0.043 (5 seeds each, from
+  scratch, validation-locked operating points); Welch p = 0.0012;
+  group-bootstrap ΔF1 CI [0.009, 0.233]; matched filter 0.200; STA/LTA 0.168.
+- **Decisions:** SpecUNet 30 epochs (historical recipe, not the 40 first
+  planned); 5 seeds per benchmark rule 2; unscreened noise pool (frozen
+  headline setting; screening had no effect). Evaluations ran on CPU while the
+  GPU trained, to avoid two concurrent CUDA processes.
+- **Verification:** 159 tests pass; grouped audit exit 0; historical audit
+  exit 1 (expected); headline reproduction exit 0; real resume check passed;
+  live app analysis with `weights_only=True` loading works.
+- **Not done:** corrected-split Nakamura cross-check, uncertainty, SNR strata,
+  PR curves, figures, LaTeX/PDF export, commits. See `tasks/RESEARCH_HANDOFF.md`.
+
+---
+
+# Runtime and result verification — 2026-09-22
+
+Goal: run and show the existing APSIS project, verify its main workflows and
+recorded results, and fix demonstrated failures without changing its purpose
+or Python / ObsPy / PyTorch / Streamlit stack.
+
+- [x] Start or reuse the local server and open a visible, persistent app tab.
+- [x] Run lunar and Mars analysis, inspect denoising, and complete live triage.
+- [x] Verify the full tests, Python compilation, and historical headline scores.
+- [x] Resolve demonstrated issues and document actual verification coverage.
+- [x] Review both Git repositories and revise the current research manuscript.
+- [x] Write an accumulated Markdown change report against the prior Git versions.
+- [x] Leave the working app available and explain its outputs and limitations.
+
+## Review
+
+- **Software verification:** 115 tests passed in 71.02 s; Python compilation
+  passed. The historical lunar reproduction command exited 0 with SeisCNN
+  P/R/F1 0.5556/0.5263/0.5405 and SpecUNet 0.3548/0.5789/0.4400.
+- **Live browser:** Lunar SpecUNet produced a candidate at 12,858 s versus the
+  12,720 s catalog pick, outside the benchmark's ±120 s matching tolerance.
+  Mars SpecUNet produced 2,115.6 s versus the 2,130 s pick; Mars SeisCNN produced
+  809.3 s and 2,170 s. Lunar and Mars denoised plots rendered successfully.
+- **Triage:** lunar `evid00003` playback completed at 8×: 138 windows screened,
+  one auto-accepted event, three review candidates, 96.4% of windows not queued.
+  MC-Dropout outputs can vary. This percentage does not measure transmitted
+  bytes. Model & results rendered its metrics and research caveats.
+- **Split audit:** rerun with the local cache confirmed both exact train/test
+  waveform duplicates (expected exit 1). The audit is evidence of an unresolved
+  scientific limitation, not a corrected benchmark.
+- **Git:** application branch `archive-scan-and-seed-variance`, baseline
+  `ecf07efe6c95eb026870cede5cb06dcef3769d25`. The existing nested `paper/`
+  repository is on `main`, baseline `2e219841c05f5785c12613e2c6f46851277c7613`.
+  Its layout is preserved. No commits, pushes, branch switches or remote fetches.
+- **User deliverables:** `docs/CHANGES_AND_RESEARCH_NOTES.md` records accumulated
+  code/app/research changes and checks. `paper/ml4ps_2026.md` is revised, with
+  a local pre-revision backup and `paper/REVISION_NOTES.md`. Older paper exports
+  and figures are unchanged; no regenerated PDF or LaTeX build is claimed.
+- **Local app:** `http://127.0.0.1:8501/`, left running with a visible browser
+  tab. Choose a demo and detector, then Analyze; enable denoising for SpecUNet.
+  Triage has its own Start control. Catalog markers are comparison references,
+  and SpecUNet mask-energy scores are not calibrated event probabilities.
+- **Coverage limits:** no fresh retraining, optimizer/resume validation, full
+  offline ablation rerun, external service audit or flight/cloud deployment.
+  Acquisition-grouped splitting, unioned picks and retraining remain required
+  before independent lunar performance claims. Purpose and stack are preserved.
+
+---
+
+# Project improvement review — 2026-09-15
+
+Scope: understand APSIS and improve demonstrated reliability and usability issues
+while preserving its scientific purpose, existing detector architectures, Python /
+ObsPy / PyTorch / Streamlit stack, frozen checkpoints, and evaluation protocol.
+
+User-requested goals for this pass:
+
+1. **Reliable inputs:** reject malformed traces with useful errors while keeping
+   clean lunar/Mars preprocessing identical; prove this with regression tests.
+2. **Usable demo:** analyze bundled traces with both detectors, run inference
+   only on request, retain result settings, and isolate tab failures.
+3. **Trustworthy evidence:** ship a repeatable split audit, disclose confirmed
+   overlap, correct stale claims, and document the grouped-retraining followup.
+
+- [x] Map the architecture, demo workflows, and research constraints from files.
+- [x] Run the existing test suite and inspect independent core/app/docs audits.
+- [x] Select and document a small set of evidence-backed improvements.
+- [x] Implement the selected changes and focused regression coverage.
+- [x] Verify tests and demo behavior, inspect the diff, and record results.
+
+## Review
+
+Baseline: 44 tests pass (29.96 s). Selected work: explicit app analysis and
+denoising controls, bundled demo analysis, published operating-point defaults,
+clear input errors and per-tab failure isolation, validated trace loading, and
+correction of stale statistical claims. Detector/scoring algorithms, models,
+dependencies, and frozen results remain unchanged. Additional scientific
+correctness concerns will be documented with evidence for a separately
+versioned benchmark review.
+
+### Completed goals
+
+1. **Reliable inputs achieved:** CSV and ObsPy validation rejects malformed,
+   non-finite, mistimed, or ambiguous channel inputs. Tests prove valid lunar
+   and Mars preprocessing remains bit-for-bit identical to the prior pipeline.
+2. **Usable demo achieved:** explicit Analyze action, built-in preprocessed
+   demos, opt-in denoising, bounded CPU batches, retained result settings,
+   published default gates, and local error handling. Hidden tabs no longer
+   start inference. Short SpecUNet input explains its full-window requirement.
+3. **Trustworthy evidence achieved:** read-only audit and portable SHA256
+   evidence confirm two duplicated train/test waveforms. README, benchmark,
+   report, demo, and walkthrough disclose the limitation and correct stale
+   supervision, seed-comparison, and expanded Mars refinement claims.
+
+### Verification
+
+- Full suite: **115 passed in 67.68 s** (baseline 44).
+- Real-checkpoint AppTest: both detectors passed on bundled lunar and Mars
+  traces; Mars denoising returned finite, full-length output; completed results
+  persisted after unrelated control changes.
+- Real CSV upload passed through the loader, preprocessing, SeisCNN and UI;
+  the real Mars triage playback completed successfully.
+- Split audit: expected exit **1**, 75 filenames / 70 timestamped acquisitions,
+  5 duplicated acquisitions, 2 confirmed identical cross-split waveform pairs.
+- `git diff --check`: passed. Frozen split manifests, checkpoint weights,
+  detector/scoring algorithms, and original result JSON files are preserved.
+- A cold app check initially timed out while loading the native PyArrow
+  dependency; after import completed, app checks passed without exceptions.
+- Existing Streamlit container-width deprecation notices remain; the current
+  API is retained for compatibility with the declared Streamlit minimum.
+
+### Research work still required
+
+The **benchmark is not repaired** by these software improvements. Group actual
+acquisition spans, union event picks, version new splits/caches, retrain, and
+reevaluate before making independent-test performance claims. Follow the
+specific plan in `docs/PROJECT_REVIEW.md`. Do not reinterpret the historical
+"no test leakage" audit entry below as current evidence; the 2026-09-15
+waveform comparison supersedes it.
+
+Historical publication roadmap below is preserved for context.
+
+---
+
 # Roadmap to publication — two-track
 
 **Decision (2026-07-25):** two-track. Track A = arXiv preprint + ML workshop paper

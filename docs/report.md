@@ -1,7 +1,27 @@
-# APSIS: Automated Detection, Denoising, and Catalog Extension of Planetary Seismic Events with a Supervised CNN and a Zero-Label Injection-Trained Spectrogram U-Net
+# APSIS: Automated Detection, Denoising, and Catalog Extension of Planetary Seismic Events with a Supervised CNN and an Injection-Trained Spectrogram U-Net
 
 > Report draft. Every value marked `TBD` is filled from `results/*.json` after
 > training — the paper never ships with placeholders (PRD §2.2).
+
+Current revised manuscript: [paper/ml4ps_2026.md](../paper/ml4ps_2026.md).
+For the accumulated implementation changes and fresh verification, see
+[CHANGES_AND_RESEARCH_NOTES.md](CHANGES_AND_RESEARCH_NOTES.md).
+
+> **2026-09-15 integrity correction:** two frozen lunar test waveforms are
+> identical to training waveforms under different event IDs. All lunar test
+> scores and comparisons in this historical draft need reevaluation after
+> acquisition-grouped splitting, combined picks, and retraining; they do not
+> establish independent-test performance. See `docs/PROJECT_REVIEW.md` and
+> `results/split_integrity_audit.json`. Injection training uses catalog-derived
+> templates and synthetic mask targets, not zero catalog labels.
+>
+> **2026-09-23 corrected benchmark:** on the acquisition-grouped split
+> `lunar_grouped_v1` (21 test spans / 23 events, unioned picks), both models
+> retrained from scratch over five seeds score SeisCNN F1 **0.531 ± 0.031**
+> and SpecUNet **0.408 ± 0.043** (Welch p = 0.0012; group-bootstrap ΔF1 CI
+> [0.009, 0.233]); matched filter 0.200, STA/LTA 0.168. These supersede the
+> historical lunar test figures below for any performance claim. Source:
+> `results/lunar_grouped_v1_seed_summary.json`; details in `README.md`.
 
 ## Abstract
 
@@ -41,8 +61,9 @@ triage with a ~96% downlink reduction on real held-out Apollo data.
 with a MarsQuakeNet-style spectrogram U-Net (SpecUNet, 1.9M parameters)
 trained by *synthetic event injection* — spectrally gated, despiked real
 event templates injected into event-free planetary noise with exact
-energy-ratio mask supervision and synthetic glitch negatives — so that **no
-real labeled positive ever enters training**. Across seeds the zero-label
+energy-ratio mask supervision and synthetic glitch negatives. **Catalog picks
+select the templates; real positive windows are not used as training targets.**
+Across seeds the injection-trained
 detector reaches **74.7% of the supervised CNN's mean F1** (0.372 ± 0.076
 over 5 seeds vs 0.498 ± 0.043 over 3; Welch p = 0.024) at higher recall. It
 also beats the baseline this field asks for first — waveform template
@@ -57,14 +78,17 @@ Its benchmark "false positives" are substantially real: 9 of 20
 match events in the full 13,058-event Nakamura catalog (45% vs 1.7% chance,
 permutation p < 10⁻⁴) — the MQNet catalog-extension result reproduced on
 the Moon. The same mask denoises (+8–9 dB SDR over bandpass at the hardest
-SNR bin) and refines Martian arrivals (MAE 24.5 → 18.7 s). A new `mars_ext`
+SNR bin). Arrival refinement does not improve the expanded Mars test
+(MAE 33.93 → 34.20 s). A new `mars_ext`
 benchmark track built from official MQS v14 picks (46 files; 30
 tuning-blind test events) yields precision 1.000 over ~85 h at recall
 0.233. A deployment caveat emerged: MC-Dropout uncertainty separation
 *inverts* under injection training (5.9× → 0.49×), so triage remains the
-supervised model's role while the zero-label model runs survey and
-denoising. All numbers are frozen at git tag `v1.0-results-freeze` and
-reproduce from a fresh clone with one command.
+supervised model's role while the injection-trained model runs survey and
+denoising. `scripts/reproduce_headline.py` checks P/R/F1 for the two historical
+lunar detector rows from `v1.0-results-freeze`, using the local data cache.
+Expanded Mars and seed experiments have separate artifacts and reproduction
+scripts; they are not all covered by that command or tag.
 
 **Phase 3 (continuous-archive test — a negative result).** The frozen
 benchmark is 183 curated single-event snippets, so n = 19 test events is
@@ -118,8 +142,10 @@ with fundamentally different noise regimes.
 | File length | ~24 h | ~1 h |
 | Split (files) | 45 train / 11 val / 19 test | 1 train / 1 test |
 
-Ground truth: catalogued relative arrival times per file. Split **by file**
-(60/15/25 train/val/test, seeded) so no event appears in two splits. The
+Ground truth: catalogued relative arrival times per file. The historical split
+is **by filename** (60/15/25 train/val/test, seeded); the 2026-09-15 audit found
+that two test waveforms also occur in training under other event IDs. Future
+splits must group acquisition spans and combine their picks. The
 lunar catalog picks are minute-quantized (all `time_rel % 60 == 0`), which
 sets a floor on achievable arrival accuracy and motivates the ±120 s scoring
 tolerance. The Martian labeled set (2 events) is the extreme-scarcity regime
@@ -536,10 +562,11 @@ reproducible at `v1.0-results-freeze` (+`v1.0.1-seed-addendum`).
 
 | Result | Value | Artifact |
 |---|---|---|
-| Lunar test F1 (zero-label SpecUNet) | 0.440 (P .355 / R .579); seeds 0.38 ± 0.09 | `results/unet_lunar_to_lunar.json` |
+| **Corrected lunar test F1, 5 seeds (lunar_grouped_v1)** | SeisCNN 0.531 ± 0.031; SpecUNet 0.408 ± 0.043; Welch p = 0.0012 | `results/lunar_grouped_v1_seed_summary.json` |
+| Historical lunar test F1 (injection-trained SpecUNet) | 0.440 (P .355 / R .579); seeds 0.38 ± 0.09; historical split with two duplicates | `results/unet_lunar_to_lunar.json` |
 | Paired ΔF1 vs supervised SeisCNN | −0.098 [−0.345, +0.152] — overlap | `results/statistics_unet.json` |
 | **Catalog extension** | 9/20 benchmark FPs = real Nakamura events (45% vs 1.7% chance, p < 10⁻⁴); survey precision 0.645 | `results/nakamura_crosscheck.json`, `docs/figures/nakamura_match_*.png` |
-| Mars (30 events, MQS v14) | P 1.000 over ~85 h, R 0.233, MAE 18.7 s refined | `results/unet_mars_ext_to_mars_ext.json` |
+| Mars (30 events, MQS v14) | P 1.000 over ~85 h, R 0.233, MAE 33.93 s; refinement 34.20 s | `results/unet_mars_ext_to_mars_ext.json` |
 | Denoising | +8–9 dB SDR over bandpass at SNR 0.4–1.0× | `results/denoise_metrics_*.json` |
 | Cross-station weak labels | 95/96 files; S15/S16 100% (SeisCNN 60–93%) | `results/catalog_extension/summary_lunar.json` |
 | σ-inversion | MC-Dropout separation 5.9× (supervised) → 0.49× (injection) | `results/uncertainty_unet.json` |
@@ -552,8 +579,8 @@ fusion reaches best-anywhere recall 0.684. Hard-negative fine-tuning
 collapsed recall until the mined pool was screened against Nakamura — 23 of
 64 mined "negatives" were real moonquakes; the clean pool preserves recall
 without a precision gain, itself evidence that residual FPs are real
-uncatalogued events. Arrival refinement helps Mars (24.5 → 18.7 s) and
-hurts lunar emergent onsets. The Mars n=5 recall of 0.6 fell to 0.233 on
+uncatalogued events. Arrival refinement does not improve the expanded Mars
+test (33.93 → 34.20 s) and hurts lunar emergent onsets. The Mars n=5 recall of 0.6 fell to 0.233 on
 the honest 30-event expansion — reported as the correction it is.
 
 ### 8.4 Revised division of labor

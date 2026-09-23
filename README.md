@@ -9,7 +9,7 @@ Two detector families for planetary seismic data, built on a $0 stack
    on the packet's window labels, with MC-Dropout uncertainty and an
    on-lander downlink-triage demo.
 2. **SpecUNet** — MarsQuakeNet-style spectrogram U-Net (Dahmen et al. 2022)
-   trained **without any real labeled positives**: real event templates are
+   trained **with synthetic mask targets from catalog-selected templates**: event templates are
    spectrally gated, injected into event-free noise at random SNRs, and the
    exact time-frequency energy-ratio masks supervise a per-pixel event/noise
    segmentation. Detection = frequency-integrated mask energy; the same mask
@@ -18,7 +18,99 @@ Two detector families for planetary seismic data, built on a $0 stack
 B.Tech major project. **Repo:** https://github.com/sidhvik17/planetary-seismic-triage ·
 **Report:** [docs/report.md](docs/report.md) · **Demo:** `streamlit run app/streamlit_app.py`
 
-## Headline results (continuous held-out traces, ±120 s tolerance)
+## Current status and local demo
+
+Run `run_app.bat` on Windows, or `streamlit run app/streamlit_app.py` from the
+project environment. In **Analyze a trace**, choose a bundled demo or upload a
+single-channel miniSEED, SAC, or CSV, then press **Analyze trace**. Bundled demos
+already contain preprocessed data; the full NASA packet is unnecessary for the
+demo. Denoising and the triage simulation run when requested.
+
+**Split-integrity correction (2026-09-15):** two of the 19 lunar test files have
+waveforms identical to training files under different event IDs. The historical
+lunar scores below, including seed comparisons, therefore do **not** establish
+performance on fully independent test data. Frozen artifacts are preserved for
+reproduction; corrected acquisition-grouped splits, combined event labels, and
+retraining are required before making new generalization claims. See the
+[project review](docs/PROJECT_REVIEW.md) and
+[audit evidence](results/split_integrity_audit.json).
+
+**Corrected benchmark (2026-09-23):** the split has now been rebuilt by
+acquisition span, picks unioned, and both detectors retrained from scratch
+over five seeds. See the next section; those are the numbers to cite for
+lunar test performance.
+
+SpecUNet uses **catalog-derived event templates with synthetic mask supervision**.
+It does not train on real positive windows as targets, but it does use catalog
+picks to extract its templates; this is not a claim of using zero labels.
+
+## Corrected lunar benchmark — `lunar_grouped_v1` (acquisition-grouped, 5 seeds)
+
+`benchmark/lunar_grouped_v1.json` regroups the 76 Grade-A S12 events by real
+acquisition: files that overlap in UTC time on one channel, or contain
+identical samples, share a split (historical test > val > train; the
+recovered `evid00029` goes to train). Identical copies collapse to one trace
+and their picks are unioned, taken from catalog UTC minus the actual trace
+start. Result: **38/11/18 groups, 39/11/21 traces, 42/11/23 events**
+(train/val/test), with zero cross-split interval overlaps or waveform
+duplicates (`scripts/build_grouped_lunar.py --audit-only`).
+
+Both architectures were retrained **from random initialization** with the
+historical recipes (SeisCNN 60 epochs; SpecUNet 30 epochs × 6400 injected
+samples, patience 8, unscreened noise pool), seeds 42/1/2/3/4. Each seed's
+operating point was selected on validation and written to a locked
+`*.selection.json` before any test waveform was opened
+(`scripts/evaluate_grouped.py`). Test = 21 continuous spans, 23 events,
+±120 s tolerance.
+
+| Detector (lunar_grouped_v1 test) | Seeds | P (mean) | R (mean) | F1 mean ± SD | MAE (mean) |
+|---|---|---|---|---|---|
+| **SeisCNN** (supervised windows) | 5 | 0.448 | 0.661 | **0.531 ± 0.031** | 45 s |
+| SpecUNet (injection-trained masks) | 5 | 0.344 | 0.530 | 0.408 ± 0.043 | 68 s |
+| Matched filter (42 train templates, val-tuned) | — | 0.429 | 0.130 | 0.200 | 76 s |
+| STA/LTA (val-tuned, thr_on 7.0 = grid edge) | — | 0.111 | 0.348 | 0.168 | 77 s |
+
+* SeisCNN beats SpecUNet at the seed level: Welch **p = 0.0012**, ΔF1 0.123;
+  a bootstrap that also resamples the 18 test acquisition groups gives
+  ΔF1 95 % CI **[0.009, 0.233]**. SpecUNet reaches **76.8 %** of supervised
+  mean F1 with synthetic mask targets from catalog-derived templates.
+* Both learned detectors stay well above both classical baselines. The
+  matched filter's test-tuned *oracle* reaches only 0.276 (not reportable).
+* The corrected scores are not lower than the historical seed means (0.498
+  and 0.372–0.379), but split membership, labels and the evaluation
+  population all changed, so this does **not** estimate the effect of the
+  duplicates.
+* n = 23 test events remains small; the group-bootstrap CIs are wide.
+* **Secondary analyses, seed 42, corrected split:** 9 of SpecUNet's 31
+  benchmark false positives lie within ±300 s of a Nakamura-catalogued S12
+  event (29.0 % vs 1.5 % chance; 0/10,000 permutations; catalog-adjusted
+  precision 0.511 vs 0.311). SeisCNN MC-Dropout σ is 3.7× higher on
+  false-alarm windows than true-event windows, but its review queue found no
+  real Grade-A event; SpecUNet's σ separation stays inverted (FP/TP 0.77).
+  SeisCNN recall is 0.636 below / 0.750 above the 14.4 dB median event SNR.
+* **The lunar demo runs the corrected seed-42 checkpoints**
+  (`models/lunar_grouped_v1_seed42.pt`, `models/unet_lunar_grouped_v1_seed42.pt`,
+  metadata `models/lunar_grouped_v1_seed42.json`) at their validation-selected
+  settings: SeisCNN 0.97; SpecUNet 0.25 / 430 s. The app refuses a checkpoint
+  whose SHA256 differs from the recorded evaluation. Historical lunar weights
+  stay in `models/` for reproduction; Mars is unchanged. All ten corrected
+  runs are backed up outside OneDrive (see `tasks/RESEARCH_HANDOFF.md`).
+
+Sources: `results/lunar_grouped_v1_seed_summary.json`,
+`results/lunar_grouped_v1_seed*_{cnn,unet}.json` (+ `.selection.json`),
+`results/matched_filter_lunar_grouped_v1.json`, and the seed-42
+`results/{nakamura_crosscheck,uncertainty,uncertainty_unet,snr_recall,pr_curve}_lunar_grouped_v1_seed42.json`.
+Reproduce:
+
+```powershell
+.venv\Scripts\python scripts\build_grouped_lunar.py --audit-only   # verify cache + manifest
+bash scripts/run_grouped_seeds.sh                                 # train 5 seeds x 2 models (resumable)
+.venv\Scripts\python scripts\evaluate_grouped.py --data-dir data/cache/lunar_grouped_v1 --cnn runs/lunar_grouped_v1/best.pt --output results/<new>.json
+.venv\Scripts\python scripts\matched_filter_baseline.py --data-dir data/cache/lunar_grouped_v1
+.venv\Scripts\python scripts\aggregate_grouped_seeds.py
+```
+
+## Historical headline results (frozen test traces, ±120 s tolerance)
 
 | Experiment | P | R | F1 | MAE |
 |---|---|---|---|---|
@@ -151,11 +243,11 @@ raw+denoised streams reaches the **highest recall of any configuration,
 low-SNR events the supervised detector misses, and the recall/precision
 trade is reported rather than hidden.
 
-**Arrival refinement on denoised waveforms** (Dahmen & Stott, GJI 2024):
-onset-picking each detection on the mask-denoised segment cuts Martian
-arrival MAE **24.5 s → 18.7 s** at identical F1; on lunar emergent onsets
-it does not help (67.7 → 75.4 s) — both stored in the results json, use
-`refine_arrivals` for Mars only.
+**Arrival refinement on denoised waveforms:** on the expanded 30-event Mars
+test, onset-picking the mask-denoised segment changes MAE from **33.93 s to
+34.20 s**, with identical TP/FP/FN counts. The earlier 24.5 → 18.7 s improvement
+does not describe this expanded test. Lunar refinement also does not help
+(67.7 → 75.4 s). See `results/unet_mars_ext_to_mars_ext.json`.
 
 **Denoising quality** (known clean event on injection val samples, median):
 at the hardest SNR bin (0.4–1.0×noise) the mask-denoiser reaches CC 0.59 /
@@ -278,8 +370,17 @@ Expand-Archive data\raw\space_apps_2024.zip data\raw
 | Common sampling rate | 6.625 Hz | Apollo LP native; InSight downsampled — one input distribution for cross-body |
 | Bandpass | 0.5–3.0 Hz | under common Nyquist; keeps Apollo 0.5–1 Hz energy and Mars 2.4 Hz band |
 | Window | 8192 samples (~1236 s), hop 4096 (50% overlap) | lunar events are long/emergent |
-| Normalization | per-window z-score | no global statistics → no train/test leakage |
+| Normalization | per-window z-score | avoids shared normalization statistics |
 | Match tolerance | ±120 s | lunar picks are minute-quantized and onsets emergent, so tolerance must exceed the 60 s label resolution |
-| Splits | by file, seeded | events never leak across train/val/test |
+| Splits | historical: by filename, seeded; corrected: `lunar_grouped_v1` by acquisition span | historical split had two train/test duplicate waveforms; the grouped split removes them and is the one to cite |
 | Threshold | tuned on val, never test | honest precision/recall |
 | Metrics | on continuous traces | balanced window accuracy would be meaningless |
+
+## Development checks
+
+```powershell
+.venv\Scripts\python -m pip install pytest
+.venv\Scripts\python -m pytest tests -q
+# Read-only audit; exits nonzero for the known historical lunar overlap.
+.venv\Scripts\python scripts\audit_splits.py
+```
