@@ -45,9 +45,13 @@ corrected training or test scoring):
 
 Welch p = 0.0012 (SeisCNN > SpecUNet); acquisition-group bootstrap ΔF1 95 %
 CI [0.009, 0.233]. Summary: `results/lunar_grouped_v1_seed_summary.json`.
-Rule 3 on this split (seed-42 SeisCNN at 0.97): recall 0.636 below / 0.750
-above the 14.4 dB median event SNR (`results/snr_recall_lunar_grouped_v1_seed42.json`);
-PR sweep in `results/pr_curve_lunar_grouped_v1_seed42.json` (descriptive).
+Rule 3 on this split (SeisCNN, five seeds, each at its validation point):
+recall 0.62 ± 0.10 below and 0.70 ± 0.11 above the 14.4 dB median event SNR;
+per-seed PR sweeps (descriptive) in `results/pr_curve_lunar_grouped_v1_seed<N>.json`,
+summary in `results/lunar_grouped_v1_secondary_summary.json`. STA/LTA's
+validation pick (7.0) is also the optimum on an extended 2–50 grid
+(`results/sta_lta_extended_lunar_grouped_v1.json`): above 7.0 it detects no
+validation event.
 Checkpoints qualify only if they record `benchmark_id`, this manifest hash and
 random initialization (`scripts/evaluate_grouped.py` enforces it).
 

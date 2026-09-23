@@ -379,8 +379,7 @@ def render_analysis_result(result):
                        "experiment, uncertainty did not distinguish false alarms "
                        "reliably; its review flags have not been validated for triage.")
     t = np.arange(len(r["proc"])) / r["prate"]
-    st.plotly_chart(waveform_fig(t, r["proc"], r["dets"], truth=r["truth"]),
-                    use_container_width=True)
+    st.plotly_chart(waveform_fig(t, r["proc"], r["dets"], truth=r["truth"]))
     for tr in r["truth"]:
         st.info(f'NASA catalog pick: **{tr["time_rel"]:.0f} s** from trace start. '
                 "The dotted line is the human pick and is used only for comparison.")
@@ -389,7 +388,7 @@ def render_analysis_result(result):
     if r["dets"]:
         st.subheader(f"{len(accepted)} event(s)" +
                      (f" · {len(review)} for review" if review else ""))
-        st.dataframe(detections_table(r["dets"], is_unet), use_container_width=True)
+        st.dataframe(detections_table(r["dets"], is_unet))
     else:
         st.info("No events detected with these settings. A lower threshold is an "
                 "exploratory search for weaker candidates.")
@@ -413,7 +412,7 @@ def render_analysis_result(result):
             margin=dict(l=40, r=20, t=10, b=40),
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
             xaxis=dict(gridcolor=GRID), yaxis=dict(gridcolor=GRID))
-        st.plotly_chart(pfig, use_container_width=True)
+        st.plotly_chart(pfig)
     if r["den"] is not None:
         with st.expander("Denoised trace (event mask × spectrogram)", expanded=True):
             step = max(1, len(t) // 30_000)
@@ -426,7 +425,7 @@ def render_analysis_result(result):
                 height=300, xaxis_title="time (s)", yaxis_title="amplitude",
                 margin=dict(l=40, r=20, t=10, b=40),
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(dfig, use_container_width=True)
+            st.plotly_chart(dfig)
 
 
 def render_analyze():
@@ -607,10 +606,9 @@ def render_triage():
                            "This is a window-count estimate, not measured bytes saved.")
         plot_box.plotly_chart(
             waveform_fig(np.arange(t_end) / rate, trace[:t_end], dets,
-                         title=f"{name} — live"), use_container_width=True,
-            key=f"stream_frame_{upto}")
+                         title=f"{name} — live"), key=f"stream_frame_{upto}")
         if review:
-            queue_box.dataframe(detections_table(review), use_container_width=True)
+            queue_box.dataframe(detections_table(review))
         else:
             queue_box.empty()
         time.sleep(delay)
@@ -678,24 +676,23 @@ sample standard deviation. The reported Welch test gave **p = 0.024**;
 the earlier claim of statistical parity is not supported by this seed analysis.
 These comparisons inherit the frozen split limitation above.
 
-On the corrected split, 9 of the seed-42 SpecUNet's 31 benchmark false
-positives lie within ±300 s of events in the full Nakamura catalog that the
-Grade-A subset omits (29% vs 1.5% by chance; historical split: 9 of 20).
+On the corrected split, across five seeds, 43% ± 13% of SpecUNet's benchmark
+false positives lie within ±300 s of events in the full Nakamura catalog that
+the Grade-A subset omits (1.5% expected by chance; historical split: 9 of 20).
 These matches show that the small benchmark catalog omits real events. The
 separate continuous-archive scan found poor recall at acceptable false-alarm
 rates; survey deployment is not validated. Mask-energy scores are not calibrated
 event probabilities. Cross-body transfer performed poorly in both directions.
 
 **Uncertainty** — SeisCNN uses MC-Dropout to demonstrate a human-review queue.
-On the corrected split its window uncertainty is 3.7× higher on false alarms
-than on true events, but the review queue recovered no additional real event.
-SpecUNet uncertainty does not separate false alarms (FP/TP ratio 0.77); its
-MC mode is exploratory and should not be read as validated triage confidence.
+On the corrected split its window uncertainty is 7.9 ± 3.5× higher on false
+alarms than on true events (five seeds), but the review queue rarely held a
+real event. SpecUNet uncertainty does not reliably separate false alarms (FP/TP
+ratio 0.86 ± 0.43 across seeds); its MC mode is exploratory and should not be
+read as validated triage confidence.
 
 Sources within the project: `results/lunar_grouped_v1_seed_summary.json`,
-`results/nakamura_crosscheck_lunar_grouped_v1_seed42.json`,
-`results/uncertainty_lunar_grouped_v1_seed42.json`,
-`results/uncertainty_unet_lunar_grouped_v1_seed42.json`,
+`results/lunar_grouped_v1_secondary_summary.json`,
 `results/seed_level_comparison.json`, `results/uncertainty_unet.json`, `results/unet_lunar_to_lunar.json`,
 `results/unet_mars_ext_to_mars_ext.json`, and `benchmark/README.md`.
 """)

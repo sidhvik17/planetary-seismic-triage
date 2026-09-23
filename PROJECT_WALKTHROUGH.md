@@ -16,8 +16,8 @@ five seeds: **SeisCNN 0.531 ± 0.031, SpecUNet 0.408 ± 0.043** (Welch
 p = 0.0012; SpecUNet = 76.8 % of supervised mean F1); matched filter 0.200;
 STA/LTA 0.168. Corrected means are not lower than the historical ones, but
 split, labels and test population all changed, so do **not** claim the
-duplicates had no effect. Seed 42 on the corrected split: 9/31 SpecUNet
-false positives match Nakamura events (29 % vs 1.5 % chance). The demo app
+duplicates had no effect. Across five seeds on the corrected split, 43 % ± 13 %
+of SpecUNet false positives match Nakamura events (1.5 % by chance). The demo app
 runs the corrected seed-42 lunar checkpoints (SeisCNN 0.97; SpecUNet
 0.25 / 430 s). Source: `results/lunar_grouped_v1_seed_summary.json`.
 
@@ -100,11 +100,11 @@ Point at two things:
    waveform. +8 to 9 dB over classical filtering exactly where events are
    weakest. This is what MarsQuakeNet does on Mars; mine does it on the Moon."
 4. Toggle **Uncertainty mode** on, then deliver the punchline: "for the
-   supervised model, uncertainty separates false alarms 3.7× on the corrected
-   split (5.9× historically). For this
-   injection-trained model it **inverts** — and that inversion is one of my research
-   findings, not a bug: a model never taught the catalog's opinion can't rank
-   catalog membership."
+   supervised model, uncertainty separates false alarms about 8× on the
+   corrected split (7.9 ± 3.5× across five seeds). For this injection-trained
+   model it does not separate them reliably — 0.86 ± 0.43, below 1 in four of
+   five seeds — and that is one of my research findings, not a bug: a model
+   never taught the catalog's opinion can't rank catalog membership."
 5. Optional: switch Detector to SeisCNN and re-run — "two instruments, two
    regimes: the supervised one carries precision and triage, the injection-trained
    one carries recall, discovery, and denoising."
@@ -114,7 +114,7 @@ Open `major\docs\figures\nakamura_match_1_0_evid00192.png`:
 "The benchmark scored this detection as a FALSE POSITIVE. Look at it — a
 meteoroid impact ringing for an hour. It's in NASA's full Nakamura catalog,
 160 seconds from my detection; the benchmark's 76-label subset just doesn't
-include it. On the corrected split, nine of the seed-42 model's thirty-one
+include it. On the corrected split, about four in ten of the models'
 'false positives' fall within five minutes of a catalogued moonquake."
 
 ---
@@ -128,8 +128,8 @@ include it. On the corrected split, nine of the seed-42 model's thirty-one
 | **0.372 ± 0.076 vs 0.498 ± 0.043** | Historical injection-trained SpecUNet vs supervised, **5 seeds vs 3** — Welch **p = 0.024**; **74.7% of supervised with synthetic mask targets and catalog-derived templates**. Superseded by the corrected row above |
 | **0.440** | The frozen single checkpoint — say out loud that this is the **MAX of 3 seeds** (mean 0.379). Never quote it alone |
 | **0.214 / 0.286** | Matched filter, val-tuned / oracle test-tuned. The baseline a seismologist asks for first; both learned detectors beat it |
-| **9 / 31 · 29% vs 1.5% · p<10⁻⁴** | **Corrected** split, seed 42: benchmark "false positives" within ±300 s of Nakamura-catalogued moonquakes (historical: 9 / 20, 45% vs 1.7%) |
-| **0.511** | Corrected survey-mode precision counting Nakamura matches as true (historical 0.645) |
+| **43% ± 13% · 47/120 pooled · 1.5% chance · p<10⁻⁴ every seed** | **Corrected** split, five seeds: benchmark "false positives" within ±300 s of Nakamura-catalogued moonquakes (historical single checkpoint: 9 / 20, 45% vs 1.7%) |
+| **0.62 ± 0.10** | Corrected survey-mode precision counting Nakamura matches as true (historical 0.645) |
 | **P = 1.000, R = 0.233, n = 30** | Mars test on official MQS v14 picks — zero false alarms in ~85 h |
 | **+8–9 dB** | denoising SDR gain over bandpass at the hardest SNR bin |
 | **5.9× → 0.49×** | MC-Dropout separation: supervised vs injection-trained (**the σ-inversion**) |

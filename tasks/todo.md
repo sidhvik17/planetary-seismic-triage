@@ -1,3 +1,31 @@
+# Handoff §4 follow-ups — 2026-09-23 (continued)
+
+Resume from `tasks/RESEARCH_HANDOFF.md` §4. Same constraints: purpose, stack,
+architectures and historical artifacts preserved; validation-only selection;
+new results in new files; no push. Expensive optional reruns (screening
+ablation, denoise chain, archive scan) and the LaTeX install need the user.
+
+- [x] Secondary analyses for seeds 1–4 at each seed's locked validation point;
+  aggregate mean ± SD across all five seeds (new script + test).
+  Nakamura 0.43 ± 0.13 (47/120); SeisCNN σ 7.9 ± 3.5×; SpecUNet σ 0.86 ± 0.43
+  (below 1 in 4/5 seeds); seed 42 is the weakest seed on the first two.
+- [x] STA/LTA: its validation pick sits at the grid edge (7.0); rerun with an
+  extended grid, selection on validation, as a separate new result.
+  2–50 grid selects 7.0 again (no validation detections above it).
+- [x] Offline scripts: load plain `best.pt` files with `weights_only=True`.
+  23 files; resume loader excepted; guard test; headline reproduces.
+- [x] Check the Streamlit `use_container_width` deprecation on the installed version.
+  Deprecated (removal date passed); argument removed, default is stretch.
+- [x] Update README/benchmark/paper with the seed-level secondary results;
+  regenerate .tex/.html/preview PDF/Overleaf zip.
+- [x] Fix stale handoff lines and stale memory facts found by the prompt audit.
+- [x] Full tests + audits; commit locally in both repositories.
+  166 passed; audits 0 / 1 (expected); headline reproduces. Root `5728e1d`,
+  `5fa5c56` + docs commit; paper `98d5fcd`. Not pushed. Still open: real
+  LaTeX compile (needs a TeX install), optional historical-only reruns.
+
+---
+
 # Publication completion and commits — 2026-09-23
 
 User requests completion of the remaining handoff items, including commits in

@@ -68,7 +68,7 @@ operating point was selected on validation and written to a locked
 | **SeisCNN** (supervised windows) | 5 | 0.448 | 0.661 | **0.531 ± 0.031** | 45 s |
 | SpecUNet (injection-trained masks) | 5 | 0.344 | 0.530 | 0.408 ± 0.043 | 68 s |
 | Matched filter (42 train templates, val-tuned) | — | 0.429 | 0.130 | 0.200 | 76 s |
-| STA/LTA (val-tuned, thr_on 7.0 = grid edge) | — | 0.111 | 0.348 | 0.168 | 77 s |
+| STA/LTA (val-tuned, thr_on 7.0; optimum on an extended 2–50 grid) | — | 0.111 | 0.348 | 0.168 | 77 s |
 
 * SeisCNN beats SpecUNet at the seed level: Welch **p = 0.0012**, ΔF1 0.123;
   a bootstrap that also resamples the 18 test acquisition groups gives
@@ -81,13 +81,22 @@ operating point was selected on validation and written to a locked
   population all changed, so this does **not** estimate the effect of the
   duplicates.
 * n = 23 test events remains small; the group-bootstrap CIs are wide.
-* **Secondary analyses, seed 42, corrected split:** 9 of SpecUNet's 31
-  benchmark false positives lie within ±300 s of a Nakamura-catalogued S12
-  event (29.0 % vs 1.5 % chance; 0/10,000 permutations; catalog-adjusted
-  precision 0.511 vs 0.311). SeisCNN MC-Dropout σ is 3.7× higher on
-  false-alarm windows than true-event windows, but its review queue found no
-  real Grade-A event; SpecUNet's σ separation stays inverted (FP/TP 0.77).
-  SeisCNN recall is 0.636 below / 0.750 above the 14.4 dB median event SNR.
+* **Secondary analyses, all five seeds, corrected split** (each seed at its
+  own validation-locked operating point; mean ± SD, range in brackets):
+  - SpecUNet false positives within ±300 s of a Nakamura-catalogued S12 event:
+    **0.43 ± 0.13** [0.29, 0.64] of them, pooled 47/120, against 1.5 % by
+    chance; the permutation p is below 10⁻⁴ for every seed. Catalog-adjusted
+    precision 0.62 ± 0.10 against benchmark 0.34 ± 0.04.
+  - SeisCNN MC-Dropout σ is 7.9 ± 3.5× higher on false-alarm than on
+    true-event windows [3.7, 12.9], yet the review queue (29–42 candidates
+    per seed) caught a real Grade-A event in only one seed.
+  - SpecUNet σ separation (FP/TP) is 0.86 ± 0.43 [0.50, 1.60]: below 1 in
+    four seeds, above 1 in one. Its uncertainty does not reliably flag false
+    alarms.
+  - SeisCNN recall 0.62 ± 0.10 below and 0.70 ± 0.11 above the 14.4 dB median
+    event SNR; one seed reverses the order.
+  - Seed 42 alone (the demo model) sits at the low end for catalog matches
+    (9/31) and SeisCNN σ separation (3.7×); report the five-seed figures.
 * **The lunar demo runs the corrected seed-42 checkpoints**
   (`models/lunar_grouped_v1_seed42.pt`, `models/unet_lunar_grouped_v1_seed42.pt`,
   metadata `models/lunar_grouped_v1_seed42.json`) at their validation-selected
@@ -98,8 +107,10 @@ operating point was selected on validation and written to a locked
 
 Sources: `results/lunar_grouped_v1_seed_summary.json`,
 `results/lunar_grouped_v1_seed*_{cnn,unet}.json` (+ `.selection.json`),
-`results/matched_filter_lunar_grouped_v1.json`, and the seed-42
-`results/{nakamura_crosscheck,uncertainty,uncertainty_unet,snr_recall,pr_curve}_lunar_grouped_v1_seed42.json`.
+`results/matched_filter_lunar_grouped_v1.json`,
+`results/sta_lta_extended_lunar_grouped_v1.json`,
+`results/lunar_grouped_v1_secondary_summary.json` and the per-seed
+`results/{nakamura_crosscheck,uncertainty,uncertainty_unet,snr_recall,pr_curve}_lunar_grouped_v1_seed<N>.json`.
 Reproduce:
 
 ```powershell
@@ -108,6 +119,9 @@ bash scripts/run_grouped_seeds.sh                                 # train 5 seed
 .venv\Scripts\python scripts\evaluate_grouped.py --data-dir data/cache/lunar_grouped_v1 --cnn runs/lunar_grouped_v1/best.pt --output results/<new>.json
 .venv\Scripts\python scripts\matched_filter_baseline.py --data-dir data/cache/lunar_grouped_v1
 .venv\Scripts\python scripts\aggregate_grouped_seeds.py
+.venv\Scripts\python scripts\run_grouped_secondary.py        # secondary analyses, every seed
+.venv\Scripts\python scripts\aggregate_grouped_secondary.py
+.venv\Scripts\python scripts\sta_lta_grouped.py --data-dir data/cache/lunar_grouped_v1
 ```
 
 ## Historical headline results (frozen test traces, ±120 s tolerance)

@@ -1,9 +1,37 @@
 # APSIS — handoff for the next agent
 
-Updated: 2026-09-23, end of the publication pass. The benchmark repair,
-retraining, evaluation, corrected secondary analyses, demo model switch,
+Updated: 2026-09-23, end of the follow-up pass. The benchmark repair,
+retraining, evaluation, five-seed secondary analyses, demo model switch,
 paper figures/LaTeX twin and local commits are **done and verified**. What is
 left is listed in section 4. Read this file fully before touching anything.
+
+## Follow-up pass — completed 2026-09-23 (after the publication pass)
+
+| Item | State | Evidence |
+|---|---|---|
+| Secondary analyses for all five seeds | Done | `scripts/run_grouped_secondary.py` (reads each seed's locked operating point), `scripts/aggregate_grouped_secondary.py` (checks manifest, checkpoint SHA256 and deterministic counts) -> `results/lunar_grouped_v1_secondary_summary.json`; log `runs/logs_grouped/secondary_seeds1-4.log` |
+| STA/LTA grid-edge question | Resolved | `scripts/sta_lta_grouped.py` -> `results/sta_lta_extended_lunar_grouped_v1.json` (+ locked `.selection.json`): a 2–50 grid selects 7.0 again, because no validation event is detected above 7.0; test F1 0.168 unchanged |
+| `weights_only=True` in offline scripts | Done | 23 files; only `planetseis/training_state.py` (own `last.pt`, NumPy RNG) keeps full unpickling; all 40 other checkpoints verified; `tests/test_safe_loading.py` guards it; headline 0.5405 / 0.4400 still reproduces |
+| Streamlit `use_container_width` | Removed | current default `width="stretch"`; app tests pass |
+| Docs + paper | Updated to five-seed figures | README, benchmark README, app About, walkthrough, review, change notes §9; paper abstract/§4.1/§4.4/§5/conclusion, new Fig. 3, regenerated .tex/.html/preview PDF/zip |
+| Tests | 166 pass | |
+
+Five-seed corrected secondary results (mean ± SD [range]; seed 42 in brackets):
+
+- SpecUNet FPs within ±300 s of a Nakamura S12 event: 0.43 ± 0.13 [0.29,
+  0.64], pooled 47/120, chance 1.5 %, permutation p < 1e-4 for every seed;
+  catalog-adjusted precision 0.62 ± 0.10 vs benchmark 0.34 ± 0.04 [9/31, 0.511].
+- SeisCNN window MC σ false/true: 7.9 ± 3.5× [3.7, 12.9] [3.7×]; the review
+  queue held a real Grade-A event in 1 of 5 seeds.
+- SpecUNet σ FP/TP: 0.86 ± 0.43 [0.50, 1.60] — below 1 in four seeds, not
+  all [0.77]. Do not say SpecUNet uncertainty "always inverts".
+- SeisCNN recall below / above the 14.4 dB median SNR: 0.62 ± 0.10 /
+  0.70 ± 0.11; one seed reverses the order [0.636 / 0.750].
+- Seed 42 (the demo model) is the weakest seed for catalog matches and
+  SeisCNN σ separation: quote the five-seed figures, not seed 42.
+- MC-Dropout auto-accept counts legitimately differ from the deterministic
+  evaluation (stochastic passes); the deterministic cross-check counts match
+  the locked evaluations for every seed.
 
 ## Publication pass — completed 2026-09-23
 
@@ -44,15 +72,19 @@ Root repository, branch `archive-scan-and-seed-variance` (previous HEAD
 | `46ee44e` | Acquisition-grouped benchmark, resumable training, locked evaluation, audits, aggregation, runner, tests |
 | `41e4db4` | Five-seed corrected results + seed-42 secondary analyses and their `--data-dir` script modes |
 | `9ffd610` | App hardening, safe loading, corrected seed-42 lunar models, demo NPZ picks, dependency/CI/Space security |
-| next commit (HEAD at hand-off) | Docs, change notes, this handoff, todo, lessons |
+| `0be17f1` | Docs, change notes, this handoff, todo, lessons |
+| `5728e1d` | Follow-up: `weights_only=True` for every model-weight load + guard test |
+| `5fa5c56` | Follow-up: five-seed secondary analyses, aggregation with provenance checks, extended STA/LTA grid |
+| the commit that adds this row (HEAD at hand-off) | Follow-up: docs, app About text, Streamlit deprecation, handoff, todo |
 
 Paper repository `paper/`, branch `main` (previous HEAD `2e21984`):
 `63ebfd5` — corrected draft, Figures 1–3, `md_to_tex.py`, generated
-`.tex`/`.html`, preview PDF, Overleaf zip, revision notes.
+`.tex`/`.html`, preview PDF, Overleaf zip, revision notes; `98d5fcd` —
+five-seed secondary results, new Fig. 3, regenerated exports.
 
 Nothing was pushed. Check with `git log --oneline -5` in each repository.
 
-## 0. Start here — latest verified state
+## 0. Earlier reconciliation check (2026-09-23, before the publication pass)
 
 The user supplied another account's completion report. This continuation
 checked the actual local files before making further changes:
@@ -80,9 +112,8 @@ checked the actual local files before making further changes:
 - No new training or test-set inference was needed for this reconciliation.
   Original result JSONs and model files were not regenerated or replaced.
 
-**Next useful work:** paper figures and exports, followed by any corrected-split
-secondary analyses that remain in the manuscript. Do not retrain completed
-models just to continue this task. The paper draft is `paper/ml4ps_2026.md`.
+**Next useful work:** see section 4. Do not retrain completed models to
+continue this task. The paper draft is `paper/ml4ps_2026.md`.
 
 ## 1. Project and non-negotiable constraints
 
@@ -238,22 +269,14 @@ conclusion) and `paper/REVISION_NOTES.md`.
    corrected checkpoint, and Mars (unaffected by the lunar leak). Use the same
    pattern as the secondary scripts: `--data-dir`, new output names,
    exclusive creation, and a fixed seed or all five seeds.
-4. **Seed coverage of secondary analyses.** They describe seed 42 only. If a
-   reviewer asks, run the same four scripts for seeds 1–4 (`runs/*_sN/best.pt`
-   with each seed's own validation operating point from its
-   `results/lunar_grouped_v1_seed<N>_{cnn,unet}.json`) and report mean ± SD.
-5. **Small follow-ups:** STA/LTA's validation-selected threshold sits at the
-   grid edge (7.0) on both splits, so extending the grid is a fair baseline
-   improvement (report it as a new result). Streamlit `use_container_width`
-   deprecation notices. Remaining offline scripts still load local `best.pt`
-   files with `weights_only=False`.
-6. **Research limits to keep stating:** 23 test events in 21 spans; the audit
+4. **Research limits to keep stating:** 23 test events in 21 spans; the audit
    covers intervals and complete-waveform identity only (not repeated
-   deep-moonquake sources); secondary analyses are single-seed; archive and
+   deep-moonquake sources); secondary analyses vary strongly across seeds
+   (quote mean ± SD, not seed 42); archive and
    Mars results are historical-split analyses; the archive scan gate failed
    (B3). Never write that the leak had no effect: split, labels and test
    population all changed together.
-7. **Superseded exports in `paper/`** (`paper_ieee*.tex`,
+5. **Superseded exports in `paper/`** (`paper_ieee*.tex`,
    `planetseis_ieee_overleaf.zip`, `overleaf_pkg/`, `paper.md`,
    `paper_final.md`, `draft_v2.md`, decks) contain retracted claims. Do not
    submit them; `ml4ps_2026.md` is the source of truth.
@@ -265,6 +288,8 @@ git status --short; git -C paper status --short
 .venv\Scripts\python -m pytest -q
 .venv\Scripts\python scripts\build_grouped_lunar.py --audit-only
 .venv\Scripts\python scripts\aggregate_grouped_seeds.py
+.venv\Scripts\python scripts\run_grouped_secondary.py      # skips outputs that exist
+.venv\Scripts\python scripts\aggregate_grouped_secondary.py
 .venv\Scripts\python scripts\reproduce_headline.py
 bash scripts/run_grouped_seeds.sh            # resumes; finished runs are no-ops
 # A new evaluation must use a NEW output name (exclusive creation):
@@ -296,16 +321,16 @@ $env:MKL_NUM_THREADS = '2'
 > Continue APSIS in `C:\Users\ASUS\OneDrive\Desktop\major`. First read
 > `tasks/RESEARCH_HANDOFF.md`, `tasks/todo.md`,
 > `docs/CHANGES_AND_RESEARCH_NOTES.md`, and both repositories' Git status.
-> Preserve all uncommitted work, purpose, stack, architectures and historical
-> artifacts. The corrected `lunar_grouped_v1` benchmark and five-seed training
-> of both models are complete; inspect the stored evidence instead of training
-> again. Continue the prioritized remaining paper work: figures/exports and
-> corrected-split secondary analyses only where needed for retained claims.
+> Preserve the purpose, stack, architectures and historical artifacts. The
+> corrected `lunar_grouped_v1` benchmark, five-seed training, five-seed
+> secondary analyses and the paper revision are complete and committed
+> locally; inspect the stored evidence instead of training again. Work from
+> section 4 of this handoff.
 > Read values from result JSONs, preserve validation/test separation, and write
 > new experiment results to separate paths. Do not choose models or operating
 > points using test scores. Explain actual changes and verification. Keep this
 > handoff updated before any context/token limit, including commands, files,
-> running process IDs, checkpoints and remaining tasks. Commit/push only when
+> running process IDs, checkpoints and remaining tasks. Push only when
 > requested by the user.
 
 Another local account needs access to the same workspace. A remote/cloud chat
@@ -316,7 +341,7 @@ and all ten `runs/*grouped_v1*/` model directories. These model files are not
 included in Git. Do not copy `.venv` between machines; recreate the existing
 Python stack from the repository requirements and recorded runtime versions.
 
-## 7. Latest checks
+## 7. Checks from the earlier reconciliation (superseded by the status blocks at the top)
 
 - Dataset manifest SHA256 unchanged: `da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf`.
 - Baselines unchanged: code HEAD `ecf07efe6c95eb026870cede5cb06dcef3769d25`;

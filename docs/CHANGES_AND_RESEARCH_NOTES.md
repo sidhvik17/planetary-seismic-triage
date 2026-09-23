@@ -305,3 +305,27 @@ Corrected seed-42 secondary results:
 Not done: a real LaTeX compile (no TeX engine installed locally), and
 corrected-split reruns of the screening ablation, denoise chain, archive scan
 and Mars. These analyses describe seed 42 only.
+
+## 9. 2026-09-23 — handoff follow-ups (seed coverage, baseline grid, hardening)
+
+| Area | Change | Evidence |
+|---|---|---|
+| Secondary analyses, all seeds | `scripts/run_grouped_secondary.py` runs the Nakamura cross-check, both uncertainty analyses and SNR/PR for every seed at its locked operating point (read from the evaluation JSON); `scripts/aggregate_grouped_secondary.py` checks manifest hash, checkpoint SHA256 and deterministic detection counts, then reports mean ± SD | `results/lunar_grouped_v1_secondary_summary.json`; per-seed `*_lunar_grouped_v1_seed<N>.*`; 3 tests |
+| STA/LTA grid edge | `scripts/sta_lta_grouped.py` repeats validation-only selection on a 2–50 grid with a locked selection file | `results/sta_lta_extended_lunar_grouped_v1.json`: selects 7.0 again (no validation detections above 7.0); test F1 0.168 unchanged |
+| Safe loading | Every model-weight `torch.load` in `app/`, `planetseis/`, `scripts/` uses `weights_only=True`; only the trainer's own `last.pt` resume path keeps full unpickling (NumPy RNG state), with a comment; guard test | all 40 non-resume checkpoints verified loadable; `tests/test_safe_loading.py`; headline reproduction unchanged |
+| Streamlit | Removed deprecated `use_container_width` (current default is `width="stretch"`; the parameter's removal date has passed) | app tests pass |
+
+Five-seed secondary results (mean ± SD [range]):
+
+| Analysis | Five seeds | Seed 42 |
+|---|---|---|
+| SpecUNet FPs within ±300 s of a Nakamura event | 0.43 ± 0.13 [0.29, 0.64]; pooled 47/120; chance 1.5 %; p < 1e-4 every seed | 9/31 |
+| Catalog-adjusted precision | 0.62 ± 0.10 (benchmark 0.34 ± 0.04) | 0.511 |
+| SeisCNN window MC σ, false/true | 7.9 ± 3.5× [3.7, 12.9] | 3.7× |
+| SeisCNN review queue real events | 1 seed of 5 (29–42 candidates each) | 0/30 |
+| SpecUNet σ FP/TP | 0.86 ± 0.43 [0.50, 1.60] — below 1 in 4 seeds | 0.77 |
+| SeisCNN recall below / above median SNR | 0.62 ± 0.10 / 0.70 ± 0.11 (one seed reverses) | 0.636 / 0.750 |
+
+MC-Dropout auto-accept counts need not equal the deterministic evaluation
+(stochastic passes, averaged probabilities); only the deterministic
+cross-check counts are required to match, and they do for every seed.

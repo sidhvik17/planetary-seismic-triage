@@ -94,10 +94,11 @@ events, zero cross-split overlap). Both detectors were retrained from scratch
 over five seeds with validation-only operating points locked before test
 access. Test F1: SeisCNN 0.531 ± 0.031, SpecUNet 0.408 ± 0.043 (Welch
 p = 0.0012); matched filter 0.200; STA/LTA 0.168. See
-`results/lunar_grouped_v1_seed_summary.json`. Seed-42 secondary analyses
-(Nakamura FP cross-check, MC uncertainty, SNR strata, PR sweep) were also
-rerun on the corrected split, and the lunar demo now uses the corrected
-seed-42 checkpoints. Still historical-split only: screening ablation, denoise
+`results/lunar_grouped_v1_seed_summary.json`. The secondary analyses
+(Nakamura FP cross-check, MC uncertainty, SNR strata, PR sweep) were rerun on
+the corrected split for all five seeds
+(`results/lunar_grouped_v1_secondary_summary.json`), and the lunar demo uses
+the corrected seed-42 checkpoints. Still historical-split only: screening ablation, denoise
 chain, archive scan and Mars (listed in `tasks/RESEARCH_HANDOFF.md`).
 
 ## Improvements in this pass
