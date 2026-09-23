@@ -25,6 +25,12 @@ never parses the catalog — it loads this cache.
 
 Output: data/cache/{body}/nakamura_screen.json
   {stem: [event_time_sec, ...]}  event times relative to each trace's start.
+
+Versioned datasets (--data-dir, e.g. data/cache/lunar_grouped_v1) use the
+start_time stored in each cached span and write a NEW file beside the cache
+(default <data-dir>_nakamura_screen.json), so the frozen cache is untouched:
+
+    python scripts/build_nakamura_screen.py --data-dir data/cache/lunar_grouped_v1
 """
 from __future__ import annotations
 
@@ -72,7 +78,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--body", default="lunar")
     ap.add_argument("--splits", nargs="+", default=["train", "val"])
+    ap.add_argument("--data-dir", type=Path,
+                    help="versioned dataset root; span start times come from its npz files")
+    ap.add_argument("--output", type=Path,
+                    help="new screen file (default <data-dir>_nakamura_screen.json)")
     args = ap.parse_args()
+    if "test" in args.splits:
+        ap.error("the screen shapes training noise; test spans must not be read")
 
     # imported here so obspy's UTCDateTime work stays in this process only
     from scripts.crosscheck_nakamura import trace_start_utc
@@ -80,13 +92,18 @@ def main():
     nak = load_nakamura_times()
     print(f"Nakamura S12-detected events: {len(nak)}")
 
+    root = args.data_dir or DATA_CACHE / args.body
     screen: dict[str, list[float]] = {}
     n_hit = n_files = 0
     for split in args.splits:
-        d = DATA_CACHE / args.body / "continuous" / split
+        d = root / "continuous" / split
         for p in sorted(d.glob("*.npz")):
-            z = np.load(p)
-            t0 = trace_start_utc(p.stem)
+            z = np.load(p, allow_pickle=False)
+            if args.data_dir is not None:
+                t0 = datetime.fromisoformat(
+                    str(z["start_time"]).replace("Z", "+00:00")).timestamp()
+            else:
+                t0 = trace_start_utc(p.stem)
             if t0 is None:
                 print(f"  {p.stem}: no mseed header, skipped")
                 continue
@@ -100,8 +117,13 @@ def main():
             print(f"  {split}/{p.stem}: {len(rel)} Nakamura events in span "
                   f"({span / 3600:.1f} h)")
 
-    out = DATA_CACHE / args.body / "nakamura_screen.json"
-    out.write_text(json.dumps(screen, indent=1))
+    if args.data_dir is None:
+        out = DATA_CACHE / args.body / "nakamura_screen.json"
+        out.write_text(json.dumps(screen, indent=1))
+    else:
+        out = args.output or args.data_dir.parent / f"{args.data_dir.name}_nakamura_screen.json"
+        with out.open("x", encoding="utf-8", newline="\n") as handle:  # never overwrite
+            handle.write(json.dumps(screen, indent=1))
     print(f"\n{n_hit} event times across {n_files} files -> {out}")
     print("train with:  python scripts/train_unet.py --body lunar --screen-nakamura")
 

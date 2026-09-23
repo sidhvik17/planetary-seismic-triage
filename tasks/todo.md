@@ -1,3 +1,35 @@
+# Corrected-split reruns — isolated worktree (started 2026-09-23 21:20)
+
+Worktree `C:psis_rerun`, branch `corrected-split-reruns` from `d21a265`,
+outside OneDrive. Main checkout untouched. Runs/cache copied from the verified
+backup (119/119 SHA256). Interpreter: main `.venv` (no downloads); every
+runner sets PYTHONPATH to this checkout and asserts `planetseis` imports here.
+Only one CUDA process at a time; `num_workers=0`.
+
+Analysis plan fixed BEFORE any new result exists:
+
+- [ ] **E1 screening ablation.** SpecUNet, 5 seeds (42/1/2/3/4), identical
+  recipe to the unscreened grouped runs (30 ep x 6400, batch 32, patience 8,
+  from scratch) plus `--screen-nakamura` with
+  `data/cache/lunar_grouped_v1_nakamura_screen.json` (train+val spans only,
+  142 times / 50 files, SHA256 a1a76f45...). Each seed evaluated by
+  `evaluate_grouped.py` at its own validation-locked point. Primary: seed-mean
+  test F1 screened vs the existing unscreened 5 seeds, Welch t-test; report
+  mean ± SD, difference and p. p >= 0.05 is reported as "no difference
+  detected", never "no effect". Secondary (descriptive): validation F1.
+- [ ] **E3a denoise chain (no training).** Seed-42 SpecUNet denoises val/test
+  spans; seed-42 SeisCNN on raw / denoised / max-fusion; each variant's
+  threshold selected on validation and locked before test. New files only.
+- [ ] **E2 archive scan.** Corrected seed-42 SpecUNet (designated before any
+  scan) at its locked point (0.25, 430 s) over S12/S15/S16, same scoring and
+  sweep as the historical scan; outputs under a new tag.
+- [ ] **E3b retrain SeisCNN on denoised windows** — only if time allows;
+  5 seeds, validation-locked.
+- Mars: not rerun. Its data and split never involved the lunar overlap.
+- [ ] Record results in new files; update handoff; commit on this branch.
+
+---
+
 # Final handoff completion — 2026-09-23
 
 The latest request authorizes finishing the remaining local build and checks.

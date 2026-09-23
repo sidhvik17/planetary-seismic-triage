@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import sys
 import time
@@ -87,6 +88,9 @@ def main():
                     help="exclude noise windows near ANY catalogued Nakamura "
                          "event, not just the Grade-A picks "
                          "(scripts/build_nakamura_screen.py)")
+    ap.add_argument("--screen-file", type=Path,
+                    help="screen JSON for --screen-nakamura (default <data>/nakamura_screen.json); "
+                         "its SHA256 is recorded in the run config")
     ap.add_argument("--data-dir", type=Path, help="Versioned dataset root with manifest.json and a held-out val split")
     ap.add_argument("--out-dir", type=Path, help="Fresh run directory; existing runs require --resume")
     ap.add_argument("--resume", action="store_true", help="Continue this run from last.pt")
@@ -99,7 +103,16 @@ def main():
     provenance = dataset_provenance(args.body, args.data_dir)
     if provenance["benchmark_id"] == "lunar_grouped_v1" and (args.finetune_from or args.hardneg):
         ap.error("Corrected grouped training must start from scratch without legacy checkpoints or hard negatives")
+    if args.screen_file is not None and not args.screen_nakamura:
+        ap.error("--screen-file requires --screen-nakamura")
+    screen_path = None
+    if args.screen_nakamura:
+        screen_path = args.screen_file or (args.data_dir or DATA_CACHE / args.body) / "nakamura_screen.json"
+        if not screen_path.exists():
+            sys.exit(f"missing {screen_path} — run scripts/build_nakamura_screen.py first")
     config = training_config(args, asdict(CFG))
+    if screen_path is not None:
+        config["nakamura_screen_sha256"] = hashlib.sha256(screen_path.read_bytes()).hexdigest()
     run_name = f"unet_{args.body}" + (f"_{args.tag}" if args.tag else "")
     out = args.out_dir or RUNS_DIR / run_name
     saved = prepare_run(out, args.resume, config, provenance)
@@ -109,12 +122,8 @@ def main():
 
     # loaded before any CUDA context exists: plain JSON, no obspy, no pandas
     screen = None
-    if args.screen_nakamura:
-        sp = (args.data_dir or DATA_CACHE / args.body) / "nakamura_screen.json"
-        if not sp.exists():
-            sys.exit(f"missing {sp} — run scripts/build_nakamura_screen.py "
-                     f"--body {args.body} first")
-        screen = json.loads(sp.read_text())
+    if screen_path is not None:
+        screen = json.loads(screen_path.read_text())
         print(f"Nakamura screen: {sum(len(v) for v in screen.values())} event "
               f"times across {len(screen)} files")
 
