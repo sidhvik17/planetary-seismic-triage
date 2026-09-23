@@ -85,16 +85,22 @@ operating point was selected on validation and written to a locked
   own validation-locked operating point; mean ± SD, range in brackets):
   - SpecUNet false positives within ±300 s of a Nakamura-catalogued S12 event:
     **0.43 ± 0.13** [0.29, 0.64] of them, pooled 47/120, against 1.5 % by
-    chance; the permutation p is below 10⁻⁴ for every seed. Catalog-adjusted
-    precision 0.62 ± 0.10 against benchmark 0.34 ± 0.04.
+    chance (0 of 10,000 null draws reach the observed count in each seed;
+    plus-one Monte Carlo p ≈ 0.0001). **45 of the 47 pooled matches are to
+    Grade-A events already labeled in that span.** The remaining two point
+    to one distinct additional catalog event, detected by two seeds. This
+    mainly measures the change from ±120 s to ±300 s arrival tolerance;
+    it does not establish 47 new events or improved benchmark precision.
   - SeisCNN MC-Dropout σ is 7.9 ± 3.5× higher on false-alarm than on
     true-event windows [3.7, 12.9], yet the review queue (29–42 candidates
     per seed) caught a real Grade-A event in only one seed.
-  - SpecUNet σ separation (FP/TP) is 0.86 ± 0.43 [0.50, 1.60]: below 1 in
-    four seeds, above 1 in one. Its uncertainty does not reliably flag false
-    alarms.
+  - SpecUNet median uncertainty for **all benchmark FPs / benchmark TPs** is
+    **1.06 ± 0.38** [0.68, 1.66], below 1 in two of five seeds. The earlier
+    0.86 ± 0.43 used only catalog-unmatched FPs in its numerator. Uncertainty
+    does not reliably flag false alarms; a consistent inversion is unsupported.
   - SeisCNN recall 0.62 ± 0.10 below and 0.70 ± 0.11 above the 14.4 dB median
-    event SNR; one seed reverses the order.
+    event SNR proxy; one seed reverses the order. This descriptive split uses
+    the test-event median, not a validation-selected signal-strength cutoff.
   - Seed 42 alone (the demo model) sits at the low end for catalog matches
     (9/31) and SeisCNN σ separation (3.7×); report the five-seed figures.
 * **The lunar demo runs the corrected seed-42 checkpoints**
@@ -104,6 +110,12 @@ operating point was selected on validation and written to a locked
   whose SHA256 differs from the recorded evaluation. Historical lunar weights
   stay in `models/` for reproduction; Mars is unchanged. All ten corrected
   runs are backed up outside OneDrive (see `tasks/RESEARCH_HANDOFF.md`).
+
+The current manuscript is `paper/ml4ps_2026.md` in the separate paper repository.
+See `paper/BUILD.md` for its LaTeX/PDF build and `tasks/RESEARCH_HANDOFF.md`
+for completion status. Secondary claim corrections are documented in
+`docs/CHANGES_AND_RESEARCH_NOTES.md`; historical catalog-match counts below
+must not be interpreted as distinct discoveries.
 
 Sources: `results/lunar_grouped_v1_seed_summary.json`,
 `results/lunar_grouped_v1_seed*_{cnn,unet}.json` (+ `.selection.json`),
@@ -185,8 +197,8 @@ precision), SpecUNet learned event morphology (recall + survey mode).
 Hard-negative fine-tuning with the negative pool screened against the full
 Nakamura catalog (23 of 64 mined "negatives" were real moonquakes and were
 excluded) preserves recall but does not raise benchmark precision —
-consistent with the remaining "false positives" being dominated by real
-uncatalogued events rather than learnable noise
+but this does not establish that the remaining false positives are
+uncatalogued events; arrival-tolerance errors are a competing explanation
 (`results/unet_lunar_ft2_to_lunar.json`).
 
 **Contaminated negatives (positive-unlabeled ablation).** The injection
@@ -198,10 +210,9 @@ of eligible noise windows (2,009,601 of 23,977,989)** sit inside the guard
 radius of a real catalogued event — textbook case-control contamination.
 Retraining with those windows screened out (`--screen-nakamura`) and
 comparing **across 5 seeds vs 3**: mean F1 0.372 (screened) vs 0.379
-(unscreened), Welch **p = 0.923**. **Training-negative contamination has no
-measurable effect on benchmark F1.** The single-seed 0.440 → 0.407 drop seen
-before the seed experiment was noise, not an effect — a useful reminder of
-how misleading one checkpoint is here.
+(unscreened), Welch **p = 0.923**. **No difference was detected in this
+historical comparison.** It is not an equivalence test and does not prove
+contamination has no effect or explain the single-seed 0.440 → 0.407 drop.
 
 At a fixed seed the screened model did leave Grade-A recall identical (11 TP)
 while raising real catalogued events found from 20 to 22 — the metric
@@ -228,24 +239,16 @@ F1 0.50 (P 0.667 / R 0.40) at the survey point
 5000-count glitch in the same span stays *below* threshold, the synthetic
 glitch training holding up.
 
-**Catalog extension (the MarsQuakeNet result, reproduced on the Moon):** of
-the SpecUNet's 20 benchmark "false positives" on the lunar test split, **9
-match events in the full Nakamura Apollo catalog** (13,058 events) that the
-benchmark's 76-label Grade-A subset simply omits — 45% match rate vs 1.7%
-chance, permutation test p < 10⁻⁴ (0 of 10,000 random placements reach 9).
-Match tolerance ±5 min, set by **detector** arrival error, not catalog
-coarseness: SpecUNet's true-positive arrivals carry MAE 68 s / median 77 s,
-so genuine matches routinely land 2–4 min from a catalog time. (The catalog
-itself is tighter than it looks — all 75 checked Grade-A picks fall within
-±60 s of their Nakamura entry — which is why the earlier "Nakamura times are
-too coarse" justification was wrong.) Sensitivity is reported in full: 0
-matches at ±60 s, 1 at ±120 s, 5 at ±180 s, 9 at ±300 s. The permutation test
-is evaluated at the same tolerance, so the p-value is unaffected by the
-choice. Survey-mode precision 0.645. Side-by-side waveform
-evidence in `docs/figures/nakamura_match_*.png` — match #1 is an
-unambiguous meteoroid impact with an hour of coda, 160 s from its catalog
-entry (`scripts/crosscheck_nakamura.py`,
-`results/nakamura_crosscheck.json`).
+**Historical catalog cross-check:** 9 of 20 benchmark FPs were within
+±300 s of a Nakamura entry (`results/nakamura_crosscheck.json`), versus
+1.7% under the stored random-placement null. Those counts and waveform
+figures are preserved. A wider tolerance can match an already labeled
+event that failed the primary ±120 s test, so this is not evidence of nine
+distinct discoveries. The formerly quoted 0.645 "survey precision" is a
+catalog-match reclassification, not a validated precision estimate. The
+corrected-split identity audit above demonstrates this distinction. Each
+tolerance requires its own null; significance at ±300 s does not establish
+significance at other tolerances or prove catalog incompleteness.
 
 **Denoise-then-detect chaining** (`scripts/eval_chain.py`,
 `scripts/build_denoised_windows.py`): feeding SpecUNet-denoised traces to
@@ -279,15 +282,13 @@ managed 60–93% (`results/catalog_extension/summary_lunar.json` vs
 morphology, not station fingerprints.
 
 Cross-body transfer collapses in both directions — reported as a finding.
-MC-Dropout σ separates false alarms from true events 5.9× **for the
-supervised SeisCNN**; the human-review queue costs 2.6 items/day. Ported to
-the injection-trained SpecUNet the separation *inverts* (FP σ / TP σ =
-0.55) and curve-height confidence is not calibrated as a probability — the
-mid-confidence bin is 100% real events (incl. Nakamura) while the top bin
-holds the artifacts (`results/uncertainty_unet.json`). A model never taught
-the catalog's selection function cannot rank catalog membership by
-epistemic uncertainty: triage remains SeisCNN's role; SpecUNet is the
-survey and denoising instrument. Capacity beyond ~120K params *lowers*
+Historical MC-Dropout analysis reported SeisCNN window separation 5.9×
+and a 2.6-item/day review queue. The historical SpecUNet ratio 0.55 excluded
+catalog-matched FPs, so it must not be described as all-FP uncertainty
+inversion (`results/uncertainty_unet.json`). The corrected five-seed result
+above replaces that general claim. Scores are not calibrated event
+probabilities; neither uncertainty analysis validates operational triage.
+Capacity beyond ~120K params *lowers*
 SeisCNN F1 under 45-event label scarcity (see docs/figures/).
 
 ## Layout

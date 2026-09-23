@@ -13,33 +13,43 @@ def write(directory, name, data):
     (directory / name).write_text(json.dumps(data))
 
 
-def write_seed(directory, seed, cnn_sha="c", unet_sha="u", nak_fp=4, matched=1, std=(0.02, 0.1)):
+def write_seed(directory, seed, cnn_sha="c", unet_sha="u", nak_fp=4, matched=1, std=(0.02, 0.1),
+               unet_threshold=0.3):
     tag = f"lunar_grouped_v1_seed{seed}"
     counts = {"tp": 3, "fp": nak_fp, "fn": 2}
+    unet_point = {"threshold": unet_threshold, "min_dur_sec": 600}
     write(directory, f"{tag}_cnn.json", {
-        "checkpoints": {"cnn": {"sha256": "c"}},
+        "data_manifest_sha256": MANIFEST,
+        "checkpoints": {"cnn": {"sha256": "c", "seed": seed}},
         "results": {"cnn": {"operating_point": {"threshold": 0.9},
                             "test_scores": {"tp": 5, "fp": 1, "fn": 1}}}})
     write(directory, f"{tag}_unet.json", {
-        "checkpoints": {"unet": {"sha256": "u"}},
+        "data_manifest_sha256": MANIFEST,
+        "checkpoints": {"unet": {"sha256": "u", "seed": seed}},
         "results": {"unet": {"operating_point": {"threshold": 0.3, "min_dur_sec": 600},
                              "test_scores": {"tp": 3, "fp": 4, "fn": 2}}}})
     base = {"data_manifest_sha256": MANIFEST}
     write(directory, f"nakamura_crosscheck_{tag}.json", {
-        **base, "model_sha256": unet_sha, "benchmark": {**counts, "precision": 0.43},
+        **base, **unet_point, "model_sha256": unet_sha,
+        "benchmark": {**counts, "precision": 0.43},
         "fp_matching_nakamura": matched, "fp_nakamura_match_rate": matched / nak_fp,
-        "chance_match_rate": 0.02, "permutation_p_value": 0.0, "survey_precision": 0.5,
+        "chance_match_rate": 0.02, "permutation_p_value": 0.0, "permutation_n": 10000, "survey_precision": 0.5,
         "match_count_by_tolerance": {"±300s": matched}})
     write(directory, f"uncertainty_{tag}.json", {
         **base, "model_sha256": cnn_sha, "mc_std_true_event_windows": std[0],
         "mc_std_false_alarm_windows": std[1], "ece_raw": 0.03, "ece_temp_scaled": 0.02,
-        "review_queue": {"auto_accept": {"tp": 5, "fp": 1, "fn": 1, "f1": 0.83},
+        "review_queue": {"accept_threshold": 0.9, "mc_passes": 20,
+                         "auto_accept": {"tp": 5, "fp": 1, "fn": 1, "f1": 0.83},
                          "review_queue_total": 3, "review_queue_true_events": 0}})
     write(directory, f"uncertainty_unet_{tag}.json", {
-        **base, "model_sha256": unet_sha, "sigma_separation_fp_over_tp": 0.8,
-        "sigma_separation_cleanfp_over_real": 0.7, "counts": {"tp": 3, "fp": 3}})
+        **base, **unet_point, "model_sha256": unet_sha, "mc_passes": 10,
+        "sigma_separation_fp_over_tp": 0.8, "sigma_separation_cleanfp_over_real": 0.7,
+        "median_sigma": {"tp": 0.01, "fp_all_unmatched": 0.012,
+                         "fp_excluding_nakamura": 0.008, "real_events_tp_plus_nakamura": 0.011},
+        "counts": {"tp": 3, "fp": 3}})
     write(directory, f"snr_recall_{tag}.json", {
-        **base, "model_sha256": cnn_sha, "median_snr_db": 14.0, "recall_low_snr": 0.5,
+        **base, "model_sha256": cnn_sha, "operating_threshold": 0.9,
+        "median_snr_db": 14.0, "recall_low_snr": 0.5,
         "recall_high_snr": 0.8, "n_events": 7})
 
 
@@ -60,11 +70,15 @@ def test_summary_pools_and_averages(tmp_path, monkeypatch):
     assert summary["nakamura"]["match_rate"]["mean"] == pytest.approx(0.375)
     assert summary["seiscnn_uncertainty"]["false_over_true"]["mean"] == pytest.approx(4.0)
     assert summary["seiscnn_uncertainty"]["false_over_true"]["n"] == 2
+    # all-FP ratio comes from the explicit medians, not the legacy stored field
+    assert summary["specunet_uncertainty"]["fp_over_tp"]["mean"] == pytest.approx(1.2)
+    assert summary["nakamura"]["max_permutation_p"] == pytest.approx(1 / 10001)
 
 
 @pytest.mark.parametrize("change,message", [
     ({"unet_sha": "other"}, "not the checkpoint"),
     ({"nak_fp": 5}, "Nakamura counts differ"),
+    ({"unet_threshold": 0.4}, "operating point differs"),
 ])
 def test_mismatched_seed_files_are_rejected(tmp_path, monkeypatch, change, message):
     write_seed(tmp_path, 42, **change)

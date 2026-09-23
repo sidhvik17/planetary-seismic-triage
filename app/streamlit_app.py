@@ -677,9 +677,12 @@ the earlier claim of statistical parity is not supported by this seed analysis.
 These comparisons inherit the frozen split limitation above.
 
 On the corrected split, across five seeds, 43% ± 13% of SpecUNet's benchmark
-false positives lie within ±300 s of events in the full Nakamura catalog that
-the Grade-A subset omits (1.5% expected by chance; historical split: 9 of 20).
-These matches show that the small benchmark catalog omits real events. The
+false positives lie within ±300 s of events in the full Nakamura catalog
+(1.5% under the stored random-placement null). Of 47 pooled matches, 45
+refer to Grade-A events already labeled in the same span. The other two
+refer to one additional catalog event, detected by two seeds. This is mainly
+an arrival-tolerance diagnostic (±300 s versus the benchmark's ±120 s),
+not evidence of 47 discoveries or a replacement precision estimate. The
 separate continuous-archive scan found poor recall at acceptable false-alarm
 rates; survey deployment is not validated. Mask-energy scores are not calibrated
 event probabilities. Cross-body transfer performed poorly in both directions.
@@ -688,7 +691,7 @@ event probabilities. Cross-body transfer performed poorly in both directions.
 On the corrected split its window uncertainty is 7.9 ± 3.5× higher on false
 alarms than on true events (five seeds), but the review queue rarely held a
 real event. SpecUNet uncertainty does not reliably separate false alarms (FP/TP
-ratio 0.86 ± 0.43 across seeds); its MC mode is exploratory and should not be
+ratio 1.06 ± 0.38 across seeds, using all benchmark FPs); its MC mode is exploratory and should not be
 read as validated triage confidence.
 
 Sources within the project: `results/lunar_grouped_v1_seed_summary.json`,

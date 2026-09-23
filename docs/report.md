@@ -23,7 +23,17 @@ For the accumulated implementation changes and fresh verification, see
 > historical lunar test figures below for any performance claim. Source:
 > `results/lunar_grouped_v1_seed_summary.json`; details in `README.md`.
 
-## Abstract
+> **Final secondary-claim correction (2026-09-23):** the corrected five-seed
+> catalog cross-check has 47 pooled matches at ±300 s, but 45 refer to
+> already labeled Grade-A events. The other two refer to one distinct
+> additional candidate catalog event. Treat this as a timing-tolerance
+> diagnostic, not proof of many omitted events or validated survey precision.
+> SpecUNet's uncertainty ratio for all benchmark FPs/TPs is **1.06 ± 0.38**;
+> earlier values excluded catalog-matched FPs. Claims below about catalog
+> extension and consistent uncertainty inversion are historical and withdrawn
+> as general conclusions. Use the current manuscript and walkthrough instead.
+
+## Abstract (historical draft; superseded by the current manuscript)
 
 > **DRAFT — replace with your own abstract if you prefer.**
 

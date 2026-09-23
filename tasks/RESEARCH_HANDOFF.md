@@ -1,8 +1,27 @@
 # APSIS — handoff for the next agent
 
-Updated: 2026-09-23, end of the follow-up pass. The benchmark repair,
-retraining, evaluation, five-seed secondary analyses, demo model switch,
-paper figures/LaTeX twin and local commits are **done and verified**. What is
+## Final completion pass — completed 2026-09-23
+
+Started by a Codex session (paper build, claim audit), finished and verified
+by Claude. No training, GPU inference or threshold selection was repeated;
+every correction below is recomputed from stored per-seed files.
+
+| Item | State | Evidence |
+|---|---|---|
+| Catalog cross-check wording | **Corrected** | 45 of the 47 pooled ±300 s matches are Grade-A events already labelled in the same span (detection 120–300 s from the pick); 2 detections (seeds 2, 4) point to one catalog event absent from Grade-A (1975-06-26, `evid00198`). Arrival-tolerance diagnostic, not missing labels. "Catalog-adjusted precision" withdrawn. `scripts/analyze_catalog_tolerance.py` -> `results/lunar_grouped_v1_catalog_tolerance_audit.json`; re-derived independently from the detection CSVs |
+| SpecUNet uncertainty ratio | **Corrected** | stored `sigma_separation_fp_over_tp` used catalog-unmatched FPs only; all-FP/TP from the stored medians is 1.06 ± 0.38 [0.68, 1.66], below 1 in two seeds (was 0.86 ± 0.43). `scripts/uncertainty_unet.py` fixed for future runs |
+| Permutation p | Plus-one | 0 of 10,000 exceedances in every seed -> p = 1/10,001 ≈ 1e-4 (was reported as 0) |
+| Aggregate | Stricter | `scripts/aggregate_grouped_secondary.py` also checks each file's operating point against the locked evaluation and records source SHA256s; output reproduces byte-for-byte |
+| Figure 3 | Redrawn | stacks "already a Grade-A label" vs "catalog entry absent from Grade-A" per tolerance; refuses to draw if the audit does not reproduce the stored counts |
+| Real LaTeX PDF | **Done** | portable Tectonic 0.17.0 (outside the repo): `C:\Users\ASUS\.cache\apsis-tools\tectonic-0.17.0\tectonic.exe`; `cd paper; python build_paper.py --tectonic <that path>` regenerates .tex/.html/`ml4ps_2026.pdf`/Overleaf zip/`ml4ps_2026_build.json`. 10 pages, no overfull boxes, every page inspected. See `paper/BUILD.md` |
+| Docs | Updated | README, benchmark README, walkthrough (rewritten as a corrected defense guide), review, report, app About, change notes §10, `paper/REVISION_NOTES.md`, lessons |
+| Verification | Done | 173 tests pass; grouped audit exit 0; historical audit exit 1 (expected); headline 0.5405 / 0.4400 reproduces; backup 119/119 files match `SHA256SUMS`; demo model = run = evaluation SHA256; no change in `models/`, splits or historical results |
+
+Updated: 2026-09-23, end of the final completion pass. The benchmark
+repair, retraining, evaluation, five-seed secondary analyses, demo model
+switch, claim corrections, real LaTeX PDF and local commits are **done and
+verified**. The blocks below the final pass are kept as history; where
+they disagree with the final pass, the final pass wins. What is
 left is listed in section 4. Read this file fully before touching anything.
 
 ## Follow-up pass — completed 2026-09-23 (after the publication pass)
@@ -19,12 +38,12 @@ left is listed in section 4. Read this file fully before touching anything.
 Five-seed corrected secondary results (mean ± SD [range]; seed 42 in brackets):
 
 - SpecUNet FPs within ±300 s of a Nakamura S12 event: 0.43 ± 0.13 [0.29,
-  0.64], pooled 47/120, chance 1.5 %, permutation p < 1e-4 for every seed;
-  catalog-adjusted precision 0.62 ± 0.10 vs benchmark 0.34 ± 0.04 [9/31, 0.511].
+  0.64], pooled 47/120, chance 1.5 % [9/31]. **Superseded reading:** 45/47
+  are already-labelled events; catalog-adjusted precision is withdrawn.
 - SeisCNN window MC σ false/true: 7.9 ± 3.5× [3.7, 12.9] [3.7×]; the review
   queue held a real Grade-A event in 1 of 5 seeds.
-- SpecUNet σ FP/TP: 0.86 ± 0.43 [0.50, 1.60] — below 1 in four seeds, not
-  all [0.77]. Do not say SpecUNet uncertainty "always inverts".
+- SpecUNet σ ratio 0.86 ± 0.43 [0.77] — **superseded**: it excluded
+  catalog-matched FPs; all-FP/TP is 1.06 ± 0.38 [1.05].
 - SeisCNN recall below / above the 14.4 dB median SNR: 0.62 ± 0.10 /
   0.70 ± 0.11; one seed reverses the order [0.636 / 0.750].
 - Seed 42 (the demo model) is the weakest seed for catalog matches and
@@ -49,11 +68,13 @@ Seed-42 corrected secondary results (historical split in brackets):
 - SpecUNet (0.25 / 430 s): 9 of 31 benchmark FPs lie within ±300 s of a
   Nakamura-catalogued S12 event, 29.0 % vs 1.5 % chance, 0/10,000
   permutations; tolerance counts 0/0/4/9 at ±60/120/180/300 s;
-  catalog-adjusted precision 0.511 vs benchmark 0.311 [9/20, 45 %, 0.645].
+  catalog-adjusted precision 0.511 vs benchmark 0.311 [9/20, 45 %, 0.645]
+  (withdrawn in the final pass).
 - SeisCNN (0.97): window MC σ false-alarm/true-event 0.100/0.027 = 3.7× [5.9×];
   ECE raw 0.035, temperature-scaled 0.028 (T = 0.834 fitted on val); the
   review queue added 30 candidates and 0 real Grade-A events [50, 1].
-- SpecUNet MC σ FP/TP 0.77, clean-FP/real 0.70 [0.55, 0.49] — still inverted.
+- SpecUNet MC σ 0.77, clean-FP/real 0.70 [0.55, 0.49]. The 0.77 used
+  catalog-unmatched FPs only; all-FP/TP is 1.05 (final pass).
 - SeisCNN recall 0.636 (11 events) below and 0.750 (12) above the 14.4 dB
   median event SNR.
 - Detection counts in every secondary run match the locked seed-42
@@ -75,12 +96,15 @@ Root repository, branch `archive-scan-and-seed-variance` (previous HEAD
 | `0be17f1` | Docs, change notes, this handoff, todo, lessons |
 | `5728e1d` | Follow-up: `weights_only=True` for every model-weight load + guard test |
 | `5fa5c56` | Follow-up: five-seed secondary analyses, aggregation with provenance checks, extended STA/LTA grid |
-| the commit that adds this row (HEAD at hand-off) | Follow-up: docs, app About text, Streamlit deprecation, handoff, todo |
+| `2709895` | Follow-up: docs, app About text, Streamlit deprecation, handoff, todo |
+| the commit that adds this row (HEAD at hand-off) | Final pass: catalog-tolerance audit, uncertainty/p-value corrections, stricter aggregate, reworded docs and app, handoff |
 
 Paper repository `paper/`, branch `main` (previous HEAD `2e21984`):
 `63ebfd5` — corrected draft, Figures 1–3, `md_to_tex.py`, generated
 `.tex`/`.html`, preview PDF, Overleaf zip, revision notes; `98d5fcd` —
-five-seed secondary results, new Fig. 3, regenerated exports.
+five-seed secondary results, new Fig. 3, regenerated exports; `02989f2`
+— claim corrections, stacked Fig. 3, Tectonic build script,
+compiled `ml4ps_2026.pdf`, build hashes, `BUILD.md`.
 
 Nothing was pushed. Check with `git log --oneline -5` in each repository.
 
@@ -254,14 +278,11 @@ conclusion) and `paper/REVISION_NOTES.md`.
 
 ## 4. What remains (priority order)
 
-1. **Compile the LaTeX for real.** No TeX engine is installed on this laptop.
-   Either upload `paper/ml4ps_2026_overleaf.zip` to Overleaf, or (with the
-   user's permission, since it downloads software) install MiKTeX or
-   Tectonic and run `pdflatex ml4ps_2026.tex` twice in `paper/`. Inspect the
-   PDF (figures, the three tables, abstract), then commit the PDF in `paper/`.
-   After any Markdown edit: `python md_to_tex.py; python make_overleaf_zip.py`.
-   If the venue needs its own style (e.g. NeurIPS workshop), swap the preamble
-   in `md_to_tex.py`; do not hand-edit the generated .tex.
+1. **Before submission (author work):** the compiled PDF is a general
+   article, not a venue template. Pick the venue, swap the preamble in
+   `paper/md_to_tex.py` if it needs its own style (never hand-edit the
+   generated .tex), fill the author block, verify bibliography metadata,
+   then rerun `paper/build_paper.py` and inspect every page again.
 2. **Push only when asked.** Both repositories have local commits (section
    0a). Nothing was pushed. The paper repository's remote is private.
 3. **Optional corrected-split reruns** (still historical-split only): the
@@ -272,14 +293,16 @@ conclusion) and `paper/REVISION_NOTES.md`.
 4. **Research limits to keep stating:** 23 test events in 21 spans; the audit
    covers intervals and complete-waveform identity only (not repeated
    deep-moonquake sources); secondary analyses vary strongly across seeds
-   (quote mean ± SD, not seed 42); archive and
+   (quote mean ± SD, not seed 42); a catalog coincidence at ±300 s is
+   not a discovery (45/47 were already-labelled events); archive and
    Mars results are historical-split analyses; the archive scan gate failed
    (B3). Never write that the leak had no effect: split, labels and test
    population all changed together.
 5. **Superseded exports in `paper/`** (`paper_ieee*.tex`,
    `planetseis_ieee_overleaf.zip`, `overleaf_pkg/`, `paper.md`,
-   `paper_final.md`, `draft_v2.md`, decks) contain retracted claims. Do not
-   submit them; `ml4ps_2026.md` is the source of truth.
+   `paper_final.md`, `draft_v2.md`, decks, and the Edge-printed
+   `ml4ps_2026_preview.pdf`) contain retracted claims. Do not submit them;
+   `ml4ps_2026.md` -> `ml4ps_2026.pdf` is the source of truth.
 
 ## 5. Useful commands
 
@@ -290,7 +313,11 @@ git status --short; git -C paper status --short
 .venv\Scripts\python scripts\aggregate_grouped_seeds.py
 .venv\Scripts\python scripts\run_grouped_secondary.py      # skips outputs that exist
 .venv\Scripts\python scripts\aggregate_grouped_secondary.py
+.venv\Scripts\python scripts\analyze_catalog_tolerance.py  # catalog match identity audit
+.venv\Scripts\python scripts\audit_splits.py               # historical split; exit 1 expected
 .venv\Scripts\python scripts\reproduce_headline.py
+# Paper (in paper/): regenerate .tex/.html/PDF/zip/build hashes
+..\.venv\Scripts\python build_paper.py --tectonic 'C:\Users\ASUS\.cache\apsis-tools\tectonic-0.17.0\tectonic.exe'
 bash scripts/run_grouped_seeds.sh            # resumes; finished runs are no-ops
 # A new evaluation must use a NEW output name (exclusive creation):
 .venv\Scripts\python scripts\evaluate_grouped.py --data-dir data/cache/lunar_grouped_v1 --unet runs/unet_lunar_grouped_v1/best.pt --output results/<new_name>.json --skip-baseline
@@ -323,8 +350,8 @@ $env:MKL_NUM_THREADS = '2'
 > `docs/CHANGES_AND_RESEARCH_NOTES.md`, and both repositories' Git status.
 > Preserve the purpose, stack, architectures and historical artifacts. The
 > corrected `lunar_grouped_v1` benchmark, five-seed training, five-seed
-> secondary analyses and the paper revision are complete and committed
-> locally; inspect the stored evidence instead of training again. Work from
+> secondary analyses, claim corrections, the paper revision and its real
+> LaTeX PDF are complete and committed locally; inspect the stored evidence instead of training again. Work from
 > section 4 of this handoff.
 > Read values from result JSONs, preserve validation/test separation, and write
 > new experiment results to separate paths. Do not choose models or operating

@@ -14,3 +14,12 @@
   distinction between local ignored artifacts and version-controlled files.
 - Do not infer that leakage had no effect from higher corrected scores when
   split membership, event labels and evaluation populations also changed.
+- When a catalog cross-check uses a wider arrival tolerance than the primary
+  benchmark, compare matched catalog identities with existing benchmark picks
+  before describing them as omitted events or discoveries. Temporal association
+  and new-event identity are different questions.
+- Verify the exact population in a reported ratio. A variable named `fp` may
+  exclude catalog-matched detections; do not call it all false positives without
+  checking the stored numerator. Monte Carlo p-values should not be zero.
+- Re-read the on-disk handoff and Git state after cross-account continuation.
+  Old conversation plans must not overwrite work completed by another account.

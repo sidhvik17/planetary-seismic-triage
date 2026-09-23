@@ -122,7 +122,7 @@ def main():
         return float(np.median(sig[mask])) if mask.any() else None
 
     s_tp = med_sig(arr_cls == "tp")
-    s_fp = med_sig(arr_cls == "fp")
+    s_fp = med_sig(np.isin(arr_cls, ["fp", "fp_nakamura"]))
     s_real = med_sig(np.isin(arr_cls, ["tp", "fp_nakamura"]))
     s_fp_clean = med_sig(arr_cls == "fp")
 
@@ -161,6 +161,8 @@ def main():
         },
         "sigma_separation_fp_over_tp":
             round(s_fp / s_tp, 2) if s_tp and s_fp else None,
+        "sigma_separation_catalog_unmatched_fp_over_benchmark_tp":
+            round(s_fp_clean / s_tp, 2) if s_tp and s_fp_clean else None,
         "sigma_separation_cleanfp_over_real":
             round(s_fp_clean / s_real, 2) if s_real and s_fp_clean else None,
         "calibration": calib,

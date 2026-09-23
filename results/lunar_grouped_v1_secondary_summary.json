@@ -8,7 +8,40 @@
     3,
     4
   ],
-  "protocol": "Each seed's checkpoint at its own validation-locked operating point (scripts/run_grouped_secondary.py); counts verified against the locked evaluations. Mean and sample SD across seeds.",
+  "protocol": "Each seed's checkpoint at its own validation-locked operating point (scripts/run_grouped_secondary.py); counts verified against the locked evaluations for the deterministic catalog detector; stochastic MC counts may differ. Mean and sample SD across seeds. Raw per-seed files are preserved; corrected ratios use explicit medians and Monte Carlo p uses plus-one.",
+  "source_sha256": {
+    "lunar_grouped_v1_seed42_cnn.json": "ae90c33efb68df5634f92a95a96f25e4cf5dfe6cb36791f757ee6040e3f9425f",
+    "lunar_grouped_v1_seed42_unet.json": "d6fa410c085148bcdc85fbf6c8e8c121d528ec1c73ae62b8c237b6eae3541704",
+    "nakamura_crosscheck_lunar_grouped_v1_seed42.json": "ebf034299476dfef11f836fe28530d7339ec05f1e0153c10b78ffbd875aa8b2d",
+    "uncertainty_lunar_grouped_v1_seed42.json": "3a3d31bd0e16d67e35fe78bb112725ac2b587471c470ba4713c9a3af80a1ef67",
+    "uncertainty_unet_lunar_grouped_v1_seed42.json": "7b6ce5be1a1349de84e20c95d791e9a8f6066fd9f532cf552de68bae350f69fa",
+    "snr_recall_lunar_grouped_v1_seed42.json": "53b423b9b87d8c3ba2ef91c9c2aae0ff87b881a7dc38bdf6a208b2430dab76aa",
+    "lunar_grouped_v1_seed1_cnn.json": "2b23f29c955fdc3001e9685dd8717e2ae330ab26a5f4b738f7f8294d6c3d0fe6",
+    "lunar_grouped_v1_seed1_unet.json": "ff8efb4f19c1a03a5eae1498bd094e210ec177e836a21665608cb4aed9dd56c0",
+    "nakamura_crosscheck_lunar_grouped_v1_seed1.json": "f22c276ab0daecd19b6e41e78317fd61572c83d6d5c1d8b5c5e695fd0b3bb826",
+    "uncertainty_lunar_grouped_v1_seed1.json": "6370219a9c79a4883731aa7de0f8b2bd4d36b98d2a2ca7d7b332eb475dbe8f54",
+    "uncertainty_unet_lunar_grouped_v1_seed1.json": "26bafc3025edd8191c05b6e4af83cb9f278361bf7dddc439635941dbb27d6d00",
+    "snr_recall_lunar_grouped_v1_seed1.json": "1f7c74d9bcee8fa6517eb37022df029680e92e17cde71c34c4e91c333707d18b",
+    "lunar_grouped_v1_seed2_cnn.json": "3ea2101a81d61efe7c2460166286004abe2d3e13ed776617944874351f92ac4e",
+    "lunar_grouped_v1_seed2_unet.json": "13b6952319359d137c924b85044d6b489bfce769b29a157d4928d1351a50649a",
+    "nakamura_crosscheck_lunar_grouped_v1_seed2.json": "17254dd3dc3d145d3d7e83646a7c13ece0e69160431bb37e03d670ebc966f5fc",
+    "uncertainty_lunar_grouped_v1_seed2.json": "bd2e17d3517f8ff92a6797c5eb8b6a0711dd875ec0f7c1bd0688557035a71b67",
+    "uncertainty_unet_lunar_grouped_v1_seed2.json": "4aa666750dbaadbde1dd0c65d519b860baf6b60ce74fc927614d98efea22f5bb",
+    "snr_recall_lunar_grouped_v1_seed2.json": "896c390fddfde5e248ef3c250aa345fd499de10f33021d2ad081affe563faf72",
+    "lunar_grouped_v1_seed3_cnn.json": "283e16e63eea8274725819d938a93d117534af5e99d2e6236756bcc04ace1843",
+    "lunar_grouped_v1_seed3_unet.json": "9e8efbb425cdca8370501b6a1b2093c0f60314278139ddf3dbac929ba2fa3bed",
+    "nakamura_crosscheck_lunar_grouped_v1_seed3.json": "fa3e892ea00df82109551ee5071f0d9e62ad32c48f44e403d7ec9cc56595d030",
+    "uncertainty_lunar_grouped_v1_seed3.json": "9e94259df2e9070b10b475fcd534a918f022d12aa85f666a8abdfc7f2c6010f6",
+    "uncertainty_unet_lunar_grouped_v1_seed3.json": "aecc9045596bb62b02308da3319b35ecb6b38c93ece3ae728dee05bdbb2153c2",
+    "snr_recall_lunar_grouped_v1_seed3.json": "92fe2415d63a6368cf62b0f31f48e9c34828cf96909b394eea86520c75113f1d",
+    "lunar_grouped_v1_seed4_cnn.json": "5a37ad08171fe0193f9078c18c5a81243b607b851376e6d4b84af02e696f8227",
+    "lunar_grouped_v1_seed4_unet.json": "b63e0d406467e1c3d13a17d42d1fe1a7068a8660aab4a97058ef3531665be522",
+    "nakamura_crosscheck_lunar_grouped_v1_seed4.json": "de10424dbbfef8b68f4239cc1882f8514bbe46ba030cea14b830b28410d28806",
+    "uncertainty_lunar_grouped_v1_seed4.json": "0f20d12dbd09fe45db276572cf987498353d162f4907a7aec42f954cd5bc9a23",
+    "uncertainty_unet_lunar_grouped_v1_seed4.json": "daf0cc789432130d47796feace645bfafef81fc0e816f354b7a638b481b3b77e",
+    "snr_recall_lunar_grouped_v1_seed4.json": "180b4fadfe0c4c997be3dd4c23e7df8b1908e1dd9cce69e0bae376a625336a35"
+  },
+  "analysis_script_sha256": "f722ede605c2e212feef910e93d638e4fd32f67b23b27093e057aa8195eb28a4",
   "nakamura": {
     "match_rate": {
       "mean": 0.4256,
@@ -39,8 +72,9 @@
       "n": 5
     },
     "pooled_fp_matching": "47/120",
-    "max_permutation_p": 0.0,
-    "tolerance_sec": 300
+    "max_permutation_p": 9.999000099990002e-05,
+    "tolerance_sec": 300,
+    "interpretation": "Uniform within-span placement is a descriptive null. Most catalog matches can be existing Grade-A picks missed at \u00b1120s; see lunar_grouped_v1_catalog_tolerance_audit.json. The historical survey_precision field is not precision for newly found events."
   },
   "seiscnn_uncertainty": {
     "false_over_true": {
@@ -81,18 +115,30 @@
   },
   "specunet_uncertainty": {
     "fp_over_tp": {
+      "mean": 1.057,
+      "sd": 0.3796,
+      "min": 0.68,
+      "max": 1.6629,
+      "n": 5
+    },
+    "catalog_unmatched_fp_over_benchmark_tp": {
       "mean": 0.858,
-      "sd": 0.4278,
-      "min": 0.5,
-      "max": 1.6,
+      "sd": 0.4284,
+      "min": 0.4951,
+      "max": 1.5997,
       "n": 5
     },
     "cleanfp_over_real": {
-      "mean": 0.77,
+      "mean": 0.7703,
       "sd": 0.4436,
-      "min": 0.42,
-      "max": 1.53,
+      "min": 0.417,
+      "max": 1.5293,
       "n": 5
+    },
+    "definitions": {
+      "fp_over_tp": "median sigma of all benchmark-unmatched detections / benchmark TP median sigma",
+      "catalog_unmatched_fp_over_benchmark_tp": "median sigma after excluding catalog matches / benchmark TP median sigma",
+      "cleanfp_over_real": "catalog-unmatched median sigma / median sigma of benchmark TP plus wider-tolerance catalog matches"
     }
   },
   "seiscnn_snr_recall": {
@@ -109,7 +155,9 @@
       "min": 0.5,
       "max": 0.75,
       "n": 5
-    }
+    },
+    "stratification": "Exploratory split at the TEST-event median, not a validation-locked stratum boundary.",
+    "signal_strength_proxy": "20 log10(post-onset RMS 0\u2013300s / pre-onset RMS -900\u2013-300s); the noise interval is 600s. Not a calibrated physical SNR."
   },
   "per_seed": [
     {
@@ -126,7 +174,11 @@
         "fp_matching": 9,
         "match_rate": 0.2903,
         "chance_rate": 0.0153,
-        "permutation_p": 0.0,
+        "permutation_p": 9.999000099990002e-05,
+        "permutation_exceedances": 0,
+        "permutation_n": 10000,
+        "permutation_estimator": "plus_one",
+        "stored_raw_p": 0.0,
         "benchmark_precision": 0.3111,
         "survey_precision": 0.5111,
         "match_count_by_tolerance": {
@@ -137,6 +189,7 @@
         }
       },
       "seiscnn_uncertainty": {
+        "mc_passes": 20,
         "mc_std_true_event_windows": 0.027,
         "mc_std_false_alarm_windows": 0.0999,
         "false_over_true": 3.7,
@@ -152,8 +205,11 @@
         "review_queue_true_events": 0
       },
       "specunet_uncertainty": {
-        "fp_over_tp": 0.77,
-        "cleanfp_over_real": 0.7,
+        "fp_over_tp": 1.05079383422324,
+        "catalog_unmatched_fp_over_benchmark_tp": 0.7726494066633451,
+        "cleanfp_over_real": 0.7026193174264526,
+        "mc_passes": 10,
+        "stored_legacy_fp_over_tp": 0.77,
         "counts": {
           "tp": 14,
           "fp_nakamura": 9,
@@ -181,7 +237,11 @@
         "fp_matching": 7,
         "match_rate": 0.6364,
         "chance_rate": 0.0137,
-        "permutation_p": 0.0,
+        "permutation_p": 9.999000099990002e-05,
+        "permutation_exceedances": 0,
+        "permutation_n": 10000,
+        "permutation_estimator": "plus_one",
+        "stored_raw_p": 0.0,
         "benchmark_precision": 0.3889,
         "survey_precision": 0.7778,
         "match_count_by_tolerance": {
@@ -192,6 +252,7 @@
         }
       },
       "seiscnn_uncertainty": {
+        "mc_passes": 20,
         "mc_std_true_event_windows": 0.0151,
         "mc_std_false_alarm_windows": 0.1296,
         "false_over_true": 8.583,
@@ -207,8 +268,11 @@
         "review_queue_true_events": 0
       },
       "specunet_uncertainty": {
-        "fp_over_tp": 1.6,
-        "cleanfp_over_real": 1.53,
+        "fp_over_tp": 1.662920772300271,
+        "catalog_unmatched_fp_over_benchmark_tp": 1.5997236328811024,
+        "cleanfp_over_real": 1.5293012572085434,
+        "mc_passes": 10,
+        "stored_legacy_fp_over_tp": 1.6,
         "counts": {
           "tp": 7,
           "fp_nakamura": 6,
@@ -236,7 +300,11 @@
         "fp_matching": 11,
         "match_rate": 0.44,
         "chance_rate": 0.0159,
-        "permutation_p": 0.0,
+        "permutation_p": 9.999000099990002e-05,
+        "permutation_exceedances": 0,
+        "permutation_n": 10000,
+        "permutation_estimator": "plus_one",
+        "stored_raw_p": 0.0,
         "benchmark_precision": 0.3421,
         "survey_precision": 0.6316,
         "match_count_by_tolerance": {
@@ -247,6 +315,7 @@
         }
       },
       "seiscnn_uncertainty": {
+        "mc_passes": 20,
         "mc_std_true_event_windows": 0.016,
         "mc_std_false_alarm_windows": 0.138,
         "false_over_true": 8.625,
@@ -262,8 +331,11 @@
         "review_queue_true_events": 0
       },
       "specunet_uncertainty": {
-        "fp_over_tp": 0.5,
-        "cleanfp_over_real": 0.49,
+        "fp_over_tp": 0.6799832531931479,
+        "catalog_unmatched_fp_over_benchmark_tp": 0.4950941233089633,
+        "cleanfp_over_real": 0.49062574783244034,
+        "mc_passes": 10,
+        "stored_legacy_fp_over_tp": 0.5,
         "counts": {
           "tp": 12,
           "fp_nakamura": 11,
@@ -291,7 +363,11 @@
         "fp_matching": 10,
         "match_rate": 0.3448,
         "chance_rate": 0.0166,
-        "permutation_p": 0.0,
+        "permutation_p": 9.999000099990002e-05,
+        "permutation_exceedances": 0,
+        "permutation_n": 10000,
+        "permutation_estimator": "plus_one",
+        "stored_raw_p": 0.0,
         "benchmark_precision": 0.3095,
         "survey_precision": 0.5476,
         "match_count_by_tolerance": {
@@ -302,6 +378,7 @@
         }
       },
       "seiscnn_uncertainty": {
+        "mc_passes": 20,
         "mc_std_true_event_windows": 0.0091,
         "mc_std_false_alarm_windows": 0.1174,
         "false_over_true": 12.901,
@@ -317,8 +394,11 @@
         "review_queue_true_events": 1
       },
       "specunet_uncertainty": {
-        "fp_over_tp": 0.74,
-        "cleanfp_over_real": 0.71,
+        "fp_over_tp": 0.8003035099151747,
+        "catalog_unmatched_fp_over_benchmark_tp": 0.740854955458556,
+        "cleanfp_over_real": 0.7122378925135874,
+        "mc_passes": 10,
+        "stored_legacy_fp_over_tp": 0.74,
         "counts": {
           "tp": 14,
           "fp_nakamura": 9,
@@ -346,7 +426,11 @@
         "fp_matching": 10,
         "match_rate": 0.4167,
         "chance_rate": 0.0159,
-        "permutation_p": 0.0,
+        "permutation_p": 9.999000099990002e-05,
+        "permutation_exceedances": 0,
+        "permutation_n": 10000,
+        "permutation_estimator": "plus_one",
+        "stored_raw_p": 0.0,
         "benchmark_precision": 0.3684,
         "survey_precision": 0.6316,
         "match_count_by_tolerance": {
@@ -357,6 +441,7 @@
         }
       },
       "seiscnn_uncertainty": {
+        "mc_passes": 20,
         "mc_std_true_event_windows": 0.0175,
         "mc_std_false_alarm_windows": 0.1011,
         "false_over_true": 5.777,
@@ -372,8 +457,11 @@
         "review_queue_true_events": 0
       },
       "specunet_uncertainty": {
-        "fp_over_tp": 0.68,
-        "cleanfp_over_real": 0.42,
+        "fp_over_tp": 1.09092905897416,
+        "catalog_unmatched_fp_over_benchmark_tp": 0.6815576171178099,
+        "cleanfp_over_real": 0.41695576153134717,
+        "mc_passes": 10,
+        "stored_legacy_fp_over_tp": 0.68,
         "counts": {
           "tp": 13,
           "fp_nakamura": 11,

@@ -296,10 +296,10 @@ Corrected seed-42 secondary results:
 | Analysis | Corrected split | Historical split |
 |---|---|---|
 | SpecUNet FPs matching Nakamura (±300 s) | 9 / 31 (29.0 % vs 1.5 % chance, 0/10,000 perm.) | 9 / 20 (45 % vs 1.7 %) |
-| Catalog-adjusted precision | 0.511 (benchmark 0.311) | 0.645 (0.355) |
+| Catalog-adjusted precision (withdrawn, see §10) | 0.511 (benchmark 0.311) | 0.645 (0.355) |
 | SeisCNN window MC σ, false alarm / true event | 0.100 / 0.027 = 3.7× | 5.9× |
 | SeisCNN review queue | 30 candidates, 0 real Grade-A events | 50, 1 |
-| SpecUNet detection σ FP/TP; clean-FP/real | 0.77; 0.70 | 0.55; 0.49 |
+| SpecUNet detection σ clean-FP/TP (mislabelled FP/TP, see §10); clean-FP/real | 0.77; 0.70 | 0.55; 0.49 |
 | SeisCNN recall below / above median SNR | 0.636 / 0.750 (median 14.4 dB, n = 23) | — |
 
 Not done: a real LaTeX compile (no TeX engine installed locally), and
@@ -320,12 +320,51 @@ Five-seed secondary results (mean ± SD [range]):
 | Analysis | Five seeds | Seed 42 |
 |---|---|---|
 | SpecUNet FPs within ±300 s of a Nakamura event | 0.43 ± 0.13 [0.29, 0.64]; pooled 47/120; chance 1.5 %; p < 1e-4 every seed | 9/31 |
-| Catalog-adjusted precision | 0.62 ± 0.10 (benchmark 0.34 ± 0.04) | 0.511 |
+| Catalog-adjusted precision (withdrawn, see §10) | 0.62 ± 0.10 (benchmark 0.34 ± 0.04) | 0.511 |
 | SeisCNN window MC σ, false/true | 7.9 ± 3.5× [3.7, 12.9] | 3.7× |
 | SeisCNN review queue real events | 1 seed of 5 (29–42 candidates each) | 0/30 |
-| SpecUNet σ FP/TP | 0.86 ± 0.43 [0.50, 1.60] — below 1 in 4 seeds | 0.77 |
+| SpecUNet σ FP/TP (superseded: numerator excluded catalog-matched FPs; all-FP 1.06 ± 0.38, see §10) | 0.86 ± 0.43 [0.50, 1.60] — below 1 in 4 seeds | 0.77 |
 | SeisCNN recall below / above median SNR | 0.62 ± 0.10 / 0.70 ± 0.11 (one seed reverses) | 0.636 / 0.750 |
 
 MC-Dropout auto-accept counts need not equal the deterministic evaluation
 (stochastic passes, averaged probabilities); only the deterministic
 cross-check counts are required to match, and they do for every seed.
+
+## 10. 2026-09-23 — final completion pass (claim corrections, real LaTeX build)
+
+Two secondary claims in sections 8 and 9 were wrong. Both corrections use the
+stored per-seed files; no model was retrained and no inference was rerun.
+
+| Claim in §8/§9 | What the stored evidence shows | Evidence |
+|---|---|---|
+| 43 % ± 13 % of SpecUNet FPs "match Nakamura events", so the benchmark catalog undercounts real events; catalog-adjusted precision 0.62 ± 0.10 | The match rate is right, but **45 of the 47 pooled matches are Grade-A events already labelled in the same span**: the detection landed 120–300 s from the pick, so it failed the ±120 s benchmark rule. The other two (seeds 2 and 4) point to one catalog event absent from Grade-A (1975-06-26, `evid00198`). This is an arrival-tolerance diagnostic, not evidence of missing labels. "Catalog-adjusted precision" is withdrawn | `scripts/analyze_catalog_tolerance.py` -> `results/lunar_grouped_v1_catalog_tolerance_audit.json`; independently re-derived from the detection CSVs and span picks (45 within 360 s of a pick; 2 about 10 h away) |
+| SpecUNet σ FP/TP 0.86 ± 0.43, below 1 in four seeds | The stored `sigma_separation_fp_over_tp` used only catalog-unmatched FPs (the `fp` and `fp_clean` medians were the same expression). All benchmark FPs / TPs is **1.06 ± 0.38 [0.68, 1.66]**, below 1 in two seeds. Uncertainty still does not flag false alarms reliably; no consistent inversion | `median_sigma` fields of `results/uncertainty_unet_lunar_grouped_v1_seed<N>.json` (seed 42: 0.00976 / 0.00929 = 1.05, not 0.77) |
+| Permutation p < 1e-4 (reported as 0) | 0 of 10,000 placements reached the observed count for every seed; the plus-one Monte Carlo estimate is 1/10,001 ≈ 1e-4, not 0. It tests temporal association under uniform placement, not discovery | `scripts/crosscheck_nakamura.py`, aggregate |
+
+Changes:
+
+- `scripts/uncertainty_unet.py`: the FP numerator now includes catalog-matched
+  FPs; a separate `sigma_separation_catalog_unmatched_fp_over_benchmark_tp`
+  keeps the old quantity under an honest name. Stored per-seed files are
+  unchanged; the aggregate recomputes ratios from their explicit medians.
+- `scripts/crosscheck_nakamura.py`: plus-one p, stored exceedance count,
+  reworded notes (a match is a candidate association, not a verified event).
+- `scripts/aggregate_grouped_secondary.py`: also checks each secondary file's
+  operating point against the locked evaluation, records source-file SHA256s,
+  and derives plus-one p from legacy files.
+- `tests/test_secondary_interpretation.py` (6 tests) pins these distinctions.
+- Figure 3 now stacks each tolerance's matches into "already a Grade-A label"
+  and "catalog entry absent from Grade-A" (from the audit JSON; it refuses to
+  draw if the audit does not reproduce the stored counts).
+- README, benchmark README, walkthrough, review, report, app About text and the
+  paper were reworded. The historical 9/20 count is kept but no longer called
+  nine discoveries.
+- The paper is now compiled with real LaTeX: Tectonic 0.17.0 (portable, outside
+  the repository), `paper/build_paper.py`, `paper/BUILD.md`,
+  `paper/ml4ps_2026.pdf` (10 pages, no overfull boxes, every page inspected)
+  and `paper/ml4ps_2026_build.json` (source/export/figure SHA256s). The older
+  `ml4ps_2026_preview.pdf` is kept as history.
+
+Sections 8 and 9 above are left as written for the record; their rows on
+catalog-adjusted precision, "catalog undercounts real events" and the
+SpecUNet σ FP/TP ratio are superseded by this section.

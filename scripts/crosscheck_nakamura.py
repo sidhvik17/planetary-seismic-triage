@@ -7,12 +7,15 @@ the packet simply does not label. MarsQuakeNet's headline was exactly such
 detections beyond the working catalog, verified manually; here the
 verification is automatic: every U-Net detection on the lunar test split
 that the benchmark counts as a false positive is cross-referenced against
-Nakamura events flagged as detected at station 12. A match means the model
-found a real, catalogued moonquake the benchmark cannot credit.
+Nakamura events flagged as detected at station 12. A temporal match is a
+candidate association, not an independently verified event. At the wider
+catalog tolerance it can also be a late/early detection of an already
+labeled Grade-A event; see scripts/analyze_catalog_tolerance.py.
 
-Reports benchmark precision alongside 'survey precision' (Nakamura-matched
-detections counted as true). Match tolerance is generous-but-bounded: the
-catalog's signal-start times are minute-quantized, so ±5 min.
+Reports benchmark precision alongside the historical 'survey precision'
+field (Nakamura-matched detections counted as true at ±5 min). That
+descriptive rate mixes a wider timing tolerance with catalog membership;
+it is not measured precision for newly discovered events.
 
 Usage: python scripts/crosscheck_nakamura.py --model runs/unet_lunar/best.pt
            --threshold 0.3 --min-dur 600
@@ -186,7 +189,11 @@ def main():
         d_near = np.abs(nak_times[None, None, :]
                         - rand[:, :, None]).min(axis=2)
         perm_counts += (d_near <= MATCH_TOL_SEC).sum(axis=1)
-    p_value = float((perm_counts >= n_fp_nak).mean())
+    exceedances = int((perm_counts >= n_fp_nak).sum())
+    # Finite Monte Carlo sampling must not report p=0 when no draw exceeds
+    # the observed count. This is a uniform-placement null, not a discovery
+    # test for events absent from Grade-A.
+    p_value = (exceedances + 1) / (n_perm + 1)
 
     # sensitivity of the match count to the tolerance choice
     tol_sensitivity = {}
@@ -212,11 +219,15 @@ def main():
         "chance_match_rate": round(null_hits / max(null_draws, 1), 4),
         "permutation_p_value": p_value,
         "permutation_n": n_perm,
+        "permutation_exceedances": exceedances,
+        "permutation_estimator": "plus_one",
         "match_count_by_tolerance": tol_sensitivity,
         "survey_precision": round(survey_tp / max(n_tp + n_fp, 1), 4),
-        "note": "survey_precision counts detections matching ANY Nakamura "
-                "S12 event as true; recall is not restated because the "
-                "benchmark's pick list stays the recall denominator",
+        "note": "survey_precision is a descriptive wider-tolerance association rate: "
+                "detections matching ANY Nakamura S12 event are counted as true, "
+                "including Grade-A events missed at the stricter benchmark tolerance. "
+                "It is not precision for new events. The Monte Carlo p is "
+                "(exceedances + 1)/(draws + 1) under uniform within-span placement.",
     }
     pd.DataFrame(rows).to_csv(
         out_dir / f"nakamura_crosscheck_detections{sfx}.csv", index=False)

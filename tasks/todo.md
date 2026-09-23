@@ -1,9 +1,50 @@
+# Final handoff completion — 2026-09-23
+
+The latest request authorizes finishing the remaining local build and checks.
+Reconciled the actual workspace first: root `2709895`, paper `98d5fcd`, both
+clean. Training and secondary inference are already complete; preserve them.
+
+- [x] Read current handoff and Git histories; reconcile completed work.
+- [x] Obtain portable Tectonic 0.17.0 outside the repository; verify official
+  release archive SHA256 and executable version.
+- [x] Compile actual LaTeX PDF, inspect every page, and refresh Overleaf export.
+  `paper/build_paper.py` (Tectonic 0.17.0): 10 pages, no overfull boxes, all
+  pages viewed in the browser pane; zip and `ml4ps_2026_build.json` refreshed.
+- [x] Check secondary-analysis labels and claims against saved evidence; fix
+  any confirmed errors without repeating completed training or inference.
+  Codex pass found two errors; Claude re-derived both independently:
+  (a) stored `sigma_separation_fp_over_tp` used only catalog-unmatched FPs
+  (seed 42 0.00718/0.00929 = 0.77); all-FP ratio 1.06 ± 0.38 [0.68, 1.66];
+  (b) 45/47 ±300 s catalog matches lie within 360 s of a Grade-A pick in the
+  same span; the other two (seeds 2, 4) are ~10 h from any pick, one event.
+- [x] Figure 3: show existing-label vs additional-catalog split; regenerate.
+  Stacked bars from the audit JSON (0/1/23/47 reproduced: 0+0, 0+1, 21+2, 45+2).
+- [x] Remove withdrawn numbers from change notes, handoff, revision notes, memory.
+  Change notes §10, revision notes, handoff final-pass block, 3 memory files.
+- [x] Independently verify model backup, provenance, full tests, and audits.
+  173 passed (3 stale aggregator fixtures fixed + 1 new operating-point case);
+  grouped audit 0; historical audit 1 (expected); compileall 0; headline
+  0.5405/0.4400; backup 119/119; demo = run = evaluation SHA256; summary and
+  audit JSONs regenerate byte-identically.
+- [x] Update change report and handoff; commit final scoped changes locally.
+
+## Review
+
+Codex found and fixed two real errors in the earlier secondary claims: the
+catalog "matches" are mostly late/early hits on already-labelled events (45/47),
+and the SpecUNet σ ratio had excluded catalog-matched FPs (1.06 ± 0.38, not
+0.86 ± 0.43). Both re-derived independently before accepting them. Figure 3
+now shows the split; no training or inference was rerun. Not pushed.
+
+---
+
 # Handoff §4 follow-ups — 2026-09-23 (continued)
 
 Resume from `tasks/RESEARCH_HANDOFF.md` §4. Same constraints: purpose, stack,
 architectures and historical artifacts preserved; validation-only selection;
 new results in new files; no push. Expensive optional reruns (screening
-ablation, denoise chain, archive scan) and the LaTeX install need the user.
+ablation, denoise chain, archive scan) remain separate research extensions.
+The final completion pass above supersedes the earlier LaTeX-install blocker.
 
 - [x] Secondary analyses for seeds 1–4 at each seed's locked validation point;
   aggregate mean ± SD across all five seeds (new script + test).

@@ -101,6 +101,15 @@ the corrected split for all five seeds
 the corrected seed-42 checkpoints. Still historical-split only: screening ablation, denoise
 chain, archive scan and Mars (listed in `tasks/RESEARCH_HANDOFF.md`).
 
+**Final scientific wording review:** 45 of 47 pooled ±300 s catalog matches
+refer to Grade-A events already labeled in the same span. The two remaining
+detections refer to one distinct additional catalog event. This is chiefly
+a timing-tolerance diagnostic, not evidence of 47 discoveries. The all-FP/TP
+SpecUNet uncertainty ratio is 1.06 ± 0.38; the old 0.86 ± 0.43 excluded
+catalog-matched FPs. Raw experiment artifacts remain preserved; the derived
+summary and current manuscript identify these corrections. Monte Carlo
+p-values use the plus-one correction rather than reporting zero.
+
 ## Improvements in this pass
 
 - Make analysis an explicit action, with bundled preprocessed demos available

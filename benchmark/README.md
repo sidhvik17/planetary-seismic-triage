@@ -46,7 +46,8 @@ corrected training or test scoring):
 Welch p = 0.0012 (SeisCNN > SpecUNet); acquisition-group bootstrap ΔF1 95 %
 CI [0.009, 0.233]. Summary: `results/lunar_grouped_v1_seed_summary.json`.
 Rule 3 on this split (SeisCNN, five seeds, each at its validation point):
-recall 0.62 ± 0.10 below and 0.70 ± 0.11 above the 14.4 dB median event SNR;
+recall 0.62 ± 0.10 below and 0.70 ± 0.11 above the 14.4 dB median event SNR
+proxy (descriptive strata using the test median);
 per-seed PR sweeps (descriptive) in `results/pr_curve_lunar_grouped_v1_seed<N>.json`,
 summary in `results/lunar_grouped_v1_secondary_summary.json`. STA/LTA's
 validation pick (7.0) is also the optimum on an extended 2–50 grid
@@ -114,9 +115,13 @@ permutation test vs chance** (`scripts/statistics_rigor.py`).
 | SpecUNet (synthetic masks from catalog-selected templates) | 1.9M | 0.355 | 0.579 | 0.440 [0.269, 0.612] — **max of 3 seeds**; 5-seed mean 0.372 ± 0.076 |
 
 SpecUNet's operating point is (mask threshold, min event duration) tuned on
-val; its benchmark FPs are dominated by real events outside the Grade-A
-subset — 9/20 match the full Nakamura catalog (±5 min; chance 1.7%), giving
-survey-mode precision 0.645. See `results/nakamura_crosscheck.json`.
+val. The historical 9/20 FP matches to the Nakamura catalog used ±300 s,
+not the benchmark's ±120 s. They cannot establish distinct additional events
+or validated survey precision. In the corrected five-seed identity audit,
+45/47 pooled catalog matches refer to already labeled Grade-A events; the
+other two refer to one additional catalog event. Keep the primary benchmark
+precision unchanged. See `results/nakamura_crosscheck.json` for the preserved
+historical counts and the current handoff for the corrected audit.
 
 ## mars_ext baselines (expanded 17-span test, MQS v14 picks)
 
