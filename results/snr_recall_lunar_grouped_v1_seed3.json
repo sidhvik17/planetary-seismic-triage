@@ -1,0 +1,105 @@
+{
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "model": "best.pt",
+  "model_sha256": "724c012675b357fcdd24956eca1f6359787663e7ae789261f14f9fb93c43fa17",
+  "operating_threshold": 0.995,
+  "n_events": 23,
+  "median_snr_db": 14.39,
+  "recall_low_snr": 0.455,
+  "recall_high_snr": 0.75,
+  "events": [
+    {
+      "snr_db": 6.54,
+      "detected": false
+    },
+    {
+      "snr_db": 14.39,
+      "detected": true
+    },
+    {
+      "snr_db": 6.91,
+      "detected": true
+    },
+    {
+      "snr_db": 12.15,
+      "detected": true
+    },
+    {
+      "snr_db": 6.14,
+      "detected": false
+    },
+    {
+      "snr_db": 35.16,
+      "detected": true
+    },
+    {
+      "snr_db": 14.61,
+      "detected": true
+    },
+    {
+      "snr_db": 3.42,
+      "detected": false
+    },
+    {
+      "snr_db": 12.34,
+      "detected": false
+    },
+    {
+      "snr_db": 7.64,
+      "detected": true
+    },
+    {
+      "snr_db": 31.27,
+      "detected": false
+    },
+    {
+      "snr_db": 21.22,
+      "detected": true
+    },
+    {
+      "snr_db": 9.04,
+      "detected": true
+    },
+    {
+      "snr_db": 9.04,
+      "detected": false
+    },
+    {
+      "snr_db": 15.91,
+      "detected": false
+    },
+    {
+      "snr_db": 8.11,
+      "detected": true
+    },
+    {
+      "snr_db": 40.83,
+      "detected": true
+    },
+    {
+      "snr_db": 20.9,
+      "detected": true
+    },
+    {
+      "snr_db": 0.42,
+      "detected": false
+    },
+    {
+      "snr_db": 17.92,
+      "detected": true
+    },
+    {
+      "snr_db": 31.78,
+      "detected": true
+    },
+    {
+      "snr_db": 20.5,
+      "detected": false
+    },
+    {
+      "snr_db": 26.66,
+      "detected": true
+    }
+  ]
+}
