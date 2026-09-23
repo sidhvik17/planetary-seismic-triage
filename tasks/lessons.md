@@ -23,3 +23,13 @@
   checking the stored numerator. Monte Carlo p-values should not be zero.
 - Re-read the on-disk handoff and Git state after cross-account continuation.
   Old conversation plans must not overwrite work completed by another account.
+
+## CI parity — 2026-09-23
+
+- Run the suite with CI's exact command (`pytest tests -q`), not only
+  `python -m pytest`. The `-m` form puts the working directory on `sys.path`;
+  the `pytest` console script does not. Four tests importing `scripts.*` passed
+  locally and failed collection on PR #1. `pyproject.toml` now sets
+  `pythonpath = ["."]`, so both forms match.
+- Before pushing, run that command in a fresh clone too. Ignored local
+  artifacts (data cache, models, results) can hide missing-file dependencies.

@@ -1,3 +1,25 @@
+# PR #1 CI failure — 2026-09-23
+
+`CI / test` failed on `d21a265`: 4 collection errors,
+`ModuleNotFoundError: No module named 'scripts'` (test_aggregate_grouped,
+test_aggregate_secondary, test_grouped_evaluation,
+test_secondary_interpretation).
+
+- [x] Reproduce with CI's entry point: `.venv/Scripts/pytest.exe tests -q`
+  gives the same 4 errors; local runs had used `python -m pytest`.
+- [x] Fix: `[tool.pytest.ini_options] pythonpath = ["."]` in `pyproject.toml`.
+- [x] Verify in a fresh clone (no ignored data/models/results) with
+  `pytest tests -q`: 172 passed, 1 skipped (data-cache test, as in CI).
+  Main checkout: 173 passed.
+
+## Review
+
+The tests were correct. Only the invocation differed. Declaring the path in
+pytest config makes `pytest` and `python -m pytest` behave the same. The
+scripts and tests themselves were left unchanged.
+
+---
+
 # Final handoff completion — 2026-09-23
 
 The latest request authorizes finishing the remaining local build and checks.
