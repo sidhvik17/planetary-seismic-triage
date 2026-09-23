@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+# Tests only read the repository; keep the workflow token read-only.
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
       - name: Install (CPU torch)
         run: |
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install numpy scipy obspy pandas scikit-learn pytest
+          pip install numpy scipy obspy pandas scikit-learn streamlit plotly pytest
           pip install -e .
       - name: Unit tests (no data cache required)
         run: pytest tests -q

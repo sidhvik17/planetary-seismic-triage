@@ -43,22 +43,25 @@ held-out Apollo day.
 
 # CPU torch keeps the Space build small and fast.
 SPACE_REQUIREMENTS = """--extra-index-url https://download.pytorch.org/whl/cpu
-torch>=2.3
+torch>=2.6
 numpy>=1.26
 scipy>=1.11
 obspy>=1.4
 pandas>=2.0
 scikit-learn>=1.4
-streamlit>=1.35
+streamlit>=1.37
 plotly>=5.20
 """
 
+# Non-root runtime user (uid 1000, as Hugging Face Spaces expects).
 DOCKERFILE = """FROM python:3.11-slim
+RUN useradd -m -u 1000 user
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-ENV HOME=/tmp STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+COPY --chown=user . .
+USER user
+ENV HOME=/home/user STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 EXPOSE 8501
 ENTRYPOINT ["streamlit", "run", "app/streamlit_app.py", \\
             "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
