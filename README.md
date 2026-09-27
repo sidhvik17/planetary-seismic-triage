@@ -103,6 +103,23 @@ operating point was selected on validation and written to a locked
     the test-event median, not a validation-selected signal-strength cutoff.
   - Seed 42 alone (the demo model) sits at the low end for catalog matches
     (9/31) and SeisCNN σ separation (3.7×); report the five-seed figures.
+* **Corrected-split reruns** (2026-09-28; branch `corrected-split-reruns`,
+  each result at a validation-locked operating point, analysis rules fixed
+  before the results existed):
+  - *Noise-pool screening* (five new SpecUNet seeds with catalogued events
+    removed from the injection noise): test F1 0.286 ± 0.133 against
+    0.408 ± 0.043 unscreened, Welch p = 0.11 — no difference detected, and
+    no benefit (`results/lunar_grouped_v1_screening_ablation.json`).
+  - *Denoise-then-detect* (seed 42): SeisCNN on SpecUNet-denoised input
+    falls from F1 0.561 to 0.222; max-fusion gives 0.200 with recall 0.652
+    versus 0.696 raw. The historical "fusion gives the best recall" result
+    does not replicate (`results/chain_lunar_grouped_v1_seed42.json`).
+  - *Continuous archive* (corrected seed-42 SpecUNet, 6,848 station-days):
+    catalog recall 1.4 % / 0.5 % / 0.3 % (S12/S15/S16) at the locked point;
+    best S12 trade-offs 0.557 at 18.8 unmatched detections per station-day
+    or 0.060 at 0.19/day — still no usable operating point
+    (`results/archive_scan/grouped_v1_seed42/`).
+  - Mars was not rerun: its split never involved the lunar overlap.
 * **The lunar demo runs the corrected seed-42 checkpoints**
   (`models/lunar_grouped_v1_seed42.pt`, `models/unet_lunar_grouped_v1_seed42.pt`,
   metadata `models/lunar_grouped_v1_seed42.json`) at their validation-selected
@@ -111,8 +128,10 @@ operating point was selected on validation and written to a locked
   stay in `models/` for reproduction; Mars is unchanged. All ten corrected
   runs are backed up outside OneDrive (see `tasks/RESEARCH_HANDOFF.md`).
 
-The current manuscript is `paper/ml4ps_2026.md` in the separate paper repository.
-See `paper/BUILD.md` for its LaTeX/PDF build and `tasks/RESEARCH_HANDOFF.md`
+The current manuscript is `paper/springer/apsis_springer.tex` (Springer
+proceedings format, branch `springer-submission` of the separate paper
+repository); `paper/ml4ps_2026.md` is the earlier workshop draft.
+See `paper/springer/README.md` and `paper/BUILD.md` for the LaTeX/PDF builds and `tasks/RESEARCH_HANDOFF.md`
 for completion status. Secondary claim corrections are documented in
 `docs/CHANGES_AND_RESEARCH_NOTES.md`; historical catalog-match counts below
 must not be interpreted as distinct discoveries.

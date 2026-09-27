@@ -1,5 +1,21 @@
 # APSIS — handoff for the next agent
 
+## Corrected-split reruns and Springer manuscript — 2026-09-28
+
+| Item | State | Evidence |
+|---|---|---|
+| Isolated environment | Done | worktree `C:\apsis_rerun`, branch `corrected-split-reruns` (pushed; `main` untouched); runs/cache copied from the verified backup; runners assert `planetseis` imports from this checkout |
+| Noise-screening ablation | Done | five screened SpecUNet seeds, validation-locked: 0.286 ± 0.133 vs 0.408 ± 0.043, Welch p = 0.11; `results/lunar_grouped_v1_screening_ablation.json`; rule committed in `26282cb` before results; seed 1 resumed from epoch 6 after a pause; checkpoints backed up to `C:\apsis_backups\lunar_grouped_v1_screened_2026-09-28` (SHA256SUMS) |
+| Denoise-then-detect | Done | seed 42: raw 0.561 (reproduces locked eval), denoised 0.222, fusion 0.200; `results/chain_lunar_grouped_v1_seed42.json` |
+| Archive scan | Done | corrected seed-42 SpecUNet at (0.25, 430 s): recall 1.4 / 0.5 / 0.3 %; sweep S12 0.557 at 18.8/day, 0.060 at 0.19/day; `results/archive_scan/grouped_v1_seed42/` (curve caches local only) |
+| Mars | Not rerun | never involved the lunar overlap |
+| Springer manuscript | Done | paper repo branch `springer-submission`: `springer/apsis_springer.tex` (SVProc, 12 pages, Tectonic build, verified references, authors from the LMIF manuscript); see `paper/springer/README.md` for the author checklist |
+| Tests | 172 passed, 1 skipped (worktree) | |
+
+Remaining: authors confirm authorship, declarations and the target volume's
+rules; merge `corrected-split-reruns` into `main` so the cited repository
+contains every result; optional SeisCNN retraining on denoised windows (E3b).
+
 ## Final completion pass — completed 2026-09-23
 
 Started by a Codex session (paper build, claim audit), finished and verified

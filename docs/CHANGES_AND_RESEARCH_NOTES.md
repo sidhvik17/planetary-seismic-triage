@@ -368,3 +368,25 @@ Changes:
 Sections 8 and 9 above are left as written for the record; their rows on
 catalog-adjusted precision, "catalog undercounts real events" and the
 SpecUNet σ FP/TP ratio are superseded by this section.
+
+## 11. 2026-09-28 — corrected-split reruns and Springer manuscript
+
+All three reruns ran in the isolated worktree `C:\apsis_rerun` on branch
+`corrected-split-reruns`, with analysis rules recorded before results:
+
+| Rerun | Result | Evidence |
+|---|---|---|
+| Screened noise pool, 5 SpecUNet seeds | 0.286 ± 0.133 vs 0.408 ± 0.043, Welch p = 0.11 (no difference detected; point estimate unfavourable; one seed found 1/23 events) | `results/lunar_grouped_v1_screening_ablation.json` |
+| Denoise-then-detect, seed 42 | raw 0.561 (= locked eval), denoised 0.222, fusion 0.200; fusion recall 0.652 < raw 0.696 | `results/chain_lunar_grouped_v1_seed42.json` |
+| Archive scan, corrected seed 42 | locked-point recall 1.4 / 0.5 / 0.3 %; S12 0.557 at 18.8/day, 0.060 at 0.19/day; deep 0.56/0.36/0.29, shallow 38/61 | `results/archive_scan/grouped_v1_seed42/` |
+
+Code added: `--data-dir` mode for `build_nakamura_screen.py` (new screen file
+beside the frozen cache, train/val spans only), `train_unet.py --screen-file`
+(screen SHA256 in the run config), `run_screened_grouped.sh`,
+`compare_screened_grouped.py`, `chain_grouped.py`, `run_archive_grouped.sh`,
+model SHA256 in archive scan summaries.
+
+The paper was rewritten as a Springer proceedings contribution
+(`paper/springer/`, branch `springer-submission`), with every reference checked
+against Crossref/DataCite. One earlier reference ("Dahmen & Stott 2024") was
+wrong and is replaced by Dahmen et al. (2024), GJI 239(1), 434–454.
