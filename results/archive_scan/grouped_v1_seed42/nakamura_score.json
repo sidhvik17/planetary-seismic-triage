@@ -1,0 +1,227 @@
+{
+  "tolerance_sec": 300.0,
+  "min_valid": 0.9,
+  "stations": {
+    "S12": {
+      "valid_station_days": 2755.95,
+      "detections": 217,
+      "catalog_events_in_span": 5438,
+      "catalog_events_excluded_unobservable": 175,
+      "recall_overall": 0.0136,
+      "matched_detections": 74,
+      "survey_precision": 0.341,
+      "unmatched_detections": 143,
+      "unmatched_per_station_day": 0.0519,
+      "recall_by_type": {
+        "code_A": {
+          "observable": 17,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_C": {
+          "observable": 961,
+          "found": 57,
+          "recall": 0.0593
+        },
+        "code_L": {
+          "observable": 4,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_M": {
+          "observable": 61,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_S": {
+          "observable": 5,
+          "found": 5,
+          "recall": 1.0
+        },
+        "code_X": {
+          "observable": 4,
+          "found": 0,
+          "recall": 0.0
+        },
+        "deep_moonquake": {
+          "observable": 3540,
+          "found": 9,
+          "recall": 0.0025
+        },
+        "shallow_moonquake": {
+          "observable": 18,
+          "found": 3,
+          "recall": 0.1667
+        },
+        "unclassified": {
+          "observable": 828,
+          "found": 0,
+          "recall": 0.0
+        }
+      },
+      "recall_by_gain_state": {
+        "flat": {
+          "observable": 1497,
+          "found": 17,
+          "recall": 0.0114
+        },
+        "peaked": {
+          "observable": 3941,
+          "found": 57,
+          "recall": 0.0145
+        }
+      }
+    },
+    "S15": {
+      "valid_station_days": 2170.12,
+      "detections": 97,
+      "catalog_events_in_span": 3981,
+      "catalog_events_excluded_unobservable": 175,
+      "recall_overall": 0.0048,
+      "matched_detections": 19,
+      "survey_precision": 0.1959,
+      "unmatched_detections": 78,
+      "unmatched_per_station_day": 0.0359,
+      "recall_by_type": {
+        "code_A": {
+          "observable": 8,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_C": {
+          "observable": 814,
+          "found": 14,
+          "recall": 0.0172
+        },
+        "code_L": {
+          "observable": 2,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_M": {
+          "observable": 45,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_S": {
+          "observable": 2,
+          "found": 1,
+          "recall": 0.5
+        },
+        "code_X": {
+          "observable": 7,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_Z": {
+          "observable": 221,
+          "found": 0,
+          "recall": 0.0
+        },
+        "deep_moonquake": {
+          "observable": 2348,
+          "found": 2,
+          "recall": 0.0009
+        },
+        "shallow_moonquake": {
+          "observable": 20,
+          "found": 1,
+          "recall": 0.05
+        },
+        "unclassified": {
+          "observable": 514,
+          "found": 1,
+          "recall": 0.0019
+        }
+      },
+      "recall_by_gain_state": {
+        "flat": {
+          "observable": 1038,
+          "found": 9,
+          "recall": 0.0087
+        },
+        "peaked": {
+          "observable": 2943,
+          "found": 10,
+          "recall": 0.0034
+        }
+      }
+    },
+    "S16": {
+      "valid_station_days": 1922.32,
+      "detections": 98,
+      "catalog_events_in_span": 6962,
+      "catalog_events_excluded_unobservable": 165,
+      "recall_overall": 0.0029,
+      "matched_detections": 20,
+      "survey_precision": 0.2041,
+      "unmatched_detections": 78,
+      "unmatched_per_station_day": 0.0406,
+      "recall_by_type": {
+        "code_A": {
+          "observable": 10,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_C": {
+          "observable": 886,
+          "found": 17,
+          "recall": 0.0192
+        },
+        "code_L": {
+          "observable": 1,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_M": {
+          "observable": 239,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_S": {
+          "observable": 1,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_X": {
+          "observable": 30,
+          "found": 0,
+          "recall": 0.0
+        },
+        "code_Z": {
+          "observable": 9,
+          "found": 0,
+          "recall": 0.0
+        },
+        "deep_moonquake": {
+          "observable": 4238,
+          "found": 1,
+          "recall": 0.0002
+        },
+        "shallow_moonquake": {
+          "observable": 23,
+          "found": 0,
+          "recall": 0.0
+        },
+        "unclassified": {
+          "observable": 1525,
+          "found": 2,
+          "recall": 0.0013
+        }
+      },
+      "recall_by_gain_state": {
+        "flat": {
+          "observable": 1457,
+          "found": 5,
+          "recall": 0.0034
+        },
+        "peaked": {
+          "observable": 5505,
+          "found": 15,
+          "recall": 0.0027
+        }
+      }
+    }
+  },
+  "note": "unmatched detections are candidates, not confirmed false alarms \u2014 45% of the benchmark's 'false positives' were real catalogued events. unmatched_per_station_day is an UPPER BOUND on the false-alarm rate."
+}

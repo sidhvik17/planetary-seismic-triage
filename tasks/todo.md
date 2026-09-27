@@ -37,9 +37,19 @@ Analysis plan fixed BEFORE any new result exists:
   still 0.17, so the collapse is a distribution shift, not grid tuning.
   Historical "fusion gives the best recall (0.684)" does NOT replicate on
   the corrected split (fusion recall 0.652 < raw 0.696). Single seed.
-- [ ] **E2 archive scan.** Corrected seed-42 SpecUNet (designated before any
+- [x] **E2 archive scan.** Corrected seed-42 SpecUNet (designated before any
   scan) at its locked point (0.25, 430 s) over S12/S15/S16, same scoring and
   sweep as the historical scan; outputs under a new tag.
+  **Result** (`results/archive_scan/grouped_v1_seed42/`): locked point
+  (0.25, 430 s) catalog recall S12 1.4 % / S15 0.5 % / S16 0.3 % at
+  0.05 / 0.04 / 0.04 unmatched per station-day (historical 0.8 % on S12).
+  Sweep: S12 max recall 0.557 at 18.8 unmatched/day (historical 0.525 at
+  15.4); best at <= 0.2/day 0.060 (historical 0.071). Deep-moonquake recall
+  at the max-recall point 0.56 / 0.36 / 0.29 (historical 0.52 / 0.21 /
+  0.14); shallow 15/18, 13/20, 10/23 = 38/61 (historical 39/61). The gate
+  still fails: no usable operating point. Different model from the
+  historical scan (unscreened grouped seed 42 vs historical screened), so
+  this is a replication of the conclusion, not a paired comparison.
 - [ ] **E3b retrain SeisCNN on denoised windows** — only if time allows;
   5 seeds, validation-locked.
 - Mars: not rerun. Its data and split never involved the lunar overlap.

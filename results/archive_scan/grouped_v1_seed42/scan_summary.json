@@ -1,0 +1,28 @@
+{
+  "model": "runs/unet_lunar_grouped_v1/best.pt",
+  "model_sha256": "261bce3ddc31befd8090430f1a1658e0c1e34a891f239d8d4be9304af5e5fb9c",
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "threshold": 0.25,
+  "min_dur_sec": 430.0,
+  "min_valid": 0.9,
+  "coda_sec": 1800.0,
+  "stations": {
+    "S12": {
+      "detections": 217,
+      "valid_station_days": 2755.95,
+      "detections_per_station_day": 0.0787
+    },
+    "S15": {
+      "detections": 97,
+      "valid_station_days": 2170.12,
+      "detections_per_station_day": 0.0447
+    },
+    "S16": {
+      "detections": 98,
+      "valid_station_days": 1922.32,
+      "detections_per_station_day": 0.051
+    }
+  },
+  "note": "detections_per_station_day is the RAW rate before any Nakamura matching; it is an upper bound on the false-alarm rate, since real uncatalogued events are counted here too"
+}

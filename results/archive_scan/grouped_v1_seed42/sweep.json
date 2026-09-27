@@ -1,0 +1,3812 @@
+{
+  "tag": "grouped_v1_seed42",
+  "tolerance_sec": 300.0,
+  "min_valid": 0.9,
+  "coda_sec": 1800.0,
+  "stations": {
+    "S12": {
+      "valid_station_days": 2756.46,
+      "observable_catalog_events": 5442,
+      "events_by_type": {
+        "code_A": 17,
+        "code_C": 962,
+        "code_L": 4,
+        "code_M": 61,
+        "code_S": 5,
+        "code_X": 4,
+        "deep_moonquake": 3544,
+        "shallow_moonquake": 18,
+        "unclassified": 827
+      },
+      "events_by_gain": {
+        "flat": 1498,
+        "peaked": 3944
+      },
+      "sweep": [
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 120.0,
+          "detections": 54842,
+          "recall": 0.5573,
+          "matched": 3032,
+          "survey_precision": 0.0553,
+          "unmatched_per_station_day": 18.7959,
+          "recall_by_type": {
+            "code_A": {
+              "found": 9,
+              "n": 17,
+              "recall": 0.5294
+            },
+            "code_C": {
+              "found": 622,
+              "n": 962,
+              "recall": 0.6466
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 24,
+              "n": 61,
+              "recall": 0.3934
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1996,
+              "n": 3544,
+              "recall": 0.5632
+            },
+            "shallow_moonquake": {
+              "found": 15,
+              "n": 18,
+              "recall": 0.8333
+            },
+            "unclassified": {
+              "found": 360,
+              "n": 827,
+              "recall": 0.4353
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 120.0,
+          "detections": 18471,
+          "recall": 0.3275,
+          "matched": 1783,
+          "survey_precision": 0.0965,
+          "unmatched_per_station_day": 6.0541,
+          "recall_by_type": {
+            "code_A": {
+              "found": 5,
+              "n": 17,
+              "recall": 0.2941
+            },
+            "code_C": {
+              "found": 416,
+              "n": 962,
+              "recall": 0.4324
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 13,
+              "n": 61,
+              "recall": 0.2131
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1157,
+              "n": 3544,
+              "recall": 0.3265
+            },
+            "shallow_moonquake": {
+              "found": 14,
+              "n": 18,
+              "recall": 0.7778
+            },
+            "unclassified": {
+              "found": 169,
+              "n": 827,
+              "recall": 0.2044
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 120.0,
+          "detections": 1792,
+          "recall": 0.1132,
+          "matched": 617,
+          "survey_precision": 0.3443,
+          "unmatched_per_station_day": 0.4263,
+          "recall_by_type": {
+            "code_A": {
+              "found": 1,
+              "n": 17,
+              "recall": 0.0588
+            },
+            "code_C": {
+              "found": 264,
+              "n": 962,
+              "recall": 0.2744
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 1,
+              "n": 61,
+              "recall": 0.0164
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 313,
+              "n": 3544,
+              "recall": 0.0883
+            },
+            "shallow_moonquake": {
+              "found": 9,
+              "n": 18,
+              "recall": 0.5
+            },
+            "unclassified": {
+              "found": 20,
+              "n": 827,
+              "recall": 0.0242
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 120.0,
+          "detections": 850,
+          "recall": 0.0597,
+          "matched": 325,
+          "survey_precision": 0.3824,
+          "unmatched_per_station_day": 0.1905,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 194,
+              "n": 962,
+              "recall": 0.2017
+            },
+            "code_L": {
+              "found": 2,
+              "n": 4,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 113,
+              "n": 3544,
+              "recall": 0.0319
+            },
+            "shallow_moonquake": {
+              "found": 7,
+              "n": 18,
+              "recall": 0.3889
+            },
+            "unclassified": {
+              "found": 4,
+              "n": 827,
+              "recall": 0.0048
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 120.0,
+          "detections": 496,
+          "recall": 0.0318,
+          "matched": 173,
+          "survey_precision": 0.3488,
+          "unmatched_per_station_day": 0.1172,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 125,
+              "n": 962,
+              "recall": 0.1299
+            },
+            "code_L": {
+              "found": 1,
+              "n": 4,
+              "recall": 0.25
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 36,
+              "n": 3544,
+              "recall": 0.0102
+            },
+            "shallow_moonquake": {
+              "found": 5,
+              "n": 18,
+              "recall": 0.2778
+            },
+            "unclassified": {
+              "found": 2,
+              "n": 827,
+              "recall": 0.0024
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 120.0,
+          "detections": 274,
+          "recall": 0.0062,
+          "matched": 34,
+          "survey_precision": 0.1241,
+          "unmatched_per_station_day": 0.0871,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 23,
+              "n": 962,
+              "recall": 0.0239
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 6,
+              "n": 3544,
+              "recall": 0.0017
+            },
+            "shallow_moonquake": {
+              "found": 1,
+              "n": 18,
+              "recall": 0.0556
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 120.0,
+          "detections": 206,
+          "recall": 0.0018,
+          "matched": 10,
+          "survey_precision": 0.0485,
+          "unmatched_per_station_day": 0.0711,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 962,
+              "recall": 0.0042
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 3,
+              "n": 5,
+              "recall": 0.6
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 3,
+              "n": 3544,
+              "recall": 0.0008
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 18,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 240.0,
+          "detections": 52284,
+          "recall": 0.5401,
+          "matched": 2938,
+          "survey_precision": 0.0562,
+          "unmatched_per_station_day": 17.902,
+          "recall_by_type": {
+            "code_A": {
+              "found": 9,
+              "n": 17,
+              "recall": 0.5294
+            },
+            "code_C": {
+              "found": 619,
+              "n": 962,
+              "recall": 0.6435
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 21,
+              "n": 61,
+              "recall": 0.3443
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1919,
+              "n": 3544,
+              "recall": 0.5415
+            },
+            "shallow_moonquake": {
+              "found": 15,
+              "n": 18,
+              "recall": 0.8333
+            },
+            "unclassified": {
+              "found": 349,
+              "n": 827,
+              "recall": 0.422
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 240.0,
+          "detections": 10304,
+          "recall": 0.2468,
+          "matched": 1344,
+          "survey_precision": 0.1304,
+          "unmatched_per_station_day": 3.2505,
+          "recall_by_type": {
+            "code_A": {
+              "found": 4,
+              "n": 17,
+              "recall": 0.2353
+            },
+            "code_C": {
+              "found": 387,
+              "n": 962,
+              "recall": 0.4023
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 7,
+              "n": 61,
+              "recall": 0.1148
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 817,
+              "n": 3544,
+              "recall": 0.2305
+            },
+            "shallow_moonquake": {
+              "found": 13,
+              "n": 18,
+              "recall": 0.7222
+            },
+            "unclassified": {
+              "found": 107,
+              "n": 827,
+              "recall": 0.1294
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 240.0,
+          "detections": 1157,
+          "recall": 0.0807,
+          "matched": 440,
+          "survey_precision": 0.3803,
+          "unmatched_per_station_day": 0.2601,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 235,
+              "n": 962,
+              "recall": 0.2443
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 1,
+              "n": 61,
+              "recall": 0.0164
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 182,
+              "n": 3544,
+              "recall": 0.0514
+            },
+            "shallow_moonquake": {
+              "found": 8,
+              "n": 18,
+              "recall": 0.4444
+            },
+            "unclassified": {
+              "found": 5,
+              "n": 827,
+              "recall": 0.006
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 240.0,
+          "detections": 579,
+          "recall": 0.0436,
+          "matched": 237,
+          "survey_precision": 0.4093,
+          "unmatched_per_station_day": 0.1241,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 158,
+              "n": 962,
+              "recall": 0.1642
+            },
+            "code_L": {
+              "found": 1,
+              "n": 4,
+              "recall": 0.25
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 66,
+              "n": 3544,
+              "recall": 0.0186
+            },
+            "shallow_moonquake": {
+              "found": 5,
+              "n": 18,
+              "recall": 0.2778
+            },
+            "unclassified": {
+              "found": 2,
+              "n": 827,
+              "recall": 0.0024
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 240.0,
+          "detections": 308,
+          "recall": 0.0206,
+          "matched": 112,
+          "survey_precision": 0.3636,
+          "unmatched_per_station_day": 0.0711,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 86,
+              "n": 962,
+              "recall": 0.0894
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 18,
+              "n": 3544,
+              "recall": 0.0051
+            },
+            "shallow_moonquake": {
+              "found": 3,
+              "n": 18,
+              "recall": 0.1667
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 827,
+              "recall": 0.0012
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 240.0,
+          "detections": 187,
+          "recall": 0.0044,
+          "matched": 24,
+          "survey_precision": 0.1283,
+          "unmatched_per_station_day": 0.0591,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 15,
+              "n": 962,
+              "recall": 0.0156
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 3,
+              "n": 5,
+              "recall": 0.6
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 6,
+              "n": 3544,
+              "recall": 0.0017
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 18,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 240.0,
+          "detections": 24,
+          "recall": 0.0006,
+          "matched": 3,
+          "survey_precision": 0.125,
+          "unmatched_per_station_day": 0.0076,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 3,
+              "n": 962,
+              "recall": 0.0031
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 5,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 3544,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 18,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 600.0,
+          "detections": 4231,
+          "recall": 0.183,
+          "matched": 996,
+          "survey_precision": 0.2354,
+          "unmatched_per_station_day": 1.1736,
+          "recall_by_type": {
+            "code_A": {
+              "found": 1,
+              "n": 17,
+              "recall": 0.0588
+            },
+            "code_C": {
+              "found": 429,
+              "n": 962,
+              "recall": 0.4459
+            },
+            "code_L": {
+              "found": 4,
+              "n": 4,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 2,
+              "n": 61,
+              "recall": 0.0328
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 493,
+              "n": 3544,
+              "recall": 0.1391
+            },
+            "shallow_moonquake": {
+              "found": 11,
+              "n": 18,
+              "recall": 0.6111
+            },
+            "unclassified": {
+              "found": 52,
+              "n": 827,
+              "recall": 0.0629
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 600.0,
+          "detections": 322,
+          "recall": 0.0373,
+          "matched": 204,
+          "survey_precision": 0.6335,
+          "unmatched_per_station_day": 0.0428,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 166,
+              "n": 962,
+              "recall": 0.1726
+            },
+            "code_L": {
+              "found": 3,
+              "n": 4,
+              "recall": 0.75
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 25,
+              "n": 3544,
+              "recall": 0.0071
+            },
+            "shallow_moonquake": {
+              "found": 3,
+              "n": 18,
+              "recall": 0.1667
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 827,
+              "recall": 0.0012
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 600.0,
+          "detections": 90,
+          "recall": 0.0075,
+          "matched": 41,
+          "survey_precision": 0.4556,
+          "unmatched_per_station_day": 0.0178,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 32,
+              "n": 962,
+              "recall": 0.0333
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 5,
+              "n": 5,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 3544,
+              "recall": 0.0006
+            },
+            "shallow_moonquake": {
+              "found": 2,
+              "n": 18,
+              "recall": 0.1111
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 600.0,
+          "detections": 63,
+          "recall": 0.0039,
+          "matched": 21,
+          "survey_precision": 0.3333,
+          "unmatched_per_station_day": 0.0152,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 14,
+              "n": 962,
+              "recall": 0.0146
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 4,
+              "n": 5,
+              "recall": 0.8
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 3544,
+              "recall": 0.0006
+            },
+            "shallow_moonquake": {
+              "found": 1,
+              "n": 18,
+              "recall": 0.0556
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 600.0,
+          "detections": 45,
+          "recall": 0.0015,
+          "matched": 8,
+          "survey_precision": 0.1778,
+          "unmatched_per_station_day": 0.0134,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 962,
+              "recall": 0.0042
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 5,
+              "recall": 0.4
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 3544,
+              "recall": 0.0006
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 18,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 600.0,
+          "detections": 56,
+          "recall": 0.0009,
+          "matched": 5,
+          "survey_precision": 0.0893,
+          "unmatched_per_station_day": 0.0185,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 962,
+              "recall": 0.0042
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 5,
+              "recall": 0.2
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 3544,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 18,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 600.0,
+          "detections": 0,
+          "recall": 0.0,
+          "matched": 0,
+          "survey_precision": null,
+          "unmatched_per_station_day": 0.0,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 17,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 0,
+              "n": 962,
+              "recall": 0.0
+            },
+            "code_L": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 61,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 5,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 4,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 3544,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 18,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 827,
+              "recall": 0.0
+            }
+          }
+        }
+      ]
+    },
+    "S15": {
+      "valid_station_days": 2170.87,
+      "observable_catalog_events": 3984,
+      "events_by_type": {
+        "code_A": 8,
+        "code_C": 814,
+        "code_L": 2,
+        "code_M": 45,
+        "code_S": 2,
+        "code_X": 7,
+        "code_Z": 221,
+        "deep_moonquake": 2351,
+        "shallow_moonquake": 20,
+        "unclassified": 514
+      },
+      "events_by_gain": {
+        "flat": 1039,
+        "peaked": 2945
+      },
+      "sweep": [
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 120.0,
+          "detections": 56415,
+          "recall": 0.3589,
+          "matched": 1428,
+          "survey_precision": 0.0253,
+          "unmatched_per_station_day": 25.3295,
+          "recall_by_type": {
+            "code_A": {
+              "found": 2,
+              "n": 8,
+              "recall": 0.25
+            },
+            "code_C": {
+              "found": 372,
+              "n": 814,
+              "recall": 0.457
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 14,
+              "n": 45,
+              "recall": 0.3111
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 50,
+              "n": 221,
+              "recall": 0.2262
+            },
+            "deep_moonquake": {
+              "found": 843,
+              "n": 2351,
+              "recall": 0.3586
+            },
+            "shallow_moonquake": {
+              "found": 13,
+              "n": 20,
+              "recall": 0.65
+            },
+            "unclassified": {
+              "found": 133,
+              "n": 514,
+              "recall": 0.2588
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 120.0,
+          "detections": 15364,
+          "recall": 0.1616,
+          "matched": 644,
+          "survey_precision": 0.0419,
+          "unmatched_per_station_day": 6.7807,
+          "recall_by_type": {
+            "code_A": {
+              "found": 2,
+              "n": 8,
+              "recall": 0.25
+            },
+            "code_C": {
+              "found": 190,
+              "n": 814,
+              "recall": 0.2334
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 4,
+              "n": 45,
+              "recall": 0.0889
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 11,
+              "n": 221,
+              "recall": 0.0498
+            },
+            "deep_moonquake": {
+              "found": 363,
+              "n": 2351,
+              "recall": 0.1544
+            },
+            "shallow_moonquake": {
+              "found": 9,
+              "n": 20,
+              "recall": 0.45
+            },
+            "unclassified": {
+              "found": 62,
+              "n": 514,
+              "recall": 0.1206
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 120.0,
+          "detections": 811,
+          "recall": 0.0334,
+          "matched": 134,
+          "survey_precision": 0.1652,
+          "unmatched_per_station_day": 0.3119,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 91,
+              "n": 814,
+              "recall": 0.1118
+            },
+            "code_L": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 31,
+              "n": 2351,
+              "recall": 0.0132
+            },
+            "shallow_moonquake": {
+              "found": 6,
+              "n": 20,
+              "recall": 0.3
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 514,
+              "recall": 0.0019
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 120.0,
+          "detections": 394,
+          "recall": 0.0183,
+          "matched": 73,
+          "survey_precision": 0.1853,
+          "unmatched_per_station_day": 0.1479,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 56,
+              "n": 814,
+              "recall": 0.0688
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 10,
+              "n": 2351,
+              "recall": 0.0043
+            },
+            "shallow_moonquake": {
+              "found": 3,
+              "n": 20,
+              "recall": 0.15
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 514,
+              "recall": 0.0019
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 120.0,
+          "detections": 206,
+          "recall": 0.012,
+          "matched": 48,
+          "survey_precision": 0.233,
+          "unmatched_per_station_day": 0.0728,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 41,
+              "n": 814,
+              "recall": 0.0504
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 4,
+              "n": 2351,
+              "recall": 0.0017
+            },
+            "shallow_moonquake": {
+              "found": 2,
+              "n": 20,
+              "recall": 0.1
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 120.0,
+          "detections": 160,
+          "recall": 0.002,
+          "matched": 8,
+          "survey_precision": 0.05,
+          "unmatched_per_station_day": 0.07,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 6,
+              "n": 814,
+              "recall": 0.0074
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1,
+              "n": 2351,
+              "recall": 0.0004
+            },
+            "shallow_moonquake": {
+              "found": 1,
+              "n": 20,
+              "recall": 0.05
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 120.0,
+          "detections": 196,
+          "recall": 0.001,
+          "matched": 4,
+          "survey_precision": 0.0204,
+          "unmatched_per_station_day": 0.0884,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 2,
+              "n": 814,
+              "recall": 0.0025
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 2351,
+              "recall": 0.0009
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 240.0,
+          "detections": 55011,
+          "recall": 0.3567,
+          "matched": 1419,
+          "survey_precision": 0.0258,
+          "unmatched_per_station_day": 24.6869,
+          "recall_by_type": {
+            "code_A": {
+              "found": 2,
+              "n": 8,
+              "recall": 0.25
+            },
+            "code_C": {
+              "found": 371,
+              "n": 814,
+              "recall": 0.4558
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 14,
+              "n": 45,
+              "recall": 0.3111
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 50,
+              "n": 221,
+              "recall": 0.2262
+            },
+            "deep_moonquake": {
+              "found": 837,
+              "n": 2351,
+              "recall": 0.356
+            },
+            "shallow_moonquake": {
+              "found": 12,
+              "n": 20,
+              "recall": 0.6
+            },
+            "unclassified": {
+              "found": 132,
+              "n": 514,
+              "recall": 0.2568
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 240.0,
+          "detections": 7390,
+          "recall": 0.1024,
+          "matched": 409,
+          "survey_precision": 0.0553,
+          "unmatched_per_station_day": 3.2158,
+          "recall_by_type": {
+            "code_A": {
+              "found": 1,
+              "n": 8,
+              "recall": 0.125
+            },
+            "code_C": {
+              "found": 154,
+              "n": 814,
+              "recall": 0.1892
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 1,
+              "n": 45,
+              "recall": 0.0222
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 3,
+              "n": 221,
+              "recall": 0.0136
+            },
+            "deep_moonquake": {
+              "found": 210,
+              "n": 2351,
+              "recall": 0.0893
+            },
+            "shallow_moonquake": {
+              "found": 8,
+              "n": 20,
+              "recall": 0.4
+            },
+            "unclassified": {
+              "found": 28,
+              "n": 514,
+              "recall": 0.0545
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 240.0,
+          "detections": 578,
+          "recall": 0.0286,
+          "matched": 115,
+          "survey_precision": 0.199,
+          "unmatched_per_station_day": 0.2133,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 79,
+              "n": 814,
+              "recall": 0.0971
+            },
+            "code_L": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 24,
+              "n": 2351,
+              "recall": 0.0102
+            },
+            "shallow_moonquake": {
+              "found": 6,
+              "n": 20,
+              "recall": 0.3
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 514,
+              "recall": 0.0019
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 240.0,
+          "detections": 245,
+          "recall": 0.0161,
+          "matched": 64,
+          "survey_precision": 0.2612,
+          "unmatched_per_station_day": 0.0834,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 51,
+              "n": 814,
+              "recall": 0.0627
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 6,
+              "n": 2351,
+              "recall": 0.0026
+            },
+            "shallow_moonquake": {
+              "found": 3,
+              "n": 20,
+              "recall": 0.15
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 514,
+              "recall": 0.0019
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 240.0,
+          "detections": 134,
+          "recall": 0.0095,
+          "matched": 38,
+          "survey_precision": 0.2836,
+          "unmatched_per_station_day": 0.0442,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 34,
+              "n": 814,
+              "recall": 0.0418
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 2351,
+              "recall": 0.0009
+            },
+            "shallow_moonquake": {
+              "found": 1,
+              "n": 20,
+              "recall": 0.05
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 240.0,
+          "detections": 112,
+          "recall": 0.001,
+          "matched": 4,
+          "survey_precision": 0.0357,
+          "unmatched_per_station_day": 0.0497,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 3,
+              "n": 814,
+              "recall": 0.0037
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1,
+              "n": 2351,
+              "recall": 0.0004
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 240.0,
+          "detections": 23,
+          "recall": 0.0003,
+          "matched": 1,
+          "survey_precision": 0.0435,
+          "unmatched_per_station_day": 0.0101,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 1,
+              "n": 814,
+              "recall": 0.0012
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 2351,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 600.0,
+          "detections": 1932,
+          "recall": 0.055,
+          "matched": 219,
+          "survey_precision": 0.1134,
+          "unmatched_per_station_day": 0.7891,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 138,
+              "n": 814,
+              "recall": 0.1695
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 59,
+              "n": 2351,
+              "recall": 0.0251
+            },
+            "shallow_moonquake": {
+              "found": 8,
+              "n": 20,
+              "recall": 0.4
+            },
+            "unclassified": {
+              "found": 11,
+              "n": 514,
+              "recall": 0.0214
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 600.0,
+          "detections": 147,
+          "recall": 0.0128,
+          "matched": 51,
+          "survey_precision": 0.3469,
+          "unmatched_per_station_day": 0.0442,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 39,
+              "n": 814,
+              "recall": 0.0479
+            },
+            "code_L": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 5,
+              "n": 2351,
+              "recall": 0.0021
+            },
+            "shallow_moonquake": {
+              "found": 3,
+              "n": 20,
+              "recall": 0.15
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 514,
+              "recall": 0.0019
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 600.0,
+          "detections": 73,
+          "recall": 0.0045,
+          "matched": 18,
+          "survey_precision": 0.2466,
+          "unmatched_per_station_day": 0.0253,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 14,
+              "n": 814,
+              "recall": 0.0172
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 2,
+              "n": 2,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 2351,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 1,
+              "n": 20,
+              "recall": 0.05
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 514,
+              "recall": 0.0019
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 600.0,
+          "detections": 29,
+          "recall": 0.0013,
+          "matched": 5,
+          "survey_precision": 0.1724,
+          "unmatched_per_station_day": 0.0111,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 814,
+              "recall": 0.0049
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 2,
+              "recall": 0.5
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 2351,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 600.0,
+          "detections": 28,
+          "recall": 0.0005,
+          "matched": 2,
+          "survey_precision": 0.0714,
+          "unmatched_per_station_day": 0.012,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 2,
+              "n": 814,
+              "recall": 0.0025
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 2351,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 600.0,
+          "detections": 63,
+          "recall": 0.0005,
+          "matched": 2,
+          "survey_precision": 0.0317,
+          "unmatched_per_station_day": 0.0281,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 1,
+              "n": 814,
+              "recall": 0.0012
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1,
+              "n": 2351,
+              "recall": 0.0004
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 600.0,
+          "detections": 0,
+          "recall": 0.0,
+          "matched": 0,
+          "survey_precision": null,
+          "unmatched_per_station_day": 0.0,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 8,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 0,
+              "n": 814,
+              "recall": 0.0
+            },
+            "code_L": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 45,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 2,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 7,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 221,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 2351,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 20,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 514,
+              "recall": 0.0
+            }
+          }
+        }
+      ]
+    },
+    "S16": {
+      "valid_station_days": 1922.93,
+      "observable_catalog_events": 6964,
+      "events_by_type": {
+        "code_A": 10,
+        "code_C": 886,
+        "code_L": 1,
+        "code_M": 239,
+        "code_S": 1,
+        "code_X": 30,
+        "code_Z": 9,
+        "deep_moonquake": 4241,
+        "shallow_moonquake": 23,
+        "unclassified": 1524
+      },
+      "events_by_gain": {
+        "flat": 1458,
+        "peaked": 5506
+      },
+      "sweep": [
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 120.0,
+          "detections": 30510,
+          "recall": 0.2763,
+          "matched": 1925,
+          "survey_precision": 0.0631,
+          "unmatched_per_station_day": 14.8653,
+          "recall_by_type": {
+            "code_A": {
+              "found": 5,
+              "n": 10,
+              "recall": 0.5
+            },
+            "code_C": {
+              "found": 302,
+              "n": 886,
+              "recall": 0.3409
+            },
+            "code_L": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 47,
+              "n": 239,
+              "recall": 0.1967
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 4,
+              "n": 30,
+              "recall": 0.1333
+            },
+            "code_Z": {
+              "found": 2,
+              "n": 9,
+              "recall": 0.2222
+            },
+            "deep_moonquake": {
+              "found": 1249,
+              "n": 4241,
+              "recall": 0.2945
+            },
+            "shallow_moonquake": {
+              "found": 10,
+              "n": 23,
+              "recall": 0.4348
+            },
+            "unclassified": {
+              "found": 303,
+              "n": 1524,
+              "recall": 0.1988
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 120.0,
+          "detections": 4401,
+          "recall": 0.0603,
+          "matched": 419,
+          "survey_precision": 0.0952,
+          "unmatched_per_station_day": 2.0708,
+          "recall_by_type": {
+            "code_A": {
+              "found": 1,
+              "n": 10,
+              "recall": 0.1
+            },
+            "code_C": {
+              "found": 132,
+              "n": 886,
+              "recall": 0.149
+            },
+            "code_L": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 7,
+              "n": 239,
+              "recall": 0.0293
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 226,
+              "n": 4241,
+              "recall": 0.0533
+            },
+            "shallow_moonquake": {
+              "found": 6,
+              "n": 23,
+              "recall": 0.2609
+            },
+            "unclassified": {
+              "found": 46,
+              "n": 1524,
+              "recall": 0.0302
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 120.0,
+          "detections": 831,
+          "recall": 0.0178,
+          "matched": 124,
+          "survey_precision": 0.1492,
+          "unmatched_per_station_day": 0.3677,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 88,
+              "n": 886,
+              "recall": 0.0993
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 1,
+              "n": 239,
+              "recall": 0.0042
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 25,
+              "n": 4241,
+              "recall": 0.0059
+            },
+            "shallow_moonquake": {
+              "found": 4,
+              "n": 23,
+              "recall": 0.1739
+            },
+            "unclassified": {
+              "found": 5,
+              "n": 1524,
+              "recall": 0.0033
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 120.0,
+          "detections": 436,
+          "recall": 0.0105,
+          "matched": 73,
+          "survey_precision": 0.1674,
+          "unmatched_per_station_day": 0.1888,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 56,
+              "n": 886,
+              "recall": 0.0632
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 8,
+              "n": 4241,
+              "recall": 0.0019
+            },
+            "shallow_moonquake": {
+              "found": 3,
+              "n": 23,
+              "recall": 0.1304
+            },
+            "unclassified": {
+              "found": 5,
+              "n": 1524,
+              "recall": 0.0033
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 120.0,
+          "detections": 238,
+          "recall": 0.0065,
+          "matched": 45,
+          "survey_precision": 0.1891,
+          "unmatched_per_station_day": 0.1004,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 36,
+              "n": 886,
+              "recall": 0.0406
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 4,
+              "n": 4241,
+              "recall": 0.0009
+            },
+            "shallow_moonquake": {
+              "found": 2,
+              "n": 23,
+              "recall": 0.087
+            },
+            "unclassified": {
+              "found": 2,
+              "n": 1524,
+              "recall": 0.0013
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 120.0,
+          "detections": 172,
+          "recall": 0.0019,
+          "matched": 13,
+          "survey_precision": 0.0756,
+          "unmatched_per_station_day": 0.0827,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 8,
+              "n": 886,
+              "recall": 0.009
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 3,
+              "n": 4241,
+              "recall": 0.0007
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 1524,
+              "recall": 0.0007
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 120.0,
+          "detections": 108,
+          "recall": 0.001,
+          "matched": 7,
+          "survey_precision": 0.0648,
+          "unmatched_per_station_day": 0.0525,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 886,
+              "recall": 0.0045
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 4241,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 3,
+              "n": 1524,
+              "recall": 0.002
+            }
+          }
+        },
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 240.0,
+          "detections": 27039,
+          "recall": 0.2529,
+          "matched": 1762,
+          "survey_precision": 0.0652,
+          "unmatched_per_station_day": 13.145,
+          "recall_by_type": {
+            "code_A": {
+              "found": 5,
+              "n": 10,
+              "recall": 0.5
+            },
+            "code_C": {
+              "found": 289,
+              "n": 886,
+              "recall": 0.3262
+            },
+            "code_L": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 40,
+              "n": 239,
+              "recall": 0.1674
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 3,
+              "n": 30,
+              "recall": 0.1
+            },
+            "code_Z": {
+              "found": 2,
+              "n": 9,
+              "recall": 0.2222
+            },
+            "deep_moonquake": {
+              "found": 1132,
+              "n": 4241,
+              "recall": 0.2669
+            },
+            "shallow_moonquake": {
+              "found": 9,
+              "n": 23,
+              "recall": 0.3913
+            },
+            "unclassified": {
+              "found": 279,
+              "n": 1524,
+              "recall": 0.1831
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 240.0,
+          "detections": 2632,
+          "recall": 0.0412,
+          "matched": 286,
+          "survey_precision": 0.1087,
+          "unmatched_per_station_day": 1.22,
+          "recall_by_type": {
+            "code_A": {
+              "found": 1,
+              "n": 10,
+              "recall": 0.1
+            },
+            "code_C": {
+              "found": 115,
+              "n": 886,
+              "recall": 0.1298
+            },
+            "code_L": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_M": {
+              "found": 4,
+              "n": 239,
+              "recall": 0.0167
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 127,
+              "n": 4241,
+              "recall": 0.0299
+            },
+            "shallow_moonquake": {
+              "found": 5,
+              "n": 23,
+              "recall": 0.2174
+            },
+            "unclassified": {
+              "found": 33,
+              "n": 1524,
+              "recall": 0.0217
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 240.0,
+          "detections": 633,
+          "recall": 0.0138,
+          "matched": 96,
+          "survey_precision": 0.1517,
+          "unmatched_per_station_day": 0.2793,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 73,
+              "n": 886,
+              "recall": 0.0824
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 13,
+              "n": 4241,
+              "recall": 0.0031
+            },
+            "shallow_moonquake": {
+              "found": 4,
+              "n": 23,
+              "recall": 0.1739
+            },
+            "unclassified": {
+              "found": 5,
+              "n": 1524,
+              "recall": 0.0033
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 240.0,
+          "detections": 291,
+          "recall": 0.0078,
+          "matched": 54,
+          "survey_precision": 0.1856,
+          "unmatched_per_station_day": 0.1232,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 40,
+              "n": 886,
+              "recall": 0.0451
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 7,
+              "n": 4241,
+              "recall": 0.0017
+            },
+            "shallow_moonquake": {
+              "found": 2,
+              "n": 23,
+              "recall": 0.087
+            },
+            "unclassified": {
+              "found": 4,
+              "n": 1524,
+              "recall": 0.0026
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 240.0,
+          "detections": 138,
+          "recall": 0.0045,
+          "matched": 31,
+          "survey_precision": 0.2246,
+          "unmatched_per_station_day": 0.0556,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 26,
+              "n": 886,
+              "recall": 0.0293
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1,
+              "n": 4241,
+              "recall": 0.0002
+            },
+            "shallow_moonquake": {
+              "found": 1,
+              "n": 23,
+              "recall": 0.0435
+            },
+            "unclassified": {
+              "found": 2,
+              "n": 1524,
+              "recall": 0.0013
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 240.0,
+          "detections": 117,
+          "recall": 0.0009,
+          "matched": 6,
+          "survey_precision": 0.0513,
+          "unmatched_per_station_day": 0.0577,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 886,
+              "recall": 0.0045
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 4241,
+              "recall": 0.0005
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 1524,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 240.0,
+          "detections": 13,
+          "recall": 0.0001,
+          "matched": 1,
+          "survey_precision": 0.0769,
+          "unmatched_per_station_day": 0.0062,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 0,
+              "n": 886,
+              "recall": 0.0
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1,
+              "n": 4241,
+              "recall": 0.0002
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 1524,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.1,
+          "min_dur_sec": 600.0,
+          "detections": 1239,
+          "recall": 0.028,
+          "matched": 194,
+          "survey_precision": 0.1566,
+          "unmatched_per_station_day": 0.5434,
+          "recall_by_type": {
+            "code_A": {
+              "found": 1,
+              "n": 10,
+              "recall": 0.1
+            },
+            "code_C": {
+              "found": 131,
+              "n": 886,
+              "recall": 0.1479
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 1,
+              "n": 239,
+              "recall": 0.0042
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 2,
+              "n": 30,
+              "recall": 0.0667
+            },
+            "code_Z": {
+              "found": 1,
+              "n": 9,
+              "recall": 0.1111
+            },
+            "deep_moonquake": {
+              "found": 43,
+              "n": 4241,
+              "recall": 0.0101
+            },
+            "shallow_moonquake": {
+              "found": 5,
+              "n": 23,
+              "recall": 0.2174
+            },
+            "unclassified": {
+              "found": 10,
+              "n": 1524,
+              "recall": 0.0066
+            }
+          }
+        },
+        {
+          "threshold": 0.15,
+          "min_dur_sec": 600.0,
+          "detections": 220,
+          "recall": 0.006,
+          "matched": 42,
+          "survey_precision": 0.1909,
+          "unmatched_per_station_day": 0.0926,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 35,
+              "n": 886,
+              "recall": 0.0395
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 2,
+              "n": 4241,
+              "recall": 0.0005
+            },
+            "shallow_moonquake": {
+              "found": 2,
+              "n": 23,
+              "recall": 0.087
+            },
+            "unclassified": {
+              "found": 2,
+              "n": 1524,
+              "recall": 0.0013
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "min_dur_sec": 600.0,
+          "detections": 48,
+          "recall": 0.0014,
+          "matched": 10,
+          "survey_precision": 0.2083,
+          "unmatched_per_station_day": 0.0198,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 8,
+              "n": 886,
+              "recall": 0.009
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 1,
+              "n": 1,
+              "recall": 1.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 4241,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 1,
+              "n": 1524,
+              "recall": 0.0007
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "min_dur_sec": 600.0,
+          "detections": 33,
+          "recall": 0.0006,
+          "matched": 4,
+          "survey_precision": 0.1212,
+          "unmatched_per_station_day": 0.0151,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 4,
+              "n": 886,
+              "recall": 0.0045
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 4241,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 1524,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "min_dur_sec": 600.0,
+          "detections": 27,
+          "recall": 0.0003,
+          "matched": 2,
+          "survey_precision": 0.0741,
+          "unmatched_per_station_day": 0.013,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 2,
+              "n": 886,
+              "recall": 0.0023
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 4241,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 1524,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "min_dur_sec": 600.0,
+          "detections": 26,
+          "recall": 0.0003,
+          "matched": 2,
+          "survey_precision": 0.0769,
+          "unmatched_per_station_day": 0.0125,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 1,
+              "n": 886,
+              "recall": 0.0011
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 1,
+              "n": 4241,
+              "recall": 0.0002
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 1524,
+              "recall": 0.0
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "min_dur_sec": 600.0,
+          "detections": 1,
+          "recall": 0.0001,
+          "matched": 1,
+          "survey_precision": 1.0,
+          "unmatched_per_station_day": 0.0,
+          "recall_by_type": {
+            "code_A": {
+              "found": 0,
+              "n": 10,
+              "recall": 0.0
+            },
+            "code_C": {
+              "found": 1,
+              "n": 886,
+              "recall": 0.0011
+            },
+            "code_L": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_M": {
+              "found": 0,
+              "n": 239,
+              "recall": 0.0
+            },
+            "code_S": {
+              "found": 0,
+              "n": 1,
+              "recall": 0.0
+            },
+            "code_X": {
+              "found": 0,
+              "n": 30,
+              "recall": 0.0
+            },
+            "code_Z": {
+              "found": 0,
+              "n": 9,
+              "recall": 0.0
+            },
+            "deep_moonquake": {
+              "found": 0,
+              "n": 4241,
+              "recall": 0.0
+            },
+            "shallow_moonquake": {
+              "found": 0,
+              "n": 23,
+              "recall": 0.0
+            },
+            "unclassified": {
+              "found": 0,
+              "n": 1524,
+              "recall": 0.0
+            }
+          }
+        }
+      ]
+    }
+  },
+  "note": "unmatched detections include real uncatalogued events - 45% of the benchmark's false positives were genuine Nakamura events - so unmatched_per_station_day is an UPPER BOUND on the false-alarm rate, not the rate."
+}
