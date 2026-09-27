@@ -62,7 +62,12 @@ Resume (Git Bash, one CUDA job at a time — run the second after the first):
 
     cd /c/apsis_rerun && PY=/c/Users/ASUS/OneDrive/Desktop/major/.venv/Scripts/python.exe bash scripts/run_screened_grouped.sh
     cd /c/apsis_rerun && PY=/c/Users/ASUS/OneDrive/Desktop/major/.venv/Scripts/python.exe bash scripts/run_archive_grouped.sh
-- [ ] Record results in new files; update handoff; commit on this branch.
+- [x] Record results in new files; commit on this branch. Screened
+  checkpoints + logs + screen file backed up to
+  `C:\apsis_backups\lunar_grouped_v1_screened_2026-09-28` (26 files,
+  149 MB, `sha256sum -c SHA256SUMS` passes). Tests: 172 passed, 1 skipped.
+- [ ] Not done: E3b (retrain SeisCNN on denoised windows); merging these
+  results into the main docs/paper; pushing this branch (awaiting user).
 
 ---
 
