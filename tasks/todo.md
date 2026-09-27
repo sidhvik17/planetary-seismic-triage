@@ -8,7 +8,7 @@ Only one CUDA process at a time; `num_workers=0`.
 
 Analysis plan fixed BEFORE any new result exists:
 
-- [ ] **E1 screening ablation.** SpecUNet, 5 seeds (42/1/2/3/4), identical
+- [x] **E1 screening ablation.** SpecUNet, 5 seeds (42/1/2/3/4), identical
   recipe to the unscreened grouped runs (30 ep x 6400, batch 32, patience 8,
   from scratch) plus `--screen-nakamura` with
   `data/cache/lunar_grouped_v1_nakamura_screen.json` (train+val spans only,
@@ -17,6 +17,16 @@ Analysis plan fixed BEFORE any new result exists:
   test F1 screened vs the existing unscreened 5 seeds, Welch t-test; report
   mean ± SD, difference and p. p >= 0.05 is reported as "no difference
   detected", never "no effect". Secondary (descriptive): validation F1.
+  **Result** (`results/lunar_grouped_v1_screening_ablation.json`; seed 1
+  resumed from epoch 6 after a user pause): unscreened 0.408 ± 0.043,
+  screened 0.286 ± 0.133 [0.08, 0.41]; difference −0.122, Welch t −1.95,
+  p = 0.111 -> no difference detected at p < 0.05 (not an equivalence test).
+  The point estimate favours the unscreened pool, and the screened arm is
+  far more variable: seed 1 selected 0.5 / 600 s on validation (val F1
+  0.43) and found 1 of 23 test events. Descriptive only: screened precision
+  0.40 vs 0.34, recall 0.29 vs 0.53; validation F1 0.47 vs 0.50. The
+  historical result (0.372 vs 0.379, p = 0.923) is not reproduced as a
+  near-zero difference; neither split supports a screening benefit.
 - [x] **E3a denoise chain (no training).** Seed-42 SpecUNet denoises val/test
   spans; seed-42 SeisCNN on raw / denoised / max-fusion; each variant's
   threshold selected on validation and locked before test. New files only.
