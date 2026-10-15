@@ -123,7 +123,10 @@ scripts; they are not all covered by that command or tag.
 benchmark is 183 curated single-event snippets, so n = 19 test events is
 structural, not a choice. We therefore ingested the continuous Apollo
 archive (FDSN network XA): 16.2 GB, **7,850 valid station-days** across
-S12/S14/S15/S16, and scanned 6,850 of them. **The paradigm does not scale.**
+S12/S14/S15/S16, and scanned 6,850 of them. *(2026-10-15 correction: 16.2 GiB
+is 17.4 GB, and 7,850 counted each day file's 30-minute context pads, so every
+day boundary twice; inside each day the archive holds 7,536 valid
+station-days, `results/archive_scan/archive_inventory.json`.)* **The paradigm does not scale.**
 On S12 — the training station, best case — the detector reaches recall 0.525
 against the full Nakamura catalog at **15.4 unmatched detections per
 station-day**, or a tolerable 0.19/day at recall 0.071; the benchmark-tuned
