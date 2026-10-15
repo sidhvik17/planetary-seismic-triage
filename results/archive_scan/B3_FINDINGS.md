@@ -4,6 +4,11 @@
 (Nakamura-screened injection training, seed 42) · **Data:** 6,850 valid
 station-days across S12/S15/S16, `PLANETSEIS_ARCHIVE=C:\planetseis_archive`
 
+> Historical scan (screened model trained on the historical split). The
+> corrected-split rerun with the seed-42 `lunar_grouped_v1` SpecUNet, the one
+> the paper reports, is in `grouped_v1_seed42/` (6,848 day-proper station-days,
+> locked-point S12 recall 1.4 %, deep moonquakes 0.56 / 0.36 / 0.29).
+
 ## Verdict: the gate does not pass
 
 The plan was B1 → B3 → *if the false-alarm rate is acceptable* → B4 → paper.
@@ -49,7 +54,8 @@ Two things are real here:
 
 1. **Shallow moonquakes — the rarest and most scientifically significant
    class, 28 in the entire catalog — have the highest recall of any class**,
-   from a detector that never saw a labeled positive. They are the largest,
+   from a detector trained without labelled positive windows (its templates
+   still come from catalog picks, so it is not label-free). They are the largest,
    most impulsive events, i.e. closest to the Grade-A templates the injection
    engine was built from.
 2. **Recall collapses off the training station**: 0.52 → 0.21 → 0.14 for deep
@@ -90,7 +96,8 @@ recall is invalid.
 ## What this means for the two-track plan
 
 **Track A (ML4PS / arXiv) is unaffected and should proceed.** Its claim is
-about label-free training under label scarcity on the frozen benchmark, which
+about injection training from catalog-selected templates under label
+scarcity on the frozen benchmark, which
 stands on its own. The archive result strengthens it by supplying an honest
 limitation section.
 

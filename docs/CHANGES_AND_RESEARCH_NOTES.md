@@ -108,9 +108,9 @@ statement does not describe the expanded test. Source:
 `results/unet_mars_ext_to_mars_ext.json`.
 
 SpecUNet's stored uncertainty ratios use distinct denominators: 0.55 for
-FP/TP median uncertainty, 0.49 after including Nakamura matches among real
-events and excluding them from false positives. Do not interchange these
-labels. Mask-energy scores are not calibrated event probabilities.
+catalog-unmatched FP / TP median uncertainty (catalog-matched FPs are left
+out of the numerator), 0.49 after also counting Nakamura matches among real
+events. Neither is an all-FP ratio; do not interchange these labels. Mask-energy scores are not calibrated event probabilities.
 
 ### 3.5 Model/input and inference limits
 
@@ -302,9 +302,11 @@ Corrected seed-42 secondary results:
 | SpecUNet detection σ clean-FP/TP (mislabelled FP/TP, see §10); clean-FP/real | 0.77; 0.70 | 0.55; 0.49 |
 | SeisCNN recall below / above median SNR | 0.636 / 0.750 (median 14.4 dB, n = 23) | — |
 
-Not done: a real LaTeX compile (no TeX engine installed locally), and
-corrected-split reruns of the screening ablation, denoise chain, archive scan
-and Mars. These analyses describe seed 42 only.
+Not done at the time: a real LaTeX compile (no TeX engine installed locally),
+and corrected-split reruns of the screening ablation, denoise chain, archive
+scan and Mars. These analyses describe seed 42 only. (Later done: the LaTeX
+compile and the screening, chain and archive reruns, see §11; Mars was not
+rerun.)
 
 ## 9. 2026-09-23 — handoff follow-ups (seed coverage, baseline grid, hardening)
 
@@ -390,3 +392,22 @@ The paper was rewritten as a Springer proceedings contribution
 (`paper/springer/`, branch `springer-submission`), with every reference checked
 against Crossref/DataCite. One earlier reference ("Dahmen & Stott 2024") was
 wrong and is replaced by Dahmen et al. (2024), GJI 239(1), 434–454.
+
+## 12. 2026-10-15 — paper and code alignment
+
+A read-only audit compared the submitted Springer manuscript and the review
+paper with the code and result files (methods, every number, data facts,
+repository contents). Changes made here:
+
+| Area | Change | Evidence |
+|---|---|---|
+| Repository | `corrected-split-reruns` merged into `main`, so the screened-pool row, Table 2 and the archive scan the paper reports are in the repository it names | merge commit on this branch |
+| Archive station-days | ingest summed the 30-minute context pads of every day file and so counted each day boundary twice; `planetseis.archive.day_valid_samples` now counts the day itself, shared by ingest, scan and inventory | 7,850.44 padded vs 7,536.43 day-proper, `results/archive_scan/archive_inventory.json` |
+| Archive record | new `scripts/archive_inventory.py`: day files, valid station-days, disk size, longest gap per station | S14 gap 1,710 days (4.7 years) |
+| Figures | `scripts/make_springer_figures.py` redraws the paper's Fig. 1–3 from `results/` | output pixel-identical to the printed figures |
+| Docs | README, walkthrough, project review, benchmark README, historical report banner, B3 findings: withdrawn claims labelled or replaced (74.7 % as current, fusion best recall, complementary regimes, 95/96 cross-station, label-free wording, reruns "not done") | `docs/PAPER_MAP.md` |
+| Numbers | EQTransformer zero-shot F1 is 2/191 = 0.010 (the record's 0.0105 had been rounded to 0.011); historical p = 0.024 compares SeisCNN with the five *screened* SpecUNet seeds, against the unscreened three it is 0.12 | `results/seisbench_zeroshot_lunar.json`, `results/seed_level_comparison.json` |
+
+Not changed: the app (rolled back by request the same evening), training,
+evaluation logic and the existing result JSON files (one new record,
+archive_inventory.json, was added).

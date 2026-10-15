@@ -105,9 +105,11 @@ association, not whether an event was omitted from the benchmark.
 
 ## 7. Historical experiments and limits
 
-Mars, screening ablation, denoise chaining and continuous-archive experiments
-have not been rerun with the corrected lunar checkpoints. Identify them as
-historical experiments if discussing them. The archive scan failed its
+The screening ablation, denoise chaining and the continuous-archive scan were
+rerun on the corrected split (README, "Corrected-split reruns"): screening
+0.286 ± 0.133 against 0.408 ± 0.043 (p = 0.11), chain 0.561 → 0.222, archive
+S12 recall 1.4 % at the locked point. Mars was not rerun; identify Mars and
+the other historical-split figures as historical. The archive scan failed its
 performance gate; survey deployment is not validated. A null screening test
 is not proof that screening has no effect. Simulator window reduction is
 not measured radio-byte, energy or flight-performance savings.
@@ -119,8 +121,9 @@ changed MAE from 33.93 s to 34.20 s, so it did not improve the expanded result.
 
 ## 8. Evidence and continuation
 
-- Current manuscript and compiled PDF: `paper/ml4ps_2026.md` and
-  `paper/ml4ps_2026.pdf`; reproducible build instructions: `paper/BUILD.md`.
+- Manuscript: the Springer proceedings paper, kept in a separate private
+  repository; every number and figure in it is mapped to this repository in
+  `docs/PAPER_MAP.md`.
 - Full change history: `docs/CHANGES_AND_RESEARCH_NOTES.md`.
 - Current task status, exact artifact paths and next steps:
   `tasks/RESEARCH_HANDOFF.md`.
