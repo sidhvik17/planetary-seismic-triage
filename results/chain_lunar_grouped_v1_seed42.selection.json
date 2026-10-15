@@ -1,0 +1,127 @@
+{
+  "benchmark_id": "lunar_grouped_v1",
+  "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+  "checkpoints": {
+    "cnn": {
+      "path": "runs/lunar_grouped_v1/best.pt",
+      "sha256": "f44ea9155cc58d59601107be8d2c4ddcdf301377faaa9b57b8caf105967fc041",
+      "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+      "benchmark_id": "lunar_grouped_v1",
+      "initialized_from_scratch": true,
+      "arch": "base",
+      "params": 117842,
+      "epoch": 27,
+      "seed": 42,
+      "training_config": {
+        "body": "lunar",
+        "no_augment": false,
+        "arch": "base",
+        "tag": "",
+        "epochs": 60,
+        "seed": 42,
+        "data_dir": "data\\cache\\lunar_grouped_v1",
+        "out_dir": "runs\\lunar_grouped_v1",
+        "resume": false,
+        "device": "cuda"
+      }
+    },
+    "unet": {
+      "path": "runs/unet_lunar_grouped_v1/best.pt",
+      "sha256": "261bce3ddc31befd8090430f1a1658e0c1e34a891f239d8d4be9304af5e5fb9c",
+      "data_manifest_sha256": "da0d85966c1090b1b088e42ab0f1957fcb73ec4c2c287505a5aa7245facb46cf",
+      "benchmark_id": "lunar_grouped_v1",
+      "initialized_from_scratch": true,
+      "arch": "base",
+      "params": 1942433,
+      "epoch": 28,
+      "seed": 42,
+      "training_config": {
+        "body": "lunar",
+        "arch": "base",
+        "tag": "",
+        "epochs": 30,
+        "epoch_len": 6400,
+        "batch_size": 32,
+        "lr": 0.001,
+        "event_weight": 3.0,
+        "patience": 8,
+        "seed": 42,
+        "val_split": "val",
+        "finetune_from": null,
+        "hardneg": null,
+        "p_hardneg": 0.35,
+        "screen_nakamura": false,
+        "data_dir": "data\\cache\\lunar_grouped_v1",
+        "out_dir": "runs\\unet_lunar_grouped_v1",
+        "resume": false,
+        "device": "cuda"
+      }
+    }
+  },
+  "variants": {
+    "raw": "SeisCNN on the preprocessed trace",
+    "chain": "SeisCNN on the SpecUNet-denoised trace",
+    "fusion": "per-window max of raw and denoised probabilities"
+  },
+  "selection_rule": "grouped SeisCNN grid and tie rule (evaluate_grouped.select_operating_point)",
+  "code_sha256": {
+    "scripts/chain_grouped.py": "36fb888058c6f90d1ef7ef8923d5d97a94a04b5921298b8ea987fcaed576a09b",
+    "scripts/evaluate_grouped.py": "9a9b2ac0c1d2fee917d5ebb74d846234b89ab758e9286823981c65aa79b33f58",
+    "planetseis/detect_spec.py": "8bd76541e1d78be023ae54cbba1d8c535fd7e5bfd9ffe67dcbb0b4fe4f447446",
+    "planetseis/evaluate.py": "c02c6cc13b0504b248032e7d475e147a01e3f10d287fb76f71eaa76d25a10017"
+  },
+  "created_at_utc": "2026-09-23T16:09:31.338356+00:00",
+  "selections": {
+    "raw": {
+      "operating_point": {
+        "threshold": 0.97
+      },
+      "best_val_f1": 0.6956521739130435,
+      "selected_val_f1": 0.6956521739130435,
+      "validation_scores": {
+        "tp": 8,
+        "fp": 4,
+        "fn": 3,
+        "precision": 0.6667,
+        "recall": 0.7273,
+        "f1": 0.6957,
+        "mae_sec": 66.05,
+        "median_ae_sec": 65.58
+      }
+    },
+    "chain": {
+      "operating_point": {
+        "threshold": 0.995
+      },
+      "best_val_f1": 0.2711864406779661,
+      "selected_val_f1": 0.2711864406779661,
+      "validation_scores": {
+        "tp": 8,
+        "fp": 40,
+        "fn": 3,
+        "precision": 0.1667,
+        "recall": 0.7273,
+        "f1": 0.2712,
+        "mae_sec": 60.95,
+        "median_ae_sec": 71.01
+      }
+    },
+    "fusion": {
+      "operating_point": {
+        "threshold": 0.995
+      },
+      "best_val_f1": 0.2711864406779661,
+      "selected_val_f1": 0.2711864406779661,
+      "validation_scores": {
+        "tp": 8,
+        "fp": 40,
+        "fn": 3,
+        "precision": 0.1667,
+        "recall": 0.7273,
+        "f1": 0.2712,
+        "mae_sec": 61.86,
+        "median_ae_sec": 71.85
+      }
+    }
+  }
+}

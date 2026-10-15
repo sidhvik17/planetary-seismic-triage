@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import sys
 import time
@@ -213,7 +214,11 @@ def main():
               f"station-days ({far:.3f}/day) -> {out_csv}")
 
     if summary:
-        meta = {"model": str(args.model), "threshold": args.threshold,
+        meta = {"model": str(args.model),
+                "model_sha256": hashlib.sha256(Path(args.model).read_bytes()).hexdigest(),
+                "benchmark_id": ckpt.get("benchmark_id"),
+                "data_manifest_sha256": ckpt.get("data_manifest_sha256"),
+                "threshold": args.threshold,
                 "min_dur_sec": args.min_dur, "min_valid": args.min_valid,
                 "coda_sec": args.coda_sec, "stations": summary,
                 "note": "detections_per_station_day is the RAW rate before "

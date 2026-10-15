@@ -35,7 +35,7 @@ def dataset_provenance(body: str, data_dir: Path | None) -> dict:
 
 def training_config(args, pipeline: dict) -> dict:
     """Settings affecting training; paths may move between machines/accounts."""
-    runtime = {"data_dir", "out_dir", "resume", "device"}
+    runtime = {"data_dir", "out_dir", "resume", "device", "screen_file"}
     config = {key: str(value) if isinstance(value, Path) else value
               for key, value in vars(args).items() if key not in runtime}
     return {"arguments": config, "pipeline": pipeline}
