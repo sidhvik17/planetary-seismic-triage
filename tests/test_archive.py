@@ -7,8 +7,8 @@ count as observed station-time, and gain states must never be spliced.
 import numpy as np
 import pytest
 
-from planetseis.archive import (MISSING_FLAG, CleanStats, clean_samples,
-                                pick_location, stream_to_samples)
+from planetseis.archive import (DAY_SEC, MISSING_FLAG, CleanStats, clean_samples,
+                                day_valid_samples, pick_location, stream_to_samples)
 
 RATE = 6.625
 
@@ -113,3 +113,16 @@ def test_stream_to_samples_ignores_other_location():
     tr = _Tr("01", 100, start=0.0, data=np.full(100, 7.0))
     out, gap = stream_to_samples([tr], "00", 0.0, 100 / RATE, RATE)
     assert gap.all()          # nothing from the requested gain state
+
+
+def test_day_valid_samples_excludes_the_context_pads():
+    pad, day = int(1800 * RATE), int(DAY_SEC * RATE)
+    valid = np.ones(pad + day + pad, dtype=bool)
+    day_start = 1000.0 * DAY_SEC
+    # a fully valid padded day file is one station-day, not 25/24 of one
+    assert day_valid_samples(valid, day_start - 1800.0, day_start, RATE) == day
+    valid[:pad] = False                       # invalid pad does not count either way
+    valid[pad + 10: pad + 20] = False         # invalid samples inside the day do
+    assert day_valid_samples(valid, day_start - 1800.0, day_start, RATE) == day - 10
+    # a station's first file is clipped at the start: no leading pad
+    assert day_valid_samples(np.ones(day + pad, dtype=bool), day_start, day_start, RATE) == day

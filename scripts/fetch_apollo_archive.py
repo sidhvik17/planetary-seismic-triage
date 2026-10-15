@@ -40,8 +40,8 @@ from obspy.clients.fdsn import Client
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from planetseis.archive import (MAX_INTERP_SEC, clean_samples, pick_location,
-                                stream_to_samples)
+from planetseis.archive import (MAX_INTERP_SEC, clean_samples, day_valid_samples,
+                                pick_location, stream_to_samples)
 from planetseis.config import ARCHIVE_CACHE, DEFAULT as CFG
 from planetseis.preprocessing import preprocess
 
@@ -145,7 +145,8 @@ def process_month(client, station, m0, m1, force=False):
             starttime=str(seg_start), day=d.strftime("%Y-%m-%d"),
             stats=json.dumps(stats))
         written += 1
-        kept += int(seg_valid.sum())
+        # the day itself only: the pads repeat the neighbouring days
+        kept += day_valid_samples(seg_valid, seg_start, d, RATE)
     return written, kept
 
 

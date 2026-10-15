@@ -3,7 +3,8 @@
     python scripts/scan_archive.py --model runs/unet_lunar_screened/best.pt \
         --stations S12 S15 S16 --threshold 0.3 --min-dur 600
 
-Turns the frozen benchmark's 19 test files into ~7,850 valid station-days.
+Turns the frozen benchmark's 19 test files into ~7,500 valid station-days
+(7,536 over S12, S14, S15 and S16; see scripts/archive_inventory.py).
 That is the whole point of the archive pull: recall measured against
 thousands of Nakamura events instead of 19, and a false-alarm rate expressed
 per station-day, which curated single-event snippets cannot express at all.
@@ -40,13 +41,13 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from planetseis.archive import DAY_SEC, day_valid_samples
 from planetseis.config import ARCHIVE_CACHE, PROJECT_ROOT
 from planetseis.detect_spec import SEC_PER_BIN, compute_curve, curve_to_detections
 from planetseis.unet import UNET_ARCHS, SpecUNet
 
 OUT_DIR = PROJECT_ROOT / "results" / "archive_scan"
 RATE = 6.625
-DAY_SEC = 86400.0
 
 
 def _iso(epoch: float) -> str:
@@ -97,11 +98,7 @@ def scan_station(model, station, device, thr, min_dur, min_valid,
 
         # denominator: valid samples inside the day proper only, so the pad
         # overlap between neighbouring files is never counted twice
-        d_lo = int(round((day_start - seg_start) * RATE))
-        d_hi = d_lo + int(round(DAY_SEC * RATE))
-        d_lo, d_hi = max(d_lo, 0), min(d_hi, len(valid))
-        if d_hi > d_lo:
-            valid_samples += int(valid[d_lo:d_hi].sum())
+        valid_samples += day_valid_samples(valid, seg_start, day_start, RATE)
 
         curve = compute_curve(model, trace, device)
         if save_curves:
