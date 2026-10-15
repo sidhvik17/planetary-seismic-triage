@@ -68,7 +68,8 @@ def sweep(model, split, thresholds, device, root=DATA_CACHE / "lunar"):
 
 
 def event_snr_db(trace, rate, pick):
-    """Post-onset signal RMS vs pre-onset noise RMS, both 5-minute windows."""
+    """Signal RMS over 300 s after the pick vs noise RMS over the 600 s that
+    end 300 s before it, in dB."""
     i = int(pick * rate)
     sig = trace[i: i + int(300 * rate)]
     noise = trace[max(0, i - int(900 * rate)): max(1, i - int(300 * rate))]

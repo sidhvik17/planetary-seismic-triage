@@ -194,10 +194,19 @@ def test_completed_result_survives_settings_reruns_without_relabeling_or_inferen
 
 def test_denoising_and_mc_only_run_when_submitted_and_are_marked_exploratory(app_env):
     app = select_analysis(app_env.run())
-    app.checkbox(key="include_denoised").check().run()
-    app.checkbox(key="mc_SpecUNet_lunar").check().run()
+
+    def stage_options():
+        app.checkbox(key="include_denoised").check()
+        app.checkbox(key="mc_SpecUNet_lunar").check()
+
+    stage_options()
+    app.run()  # a rerun that does not submit the form runs no extra inference
     app_env.denoise.assert_not_called()
     app_env.spec_mc.assert_not_called()
+    # Both options sit inside st.form. Streamlit 1.66's AppTest, like the
+    # browser, sends form values only with the submit click (1.64 sent them on
+    # any rerun), so stage them in the same run as the click.
+    stage_options()
     click(app, "Analyze trace")
     assert_about_available(app)
     assert not app.error

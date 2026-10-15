@@ -54,6 +54,22 @@ MAX_INTERP_SEC = 10.0
 # single day file is only ever built from ONE of them.
 LOC_PEAKED, LOC_FLAT = "00", "01"
 
+DAY_SEC = 86400.0
+
+
+def day_valid_samples(valid: np.ndarray, seg_start, day_start, rate_hz: float) -> int:
+    """Valid samples inside [day_start, day_start + 1 day) of one day file.
+
+    Day files carry context pads that overlap their neighbours, so summing the
+    whole validity mask counts every boundary pad twice: over the four-station
+    archive that gives 7,850 "valid station-days" instead of 7,536. Times are
+    epoch seconds or obspy UTCDateTime; only their difference is used.
+    """
+    lo = int(round((day_start - seg_start) * rate_hz))
+    hi = lo + int(round(DAY_SEC * rate_hz))
+    lo, hi = max(lo, 0), min(hi, len(valid))
+    return int(valid[lo:hi].sum()) if hi > lo else 0
+
 
 @dataclass
 class CleanStats:

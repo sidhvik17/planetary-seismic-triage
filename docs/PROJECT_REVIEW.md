@@ -98,8 +98,9 @@ p = 0.0012); matched filter 0.200; STA/LTA 0.168. See
 (Nakamura FP cross-check, MC uncertainty, SNR strata, PR sweep) were rerun on
 the corrected split for all five seeds
 (`results/lunar_grouped_v1_secondary_summary.json`), and the lunar demo uses
-the corrected seed-42 checkpoints. Still historical-split only: screening ablation, denoise
-chain, archive scan and Mars (listed in `tasks/RESEARCH_HANDOFF.md`).
+the corrected seed-42 checkpoints. The screening ablation, denoise chain and
+archive scan were rerun on the corrected split on 2026-09-28 (README,
+"Corrected-split reruns"); Mars is still historical-split only.
 
 **Final scientific wording review:** 45 of 47 pooled ±300 s catalog matches
 refer to Grade-A events already labeled in the same span. The two remaining

@@ -10,13 +10,15 @@ Two detector families for planetary seismic data, built on a $0 stack
    on-lander downlink-triage demo.
 2. **SpecUNet** — MarsQuakeNet-style spectrogram U-Net (Dahmen et al. 2022)
    trained **with synthetic mask targets from catalog-selected templates**: event templates are
-   spectrally gated, injected into event-free noise at random SNRs, and the
+   spectrally gated, injected into noise drawn away from catalog picks at random SNRs, and the
    exact time-frequency energy-ratio masks supervise a per-pixel event/noise
    segmentation. Detection = frequency-integrated mask energy; the same mask
    denoises the trace (mask × complex STFT → inverse).
 
 B.Tech major project. **Repo:** https://github.com/sidhvik17/planetary-seismic-triage ·
-**Report:** [docs/report.md](docs/report.md) · **Demo:** `streamlit run app/streamlit_app.py`
+**Paper map:** [docs/PAPER_MAP.md](docs/PAPER_MAP.md) ·
+**Historical report (July 2026, partly superseded):** [docs/report.md](docs/report.md) ·
+**Demo:** `streamlit run app/streamlit_app.py`
 
 ## Current status and local demo
 
@@ -94,7 +96,8 @@ operating point was selected on validation and written to a locked
   - SeisCNN MC-Dropout σ is 7.9 ± 3.5× higher on false-alarm than on
     true-event windows [3.7, 12.9], yet the review queue (29–42 candidates
     per seed) caught a real Grade-A event in only one seed.
-  - SpecUNet median uncertainty for **all benchmark FPs / benchmark TPs** is
+  - SpecUNet median uncertainty for **all false / true positives** (taken from
+    the 10-pass mean curve at each seed's locked operating point) is
     **1.06 ± 0.38** [0.68, 1.66], below 1 in two of five seeds. The earlier
     0.86 ± 0.43 used only catalog-unmatched FPs in its numerator. Uncertainty
     does not reliably flag false alarms; a consistent inversion is unsupported.
@@ -103,6 +106,24 @@ operating point was selected on validation and written to a locked
     the test-event median, not a validation-selected signal-strength cutoff.
   - Seed 42 alone (the demo model) sits at the low end for catalog matches
     (9/31) and SeisCNN σ separation (3.7×); report the five-seed figures.
+* **Corrected-split reruns** (2026-09-28 on branch `corrected-split-reruns`,
+  merged into `main` 2026-10-15; each result at a validation-locked operating
+  point, analysis rules fixed before the results existed):
+  - *Noise-pool screening* (five new SpecUNet seeds with catalogued events
+    removed from the injection noise): test F1 0.286 ± 0.133 against
+    0.408 ± 0.043 unscreened, Welch p = 0.11 — no difference detected, and
+    no benefit (`results/lunar_grouped_v1_screening_ablation.json`).
+  - *Denoise-then-detect* (seed 42): SeisCNN on SpecUNet-denoised input
+    falls from F1 0.561 to 0.222; max-fusion gives 0.200 with recall 0.652
+    versus 0.696 raw. The historical "fusion gives the best recall" result
+    does not replicate (`results/chain_lunar_grouped_v1_seed42.json`).
+  - *Continuous archive* (corrected seed-42 SpecUNet, 6,848 station-days):
+    catalog recall 1.4 % / 0.5 % / 0.3 % (S12/S15/S16) at the locked point;
+    best S12 trade-offs 0.557 at 18.8 unmatched detections per station-day
+    or 0.060 at 0.19/day — still no usable operating point
+    (`results/archive_scan/grouped_v1_seed42/`).
+  - Mars was not rerun: its split was built separately and has not received
+    the acquisition-level audit applied to the lunar data.
 * **The lunar demo runs the corrected seed-42 checkpoints**
   (`models/lunar_grouped_v1_seed42.pt`, `models/unet_lunar_grouped_v1_seed42.pt`,
   metadata `models/lunar_grouped_v1_seed42.json`) at their validation-selected
@@ -111,9 +132,15 @@ operating point was selected on validation and written to a locked
   stay in `models/` for reproduction; Mars is unchanged. All ten corrected
   runs are backed up outside OneDrive (see `tasks/RESEARCH_HANDOFF.md`).
 
-The current manuscript is `paper/ml4ps_2026.md` in the separate paper repository.
-See `paper/BUILD.md` for its LaTeX/PDF build and `tasks/RESEARCH_HANDOFF.md`
-for completion status. Secondary claim corrections are documented in
+The paper, *Injection-Trained Planetary Seismic Event Detection Under Label
+Scarcity: A Leakage-Corrected Lunar Benchmark and Its Limits* (Springer Nature
+proceedings manuscript), reports the numbers in this section. Its LaTeX source
+is kept in a separate, private repository and is not part of this one;
+[docs/PAPER_MAP.md](docs/PAPER_MAP.md) maps every table, figure and number in
+it to the script and result file here and lists where the submitted text and
+the code differ (no headline result is affected), and `scripts/make_springer_figures.py`
+redraws its three figures from `results/`. `tasks/RESEARCH_HANDOFF.md` records
+completion status. Secondary claim corrections are documented in
 `docs/CHANGES_AND_RESEARCH_NOTES.md`; historical catalog-match counts below
 must not be interpreted as distinct discoveries.
 
@@ -126,6 +153,8 @@ Sources: `results/lunar_grouped_v1_seed_summary.json`,
 Reproduce:
 
 ```powershell
+# fresh clone: build the cache (the published manifest already exists, so write the copy elsewhere)
+.venv\Scripts\python scripts\build_grouped_lunar.py --manifest-output data\cache\lunar_grouped_v1_manifest_rebuilt.json
 .venv\Scripts\python scripts\build_grouped_lunar.py --audit-only   # verify cache + manifest
 bash scripts/run_grouped_seeds.sh                                 # train 5 seeds x 2 models (resumable)
 .venv\Scripts\python scripts\evaluate_grouped.py --data-dir data/cache/lunar_grouped_v1 --cnn runs/lunar_grouped_v1/best.pt --output results/<new>.json
@@ -134,6 +163,14 @@ bash scripts/run_grouped_seeds.sh                                 # train 5 seed
 .venv\Scripts\python scripts\run_grouped_secondary.py        # secondary analyses, every seed
 .venv\Scripts\python scripts\aggregate_grouped_secondary.py
 .venv\Scripts\python scripts\sta_lta_grouped.py --data-dir data/cache/lunar_grouped_v1
+# corrected-split reruns
+.venv\Scripts\python scripts\build_nakamura_screen.py --data-dir data/cache/lunar_grouped_v1
+bash scripts/run_screened_grouped.sh                              # screened noise pool, 5 seeds
+.venv\Scripts\python scripts\compare_screened_grouped.py
+.venv\Scripts\python scripts\chain_grouped.py --data-dir data/cache/lunar_grouped_v1 --cnn runs/lunar_grouped_v1/best.pt --unet runs/unet_lunar_grouped_v1/best.pt
+bash scripts/run_archive_grouped.sh                               # needs PLANETSEIS_ARCHIVE
+.venv\Scripts\python scripts\archive_inventory.py                 # day files, valid station-days
+.venv\Scripts\python scripts\make_springer_figures.py                # the paper's Fig. 1-3
 ```
 
 ## Historical headline results (frozen test traces, ±120 s tolerance)
@@ -146,7 +183,12 @@ bash scripts/run_grouped_seeds.sh                                 # train 5 seed
 | Lunar→Lunar — matched filter, *oracle* test-tuned upper bound | 0.261 | 0.316 | 0.286 | 59 s |
 | Lunar→Lunar — STA/LTA (tuned) | 0.116 | 0.421 | 0.182 | 76 s |
 | Lunar→Lunar — PhaseNet 268K, zero-shot | 0.000 | 0.000 | 0.000 | — |
-| Lunar→Lunar — EQTransformer 376K, zero-shot | 0.006 | 0.053 | 0.011 | 106 s |
+| Lunar→Lunar — EQTransformer 376K, zero-shot | 0.006 | 0.053 | 0.010 | 106 s |
+| Mars_ext→Mars_ext — SpecUNet (injection-only, n=30 events) | **1.000** | 0.233 | 0.378 | 34 s |
+| Lunar→Mars / Mars→Lunar transfer (SeisCNN) | — | — | ~0 | — |
+
+EQTransformer finds 1 of 19 events with 171 false positives, so its F1 is
+2/191 = 0.010 (`results/seisbench_zeroshot_lunar.json` stores 0.0105).
 
 **Matched filtering is the baseline that matters** — Nakamura (2003) and
 Bulow et al. (2005, 2007) extended the Apollo catalog by waveform
@@ -164,12 +206,10 @@ deep-moonquake nests, which the archive scan confirms independently
 is a domain mismatch — 100 Hz terrestrial P/S pickers on 6.625 Hz emergent,
 scattered signals — and is reported as context, not as a competitive
 baseline.
-| Mars_ext→Mars_ext — SpecUNet (injection-only, n=30 events) | **1.000** | 0.233 | 0.378 | 34 s |
-| Lunar→Mars / Mars→Lunar transfer (SeisCNN) | — | — | ~0 | — |
 
-**Seed-level comparison (5 seeds SpecUNet, 3 seeds SeisCNN) — the supervised
-detector is significantly better.** Averaged over seeds rather than read off
-one checkpoint:
+**Historical seed-level comparison (3 SeisCNN seeds; 5 screened and 3
+unscreened SpecUNet seeds).** Averaged over seeds rather than read off one
+checkpoint:
 
 | detector | seeds | mean F1 | sd |
 |---|---|---|---|
@@ -177,23 +217,27 @@ one checkpoint:
 | SpecUNet (injection-only, screened) | 5 | 0.372 | 0.076 |
 | SpecUNet (injection-only, unscreened) | 3 | 0.379 | 0.086 |
 
-Welch t-test, SeisCNN vs SpecUNet: **p = 0.024**. The earlier "statistically
-indistinguishable" claim does **not** survive proper seed accounting — it came
-from a single-seed paired bootstrap that resampled test files while holding
-the trained model fixed, so it never saw training stochasticity, which for
-injection training (fresh synthetic events every epoch) is a first-order
-effect. The defensible claim is that **injection-only training reaches 74.7%
-of supervised mean F1 while using zero labeled positive windows**. That is
-not parity and is not described as such
-(`results/seed_level_comparison.json`).
+Welch t-test, SeisCNN vs the five screened SpecUNet seeds: **p = 0.024**;
+against the three unscreened seeds — the family of the frozen 0.440
+checkpoint — p = 0.12. The earlier "statistically indistinguishable" claim
+came from a single-checkpoint paired bootstrap that resampled test files while
+holding each trained model fixed, so it never saw training stochasticity,
+which for injection training (fresh synthetic events every epoch) is a
+first-order effect. On this split the seed-level evidence is mixed; the
+corrected split settles it (p = 0.0012, five seeds per model, table above).
+The historical SpecUNet seed mean was 74.7 % of the supervised mean (76.8 % on
+the corrected split): not parity, and not label-free, because catalog picks
+select its templates (`results/seed_level_comparison.json`).
 
 Note also that the frozen v1.0 SpecUNet figure, F1 0.440, is the **maximum**
 of its three seeds; the seed mean is 0.379. Single-checkpoint numbers in this
 README should be read against the seed distribution.
 
-The two detectors are complementary operating regimes, not competitors:
-SeisCNN learned the Grade-A catalog's selection function (benchmark
-precision), SpecUNet learned event morphology (recall + survey mode).
+On this historical split SpecUNet had the higher recall (0.579 vs 0.526),
+which was once read as two complementary regimes (SeisCNN for benchmark
+precision, SpecUNet for recall and survey use). The corrected split does not
+support that reading: SeisCNN leads in both precision and recall, and the
+continuous-archive scan found no usable survey operating point.
 Hard-negative fine-tuning with the negative pool screened against the full
 Nakamura catalog (23 of 64 mined "negatives" were real moonquakes and were
 excluded) preserves recall but does not raise benchmark precision —
@@ -215,9 +259,10 @@ historical comparison.** It is not an equivalence test and does not prove
 contamination has no effect or explain the single-seed 0.440 → 0.407 drop.
 
 At a fixed seed the screened model did leave Grade-A recall identical (11 TP)
-while raising real catalogued events found from 20 to 22 — the metric
-penalizing a model for finding events its label subset omits — but that too
-is a 2-event difference on 19 files and is not claimed as significant
+while raising ±300 s catalog coincidences from 20 to 22. The corrected-split
+identity audit shows that such coincidences are mostly labelled events
+detected outside the ±120 s tolerance, not events the labels omit, and this
+is a 2-event difference on 19 files; it is not claimed as significant
 (`results/ablation_noise_screen.json`, `results/seed_level_comparison.json`).
 The frozen headline therefore keeps the unscreened checkpoint: with p = 0.92
 there is no basis for re-freezing.
@@ -250,15 +295,15 @@ corrected-split identity audit above demonstrates this distinction. Each
 tolerance requires its own null; significance at ±300 s does not establish
 significance at other tolerances or prove catalog incompleteness.
 
-**Denoise-then-detect chaining** (`scripts/eval_chain.py`,
+**Historical denoise-then-detect chaining** (`scripts/eval_chain.py`,
 `scripts/build_denoised_windows.py`): feeding SpecUNet-denoised traces to
 the raw-trained SeisCNN collapses precision (0.556 → 0.067 — distribution
 shift); retraining SeisCNN on denoised windows restores it (F1 0.512,
 recall 0.526 → 0.579, one false negative recovered); probability fusion of
-raw+denoised streams reaches the **highest recall of any configuration,
-0.684**, at survey precision — the denoiser demonstrably surfaces the
-low-SNR events the supervised detector misses, and the recall/precision
-trade is reported rather than hidden.
+raw+denoised streams reached recall 0.684 on this split. That recall gain
+does **not** replicate on the corrected split, where fusion gives recall
+0.652 against 0.696 raw and F1 0.200 against 0.561
+(`results/chain_lunar_grouped_v1_seed42.json`).
 
 **Arrival refinement on denoised waveforms:** on the expanded 30-event Mars
 test, onset-picking the mask-denoised segment changes MAE from **33.93 s to
@@ -278,8 +323,12 @@ uncatalogued station sets (each file curated around one real event, no
 arrival shipped), SpecUNet fires in 95/96 files — S12 Grade-B 98.4%,
 S15/S16 (different instruments, never trained on) 100% — where SeisCNN
 managed 60–93% (`results/catalog_extension/summary_lunar.json` vs
-`results/station_transfer.json`). Injected-mask training learns event
-morphology, not station fingerprints.
+`results/station_transfer.json`). These files are curated around known
+events and carry no false-alarm accounting. On continuous data recall falls
+away from the training station (deep moonquakes 0.56 / 0.36 / 0.29 at
+S12 / S15 / S16 at the most permissive setting,
+`results/archive_scan/grouped_v1_seed42/sweep.json`), so the curated-file
+hit rate does not show station-independent detection.
 
 Cross-body transfer collapses in both directions — reported as a finding.
 Historical MC-Dropout analysis reported SeisCNN window separation 5.9×

@@ -1,0 +1,70 @@
+{
+  "generated_utc": "2026-10-15T18:12:40+00:00",
+  "archive": "C:\\planetseis_archive",
+  "rate_hz": 6.625,
+  "definition": "valid_station_days counts validity inside each file's own UTC day; padded_valid_station_days also counts the context pads and double-counts every day boundary",
+  "stations": {
+    "S12": {
+      "day_files": 2844,
+      "first_day": "1969-11-19",
+      "last_day": "1977-09-30",
+      "valid_station_days": 2755.95,
+      "padded_valid_station_days": 2870.72,
+      "npz_bytes": 6372919566,
+      "longest_gap": {
+        "days": 15,
+        "years": 0.04,
+        "after": "1974-10-16",
+        "before": "1974-11-01"
+      }
+    },
+    "S14": {
+      "day_files": 716,
+      "first_day": "1971-02-05",
+      "last_day": "1977-09-30",
+      "valid_station_days": 688.04,
+      "padded_valid_station_days": 717.05,
+      "npz_bytes": 1590834861,
+      "longest_gap": {
+        "days": 1710,
+        "years": 4.68,
+        "after": "1972-03-12",
+        "before": "1976-11-17"
+      }
+    },
+    "S15": {
+      "day_files": 2234,
+      "first_day": "1971-07-31",
+      "last_day": "1977-09-30",
+      "valid_station_days": 2170.12,
+      "padded_valid_station_days": 2260.51,
+      "npz_bytes": 4975129398,
+      "longest_gap": {
+        "days": 14,
+        "years": 0.04,
+        "after": "1971-10-24",
+        "before": "1971-11-08"
+      }
+    },
+    "S16": {
+      "day_files": 1983,
+      "first_day": "1972-04-21",
+      "last_day": "1977-09-30",
+      "valid_station_days": 1922.32,
+      "padded_valid_station_days": 2002.16,
+      "npz_bytes": 4422320085,
+      "longest_gap": {
+        "days": 5,
+        "years": 0.01,
+        "after": "1977-03-26",
+        "before": "1977-04-01"
+      }
+    }
+  },
+  "totals": {
+    "day_files": 7777,
+    "valid_station_days": 7536.43,
+    "padded_valid_station_days": 7850.44,
+    "npz_bytes": 17361203910
+  }
+}

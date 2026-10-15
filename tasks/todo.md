@@ -1,3 +1,76 @@
+# Corrected-split reruns — isolated worktree (started 2026-09-23 21:20)
+
+Worktree `C:\apsis_rerun`, branch `corrected-split-reruns` from `d21a265`,
+outside OneDrive. Main checkout untouched. Runs/cache copied from the verified
+backup (119/119 SHA256). Interpreter: main `.venv` (no downloads); every
+runner sets PYTHONPATH to this checkout and asserts `planetseis` imports here.
+Only one CUDA process at a time; `num_workers=0`.
+
+Analysis plan fixed BEFORE any new result exists:
+
+- [x] **E1 screening ablation.** SpecUNet, 5 seeds (42/1/2/3/4), identical
+  recipe to the unscreened grouped runs (30 ep x 6400, batch 32, patience 8,
+  from scratch) plus `--screen-nakamura` with
+  `data/cache/lunar_grouped_v1_nakamura_screen.json` (train+val spans only,
+  142 times / 50 files, SHA256 a1a76f45...). Each seed evaluated by
+  `evaluate_grouped.py` at its own validation-locked point. Primary: seed-mean
+  test F1 screened vs the existing unscreened 5 seeds, Welch t-test; report
+  mean ± SD, difference and p. p >= 0.05 is reported as "no difference
+  detected", never "no effect". Secondary (descriptive): validation F1.
+  **Result** (`results/lunar_grouped_v1_screening_ablation.json`; seed 1
+  resumed from epoch 6 after a user pause): unscreened 0.408 ± 0.043,
+  screened 0.286 ± 0.133 [0.08, 0.41]; difference −0.122, Welch t −1.95,
+  p = 0.111 -> no difference detected at p < 0.05 (not an equivalence test).
+  The point estimate favours the unscreened pool, and the screened arm is
+  far more variable: seed 1 selected 0.5 / 600 s on validation (val F1
+  0.43) and found 1 of 23 test events. Descriptive only: screened precision
+  0.40 vs 0.34, recall 0.29 vs 0.53; validation F1 0.47 vs 0.50. The
+  historical result (0.372 vs 0.379, p = 0.923) is not reproduced as a
+  near-zero difference; neither split supports a screening benefit.
+- [x] **E3a denoise chain (no training).** Seed-42 SpecUNet denoises val/test
+  spans; seed-42 SeisCNN on raw / denoised / max-fusion; each variant's
+  threshold selected on validation and locked before test. New files only.
+  Done (CPU, ~6 min): `results/chain_lunar_grouped_v1_seed42.json` (+ locked
+  selection). Raw reproduces the locked evaluation exactly (16/18/7, F1
+  0.561). Chain F1 0.222 (P 0.132, R 0.696), fusion 0.200 (P 0.118, R 0.652).
+  Both picked 0.995, the top of the grid; validation precision there is
+  still 0.17, so the collapse is a distribution shift, not grid tuning.
+  Historical "fusion gives the best recall (0.684)" does NOT replicate on
+  the corrected split (fusion recall 0.652 < raw 0.696). Single seed.
+- [x] **E2 archive scan.** Corrected seed-42 SpecUNet (designated before any
+  scan) at its locked point (0.25, 430 s) over S12/S15/S16, same scoring and
+  sweep as the historical scan; outputs under a new tag.
+  **Result** (`results/archive_scan/grouped_v1_seed42/`): locked point
+  (0.25, 430 s) catalog recall S12 1.4 % / S15 0.5 % / S16 0.3 % at
+  0.05 / 0.04 / 0.04 unmatched per station-day (historical 0.8 % on S12).
+  Sweep: S12 max recall 0.557 at 18.8 unmatched/day (historical 0.525 at
+  15.4); best at <= 0.2/day 0.060 (historical 0.071). Deep-moonquake recall
+  at the max-recall point 0.56 / 0.36 / 0.29 (historical 0.52 / 0.21 /
+  0.14); shallow 15/18, 13/20, 10/23 = 38/61 (historical 39/61). The gate
+  still fails: no usable operating point. Different model from the
+  historical scan (unscreened grouped seed 42 vs historical screened), so
+  this is a replication of the conclusion, not a paired comparison.
+- [ ] **E3b retrain SeisCNN on denoised windows** — only if time allows;
+  5 seeds, validation-locked.
+- Mars: not rerun. Its data and split never involved the lunar overlap.
+
+**Paused 2026-09-23 ~22:30 at the user's request.** State: screened seed 42
+trained (best val 0.352, 30 epochs, not yet evaluated); seed 1 stopped after
+epoch 6 (`last.pt` saved, resumes); seeds 2–4 not started; archive scan not
+started. No evaluation of screened models has opened test data yet.
+Resume (Git Bash, one CUDA job at a time — run the second after the first):
+
+    cd /c/apsis_rerun && PY=/c/Users/ASUS/OneDrive/Desktop/major/.venv/Scripts/python.exe bash scripts/run_screened_grouped.sh
+    cd /c/apsis_rerun && PY=/c/Users/ASUS/OneDrive/Desktop/major/.venv/Scripts/python.exe bash scripts/run_archive_grouped.sh
+- [x] Record results in new files; commit on this branch. Screened
+  checkpoints + logs + screen file backed up to
+  `C:\apsis_backups\lunar_grouped_v1_screened_2026-09-28` (26 files,
+  149 MB, `sha256sum -c SHA256SUMS` passes). Tests: 172 passed, 1 skipped.
+- [ ] Not done: E3b (retrain SeisCNN on denoised windows); merging these
+  results into the main docs/paper; pushing this branch (awaiting user).
+
+---
+
 # PR #1 CI failure — 2026-09-23
 
 `CI / test` failed on `d21a265`: 4 collection errors,

@@ -1,11 +1,30 @@
 # APSIS: Automated Detection, Denoising, and Catalog Extension of Planetary Seismic Events with a Supervised CNN and an Injection-Trained Spectrogram U-Net
 
-> Report draft. Every value marked `TBD` is filled from `results/*.json` after
+> **Historical report draft (July 2026), kept as a record.** Its title and
+> several conclusions were withdrawn by later audits; read the banners below
+> first. Every value marked `TBD` is filled from `results/*.json` after
 > training — the paper never ships with placeholders (PRD §2.2).
 
-Current revised manuscript: [paper/ml4ps_2026.md](../paper/ml4ps_2026.md).
+Current manuscript: the Springer proceedings paper *Injection-Trained
+Planetary Seismic Event Detection Under Label Scarcity: A Leakage-Corrected
+Lunar Benchmark and Its Limits* (source in a separate private repository);
+its numbers are mapped to this repository in [PAPER_MAP.md](PAPER_MAP.md).
 For the accumulated implementation changes and fresh verification, see
 [CHANGES_AND_RESEARCH_NOTES.md](CHANGES_AND_RESEARCH_NOTES.md).
+
+> **Withdrawn conclusions in this draft (2026-10-15 summary).** Catalog
+> extension and "false positives are substantially real" (45 of 47 corrected
+> ±300 s coincidences are labelled events detected 120–300 s from the pick);
+> "survey precision 0.645" and any catalog-adjusted precision; a SpecUNet
+> uncertainty inversion (5.9× → 0.49×; the all-FP ratio is 1.06 ± 0.38);
+> fusion as the best-recall configuration (0.684 does not replicate: 0.652 vs
+> 0.696 raw on the corrected split); 74.7 % or parity as the current
+> comparison (corrected: 76.8 %, Welch p = 0.0012); SpecUNet as the
+> recall / survey / cross-station detector (the continuous-archive scan has no
+> usable operating point and recall falls away from S12). The archive figures
+> in this draft (6,850 station-days, 0.8 %, 0.52 → 0.21 → 0.14, 39/61) are the
+> historical screened-model scan; the corrected scan gives 6,848, 1.4 %,
+> 0.56 / 0.36 / 0.29 and 38/61.
 
 > **2026-09-15 integrity correction:** two frozen lunar test waveforms are
 > identical to training waveforms under different event IDs. All lunar test
@@ -104,7 +123,10 @@ scripts; they are not all covered by that command or tag.
 benchmark is 183 curated single-event snippets, so n = 19 test events is
 structural, not a choice. We therefore ingested the continuous Apollo
 archive (FDSN network XA): 16.2 GB, **7,850 valid station-days** across
-S12/S14/S15/S16, and scanned 6,850 of them. **The paradigm does not scale.**
+S12/S14/S15/S16, and scanned 6,850 of them. *(2026-10-15 correction: 16.2 GiB
+is 17.4 GB, and 7,850 counted each day file's 30-minute context pads, so every
+day boundary twice; inside each day the archive holds 7,536 valid
+station-days, `results/archive_scan/archive_inventory.json`.)* **The paradigm does not scale.**
 On S12 — the training station, best case — the detector reaches recall 0.525
 against the full Nakamura catalog at **15.4 unmatched detections per
 station-day**, or a tolerable 0.19/day at recall 0.071; the benchmark-tuned
@@ -615,7 +637,7 @@ boundary between the two.
 8. Gal & Ghahramani (2016). Dropout as a Bayesian approximation. *ICML*.
 9. Guo et al. (2017). On calibration of modern neural networks. *ICML*.
 10. Dahmen et al. (2022). MarsQuakeNet: a more complete marsquake catalog obtained by deep learning techniques. *JGR Planets*.
-11. Dahmen & Stott (2024). Revisiting Martian seismicity with deep-learning-based denoising. *GJI*.
+11. Dahmen et al. (2024). Revisiting Martian seismicity with deep-learning-based denoising. *GJI* 239(1), 434–454.
 12. Nakamura et al. (2008 rev.). Passive seismic experiment long-period event catalog. UTIG TR-18.
 13. InSight Marsquake Service (2023). Mars seismic catalogue v14. doi:10.12686/a21.
 14. Ovadia et al. (2019). Can you trust your model's uncertainty? *NeurIPS*.
