@@ -137,7 +137,8 @@ Scarcity: A Leakage-Corrected Lunar Benchmark and Its Limits* (Springer Nature
 proceedings manuscript), reports the numbers in this section. Its LaTeX source
 is kept in a separate, private repository and is not part of this one;
 [docs/PAPER_MAP.md](docs/PAPER_MAP.md) maps every table, figure and number in
-it to the script and result file here, and `scripts/make_springer_figures.py`
+it to the script and result file here and lists where the submitted text and
+the code differ (no headline result is affected), and `scripts/make_springer_figures.py`
 redraws its three figures from `results/`. `tasks/RESEARCH_HANDOFF.md` records
 completion status. Secondary claim corrections are documented in
 `docs/CHANGES_AND_RESEARCH_NOTES.md`; historical catalog-match counts below

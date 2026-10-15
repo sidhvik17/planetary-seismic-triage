@@ -405,6 +405,7 @@ repository contents). Changes made here:
 | Archive station-days | ingest summed the 30-minute context pads of every day file and so counted each day boundary twice; `planetseis.archive.day_valid_samples` now counts the day itself, shared by ingest, scan and inventory | 7,850.44 padded vs 7,536.43 day-proper, `results/archive_scan/archive_inventory.json` |
 | Archive record | new `scripts/archive_inventory.py`: day files, valid station-days, disk size, longest gap per station | S14 gap 1,710 days (4.7 years) |
 | Figures | `scripts/make_springer_figures.py` redraws the paper's Fig. 1–3 from `results/` | output pixel-identical to the printed figures |
+| Paper errata | the manuscript was already submitted, so `docs/PAPER_MAP.md` maps the submitted text and lists, item by item, where it differs from the code (none of the headline results) | `docs/PAPER_MAP.md` |
 | Docs | README, walkthrough, project review, benchmark README, historical report banner, B3 findings: withdrawn claims labelled or replaced (74.7 % as current, fusion best recall, complementary regimes, 95/96 cross-station, label-free wording, reruns "not done") | `docs/PAPER_MAP.md` |
 | Numbers | EQTransformer zero-shot F1 is 2/191 = 0.010 (the record's 0.0105 had been rounded to 0.011); historical p = 0.024 compares SeisCNN with the five *screened* SpecUNet seeds, against the unscreened three it is 0.12 | `results/seisbench_zeroshot_lunar.json`, `results/seed_level_comparison.json` |
 
